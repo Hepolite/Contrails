@@ -40,9 +40,6 @@ const world::ChunkColumn & world::World::getColumn(const glm::ivec2 & cpos) cons
 
 world::Chunk & world::World::createChunk(const glm::ivec3 & cpos)
 {
-	if (hasChunkAt(cpos))
-		throw std::invalid_argument("Chunk already exists at the given position");
-
 	auto & chunk = getColumn({ cpos.x, cpos.y }).createChunk(cpos.z);
 	if (m_eventBus != nullptr)
 		m_eventBus->post(logic::event::ChunkCreate{ this, cpos });
@@ -50,9 +47,6 @@ world::Chunk & world::World::createChunk(const glm::ivec3 & cpos)
 }
 void world::World::destroyChunk(const glm::ivec3 & cpos)
 {
-	if (!hasChunkAt(cpos))
-		throw std::invalid_argument("Chunk does not exist at the given position");
-
 	if (m_eventBus != nullptr)
 		m_eventBus->post(logic::event::ChunkDestroy{ this, cpos });
 	getColumn({ cpos.x, cpos.y }).destroyChunk(cpos.z);
@@ -64,25 +58,35 @@ bool world::World::hasChunkAt(const glm::ivec3 & cpos) const
 		return false;
 	return getColumn({ cpos.x, cpos.y }).hasChunkAt(cpos.z);
 }
-world::Chunk * world::World::getChunkAt(const glm::ivec3 & cpos)
+world::Chunk * world::World::getChunkAt(const glm::ivec3 & cpos) const
 {
+	if (!hasColumn(cpos))
+		return nullptr;
 	return getColumn({ cpos.x, cpos.y }).getChunkAt(cpos.z);
 }
-world::Chunk * world::World::getChunkAbove(const glm::ivec3 & cpos)
+world::Chunk * world::World::getChunkAbove(const glm::ivec3 & cpos) const
 {
+	if (!hasColumn(cpos))
+		return nullptr;
 	return getColumn({ cpos.x, cpos.y }).getChunkAbove(cpos.z);
 }
-world::Chunk * world::World::getChunkBelow(const glm::ivec3 & cpos)
+world::Chunk * world::World::getChunkBelow(const glm::ivec3 & cpos) const
 {
+	if (!hasColumn(cpos))
+		return nullptr;
 	return getColumn({ cpos.x, cpos.y }).getChunkBelow(cpos.z);
 }
 
-world::Chunk * world::World::getTopmostChunk(const glm::ivec2 & cpos)
+world::Chunk * world::World::getTopmostChunk(const glm::ivec2 & cpos) const
 {
+	if (!hasColumn(cpos))
+		return nullptr;
 	return getColumn({ cpos.x, cpos.y }).getTopmostChunk();
 }
-world::Chunk * world::World::getBottommostChunk(const glm::ivec2 & cpos)
+world::Chunk * world::World::getBottommostChunk(const glm::ivec2 & cpos) const
 {
+	if (!hasColumn(cpos))
+		return nullptr;
 	return getColumn({ cpos.x, cpos.y }).getBottommostChunk();
 }
 
@@ -92,15 +96,35 @@ world::Chunk * world::World::getBottommostChunk(const glm::ivec2 & cpos)
 void world::World::write(data::WorldQuery & query)
 {
 	preconstructChunksOnWriteQuery(*this, query);
+
+	for (auto & q : query)
+	{
+		auto chunk = getChunkAt(q.first);
+		if (chunk != nullptr)
+			chunk->write(q.second);
+	}
 }
 void world::World::write(const glm::ivec3 & pos, data::BlockData & block, data::ColorData & color)
 {
-	preconstructChunksAroundPosition(*this, pos >> data::CHUNK_SIZE_LG<int>);
+	const auto cpos = pos >> data::CHUNK_SIZE_LG<int>;
+	preconstructChunksAroundPosition(*this, cpos);
+	auto chunk = getChunkAt(cpos);
+	if (chunk != nullptr)
+		chunk->write(pos & data::CHUNK_SIZE_BITS<int>, block, color);
 }
 
 void world::World::read(data::WorldQuery & query) const
 {
+	for (auto & q : query)
+	{
+		auto chunk = getChunkAt(q.first);
+		if (chunk != nullptr)
+			chunk->read(q.second);
+	}
 }
 void world::World::read(const glm::ivec3 & pos, data::BlockData & block, data::ColorData & color) const
 {
+	auto chunk = getChunkAt(pos >> data::CHUNK_SIZE_LG<int>);
+	if (chunk != nullptr)
+		chunk->write(pos & data::CHUNK_SIZE_BITS<int>, block, color);
 }

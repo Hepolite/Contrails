@@ -16,13 +16,20 @@ namespace world
 		class LightPropagator
 		{
 		public:
-			// LightPropagator() = delete;
-			// LightPropagator(World * world, const glm::ivec3 & cpos) noexcept;
+			LightPropagator() = delete;
+			LightPropagator(World & world, const glm::ivec3 & cpos) noexcept;
+			LightPropagator(const LightPropagator &) noexcept = default;
+			LightPropagator(LightPropagator &&) noexcept = default;
+			~LightPropagator() noexcept = default;
 
-			void process();
+			LightPropagator & operator=(const LightPropagator &) noexcept = default;
+			LightPropagator & operator=(LightPropagator &&) noexcept = default;
+
+			void propagate() const;
 
 		private:
-			// std::unordered_set<glm::ivec3> m_chunks;
+			World * m_world = nullptr;
+			glm::ivec3 m_cpos{};
 		};
 	}
 }

@@ -5,7 +5,8 @@
 
 world::Chunk & world::ChunkColumn::createChunk(int cz)
 {
-	return m_chunks[cz];
+	destroyChunk(cz);
+	return *m_chunks.emplace(cz, std::make_unique<Chunk>()).first->second;
 }
 void world::ChunkColumn::destroyChunk(int cz)
 {
@@ -16,31 +17,31 @@ bool world::ChunkColumn::hasChunkAt(int cz) const
 {
 	return m_chunks.find(cz) != m_chunks.end();
 }
-world::Chunk * world::ChunkColumn::getChunkAt(int cz)
+world::Chunk * world::ChunkColumn::getChunkAt(int cz) const
 {
 	const auto it = m_chunks.find(cz);
-	return it == m_chunks.end() ? nullptr : &it->second;
+	return it == m_chunks.end() ? nullptr : it->second.get();
 }
-world::Chunk * world::ChunkColumn::getChunkAbove(int cz)
+world::Chunk * world::ChunkColumn::getChunkAbove(int cz) const
 {
 	const auto it = std::upper_bound(m_chunks.begin(), m_chunks.end(), cz,
 		[](const auto & lhs, const auto & rhs) { return lhs < rhs.first; }
 	);
-	return it == m_chunks.end() ? nullptr : &it->second;
+	return it == m_chunks.end() ? nullptr : it->second.get();
 }
-world::Chunk * world::ChunkColumn::getChunkBelow(int cz)
+world::Chunk * world::ChunkColumn::getChunkBelow(int cz) const
 {
 	auto it = std::lower_bound(m_chunks.begin(), m_chunks.end(), cz,
 		[](const auto & lhs, const auto & rhs) { return lhs.first < rhs; }
 	);
-	return it == m_chunks.begin() ? nullptr : &(--it)->second;
+	return it == m_chunks.begin() ? nullptr : (--it)->second.get();
 }
 
-world::Chunk * world::ChunkColumn::getTopmostChunk()
+world::Chunk * world::ChunkColumn::getTopmostChunk() const
 {
-	return empty() ? nullptr : &m_chunks.rbegin()->second;
+	return empty() ? nullptr : m_chunks.rbegin()->second.get();
 }
-world::Chunk * world::ChunkColumn::getBottommostChunk()
+world::Chunk * world::ChunkColumn::getBottommostChunk() const
 {
-	return empty() ? nullptr : &m_chunks.begin()->second;
+	return empty() ? nullptr : m_chunks.begin()->second.get();
 }

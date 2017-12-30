@@ -4,6 +4,8 @@
 #include "world/World.h"
 #include "logic/event/ChunkEvents.h"
 
+#include <glm/Unittest.h>
+
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace world
@@ -11,7 +13,7 @@ namespace world
 	TEST_CLASS(WorldTest)
 	{
 	public:
-		TEST_METHOD(World_writeQuery)
+		TEST_METHOD(World_createChunksOnWrite)
 		{
 			World world;
 			data::WorldQuery query;
@@ -25,6 +27,59 @@ namespace world
 			for (int z = -1; z <= 1; ++z)
 				Assert::IsTrue(world.hasChunkAt({ x, y, z }));
 		}
+		
+		TEST_METHOD(World_writeSingle)
+		{
+			World world;
+			data::BlockData block{ 1u, 31u };
+			data::ColorData color{ { 4u, 7u, 5u } };
+
+			world.write({ 3, 1, 4 }, block, color);
+
+			Assert::AreEqual(0u, block.getId());
+			Assert::AreEqual(0u, block.getLight());
+			Assert::AreEqual({ 0u, 0u, 0u }, color.getColor());
+
+			world.read({ 3, 1, 4 }, block, color);
+
+			Assert::AreEqual(1u, block.getId());
+			Assert::AreEqual(31u, block.getLight());
+			Assert::AreEqual({ 4u, 7u, 5u }, color.getColor());
+		}
+		TEST_METHOD(World_writeQuery)
+		{
+			World world;
+			data::WorldQuery query;
+			query.add({ 0, 0, 0 }, data::BlockData{ 1337u, 0u }, data::ColorData{ { 0u, 4u, 11u } });
+
+			world.write(query);
+
+			data::BlockData block;
+			data::ColorData color;
+			world.read({ 0, 0, 0 }, block, color);
+
+			Assert::AreEqual(1337u, block.getId());
+			Assert::AreEqual(0u, block.getLight());
+			Assert::AreEqual({ 0u, 4u, 11u }, color.getColor());
+		}
+
+		TEST_METHOD(World_readQuery)
+		{
+			World world;
+			world.write({ 0, 0, 0 }, data::BlockData{ 42u, 21u }, data::ColorData{ { 23u, 23u, 27u } });
+			data::WorldQuery query;
+			query.add({ 0, 0, 0 });
+
+			world.read(query);
+
+			for (auto & q : query)
+			for (auto node : q.second)
+			{
+				Assert::AreEqual(42u, node.m_block.getId());
+				Assert::AreEqual(21u, node.m_block.getLight());
+				Assert::AreEqual({ 23u, 23u, 27u }, node.m_color.getColor());
+			}
+		}
 
 		// ...
 
@@ -35,7 +90,6 @@ namespace world
 
 			Assert::IsFalse(world.hasChunkAt({ -1, 2, 6 }));
 			Assert::IsTrue(world.hasChunkAt({ 3, 1, -2 }));
-			Assert::ExpectException<std::invalid_argument>([&world]() { world.createChunk({ 3, 1, -2 }); });
 		}
 		TEST_METHOD(World_destroyChunk)
 		{
@@ -44,7 +98,6 @@ namespace world
 			world.destroyChunk({ 1, 6, -1 });
 
 			Assert::IsFalse(world.hasChunkAt({ 1, 6, -1 }));
-			Assert::ExpectException<std::invalid_argument>([&world]() { world.destroyChunk({ 1, 6, -1 }); });
 		}
 
 		TEST_METHOD(World_getChunkAt)

@@ -13,6 +13,7 @@
 #include <glm/vec2.hpp>
 #include <glm/vec3.hpp>
 #include <unordered_map>
+#include <unordered_set>
 
 namespace world
 {
@@ -35,18 +36,21 @@ namespace world
 		void read(data::WorldQuery & query) const;
 		void read(const glm::ivec3 & pos, data::BlockData & block, data::ColorData & color) const;
 
+		void markForLighting(const glm::ivec3 & cpos);
+		void markAsChanged(const glm::ivec3 & cpos, const glm::uvec3 & min, const glm::uvec3 & max);
+
 		// ...
 
 		Chunk & createChunk(const glm::ivec3 & cpos);
 		void destroyChunk(const glm::ivec3 & cpos);
 		
 		bool hasChunkAt(const glm::ivec3 & cpos) const;
-		Chunk * getChunkAt(const glm::ivec3 & cpos);
-		Chunk * getChunkAbove(const glm::ivec3 & cpos);
-		Chunk * getChunkBelow(const glm::ivec3 & cpos);
+		Chunk * getChunkAt(const glm::ivec3 & cpos) const;
+		Chunk * getChunkAbove(const glm::ivec3 & cpos) const;
+		Chunk * getChunkBelow(const glm::ivec3 & cpos) const;
 
-		Chunk * getTopmostChunk(const glm::ivec2 & cpos);
-		Chunk * getBottommostChunk(const glm::ivec2 & cpos);
+		Chunk * getTopmostChunk(const glm::ivec2 & cpos) const;
+		Chunk * getBottommostChunk(const glm::ivec2 & cpos) const;
 
 	private:
 		bool hasColumn(const glm::ivec2 & cpos) const;
@@ -58,5 +62,6 @@ namespace world
 		const logic::event::EventBus * m_eventBus = nullptr;
 
 		std::unordered_map<glm::ivec2, ChunkColumn> m_columns;
+		std::unordered_set<glm::ivec3> m_markedForLighting;
 	};
 }

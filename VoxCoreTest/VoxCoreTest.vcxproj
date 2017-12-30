@@ -194,6 +194,7 @@
   <ItemGroup>
     <ClCompile Include="src\SanityTest.cpp" />
     <ClCompile Include="src\world\ChunkColumnTest.cpp" />
+    <ClCompile Include="src\world\ChunkTest.cpp" />
     <ClCompile Include="src\world\data\BlockDataTest.cpp" />
     <ClCompile Include="src\world\BlockRegistryTest.cpp" />
     <ClCompile Include="src\world\data\ChunkDataTest.cpp" />

@@ -209,11 +209,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\core\Engine.cpp" />
+    <ClCompile Include="src\world\Chunk.cpp" />
     <ClCompile Include="src\world\ChunkColumn.cpp" />
     <ClCompile Include="src\world\data\BlockData.cpp" />
     <ClCompile Include="src\world\BlockRegistry.cpp" />
     <ClCompile Include="src\world\data\ChunkData.cpp" />
     <ClCompile Include="src\world\data\ChunkQuery.cpp" />
+    <ClCompile Include="src\world\data\Light.cpp" />
     <ClCompile Include="src\world\data\WorldQuery.cpp" />
     <ClCompile Include="src\world\World.cpp" />
   </ItemGroup>

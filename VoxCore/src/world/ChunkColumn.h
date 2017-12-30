@@ -4,6 +4,7 @@
 #include "world/Chunk.h"
 
 #include <map>
+#include <memory>
 
 namespace world
 {
@@ -24,14 +25,14 @@ namespace world
 		void destroyChunk(int cz);
 
 		bool hasChunkAt(int cz) const;
-		Chunk * getChunkAt(int cz);
-		Chunk * getChunkAbove(int cz);
-		Chunk * getChunkBelow(int cz);
+		Chunk * getChunkAt(int cz) const;
+		Chunk * getChunkAbove(int cz) const;
+		Chunk * getChunkBelow(int cz) const;
 
-		Chunk * getTopmostChunk();
-		Chunk * getBottommostChunk();
+		Chunk * getTopmostChunk() const;
+		Chunk * getBottommostChunk() const;
 
 	private:
-		std::map<int, Chunk> m_chunks;
+		std::map<int, std::unique_ptr<Chunk>> m_chunks;
 	};
 }

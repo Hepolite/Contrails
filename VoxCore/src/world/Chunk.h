@@ -14,6 +14,8 @@ namespace world
 		void read(data::ChunkQuery & query) const;
 		void read(const glm::uvec3 & pos, data::BlockData & block, data::ColorData & color) const;
 
+		inline auto & getBloatedData() { return m_data; }
+
 	private:
 		data::ChunkDataBloated m_data;
 	};
