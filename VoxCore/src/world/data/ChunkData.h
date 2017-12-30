@@ -33,9 +33,9 @@ namespace world
 			// void read(BlockRegion & region, const glm::ivec3 & offset, const glm::uvec3 & size) const;
 
 			bool pollLightPropagation(Index & index);
-			void pushLightPropagation(Index index);
+			void pushLightPropagation(const Index & index);
 			bool pollLightRemoval(Index & index);
-			void pushLightRemoval(Index index);
+			void pushLightRemoval(const Index & index);
 
 		private:
 			std::array<BlockData, CHUNK_SIZE_VOLUME<unsigned int>> m_blocks;

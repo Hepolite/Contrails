@@ -29,6 +29,8 @@ namespace world
 		World & operator=(const World &) = delete;
 		World & operator=(World &&) = default;
 
+		void propagateLight();
+
 		// ...
 
 		void write(data::WorldQuery & query);

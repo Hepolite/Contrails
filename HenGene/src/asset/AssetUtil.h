@@ -62,5 +62,5 @@ void asset::util::setupLoaderFactory(
 		};
 	}
 	for (const auto folder : root.getFolders())
-		setupLoaderFactory<Type, Loader>(registry, folder, extension, trimmed);
+		setupLoaderFactory<Type, Loader, Args...>(registry, folder, extension, trimmed, args...);
 }

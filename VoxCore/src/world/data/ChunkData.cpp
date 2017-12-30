@@ -1,6 +1,7 @@
 
 #include "ChunkData.h"
 
+#include <glm/vec4.hpp>
 #include <utility>
 
 void world::data::ChunkDataBloated::read(ChunkQuery & query) const
@@ -20,9 +21,12 @@ void world::data::ChunkDataBloated::write(ChunkQuery & query)
 }
 void world::data::ChunkDataBloated::write(unsigned int index, BlockData & block, ColorData & color)
 {
-	if (m_blocks[index].getLight() != 0u || m_colors[index].getData() != 0u)
+	const glm::uvec4 currentLight{ m_colors[index].getColor(), m_blocks[index].getLight() };
+	const glm::uvec4 newLight{ color.getColor(), block.getLight() };
+
+	if (currentLight.x > newLight.x || currentLight.y > newLight.y || currentLight.z > newLight.z || currentLight.a > newLight.a)
 		pushLightRemoval(index);
-	if (block.getLight() != 0u || color.getData() != 0u)
+	else if (currentLight.x < newLight.x || currentLight.y < newLight.y || currentLight.z < newLight.z || currentLight.a < newLight.a)
 		pushLightPropagation(index);
 
 	std::swap(m_blocks[index], block);
@@ -37,7 +41,7 @@ bool world::data::ChunkDataBloated::pollLightPropagation(Index & index)
 	m_lightPropagation.pop();
 	return true;
 }
-void world::data::ChunkDataBloated::pushLightPropagation(Index index)
+void world::data::ChunkDataBloated::pushLightPropagation(const Index & index)
 {
 	m_lightPropagation.push(index);
 }
@@ -49,7 +53,7 @@ bool world::data::ChunkDataBloated::pollLightRemoval(Index & index)
 	m_lightRemoval.pop();
 	return true;
 }
-void world::data::ChunkDataBloated::pushLightRemoval(Index index)
+void world::data::ChunkDataBloated::pushLightRemoval(const Index & index)
 {
 	m_lightRemoval.push(index);
 }

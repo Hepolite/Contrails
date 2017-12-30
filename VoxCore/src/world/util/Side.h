@@ -27,5 +27,19 @@ namespace world
 		const Side SIDE_RIGHT	{ 4, 3, "right",	{ 0, -1, 0 },	{ 1, 0, 0 },	{ 0, 0, 1 },	{ 1, 0, 2 } };
 		const Side SIDE_TOP		{ 5, 6, "top",		{ 0, 0, 1 },	{ 0, 1, 0 },	{ -1, 0, 0 },	{ 2, 0, 1 } };
 		const Side SIDE_BOTTOM	{ 6, 5, "bottom",	{ 0, 0, -1 },	{ 0, -1, 0 },	{ 1, 0, 0 },	{ 2, 0, 1 } };
+
+		const Side SIDES[] = {
+			SIDE_FRONT,
+			SIDE_BACK,
+			SIDE_LEFT,
+			SIDE_RIGHT,
+			SIDE_TOP,
+			SIDE_BOTTOM
+		};
+		const Side SIDES_AXIS[] = {
+			SIDE_FRONT,
+			SIDE_LEFT,
+			SIDE_TOP
+		};
 	}
 }

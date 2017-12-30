@@ -2,6 +2,7 @@
 #include "World.h"
 
 #include "logic/event/ChunkEvents.h"
+#include "world/data/Light.h"
 
 namespace
 {
@@ -22,6 +23,20 @@ namespace
 			preconstructChunksAroundPosition(world, it.first);
 	}
 }
+
+void world::World::propagateLight()
+{
+	while (!m_markedForLighting.empty())
+	{
+		std::unordered_set<glm::ivec3> chunks;
+		m_markedForLighting.swap(chunks);
+
+		for (const auto & cpos : chunks)
+			data::LightPropagator{ *this, cpos }.propagate();
+	}
+}
+
+// ...
 
 bool world::World::hasColumn(const glm::ivec2 & cpos) const
 {
@@ -92,7 +107,6 @@ world::Chunk * world::World::getBottommostChunk(const glm::ivec2 & cpos) const
 
 // ...
 
-
 void world::World::write(data::WorldQuery & query)
 {
 	preconstructChunksOnWriteQuery(*this, query);
@@ -101,16 +115,25 @@ void world::World::write(data::WorldQuery & query)
 	{
 		auto chunk = getChunkAt(q.first);
 		if (chunk != nullptr)
+		{
 			chunk->write(q.second);
+			markAsChanged(q.first, q.second.min(), q.second.max());
+		}
 	}
 }
 void world::World::write(const glm::ivec3 & pos, data::BlockData & block, data::ColorData & color)
 {
-	const auto cpos = pos >> data::CHUNK_SIZE_LG<int>;
+	const glm::ivec3 cpos = pos >> data::CHUNK_SIZE_LG<int>;
+	const glm::uvec3 bpos = pos & data::CHUNK_SIZE_BITS<int>;
+
 	preconstructChunksAroundPosition(*this, cpos);
+
 	auto chunk = getChunkAt(cpos);
 	if (chunk != nullptr)
-		chunk->write(pos & data::CHUNK_SIZE_BITS<int>, block, color);
+	{
+		chunk->write(bpos, block, color);
+		markAsChanged(cpos, bpos, bpos);
+	}
 }
 
 void world::World::read(data::WorldQuery & query) const
@@ -127,4 +150,16 @@ void world::World::read(const glm::ivec3 & pos, data::BlockData & block, data::C
 	auto chunk = getChunkAt(pos >> data::CHUNK_SIZE_LG<int>);
 	if (chunk != nullptr)
 		chunk->write(pos & data::CHUNK_SIZE_BITS<int>, block, color);
+}
+
+void world::World::markForLighting(const glm::ivec3 & cpos)
+{
+	m_markedForLighting.insert(cpos);
+}
+void world::World::markAsChanged(const glm::ivec3 & cpos, const glm::uvec3 & min, const glm::uvec3 & max)
+{
+	markForLighting(cpos);
+
+	if (m_eventBus != nullptr)
+		m_eventBus->post(logic::event::ChunkChange{ this, cpos, min, max });
 }

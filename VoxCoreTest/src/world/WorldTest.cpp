@@ -173,5 +173,17 @@ namespace world
 			world.destroyChunk({});
 			Assert::IsTrue(received);
 		}
+		TEST_METHOD(World_Event_ChunkChange)
+		{
+			logic::event::EventBus bus;
+			World world{ bus };
+
+			bool received = false;
+			bus.add<logic::event::ChunkChange>([&received](auto & event) { received = true; });
+
+			Assert::IsFalse(received);
+			world.markAsChanged({}, {}, {});
+			Assert::IsTrue(received);
+		}
 	};
 }

@@ -30,5 +30,24 @@ namespace world
 			Assert::AreEqual(31u, block.getLight());
 			Assert::AreEqual({ 4u, 7u, 5u }, color.getColor());
 		}
+
+		TEST_METHOD(Chunk_pushLight)
+		{
+			Chunk chunk;
+			data::Index propagation, removal;
+
+			Assert::IsFalse(chunk.pollLightPropagation(propagation));
+			Assert::IsFalse(chunk.pollLightRemoval(removal));
+
+			chunk.pushLightPropagation(42u);
+			chunk.pushLightRemoval(1337u);
+
+			Assert::IsTrue(chunk.pollLightPropagation(propagation));
+			Assert::IsTrue(chunk.pollLightRemoval(removal));
+			Assert::IsFalse(chunk.pollLightPropagation(propagation));
+			Assert::IsFalse(chunk.pollLightRemoval(removal));
+			Assert::AreEqual(42u, static_cast<unsigned int>(propagation));
+			Assert::AreEqual(1337u, static_cast<unsigned int>(removal));
+		}
 	};
 }
