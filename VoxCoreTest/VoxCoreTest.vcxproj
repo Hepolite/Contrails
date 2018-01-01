@@ -192,6 +192,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\render\world\BlockRenderRegistryTest.cpp" />
+    <ClCompile Include="src\render\world\detail\BlockRenderLoaderTest.cpp" />
     <ClCompile Include="src\render\world\detail\data\BlockTextureTest.cpp" />
     <ClCompile Include="src\SanityTest.cpp" />
     <ClCompile Include="src\world\detail\BlockLoaderTest.cpp" />
@@ -205,6 +207,7 @@
     <ClCompile Include="src\world\detail\data\IndexingTest.cpp" />
     <ClCompile Include="src\world\detail\data\LightTest.cpp" />
     <ClCompile Include="src\world\detail\data\WorldQueryTest.cpp" />
+    <ClCompile Include="src\world\util\SideTest.cpp" />
     <ClCompile Include="src\world\WorldTest.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -5,9 +5,9 @@
 
 struct world::World::Impl
 {
+	BlockRegistry m_registry;
 	ChunkStorage m_chunks;
 
-	const BlockRegistry * m_registry = nullptr;
 	const logic::event::EventBus * m_eventBus = nullptr;
 };
 

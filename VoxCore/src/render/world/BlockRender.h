@@ -16,7 +16,7 @@ namespace render
 				BlockModel m_model;
 				BlockTexture m_texture[::world::util::SIDE_COUNT];
 
-				bool m_occlude[::world::util::SIDE_COUNT];
+				bool m_occlude[::world::util::SIDE_COUNT] = { false };
 			};
 		}
 	}

@@ -27,12 +27,13 @@ namespace world
 		World & operator=(const World &) = delete;
 		World & operator=(World &&) noexcept;
 
-		void injectBlockRegistry(const BlockRegistry & registry);
+		void injectBlocks(const BlockRegistry & registry);
 		void injectEventBus(const logic::event::EventBus & bus);
 
 		void write(data::WorldQuery & query);
 		void read(data::WorldQuery & query) const;
 
+		const BlockRegistry & extractBlocks() const;
 		data::ChunkDataBloated & extractChunkData(const glm::ivec3 & cpos);
 
 	private:

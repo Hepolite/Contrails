@@ -63,16 +63,19 @@
     <ClInclude Include="src\world\ChunkStorage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\world\detail\BlockLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render\world\BlockRenderRegistry.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render\world\BlockRender.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="src\render\world\detail\data\BlockModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\render\world\detail\data\BlockTexture.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\world\detail\BlockLoader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\render\world\detail\BlockRender.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\render\world\detail\BlockRenderLoader.h">
@@ -114,6 +117,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\world\detail\BlockLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\render\world\BlockRenderRegistry.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\render\world\detail\BlockRenderLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\world\util\Side.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

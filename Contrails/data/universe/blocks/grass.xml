@@ -1,0 +1,5 @@
+<variant>
+  <light filter="0 0 0 0" />
+  <model path="default.xml" />
+  <texture all="grass.xml" side="grass_side.xml" bottom="dirt.xml" />
+</variant>

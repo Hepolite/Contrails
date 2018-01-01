@@ -193,9 +193,10 @@
   <ItemGroup>
     <ClInclude Include="src\core\Engine.h" />
     <ClInclude Include="src\logic\event\ChunkEvents.h" />
+    <ClInclude Include="src\render\world\BlockRenderRegistry.h" />
     <ClInclude Include="src\render\world\detail\BlockRenderLoader.h" />
     <ClInclude Include="src\render\world\detail\data\BlockModel.h" />
-    <ClInclude Include="src\render\world\detail\BlockRender.h" />
+    <ClInclude Include="src\render\world\BlockRender.h" />
     <ClInclude Include="src\render\world\detail\data\BlockTexture.h" />
     <ClInclude Include="src\world\detail\BlockLoader.h" />
     <ClInclude Include="src\world\ChunkStorage.h" />
@@ -215,6 +216,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\core\Engine.cpp" />
+    <ClCompile Include="src\render\world\detail\BlockRenderLoader.cpp" />
+    <ClCompile Include="src\render\world\BlockRenderRegistry.cpp" />
     <ClCompile Include="src\world\ChunkStorage.cpp" />
     <ClCompile Include="src\world\detail\BlockLoader.cpp" />
     <ClCompile Include="src\world\detail\Chunk.cpp" />
@@ -225,6 +228,7 @@
     <ClCompile Include="src\world\detail\data\ChunkQuery.cpp" />
     <ClCompile Include="src\world\detail\data\Light.cpp" />
     <ClCompile Include="src\world\detail\data\WorldQuery.cpp" />
+    <ClCompile Include="src\world\util\Side.cpp" />
     <ClCompile Include="src\world\World.cpp" />
   </ItemGroup>
   <ItemGroup>

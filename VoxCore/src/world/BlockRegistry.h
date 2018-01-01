@@ -29,7 +29,7 @@ namespace world
 		const Block & operator[](const std::string & name) const;
 
 	private:
-		std::vector<Block> m_blocks{ 1 };
+		std::vector<Block> m_blocks{ 1u };
 		std::unordered_map<std::string, unsigned int> m_nameToIdMap{ { "air", 0u } };
 	};
 }

@@ -36,8 +36,8 @@ void world::BlockLoader::loadBlock(const io::File & file) const
 			const std::string attrName = variant.attribute(VALUE_VARIANT_NAME).as_string();
 			const std::string blockName = file.getName() + (attrName.empty() ? "" : ":" + attrName);
 
-			auto & block = m_registry->add(blockName);
-			BlockVariantLoader{}.loadVariant(block, variant, def);
+			if (m_registry != nullptr)
+				BlockVariantLoader{}.loadVariant(m_registry->add(blockName), variant, def);
 		}
 	}
 }

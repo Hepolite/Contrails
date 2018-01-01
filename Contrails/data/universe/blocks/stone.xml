@@ -1,10 +1,11 @@
 <default>
   <light filter="0 0 0 0" />
   <model path="default.xml" />
+  <occlude all="true" />
 </default>
 
 <variant>
-  <texture all="stone.xml" side="stone_side.xml" />
+  <texture all="stone_normal.xml" side="stone_normal_side.xml" />
 </variant>
 <variant name="andesite">
   <texture all="stone_andesite.xml" side="stone_andesite_side.xml" />

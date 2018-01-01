@@ -5,13 +5,16 @@
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
-namespace sanity
+namespace render
 {
-	TEST_CLASS(BlockTextureTest)
+	namespace world
 	{
-	public:
-		TEST_METHOD(Sanity_sanity)
+		namespace data
 		{
+			TEST_CLASS(BlockTextureTest)
+			{
+			public:
+			};
 		}
-	};
+	}
 }

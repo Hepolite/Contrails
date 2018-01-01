@@ -3,6 +3,7 @@
 
 #include <glm/vec3.hpp>
 #include <string>
+#include <vector>
 
 namespace world
 {
@@ -45,5 +46,8 @@ namespace world
 			SIDE_LEFT,
 			SIDE_TOP
 		};
+
+		const Side & fromName(const std::string & name);
+		std::vector<Side> fromNameExt(const std::string & name);
 	}
 }
