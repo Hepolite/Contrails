@@ -1,0 +1,14 @@
+<default>
+  <light filter="0 0 0 0" />
+  <model path="default.xml" />
+</default>
+
+<variant>
+  <texture all="stone.xml" side="stone_side.xml" />
+</variant>
+<variant name="andesite">
+  <texture all="stone_andesite.xml" side="stone_andesite_side.xml" />
+</variant>
+<variant name="granite">
+  <texture all="stone_granite.xml" side="stone_granite_side.xml" />
+</variant>

@@ -220,6 +220,8 @@
     <ClCompile Include="src\ui\DisplayTest.cpp" />
     <ClCompile Include="src\util\MathGenericTest.cpp" />
     <ClCompile Include="src\util\PhysicalOperatorsTest.cpp" />
+    <ClCompile Include="src\util\StringGenericTest.cpp" />
+    <ClCompile Include="src\util\StringParsingTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HenGene\HenGene.vcxproj">

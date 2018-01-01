@@ -20,6 +20,10 @@ namespace world
 			glm::ivec3 m_dimensions;
 		};
 
+		constexpr unsigned int SIDE_FIRST = 0u;
+		constexpr unsigned int SIDE_LAST = 6u;
+		constexpr unsigned int SIDE_COUNT = 7u;
+
 		const Side SIDE_UNKNOWN	{ 0, 0, "unknown",	{ 0, 0, 0 },	{ 0, 0, 0 },	{ 0, 0, 0 },	{ 0, 1, 2 } };
 		const Side SIDE_FRONT	{ 1, 2, "front",	{ 1, 0, 0 },	{ 0, 1, 0 },	{ 0, 0, 1 },	{ 0, 1, 2 } };
 		const Side SIDE_BACK	{ 2, 1, "back",		{ -1, 0, 0 },	{ 0, -1, 0 },	{ 0, 0, 1 },	{ 0, 1, 2 } };

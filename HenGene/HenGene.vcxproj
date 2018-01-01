@@ -245,6 +245,9 @@
     <ClInclude Include="src\util\PhysicalUnit.h" />
     <ClInclude Include="src\util\PhysicalValue.h" />
     <ClInclude Include="src\util\Physics.h" />
+    <ClInclude Include="src\util\StringGeneric.h" />
+    <ClInclude Include="src\util\StringParsing.h" />
+    <ClInclude Include="src\util\Strings.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dependencies\pugixml\pugixml.cpp" />
@@ -266,6 +269,7 @@
     <ClCompile Include="src\render\opengl\vbo.cpp" />
     <ClCompile Include="src\render\uboRegistry.cpp" />
     <ClCompile Include="src\ui\Display.cpp" />
+    <ClCompile Include="src\util\StringGeneric.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
