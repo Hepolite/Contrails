@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "world/Chunk.h"
+#include "world/detail/Chunk.h"
 
 #include <map>
 #include <memory>
@@ -33,6 +33,6 @@ namespace world
 		Chunk * getBottommostChunk() const;
 
 	private:
-		std::map<int, std::unique_ptr<Chunk>> m_chunks;
+		mutable std::map<int, Chunk> m_chunks;
 	};
 }

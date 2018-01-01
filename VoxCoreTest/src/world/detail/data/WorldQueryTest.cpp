@@ -1,7 +1,7 @@
 
 #include "CppUnitTest.h"
 
-#include "world/data/WorldQuery.h"
+#include "world/detail/data/WorldQuery.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 

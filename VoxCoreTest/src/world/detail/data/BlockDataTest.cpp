@@ -1,8 +1,8 @@
 
 #include "CppUnitTest.h"
 
-#include "world/data/BlockData.h"
-#include "world/data/Limits.h"
+#include "world/detail/data/BlockData.h"
+#include "world/detail/Limits.h"
 
 #include <glm/Unittest.h>
 

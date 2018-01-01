@@ -193,30 +193,32 @@
   <ItemGroup>
     <ClInclude Include="src\core\Engine.h" />
     <ClInclude Include="src\logic\event\ChunkEvents.h" />
-    <ClInclude Include="src\world\Block.h" />
-    <ClInclude Include="src\world\Chunk.h" />
-    <ClInclude Include="src\world\ChunkColumn.h" />
-    <ClInclude Include="src\world\data\BlockData.h" />
+    <ClInclude Include="src\world\ChunkStorage.h" />
+    <ClInclude Include="src\world\detail\Block.h" />
+    <ClInclude Include="src\world\detail\Chunk.h" />
+    <ClInclude Include="src\world\detail\ChunkColumn.h" />
+    <ClInclude Include="src\world\detail\data\BlockData.h" />
     <ClInclude Include="src\world\BlockRegistry.h" />
-    <ClInclude Include="src\world\data\ChunkData.h" />
-    <ClInclude Include="src\world\data\ChunkQuery.h" />
-    <ClInclude Include="src\world\data\Indexing.h" />
-    <ClInclude Include="src\world\data\Light.h" />
-    <ClInclude Include="src\world\data\Limits.h" />
-    <ClInclude Include="src\world\data\WorldQuery.h" />
+    <ClInclude Include="src\world\detail\data\ChunkData.h" />
+    <ClInclude Include="src\world\detail\data\ChunkQuery.h" />
+    <ClInclude Include="src\world\detail\data\Indexing.h" />
+    <ClInclude Include="src\world\detail\data\Light.h" />
+    <ClInclude Include="src\world\detail\Limits.h" />
+    <ClInclude Include="src\world\detail\data\WorldQuery.h" />
     <ClInclude Include="src\world\util\Side.h" />
     <ClInclude Include="src\world\World.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\core\Engine.cpp" />
-    <ClCompile Include="src\world\Chunk.cpp" />
-    <ClCompile Include="src\world\ChunkColumn.cpp" />
-    <ClCompile Include="src\world\data\BlockData.cpp" />
+    <ClCompile Include="src\world\ChunkStorage.cpp" />
+    <ClCompile Include="src\world\detail\Chunk.cpp" />
+    <ClCompile Include="src\world\detail\ChunkColumn.cpp" />
+    <ClCompile Include="src\world\detail\data\BlockData.cpp" />
     <ClCompile Include="src\world\BlockRegistry.cpp" />
-    <ClCompile Include="src\world\data\ChunkData.cpp" />
-    <ClCompile Include="src\world\data\ChunkQuery.cpp" />
-    <ClCompile Include="src\world\data\Light.cpp" />
-    <ClCompile Include="src\world\data\WorldQuery.cpp" />
+    <ClCompile Include="src\world\detail\data\ChunkData.cpp" />
+    <ClCompile Include="src\world\detail\data\ChunkQuery.cpp" />
+    <ClCompile Include="src\world\detail\data\Light.cpp" />
+    <ClCompile Include="src\world\detail\data\WorldQuery.cpp" />
     <ClCompile Include="src\world\World.cpp" />
   </ItemGroup>
   <ItemGroup>

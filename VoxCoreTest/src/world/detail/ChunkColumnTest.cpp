@@ -1,7 +1,7 @@
 
 #include "CppUnitTest.h"
 
-#include "world/ChunkColumn.h"
+#include "world/detail/ChunkColumn.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 

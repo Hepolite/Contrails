@@ -1,8 +1,8 @@
 
 #pragma once
 
-#include "world/data/BlockData.h"
-#include "world/data/Indexing.h"
+#include "world/detail/data/BlockData.h"
+#include "world/detail/data/Indexing.h"
 
 #include <glm/vec3.hpp>
 #include <vector>

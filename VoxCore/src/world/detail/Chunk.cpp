@@ -1,31 +1,36 @@
 
 #include "Chunk.h"
 
-#include "world/data/Indexing.h"
+#include "world/detail/data/ChunkQuery.h"
+#include "world/detail/data/Indexing.h"
 
 void world::Chunk::write(data::ChunkQuery & query)
 {
 	m_data.write(query);
 }
-void world::Chunk::write(const data::Index & index, data::BlockData & block, data::ColorData & color)
+void world::Chunk::write(unsigned int index, data::BlockData & block, data::ColorData & color)
 {
 	m_data.write(index, block, color);
 }
-void world::Chunk::write(const glm::uvec3 & pos, data::BlockData & block, data::ColorData & color)
+void world::Chunk::write(unsigned int index, data::BlockData & block)
 {
-	m_data.write(data::toIndex(pos), block, color);
+	m_data.write(index, block);
+}
+void world::Chunk::write(unsigned int index, data::ColorData & color)
+{
+	m_data.write(index, color);
 }
 void world::Chunk::read(data::ChunkQuery & query) const
 {
 	m_data.read(query);
 }
-void world::Chunk::read(const data::Index & index, data::BlockData & block, data::ColorData & color) const
+world::data::BlockData world::Chunk::readBlock(unsigned int index) const
 {
-	m_data.read(index, block, color);
+	return m_data.readBlock(index);
 }
-void world::Chunk::read(const glm::uvec3 & pos, data::BlockData & block, data::ColorData & color) const
+world::data::ColorData world::Chunk::readColor(unsigned int index) const
 {
-	m_data.read(data::toIndex(pos), block, color);
+	return m_data.readColor(index);
 }
 
 bool world::Chunk::pollLightPropagation(data::Index & index)

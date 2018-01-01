@@ -1,7 +1,7 @@
 
 #include "CppUnitTest.h"
 
-#include "world/data/ChunkQuery.h"
+#include "world/detail/data/ChunkQuery.h"
 
 #include <glm/Unittest.h>
 

@@ -1,7 +1,7 @@
 
 #include "WorldQuery.h"
 
-#include "world/data/Limits.h"
+#include "world/detail/Limits.h"
 
 void world::data::WorldQuery::add(const glm::ivec3 & cpos, ChunkQuery && query)
 {

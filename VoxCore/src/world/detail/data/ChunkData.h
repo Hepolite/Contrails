@@ -1,10 +1,9 @@
 
 #pragma once
 
-#include "world/data/BlockData.h"
-#include "world/data/ChunkQuery.h"
-#include "world/data/Limits.h"
-#include "world/data/Indexing.h"
+#include "world/detail/data/BlockData.h"
+#include "world/detail/data/Indexing.h"
+#include "world/detail/Limits.h"
 
 #include <array>
 #include <vector>
@@ -14,6 +13,8 @@ namespace world
 {
 	namespace data
 	{
+		class ChunkQuery;
+
 		template<typename T>
 		struct ChunkDataNode
 		{
@@ -28,9 +29,12 @@ namespace world
 		public:
 			void write(ChunkQuery & query);
 			void write(unsigned int index, BlockData & block, ColorData & color);
+			void write(unsigned int index, BlockData & block);
+			void write(unsigned int index, ColorData & color);
 			void read(ChunkQuery & query) const;
-			void read(unsigned int index, BlockData & block, ColorData & color) const;
 			// void read(BlockRegion & region, const glm::ivec3 & offset, const glm::uvec3 & size) const;
+			BlockData readBlock(unsigned int index) const;
+			ColorData readColor(unsigned int index) const;
 
 			bool pollLightPropagation(Index & index);
 			void pushLightPropagation(const Index & index);
@@ -47,11 +51,12 @@ namespace world
 		{
 		public:
 			void read(ChunkQuery & query) const;
-			void read(unsigned int index, BlockData & block, ColorData & color) const;
 			// void read(BlockRegion & region, const glm::ivec3 & offset, const glm::uvec3 & size) const;
+			BlockData readBlock(unsigned int index) const;
+			ColorData readColor(unsigned int index) const;
 
-			void pushLightPropagation(Index index);
-			void pushLightRemoval(Index index);
+			void pushLightPropagation(const Index & index);
+			void pushLightRemoval(const Index & index);
 
 		private:
 			std::vector<ChunkBlockDataNode> m_blocks;

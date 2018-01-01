@@ -1,7 +1,7 @@
 
 #include "CppUnitTest.h"
 
-#include "world/data/ChunkData.h"
+#include "world/detail/data/ChunkData.h"
 
 #include <glm/Unittest.h>
 
@@ -17,20 +17,12 @@ namespace world
 			TEST_METHOD(ChunkDataBloated_write)
 			{
 				ChunkDataBloated data;
-				BlockData block{ 1u, 5u };
-				ColorData color{ { 4u, 2u, 8u } };
 
-				data.write(42u, block, color);
+				data.write(42u, BlockData{ 1u, 5u }, ColorData{ { 4u, 2u, 8u } });
 
-				Assert::AreEqual(0u, block.getId());
-				Assert::AreEqual(0u, block.getLight());
-				Assert::AreEqual({ 0u, 0u, 0u }, color.getColor());
-
-				data.read(42u, block, color);
-
-				Assert::AreEqual(1u, block.getId());
-				Assert::AreEqual(5u, block.getLight());
-				Assert::AreEqual({ 4u, 2u, 8u }, color.getColor());
+				Assert::AreEqual(1u, data.readBlock(42u).getId());
+				Assert::AreEqual(5u, data.readBlock(42u).getLight());
+				Assert::AreEqual({ 4u, 2u, 8u }, data.readColor(42u).getColor());
 			}
 
 			TEST_METHOD(ChunkDataBloated_pushLight)
@@ -51,7 +43,7 @@ namespace world
 				Assert::AreEqual(42u, static_cast<unsigned int>(propagation));
 				Assert::AreEqual(1337u, static_cast<unsigned int>(removal));
 			}
-			TEST_METHOD(ChunkDataBloated_setLight)
+			TEST_METHOD(ChunkDataBloated_pollLight)
 			{
 				ChunkDataBloated data;
 				Index index;

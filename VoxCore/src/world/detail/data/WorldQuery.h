@@ -3,7 +3,7 @@
 
 #define GLM_ENABLE_EXPERIMENTAL
 
-#include "world/data/ChunkQuery.h"
+#include "world/detail/data/ChunkQuery.h"
 
 #include <glm/gtx/hash.hpp>
 #include <glm/vec3.hpp>

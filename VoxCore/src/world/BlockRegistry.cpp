@@ -1,7 +1,7 @@
 
 #include "BlockRegistry.h"
 
-#include "world/data/Limits.h"
+#include "world/detail/Limits.h"
 
 world::Block & world::BlockRegistry::add(const std::string & name)
 {

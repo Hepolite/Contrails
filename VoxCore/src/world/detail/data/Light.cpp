@@ -2,7 +2,7 @@
 #include "Light.h"
 
 #include "util/Maths.h"
-#include "world/Chunk.h"
+#include "world/detail/Chunk.h"
 #include "world/util/Side.h"
 #include "world/World.h"
 
@@ -32,19 +32,18 @@ world::data::LightPropagator::LightPropagator(World & world, const glm::ivec3 & 
 
 void world::data::LightPropagator::propagate() const
 {
-	auto chunk = m_world->getChunkAt(m_cpos);
+	Chunk * chunk = nullptr;// auto chunk = m_world->getChunkAt(m_cpos);
 	if (chunk == nullptr)
 		return;
 
 	Index index;
 	while (chunk->pollLightPropagation(index))
 	{
-		BlockData block;
-		ColorData color;
-		chunk->read(index, block, color);
-
 		const auto pos = toPos<int>(index);
-		const auto light = glm::uvec4{ color.getColor(), block.getLight() };
+		const auto light = glm::uvec4{
+			chunk->readColor(index).getColor(),
+			chunk->readBlock(index).getLight()
+		};
 		propagateFrom(*chunk, pos, light);
 	}
 }
@@ -54,24 +53,24 @@ void world::data::LightPropagator::propagateFrom(Chunk & chunk, const glm::uvec3
 	{
 		if (source[side.m_dimensions.x] == CHUNK_SIZE_BITS<int>)
 		{
-			auto neighbor = m_world->getChunkAt(m_cpos + side.m_normal);
+			/*auto neighbor = m_world->getChunkAt(m_cpos + side.m_normal);
 			if (neighbor != nullptr)
 			{
 				propagateTo(*neighbor, (glm::ivec3{ source } + side.m_normal) & CHUNK_SIZE_BITS<int>, light);
 				m_world->markForLighting(m_cpos + side.m_normal);
-			}
+			}*/
 		}
 		else
 			propagateTo(chunk, glm::ivec3{ source } + side.m_normal, light);
 
 		if (source[side.m_dimensions.x] == 0)
 		{
-			auto neighbor = m_world->getChunkAt(m_cpos - side.m_normal);
+			/*auto neighbor = m_world->getChunkAt(m_cpos - side.m_normal);
 			if (neighbor != nullptr)
 			{
 				propagateTo(*neighbor, (glm::ivec3{ source } - side.m_normal) & CHUNK_SIZE_BITS<int>, light);
 				m_world->markForLighting(m_cpos - side.m_normal);
-			}
+			}*/
 		}
 		else
 			propagateTo(chunk, glm::ivec3{ source } - side.m_normal, light);
@@ -79,9 +78,9 @@ void world::data::LightPropagator::propagateFrom(Chunk & chunk, const glm::uvec3
 }
 void world::data::LightPropagator::propagateTo(Chunk & chunk, const glm::uvec3 & target, glm::uvec4 light) const
 {
-	BlockData block;
-	ColorData color;
-	chunk.read(target, block, color);
+	const auto index = toIndex(target);
+	auto block = chunk.readBlock(index);
+	auto color = chunk.readColor(index);
 
 	light = reduce(light, glm::uvec4{ 1u }, glm::uvec4{ MAX_BLOCK_LIGHT });
 	light = limit(light, { color.getColor(), block.getLight() });
@@ -90,5 +89,5 @@ void world::data::LightPropagator::propagateTo(Chunk & chunk, const glm::uvec3 &
 
 	block.setLight(light.a);
 	color.setColor(light);
-	chunk.write(target, block, color);
+	chunk.write(index, block, color);
 }

@@ -1,7 +1,7 @@
 
 #include "CppUnitTest.h"
 
-#include "world/data/Indexing.h"
+#include "world/detail/data/Indexing.h"
 
 #include <glm/Unittest.h>
 

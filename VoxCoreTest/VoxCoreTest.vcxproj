@@ -193,15 +193,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\SanityTest.cpp" />
-    <ClCompile Include="src\world\ChunkColumnTest.cpp" />
-    <ClCompile Include="src\world\ChunkTest.cpp" />
-    <ClCompile Include="src\world\data\BlockDataTest.cpp" />
+    <ClCompile Include="src\world\detail\ChunkColumnTest.cpp" />
+    <ClCompile Include="src\world\detail\ChunkStorageTest.cpp" />
+    <ClCompile Include="src\world\detail\ChunkTest.cpp" />
+    <ClCompile Include="src\world\detail\data\BlockDataTest.cpp" />
     <ClCompile Include="src\world\BlockRegistryTest.cpp" />
-    <ClCompile Include="src\world\data\ChunkDataTest.cpp" />
-    <ClCompile Include="src\world\data\ChunkQueryTest.cpp" />
-    <ClCompile Include="src\world\data\IndexingTest.cpp" />
-    <ClCompile Include="src\world\data\LightTest.cpp" />
-    <ClCompile Include="src\world\data\WorldQueryTest.cpp" />
+    <ClCompile Include="src\world\detail\data\ChunkDataTest.cpp" />
+    <ClCompile Include="src\world\detail\data\ChunkQueryTest.cpp" />
+    <ClCompile Include="src\world\detail\data\IndexingTest.cpp" />
+    <ClCompile Include="src\world\detail\data\LightTest.cpp" />
+    <ClCompile Include="src\world\detail\data\WorldQueryTest.cpp" />
     <ClCompile Include="src\world\WorldTest.cpp" />
   </ItemGroup>
   <ItemGroup>

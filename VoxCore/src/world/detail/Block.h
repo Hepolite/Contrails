@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "world/data/Limits.h"
+#include "world/detail/Limits.h"
 
 #include <glm/vec4.hpp>
 #include <string>
