@@ -194,6 +194,7 @@
     <ClInclude Include="src\core\Engine.h" />
     <ClInclude Include="src\logic\event\ChunkEvents.h" />
     <ClInclude Include="src\render\world\BlockRenderRegistry.h" />
+    <ClInclude Include="src\render\world\BlockTextureAtlas.h" />
     <ClInclude Include="src\render\world\detail\BlockModelLoader.h" />
     <ClInclude Include="src\render\world\detail\BlockRenderLoader.h" />
     <ClInclude Include="src\render\world\detail\BlockTextureLoader.h" />
@@ -219,6 +220,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\core\Engine.cpp" />
+    <ClCompile Include="src\render\world\BlockTextureAtlas.cpp" />
     <ClCompile Include="src\render\world\detail\BlockModelLoader.cpp" />
     <ClCompile Include="src\render\world\detail\BlockRenderLoader.cpp" />
     <ClCompile Include="src\render\world\BlockRenderRegistry.cpp" />

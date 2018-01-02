@@ -90,6 +90,9 @@
     <ClInclude Include="src\world\detail\data\BlockRegion.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\render\world\BlockTextureAtlas.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\core\Engine.cpp">
@@ -144,6 +147,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\world\detail\data\BlockRegion.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\render\world\BlockTextureAtlas.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
