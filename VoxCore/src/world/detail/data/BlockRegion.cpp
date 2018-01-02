@@ -19,18 +19,18 @@ unsigned int world::data::BlockRegion::memuse() const
 	return m_blocks.capacity() * sizeof(BlockData) + m_colors.capacity() * sizeof(ColorData);
 }
 
-void world::data::BlockRegion::write(const glm::ivec3 & pos, BlockData & block, ColorData & color)
+void world::data::BlockRegion::write(const glm::ivec3 & pos, const BlockData & block, const ColorData & color)
 {
 	write(pos, block);
 	write(pos, color);
 }
-void world::data::BlockRegion::write(const glm::ivec3 & pos, BlockData & block)
+void world::data::BlockRegion::write(const glm::ivec3 & pos, const BlockData & block)
 {
 	const auto index = toIndex<int>(pos, m_pos, m_size);
 	if (index < m_blocks.size())
 		m_blocks[index] = block;
 }
-void world::data::BlockRegion::write(const glm::ivec3 & pos, ColorData & color)
+void world::data::BlockRegion::write(const glm::ivec3 & pos, const ColorData & color)
 {
 	const auto index = toIndex<int>(pos, m_pos, m_size);
 	if (index < m_colors.size())

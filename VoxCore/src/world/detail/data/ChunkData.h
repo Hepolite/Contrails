@@ -13,6 +13,7 @@ namespace world
 {
 	namespace data
 	{
+		class BlockRegion;
 		class ChunkQuery;
 
 		template<typename T>
@@ -32,7 +33,7 @@ namespace world
 			void write(unsigned int index, BlockData & block);
 			void write(unsigned int index, ColorData & color);
 			void read(ChunkQuery & query) const;
-			// void read(BlockRegion & region, const glm::ivec3 & offset, const glm::uvec3 & size) const;
+			void read(BlockRegion & region, const glm::ivec3 & source, const glm::ivec3 & target, const glm::ivec3 & size) const;
 			BlockData readBlock(unsigned int index) const;
 			ColorData readColor(unsigned int index) const;
 
@@ -51,7 +52,7 @@ namespace world
 		{
 		public:
 			void read(ChunkQuery & query) const;
-			// void read(BlockRegion & region, const glm::ivec3 & offset, const glm::uvec3 & size) const;
+			void read(BlockRegion & region, const glm::ivec3 & offset, const glm::ivec3 & size) const;
 			BlockData readBlock(unsigned int index) const;
 			ColorData readColor(unsigned int index) const;
 

@@ -21,13 +21,15 @@ namespace world
 			~BlockRegion() noexcept = default;
 
 			unsigned int memuse() const;
+			inline auto pos() const { return m_pos; }
+			inline auto size() const { return m_size; }
 
 			BlockRegion & operator=(const BlockRegion &) = delete;
 			BlockRegion & operator=(BlockRegion &&) noexcept = default;
 
-			void write(const glm::ivec3 & pos, BlockData & block, ColorData & color);
-			void write(const glm::ivec3 & pos, BlockData & block);
-			void write(const glm::ivec3 & pos, ColorData & color);
+			void write(const glm::ivec3 & pos, const BlockData & block, const ColorData & color);
+			void write(const glm::ivec3 & pos, const BlockData & block);
+			void write(const glm::ivec3 & pos, const ColorData & color);
 			BlockData readBlock(const glm::ivec3 & pos) const;
 			ColorData readColor(const glm::ivec3 & pos) const;
 

@@ -1,6 +1,7 @@
 
 #include "CppUnitTest.h"
 
+#include "world/detail/data/BlockRegion.h"
 #include "world/detail/data/ChunkData.h"
 
 #include <glm/Unittest.h>
@@ -23,6 +24,20 @@ namespace world
 				Assert::AreEqual(1u, data.readBlock(42u).getId());
 				Assert::AreEqual(5u, data.readBlock(42u).getLight());
 				Assert::AreEqual({ 4u, 2u, 8u }, data.readColor(42u).getColor());
+			}
+			TEST_METHOD(ChunkDataBloated_read)
+			{
+				BlockRegion regionA{ glm::ivec3{ -1 }, glm::ivec3{ 6 } };
+				BlockRegion regionB{ glm::ivec3{ -1 }, glm::ivec3{ 6 } };
+				ChunkDataBloated data;
+				data.write(toIndex<unsigned int>({ 3u, 1u, 0u }), BlockData{ 1u, 0u });
+				data.write(toIndex<unsigned int>({ 4u, 0u, 2u }), BlockData{ 2u, 0u });
+
+				data.read(regionA, { 0, 0, 0 }, { 0, 0, 0 }, { 4, 4, 4 });
+				data.read(regionB, { 4, 0, 0 }, { -1, 0, 0 }, { 1, 4, 4 });
+				
+				Assert::AreEqual(1u, regionA.readBlock({ 3, 1, 0 }).getId());
+				Assert::AreEqual(2u, regionB.readBlock({ -1, 0, 2 }).getId());
 			}
 
 			TEST_METHOD(ChunkDataBloated_pushLight)
