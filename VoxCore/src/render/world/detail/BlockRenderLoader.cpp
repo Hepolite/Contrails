@@ -33,9 +33,9 @@ void render::world::BlockRenderLoader::loadBlocks(const io::Folder & folder) con
 }
 void render::world::BlockRenderLoader::loadBlock(const io::File & file) const
 {
-	if (m_registry == nullptr || m_blocks == nullptr)
+	if (m_registry == nullptr || m_blocks == nullptr || m_atlas == nullptr)
 	{
-		LOG_WARNING << "Attempted to load blocks before block registries has been injected";
+		LOG_WARNING << "Attempted to load blocks before block registries and/or texture atlas has been injected";
 		return;
 	}
 
@@ -51,6 +51,7 @@ void render::world::BlockRenderLoader::loadBlock(const io::File & file) const
 			const std::string blockName = file.getName() + (attrName.empty() ? "" : ":" + attrName);
 
 			BlockRenderVariantLoader loader;
+			loader.injectTextureAtlas(*m_atlas);
 			loader.loadVariant(variant.child(NODE_VISUAL));
 			(*m_blocks)[(*m_registry)[blockName].m_id] = loader.extractBlock();
 		}
@@ -81,6 +82,12 @@ void render::world::BlockRenderVariantLoader::loadModel(const pugi::xml_node & m
 }
 void render::world::BlockRenderVariantLoader::loadTexture(const pugi::xml_node & texture)
 {
+	if (m_atlas == nullptr)
+	{
+		LOG_WARNING << "Attempted to load blocks before texture atlas has been injected";
+		return;
+	}
+
 	for (auto attr = texture.first_attribute(); attr; attr = attr.next_attribute())
 	{
 		const auto attrSide = attr.name();
@@ -91,6 +98,7 @@ void render::world::BlockRenderVariantLoader::loadTexture(const pugi::xml_node &
 			continue;
 
 		BlockTextureLoader loader;
+		loader.injectTextureAtlas(*m_atlas);
 		loader.loadTexture(file);
 		for (const auto & side : ::world::util::fromNameExt(attrSide))
 			m_block.m_texture[side.m_id] = loader.extractTexture();

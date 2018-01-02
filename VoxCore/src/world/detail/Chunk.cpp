@@ -24,6 +24,10 @@ void world::Chunk::read(data::ChunkQuery & query) const
 {
 	m_data.read(query);
 }
+void world::Chunk::read(data::BlockRegion & region, const glm::ivec3 & source, const glm::ivec3 & target, const glm::ivec3 & size) const
+{
+	m_data.read(region, source, target, size);
+}
 world::data::BlockData world::Chunk::readBlock(unsigned int index) const
 {
 	return m_data.readBlock(index);

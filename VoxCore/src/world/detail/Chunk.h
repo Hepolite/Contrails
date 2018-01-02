@@ -8,6 +8,7 @@ namespace world
 	namespace data
 	{
 		class BlockData;
+		class BlockRegion;
 		class ColorData;
 		class ChunkQuery;
 	}
@@ -20,6 +21,7 @@ namespace world
 		void write(unsigned int index, data::BlockData & block);
 		void write(unsigned int index, data::ColorData & color);
 		void read(data::ChunkQuery & query) const;
+		void read(data::BlockRegion & region, const glm::ivec3 & source, const glm::ivec3 & target, const glm::ivec3 & size) const;
 		data::BlockData readBlock(unsigned int index) const;
 		data::ColorData readColor(unsigned int index) const;
 

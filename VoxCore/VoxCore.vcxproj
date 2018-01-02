@@ -201,6 +201,7 @@
     <ClInclude Include="src\render\world\detail\data\BlockModel.h" />
     <ClInclude Include="src\render\world\BlockRender.h" />
     <ClInclude Include="src\render\world\detail\data\BlockTexture.h" />
+    <ClInclude Include="src\render\world\WorldRenderer.h" />
     <ClInclude Include="src\world\detail\BlockLoader.h" />
     <ClInclude Include="src\world\ChunkStorage.h" />
     <ClInclude Include="src\world\detail\Block.h" />
@@ -225,6 +226,7 @@
     <ClCompile Include="src\render\world\detail\BlockRenderLoader.cpp" />
     <ClCompile Include="src\render\world\BlockRenderRegistry.cpp" />
     <ClCompile Include="src\render\world\detail\BlockTextureLoader.cpp" />
+    <ClCompile Include="src\render\world\WorldRenderer.cpp" />
     <ClCompile Include="src\world\ChunkStorage.cpp" />
     <ClCompile Include="src\world\detail\BlockLoader.cpp" />
     <ClCompile Include="src\world\detail\Chunk.cpp" />

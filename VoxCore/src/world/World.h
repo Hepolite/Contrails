@@ -11,8 +11,8 @@ namespace world
 	namespace data
 	{
 		class BlockData;
+		class BlockRegion;
 		class ColorData;
-		class ChunkDataBloated;
 		class WorldQuery;
 	}
 
@@ -27,14 +27,14 @@ namespace world
 		World & operator=(const World &) = delete;
 		World & operator=(World &&) noexcept;
 
-		void injectBlocks(const BlockRegistry & registry);
+		void injectBlockRegistry(const BlockRegistry & registry);
 		void injectEventBus(const logic::event::EventBus & bus);
+
+		const BlockRegistry & extractBlockRegistry() const;
+		const data::BlockRegion extractRenderData(const glm::ivec3 & cpos) const;
 
 		void write(data::WorldQuery & query);
 		void read(data::WorldQuery & query) const;
-
-		const BlockRegistry & extractBlocks() const;
-		data::ChunkDataBloated & extractChunkData(const glm::ivec3 & cpos);
 
 	private:
 		struct Impl;
