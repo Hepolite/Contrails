@@ -5,7 +5,9 @@
 #include "io/Folder.h"
 #include "render/world/BlockRender.h"
 #include "render/world/BlockRenderRegistry.h"
+#include "world/BlockRegistry.h"
 
+#include <glm/vec3.hpp>
 #include <pugixml/pugixml.hpp>
 
 namespace render
@@ -15,24 +17,29 @@ namespace render
 		class BlockRenderLoader
 		{
 		public:
-			inline void injectBlockRegistry(BlockRenderRegistry & registry) { m_registry = &registry; }
+			inline void injectBlockRegistry(const ::world::BlockRegistry & registry) { m_registry = &registry; }
+			inline void injectBlocks(BlockRenderRegistry & blocks) { m_blocks = &blocks; }
 
 			void loadBlocks(const io::Folder & folder) const;
 			void loadBlock(const io::File & file) const;
 
 		private:
-			BlockRenderRegistry * m_registry = nullptr;
+			const ::world::BlockRegistry * m_registry = nullptr;
+			BlockRenderRegistry * m_blocks = nullptr;
 		};
 
 		class BlockRenderVariantLoader
 		{
 		public:
-			void loadVariant(data::BlockRender & block, const pugi::xml_node & variant, const pugi::xml_node & def) const;
+			void loadVariant(const pugi::xml_node & variant);
+			void loadModel(const pugi::xml_node & model);
+			void loadTexture(const pugi::xml_node & texture);
+			void loadOcclusion(const pugi::xml_node & occlusion);
+
+			inline auto extractBlock() { return m_block; }
 
 		private:
-			void loadModel(data::BlockRender & block, const pugi::xml_node & model, const pugi::xml_node & def) const;
-			void loadTexture(data::BlockRender & block, const pugi::xml_node & texture, const pugi::xml_node & def) const;
-			void loadOcclusion(data::BlockRender & block, const pugi::xml_node & occlusion, const pugi::xml_node & def) const;
+			data::BlockRender m_block;
 		};
 	}
 }

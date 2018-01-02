@@ -7,13 +7,9 @@ namespace render
 	{
 		namespace data
 		{
-			class BlockTexture
+			struct BlockTexture
 			{
-			public:
-
-
-			private:
-
+			
 			};
 		}
 	}

@@ -1,15 +1,33 @@
-<default>
-  <light filter="0 0 0 0" />
-  <model path="default.xml" />
-  <occlude all="true" />
-</default>
-
 <variant>
-  <texture all="stone_normal.xml" side="stone_normal_side.xml" />
+  <logic>
+    <phase type="solid" />
+    <light filter="0 0 0 0" />
+  </logic>
+  <visual>
+    <model path="default.xml" />
+    <texture all="stone_normal.xml" side="stone_normal_side.xml" />
+    <occlude all="true" />
+  </visual>
 </variant>
 <variant name="andesite">
-  <texture all="stone_andesite.xml" side="stone_andesite_side.xml" />
+  <logic>
+    <phase type="solid" />
+    <light filter="0 0 0 0" />
+  </logic>
+  <visual>
+    <model path="default.xml" />
+    <texture all="stone_andesite.xml" side="stone_andesite_side.xml" />
+    <occlude all="true" />
+  </visual>
 </variant>
 <variant name="granite">
-  <texture all="stone_granite.xml" side="stone_granite_side.xml" />
+   <logic>
+    <phase type="solid" />
+    <light filter="0 0 0 0" />
+  </logic>
+  <visual>
+    <model path="default.xml" />
+    <texture all="stone_granite.xml" side="stone_granite_side.xml" />
+    <occlude all="true" />
+  </visual>
 </variant>

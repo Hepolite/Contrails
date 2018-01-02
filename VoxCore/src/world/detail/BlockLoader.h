@@ -25,9 +25,8 @@ namespace world
 	class BlockVariantLoader
 	{
 	public:
-		void loadVariant(Block & block, const pugi::xml_node & variant, const pugi::xml_node & def) const;
-
-	private:
-		void loadLight(Block & block, const pugi::xml_node & light, const pugi::xml_node & def) const;
+		void loadVariant(Block & block, const pugi::xml_node & variant) const;
+		void loadPhase(Block & block, const pugi::xml_node & phase) const;
+		void loadLight(Block & block, const pugi::xml_node & light) const;
 	};
 }

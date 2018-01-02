@@ -193,6 +193,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\render\world\BlockRenderRegistryTest.cpp" />
+    <ClCompile Include="src\render\world\detail\BlockModelLoaderTest.cpp" />
     <ClCompile Include="src\render\world\detail\BlockRenderLoaderTest.cpp" />
     <ClCompile Include="src\render\world\detail\data\BlockTextureTest.cpp" />
     <ClCompile Include="src\SanityTest.cpp" />

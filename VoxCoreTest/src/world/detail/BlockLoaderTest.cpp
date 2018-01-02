@@ -35,6 +35,18 @@ namespace world
 	TEST_CLASS(BlockVariantLoaderTest)
 	{
 	public:
+		TEST_METHOD(BlockVariantLoader_loadPhase)
+		{
+			pugi::xml_document node;
+			pugi::xml_node light = node.append_child("phase");
+			light.append_attribute("type").set_value("liquid");
+
+			BlockVariantLoader loader;
+			Block block;
+			loader.loadPhase(block, light);
+
+			Assert::IsTrue(block.m_phase == BlockPhase::LIQUID);
+		}
 		TEST_METHOD(BlockVariantLoader_loadLight)
 		{
 			pugi::xml_document node;
@@ -45,7 +57,7 @@ namespace world
 
 			BlockVariantLoader loader;
 			Block block;
-			loader.loadVariant(block, node, {});
+			loader.loadLight(block, light);
 
 			Assert::AreEqual({ 2u, 10u, 7u, 0u }, block.m_lightEmitted);
 			Assert::AreEqual({ 9u, 5u, 8u, 6u }, block.m_lightAbsorbed);
