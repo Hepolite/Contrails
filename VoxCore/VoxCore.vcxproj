@@ -207,6 +207,7 @@
     <ClInclude Include="src\world\detail\ChunkColumn.h" />
     <ClInclude Include="src\world\detail\data\BlockData.h" />
     <ClInclude Include="src\world\BlockRegistry.h" />
+    <ClInclude Include="src\world\detail\data\BlockRegion.h" />
     <ClInclude Include="src\world\detail\data\ChunkData.h" />
     <ClInclude Include="src\world\detail\data\ChunkQuery.h" />
     <ClInclude Include="src\world\detail\data\Indexing.h" />
@@ -228,6 +229,7 @@
     <ClCompile Include="src\world\detail\ChunkColumn.cpp" />
     <ClCompile Include="src\world\detail\data\BlockData.cpp" />
     <ClCompile Include="src\world\BlockRegistry.cpp" />
+    <ClCompile Include="src\world\detail\data\BlockRegion.cpp" />
     <ClCompile Include="src\world\detail\data\ChunkData.cpp" />
     <ClCompile Include="src\world\detail\data\ChunkQuery.cpp" />
     <ClCompile Include="src\world\detail\data\Light.cpp" />

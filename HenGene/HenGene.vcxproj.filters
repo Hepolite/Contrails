@@ -200,6 +200,9 @@
     <ClInclude Include="src\util\StringParsing.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\util\MathOperators.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

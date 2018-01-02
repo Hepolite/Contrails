@@ -203,6 +203,7 @@
     <ClCompile Include="src\world\detail\ChunkTest.cpp" />
     <ClCompile Include="src\world\detail\data\BlockDataTest.cpp" />
     <ClCompile Include="src\world\BlockRegistryTest.cpp" />
+    <ClCompile Include="src\world\detail\data\BlockRegionTest.cpp" />
     <ClCompile Include="src\world\detail\data\ChunkDataTest.cpp" />
     <ClCompile Include="src\world\detail\data\ChunkQueryTest.cpp" />
     <ClCompile Include="src\world\detail\data\IndexingTest.cpp" />

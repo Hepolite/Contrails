@@ -28,6 +28,8 @@ namespace world
 				}
 				else
 					Assert::Fail();
+
+				Assert::AreEqual(42, static_cast<int>(toIndex<int>({ 0, 7, 1 }, { 3, 7, 2 })));
 			}
 
 			TEST_METHOD(Indexing_toPos)

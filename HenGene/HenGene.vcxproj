@@ -240,6 +240,7 @@
     <ClInclude Include="src\ui\Mouse.h" />
     <ClInclude Include="src\util\MathConstants.h" />
     <ClInclude Include="src\util\MathGeneric.h" />
+    <ClInclude Include="src\util\MathOperators.h" />
     <ClInclude Include="src\util\Maths.h" />
     <ClInclude Include="src\util\PhysicalOperators.h" />
     <ClInclude Include="src\util\PhysicalUnit.h" />
