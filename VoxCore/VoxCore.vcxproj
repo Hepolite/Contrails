@@ -192,6 +192,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\core\Engine.h" />
+    <ClInclude Include="src\core\Settings.h" />
     <ClInclude Include="src\logic\event\ChunkEvents.h" />
     <ClInclude Include="src\render\world\BlockRenderRegistry.h" />
     <ClInclude Include="src\render\world\BlockTextureAtlas.h" />

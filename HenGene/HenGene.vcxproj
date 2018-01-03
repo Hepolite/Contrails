@@ -227,6 +227,7 @@
     <ClInclude Include="src\logic\script\Script.h" />
     <ClInclude Include="src\logic\script\ScriptUtil.h" />
     <ClInclude Include="src\render\opengl\Enums.h" />
+    <ClInclude Include="src\render\opengl\fbo.h" />
     <ClInclude Include="src\render\opengl\OpenGL.h" />
     <ClInclude Include="src\render\opengl\Program.h" />
     <ClInclude Include="src\render\opengl\Shader.h" />
@@ -234,6 +235,12 @@
     <ClInclude Include="src\render\opengl\ubo.h" />
     <ClInclude Include="src\render\opengl\vao.h" />
     <ClInclude Include="src\render\opengl\vbo.h" />
+    <ClInclude Include="src\render\core\Pipeline.h" />
+    <ClInclude Include="src\render\RenderLayer.h" />
+    <ClInclude Include="src\render\scene\detail\SceneLayer.h" />
+    <ClInclude Include="src\render\scene\Scene.h" />
+    <ClInclude Include="src\render\scene\detail\SceneNode.h" />
+    <ClInclude Include="src\render\scene\Screen.h" />
     <ClInclude Include="src\render\uboRegistry.h" />
     <ClInclude Include="src\ui\Display.h" />
     <ClInclude Include="src\ui\Keyboard.h" />
@@ -261,6 +268,8 @@
     <ClCompile Include="src\logic\MainLoop.cpp" />
     <ClCompile Include="src\logic\script\Script.cpp" />
     <ClCompile Include="src\logic\script\ScriptUtil.cpp" />
+    <ClCompile Include="src\render\core\Pipeline.cpp" />
+    <ClCompile Include="src\render\opengl\fbo.cpp" />
     <ClCompile Include="src\render\opengl\OpenGL.cpp" />
     <ClCompile Include="src\render\opengl\Program.cpp" />
     <ClCompile Include="src\render\opengl\Shader.cpp" />
@@ -268,6 +277,8 @@
     <ClCompile Include="src\render\opengl\ubo.cpp" />
     <ClCompile Include="src\render\opengl\vao.cpp" />
     <ClCompile Include="src\render\opengl\vbo.cpp" />
+    <ClCompile Include="src\render\scene\Detail\SceneLayer.cpp" />
+    <ClCompile Include="src\render\scene\Scene.cpp" />
     <ClCompile Include="src\render\uboRegistry.cpp" />
     <ClCompile Include="src\ui\Display.cpp" />
     <ClCompile Include="src\util\StringGeneric.cpp" />

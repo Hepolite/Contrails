@@ -209,12 +209,15 @@
     <ClCompile Include="src\logic\script\ScriptTest.cpp" />
     <ClCompile Include="src\logic\script\ScriptUtilTest.cpp" />
     <ClCompile Include="src\render\allegro\AllegroTest.cpp" />
+    <ClCompile Include="src\render\opengl\fboTest.cpp" />
     <ClCompile Include="src\render\opengl\ProgramTest.cpp" />
     <ClCompile Include="src\render\opengl\ShaderTest.cpp" />
     <ClCompile Include="src\render\opengl\TextureTest.cpp" />
     <ClCompile Include="src\render\opengl\uboTest.cpp" />
     <ClCompile Include="src\render\opengl\vaoTest.cpp" />
     <ClCompile Include="src\render\opengl\vboTest.cpp" />
+    <ClCompile Include="src\render\scene\detail\SceneLayerTest.cpp" />
+    <ClCompile Include="src\render\scene\SceneTest.cpp" />
     <ClCompile Include="src\render\uboRegistryTest.cpp" />
     <ClCompile Include="src\SanityTest.cpp" />
     <ClCompile Include="src\ui\DisplayTest.cpp" />

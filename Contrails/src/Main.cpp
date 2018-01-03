@@ -12,7 +12,10 @@ int main(int argc, char* argv[])
 	logFile.erase();
 	plog::init(plog::debug, logFile.getPath().c_str());
 
-	{ core::Engine engine; }
+	{
+		core::Settings settings;
+		core::Engine{ settings }.start();
+	}
 
 	return 0;
 }

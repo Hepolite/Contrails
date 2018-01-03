@@ -1,6 +1,8 @@
 
 #pragma once
 
+#include "core/Settings.h"
+
 #include <memory>
 
 namespace core { namespace allegro { class Allegro; } }
@@ -11,6 +13,7 @@ namespace core
 	{
 	public:
 		Engine();
+		Engine(const Settings & settings);
 		Engine(const Engine &) = delete;
 		Engine(Engine &&) = delete;
 		~Engine();
@@ -18,7 +21,8 @@ namespace core
 		Engine & operator=(const Engine &) = delete;
 		Engine & operator=(Engine &&) = delete;
 
-
+		void start();
+		void stop();
 
 	private:
 		struct Impl;
