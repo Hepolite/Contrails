@@ -41,6 +41,17 @@ namespace render
 			Assert::AreEqual(ubo.getHandle(), uboRetrieved.getHandle());
 		}
 
+		TEST_METHOD(uboRegistry_clear)
+		{
+			uboRegistry registry;
+			registry.add("fieldA");
+			registry.add("fieldB");
+			registry.clear();
+
+			Assert::IsFalse(registry.has("fieldA"));
+			Assert::IsFalse(registry.has("fieldB"));
+		}
+
 		TEST_METHOD(uboRegistry_getBindings)
 		{
 			uboRegistry registry;

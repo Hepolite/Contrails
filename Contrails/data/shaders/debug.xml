@@ -1,0 +1,2 @@
+<shader type="fragment" file="data/shaders/debug.fs" />
+<shader type="vertex" file="data/shaders/debug.vs" />

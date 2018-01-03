@@ -22,6 +22,8 @@ namespace asset
 		AssetRegistry & operator=(const AssetRegistry &) = delete;
 		AssetRegistry & operator=(AssetRegistry &&) = delete;
 
+		inline void clear() { m_data.clear(); }
+
 		template<typename Type> Asset<Type> & add(const std::string & name);
 		template<typename Type> Ref<Type> get(const std::string & name);
 		template<typename Type> bool has(const std::string & name) const;

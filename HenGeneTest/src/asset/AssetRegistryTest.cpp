@@ -45,5 +45,16 @@ namespace asset
 			Assert::IsFalse(registry.has<int>("nothere"));
 			Assert::IsFalse(registry.has<float>("asset"));
 		}
+
+		TEST_METHOD(AssetRegistry_clear)
+		{
+			AssetRegistry registry;
+			registry.add<int>("asset");
+			registry.add<float>("asset");
+			registry.clear();
+
+			Assert::IsFalse(registry.has<int>("asset"));
+			Assert::IsFalse(registry.has<float>("asset"));
+		}
 	};
 }

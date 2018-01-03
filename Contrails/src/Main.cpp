@@ -2,6 +2,7 @@
 #include "core/Engine.h"
 
 #include "io/File.h"
+#include "logic/state/StateStartup.h"
 
 #include <iostream>
 #include <plog/Log.h>
@@ -14,7 +15,9 @@ int main(int argc, char* argv[])
 
 	{
 		core::Settings settings;
-		core::Engine{ settings }.start();
+		core::Engine engine{ settings };
+
+		engine.start(std::make_unique<logic::state::StateStartup>(engine));
 	}
 
 	return 0;

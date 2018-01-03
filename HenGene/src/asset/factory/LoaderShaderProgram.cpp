@@ -8,8 +8,8 @@
 
 namespace
 {
-	const std::string SHADER_FILE = "file";
-	const std::string SHADER_TYPE = "type";
+	constexpr const char * ATTR_FILE = "file";
+	constexpr const char * ATTR_TYPE = "type";
 
 	const std::string TYPE_FRAGMENT = "fragment";
 	const std::string TYPE_GEOMETRY = "geometry";
@@ -23,8 +23,8 @@ void asset::util::LoaderShaderProgram::load(render::opengl::Program & asset, con
 
 	for (auto node = doc.first_child(); node; node = node.next_sibling())
 	{
-		std::string attrType = node.attribute(SHADER_TYPE.c_str()).as_string();
-		std::string attrFile = node.child(SHADER_FILE.c_str()).child_value();
+		std::string attrType = node.attribute(ATTR_TYPE).as_string();
+		std::string attrFile = node.attribute(ATTR_FILE).as_string();
 
 		render::opengl::ShaderType type;
 		if (attrType == TYPE_FRAGMENT)

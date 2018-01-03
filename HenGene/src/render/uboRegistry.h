@@ -12,6 +12,8 @@ namespace render
 	class uboRegistry
 	{
 	public:
+		inline void clear() { m_ubos.clear(); }
+
 		bool has(const std::string & name) const;
 		render::opengl::ubo & add(const std::string & name);
 		const render::opengl::ubo & get(const std::string & name) const;

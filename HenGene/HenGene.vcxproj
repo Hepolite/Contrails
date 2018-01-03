@@ -226,6 +226,7 @@
     <ClInclude Include="src\logic\MainLoop.h" />
     <ClInclude Include="src\logic\script\Script.h" />
     <ClInclude Include="src\logic\script\ScriptUtil.h" />
+    <ClInclude Include="src\logic\state\State.h" />
     <ClInclude Include="src\render\opengl\Enums.h" />
     <ClInclude Include="src\render\opengl\fbo.h" />
     <ClInclude Include="src\render\opengl\OpenGL.h" />

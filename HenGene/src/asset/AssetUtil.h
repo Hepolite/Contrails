@@ -9,14 +9,14 @@ namespace asset
 {
 	namespace util
 	{
-		// Builder must implement 'void build(Type & asset, const Args & ...args) const'
+		// Builder must implement 'void build(Type & asset, const Args & ...args)'
 		template<typename Type, class Builder, typename ...Args> void setupBuilderFactory(
 			AssetRegistry & registry,
 			const std::string& name,
 			const Args & ...args
 		);
 
-		// Loader must implement 'void load(Type & asset, const io::File & file, const Args & ...args) const'
+		// Loader must implement 'void load(Type & asset, const io::File & file, const Args & ...args)'
 		template<typename Type, class Loader, typename ...Args> void setupLoaderFactory(
 			AssetRegistry & registry,
 			const io::Folder & root,
@@ -36,7 +36,7 @@ void asset::util::setupBuilderFactory(
 	registry.add<Type>(name).m_factory = [&args...]()
 	{
 		auto asset = std::make_unique<Type>();
-		const Builder{}.build(*asset, args...);
+		Builder{}.build(*asset, args...);
 		return asset;
 	};
 }
@@ -57,7 +57,7 @@ void asset::util::setupLoaderFactory(
 		registry.add<Type>(name).m_factory = [file, &args...]()
 		{
 			auto asset = std::make_unique<Type>();
-			const Loader{}.load(*asset, file, args...);
+			Loader{}.load(*asset, file, args...);
 			return asset;
 		};
 	}
