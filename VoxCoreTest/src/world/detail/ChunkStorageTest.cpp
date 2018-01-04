@@ -18,6 +18,14 @@ namespace world
 			storage.createChunk({ 0, 0, 0 });
 			Assert::IsTrue(storage.hasChunkAt({ 0, 0, 0 }));
 		}
+		TEST_METHOD(ChunkStorage_createOrGetChunk)
+		{
+			ChunkStorage storage;
+			auto & chunkA = storage.createOrGetChunk({ 0, 0, 0 });
+			auto & chunkB = storage.createOrGetChunk({ 0, 0, 0 });
+
+			Assert::IsTrue(&chunkA == &chunkB);
+		}
 		TEST_METHOD(ChunkStorage_destroyChunk)
 		{
 			ChunkStorage storage;

@@ -9,7 +9,7 @@
 
 int main(int argc, char* argv[])
 {
-	io::File logFile{ "data/log.txt" };
+	io::File logFile{ "data/log.log" };
 	logFile.erase();
 	plog::init(plog::debug, logFile.getPath().c_str());
 

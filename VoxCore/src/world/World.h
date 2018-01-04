@@ -3,6 +3,7 @@
 
 #include "logic/event/EventBus.h"
 #include "world/BlockRegistry.h"
+#include "world/detail/data/BlockData.h"
 
 #include <memory>
 #include <string>
@@ -11,9 +12,7 @@ namespace world
 {
 	namespace data
 	{
-		class BlockData;
 		class BlockRegion;
-		class ColorData;
 		class WorldQuery;
 	}
 
@@ -31,11 +30,19 @@ namespace world
 		void injectBlockRegistry(const BlockRegistry & registry);
 		void injectEventBus(const logic::event::EventBus & bus);
 
-		const BlockRegistry & extractBlockRegistry() const;
 		const data::BlockRegion extractRenderData(const glm::ivec3 & cpos) const;
 
+		// ...
+
+		const BlockRegistry & getBlockRegistry() const;
+
 		void write(data::WorldQuery & query);
+		void write(const glm::ivec3 & pos, data::BlockData & block, data::ColorData & color);
+		void write(const glm::ivec3 & pos, data::BlockData & block);
+		void write(const glm::ivec3 & pos, data::ColorData & color);
 		void read(data::WorldQuery & query) const;
+		data::BlockData readBlock(const glm::ivec3 & pos) const;
+		data::ColorData readColor(const glm::ivec3 & pos) const;
 
 	private:
 		std::string m_name;

@@ -17,6 +17,7 @@ namespace world
 	{
 	public:
 		Chunk & createChunk(const glm::ivec3 & cpos);
+		Chunk & createOrGetChunk(const glm::ivec3 & cpos);
 		void destroyChunk(const glm::ivec3 & cpos);
 
 		bool hasChunkAt(const glm::ivec3 & cpos) const;

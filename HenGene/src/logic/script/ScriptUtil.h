@@ -1,6 +1,8 @@
 
 #pragma once
 
+#define NOMINMAX
+
 #include "logic/script/Script.h"
 
 #include <chaiscript/chaiscript.hpp>

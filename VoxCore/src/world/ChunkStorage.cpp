@@ -5,6 +5,13 @@ world::Chunk & world::ChunkStorage::createChunk(const glm::ivec3 & cpos)
 {
 	return getColumn(cpos).createChunk(cpos.z);
 }
+world::Chunk & world::ChunkStorage::createOrGetChunk(const glm::ivec3 & cpos)
+{
+	auto & column = getColumn(cpos);
+	if (column.hasChunkAt(cpos.z))
+		return *column.getChunkAt(cpos.z);
+	return column.createChunk(cpos.z);
+}
 void world::ChunkStorage::destroyChunk(const glm::ivec3 & cpos)
 {
 	getColumn(cpos).destroyChunk(cpos.z);
