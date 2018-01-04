@@ -227,6 +227,7 @@
     <ClInclude Include="src\logic\script\Script.h" />
     <ClInclude Include="src\logic\script\ScriptUtil.h" />
     <ClInclude Include="src\logic\state\State.h" />
+    <ClInclude Include="src\render\scene\Camera.h" />
     <ClInclude Include="src\render\Mesh.h" />
     <ClInclude Include="src\render\opengl\Attribute.h" />
     <ClInclude Include="src\render\opengl\Enums.h" />
@@ -250,6 +251,7 @@
     <ClInclude Include="src\ui\Mouse.h" />
     <ClInclude Include="src\util\MathConstants.h" />
     <ClInclude Include="src\util\MathGeneric.h" />
+    <ClInclude Include="src\util\MathGeometry.h" />
     <ClInclude Include="src\util\MathOperators.h" />
     <ClInclude Include="src\util\Maths.h" />
     <ClInclude Include="src\util\PhysicalOperators.h" />
@@ -282,6 +284,7 @@
     <ClCompile Include="src\render\opengl\ubo.cpp" />
     <ClCompile Include="src\render\opengl\vao.cpp" />
     <ClCompile Include="src\render\opengl\vbo.cpp" />
+    <ClCompile Include="src\render\scene\Camera.cpp" />
     <ClCompile Include="src\render\scene\Detail\SceneLayer.cpp" />
     <ClCompile Include="src\render\scene\Scene.cpp" />
     <ClCompile Include="src\render\uboRegistry.cpp" />

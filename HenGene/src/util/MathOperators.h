@@ -23,4 +23,9 @@ namespace math
 	{
 		return { pow(base.x, exp), pow(base.y, exp), pow(base.z, exp), pow(base.w, exp) };
 	}
+
+	template<typename T, typename P> constexpr T lerp(const T & v1, const T & v2, const P & dt)
+	{
+		return static_cast<T>(v1 * (P{ 1 } - dt) + v2 * dt);
+	}
 }
