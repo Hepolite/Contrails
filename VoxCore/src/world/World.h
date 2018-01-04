@@ -5,6 +5,7 @@
 #include "world/BlockRegistry.h"
 
 #include <memory>
+#include <string>
 
 namespace world
 {
@@ -37,6 +38,8 @@ namespace world
 		void read(data::WorldQuery & query) const;
 
 	private:
+		std::string m_name;
+
 		struct Impl;
 		std::unique_ptr<Impl> m_impl = nullptr;
 	};

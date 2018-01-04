@@ -11,9 +11,9 @@ namespace logic
 	{
 		struct Listener
 		{
-			const std::type_index m_identifier;
-			const Priority m_priority;
-			const unsigned int m_id;
+			std::type_index m_identifier = std::type_index(typeid(void));
+			Priority m_priority = Priority::MONITOR;
+			unsigned int m_id = 0u;
 		};
 	}
 }

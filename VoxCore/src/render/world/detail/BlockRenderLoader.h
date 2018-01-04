@@ -18,9 +18,9 @@ namespace render
 		class BlockRenderLoader
 		{
 		public:
-			inline void injectBlockRegistry(const ::world::BlockRegistry & registry) { m_registry = &registry; }
-			inline void injectBlocks(BlockRenderRegistry & blocks) { m_blocks = &blocks; }
-			inline void injectTextureAtlas(BlockTextureAtlas & atlas) { m_atlas = &atlas; }
+			inline void inject(const ::world::BlockRegistry & registry) { m_registry = &registry; }
+			inline void inject(BlockRenderRegistry & blocks) { m_blocks = &blocks; }
+			inline void inject(BlockTextureAtlas & atlas) { m_atlas = &atlas; }
 
 			void loadBlocks(const io::Folder & folder) const;
 			void loadBlock(const io::File & file) const;
@@ -34,7 +34,7 @@ namespace render
 		class BlockRenderVariantLoader
 		{
 		public:
-			inline void injectTextureAtlas(BlockTextureAtlas & atlas) { m_atlas = &atlas; }
+			inline void inject(BlockTextureAtlas & atlas) { m_atlas = &atlas; }
 
 			void loadVariant(const pugi::xml_node & variant);
 			void loadModel(const pugi::xml_node & model);

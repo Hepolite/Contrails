@@ -3,41 +3,37 @@
 
 #include "render/world/BlockRenderRegistry.h"
 #include "render/world/BlockTextureAtlas.h"
-
 #include "render/world/detail/BlockRenderLoader.h"
-
+/*
 struct render::world::WorldRenderer::Impl
 {
 	BlockRenderRegistry m_blocks;
 	BlockTextureAtlas m_atlas;
 
-	const::world::BlockRegistry * m_registry = nullptr;
+	::world::World * m_world = nullptr;
 	logic::event::EventBus * m_bus = nullptr;
 };
-
+*/
 render::world::WorldRenderer::WorldRenderer()
 {
-	m_impl = std::make_unique<Impl>();
+	//m_impl = std::make_unique<Impl>();
 }
 render::world::WorldRenderer::~WorldRenderer() = default;
 
-void render::world::WorldRenderer::injectBlockRegistry(const::world::BlockRegistry & registry)
+void render::world::WorldRenderer::inject(logic::event::EventBus & bus)
 {
-	m_impl->m_registry = &registry;
+	//m_impl->m_bus = &bus;
 }
-void render::world::WorldRenderer::injectEventBus(logic::event::EventBus & bus)
+void render::world::WorldRenderer::inject(::world::World & world)
 {
-	m_impl->m_bus = &bus;
+	//m_impl->m_world = &world;
 }
 
-void render::world::WorldRenderer::load(const io::Folder & data)
+void render::world::WorldRenderer::load(const ::world::BlockRegistry & registry, const io::Folder & data)
 {
-	if (m_impl->m_registry == nullptr)
-		throw std::exception("Attempted to load world renderer resources without block registry");
-
 	BlockRenderLoader loader;
-	loader.injectBlockRegistry(*m_impl->m_registry);
-	loader.injectBlocks(m_impl->m_blocks);
-	loader.injectTextureAtlas(m_impl->m_atlas);
+	loader.inject(registry);
+	//loader.inject(m_impl->m_blocks);
+	//loader.inject(m_impl->m_atlas);
 	loader.loadBlocks(data);
 }

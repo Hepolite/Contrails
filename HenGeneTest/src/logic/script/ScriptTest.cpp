@@ -12,11 +12,14 @@ namespace logic
 		TEST_CLASS(ScriptTest)
 		{
 		public:
-			TEST_METHOD(Script_getHandle)
+			TEST_METHOD(Script_execute)
 			{
 				Script script;
 
-				auto& handle = script.getHandle();
+				Assert::IsTrue(script.execute("var foo = 3;"));
+				Assert::IsTrue(script.execute([]() {}));
+				Assert::IsFalse(script.execute("malformed code"));
+				Assert::IsFalse(script.execute([]() { throw std::exception(""); }));
 			}
 		};
 	}

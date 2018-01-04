@@ -29,6 +29,9 @@ namespace logic
 
 			chaiscript::ChaiScript & getHandle() const;
 
+			bool execute(const std::function<void()> & shell) const;
+			bool execute(const std::string & code) const;
+
 		private:
 			struct Impl;
 			std::unique_ptr<Impl> m_impl;

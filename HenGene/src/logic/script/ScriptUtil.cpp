@@ -3,29 +3,21 @@
 
 #include <plog/Log.h>
 
-bool logic::script::util::execute(const Script & script, const std::function<void()> & shell)
+namespace
 {
-	try
-	{
-		shell();
-		return true;
-	}
-	catch (const std::exception & e)
-	{
-		LOG_WARNING << "Error executing shell:" << std::endl << e.what();
-		return false;
-	}
+	std::vector<std::function<void(logic::script::Script &)>> m_data;
 }
-bool logic::script::util::execute(const Script & script, const std::string & code)
+
+void logic::script::util::clearScriptData()
 {
-	try
-	{
-		script.getHandle().eval(code);
-		return true;
-	}
-	catch (const std::exception & e)
-	{
-		LOG_WARNING << "Error in script " << std::endl << code << std::endl << e.what();
-		return false;
-	}
+}
+void logic::script::util::registerScriptData(const std::function<void(Script&)> & data)
+{
+	if (data != nullptr)
+		m_data.push_back(data);
+}
+void logic::script::util::applyScriptData(Script & script)
+{
+	for (const auto & data : m_data)
+		data(script);
 }

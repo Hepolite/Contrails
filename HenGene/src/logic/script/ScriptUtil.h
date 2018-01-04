@@ -4,6 +4,7 @@
 #include "logic/script/Script.h"
 
 #include <chaiscript/chaiscript.hpp>
+#include <functional>
 #include <vector>
 
 namespace logic
@@ -12,6 +13,12 @@ namespace logic
 	{
 		namespace util
 		{
+			void clearScriptData();
+			void registerScriptData(const std::function<void(Script &)> & data);
+			void applyScriptData(Script & script);
+
+			// ...
+
 			template<typename Enum>
 			void addEnum(Script & script, const std::string & name, const std::vector<std::pair<Enum, std::string>> & pairs);
 			template<typename Type>
@@ -44,9 +51,9 @@ namespace logic
 			template<typename Ret, typename ...Params>
 			Ret execute(const Script & script, const std::function<Ret(Params...)> & shell, const Params & ...params);
 			template<typename ...Params>
-			bool execute(const Script & script, const std::function<void(Params...)> & shell, const Params & ...params);
-			bool execute(const Script & script, const std::function<void()> & shell);
-			bool execute(const Script & script, const std::string & code);
+			inline bool execute(const Script & script, const std::function<void(Params...)> & shell, const Params & ...params);
+			inline bool execute(const Script & script, const std::function<void()> & shell) { return script.execute(shell); }
+			inline bool execute(const Script & script, const std::string & code) { return script.execute(code); }
 
 			template<typename Type>
 			Type get(const Script & script, const std::string & expression, const Type& def = Type{});

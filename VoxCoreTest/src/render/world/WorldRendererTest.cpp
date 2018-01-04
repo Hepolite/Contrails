@@ -15,11 +15,7 @@ namespace render
 			TEST_METHOD(WorldRenderer_load)
 			{
 				WorldRenderer renderer;
-				Assert::ExpectException<std::exception>([&renderer]() { renderer.load(""); });
-
-				::world::BlockRegistry registry;
-				renderer.injectBlockRegistry(registry);
-				renderer.load("");
+				renderer.load({}, "");
 			}
 		};
 	}

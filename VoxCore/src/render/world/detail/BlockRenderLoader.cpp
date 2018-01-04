@@ -51,7 +51,7 @@ void render::world::BlockRenderLoader::loadBlock(const io::File & file) const
 			const std::string blockName = file.getName() + (attrName.empty() ? "" : ":" + attrName);
 
 			BlockRenderVariantLoader loader;
-			loader.injectTextureAtlas(*m_atlas);
+			loader.inject(*m_atlas);
 			loader.loadVariant(variant.child(NODE_VISUAL));
 			(*m_blocks)[(*m_registry)[blockName].m_id] = loader.extractBlock();
 		}

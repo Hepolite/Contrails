@@ -36,6 +36,14 @@ namespace logic
 		TEST_CLASS(ScriptUtilTest)
 		{
 		public:
+			TEST_METHOD(ScriptUtil_scriptData)
+			{
+				util::registerScriptData([](Script & script) { util::addVar(script, 42, "answer"); });
+
+				Script script;
+				Assert::AreEqual(42, util::get<int>(script, "answer"));
+			}
+
 			TEST_METHOD(ScriptUtil_add)
 			{
 				int var = 42;

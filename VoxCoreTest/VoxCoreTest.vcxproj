@@ -216,6 +216,7 @@
     <ClCompile Include="src\world\detail\data\IndexingTest.cpp" />
     <ClCompile Include="src\world\detail\data\LightTest.cpp" />
     <ClCompile Include="src\world\detail\data\WorldQueryTest.cpp" />
+    <ClCompile Include="src\world\UniverseTest.cpp" />
     <ClCompile Include="src\world\util\SideTest.cpp" />
     <ClCompile Include="src\world\WorldTest.cpp" />
   </ItemGroup>
