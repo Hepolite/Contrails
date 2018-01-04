@@ -269,6 +269,7 @@
     <ClCompile Include="src\io\Folder.cpp" />
     <ClCompile Include="src\logic\event\EventBus.cpp" />
     <ClCompile Include="src\core\allegro\Allegro.cpp" />
+    <ClCompile Include="src\logic\event\EventListener.cpp" />
     <ClCompile Include="src\logic\event\EventQueue.cpp" />
     <ClCompile Include="src\logic\MainLoop.cpp" />
     <ClCompile Include="src\logic\script\Script.cpp" />

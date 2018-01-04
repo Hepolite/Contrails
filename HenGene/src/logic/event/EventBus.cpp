@@ -1,7 +1,6 @@
 
 #include "EventBus.h"
 
-
 void logic::event::EventBus::remove(const Listener & listener)
 {
 	const auto& itMap = m_listeners.find(listener.m_identifier);

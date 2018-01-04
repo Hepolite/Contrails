@@ -16,6 +16,14 @@ namespace logic
 		class EventBus
 		{
 		public:
+			EventBus() = default;
+			EventBus(const EventBus &) = delete;
+			EventBus(EventBus &&) = delete;
+			~EventBus() = default;
+
+			EventBus & operator=(const EventBus &) = delete;
+			EventBus & operator=(EventBus &&) = delete;
+
 			template<typename Event> void post(Event & event) const;
 			template<typename Event> void post(Event && event) const;
 
@@ -77,13 +85,13 @@ template<typename Event, logic::event::Priority priority>
 inline logic::event::Listener logic::event::EventBus::add(const Callback<Event> & callback)
 {
 	getCollection<Event, priority>().m_callbacks.emplace(m_uniqueId, callback);
-	return Listener{ typeid(Event), priority, m_uniqueId++ };
+	return Listener{ typeid(Event), priority, m_uniqueId++, this };
 }
 template<typename Event>
 inline logic::event::Listener logic::event::EventBus::add(const CallbackConst<Event> & callback)
 {
 	getCollection<Event>().m_callbacks.emplace(m_uniqueId, callback);
-	return Listener{ typeid(Event), Priority::MONITOR, m_uniqueId++ };
+	return Listener{ typeid(Event), Priority::MONITOR, m_uniqueId++, this };
 }
 
 template<typename Event, logic::event::Priority priority>

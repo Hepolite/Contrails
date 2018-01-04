@@ -204,6 +204,7 @@
     <ClCompile Include="src\io\FileTest.cpp" />
     <ClCompile Include="src\io\FolderTest.cpp" />
     <ClCompile Include="src\logic\event\EventBusTest.cpp" />
+    <ClCompile Include="src\logic\event\EventListenerTest.cpp" />
     <ClCompile Include="src\logic\event\EventQueueTest.cpp" />
     <ClCompile Include="src\logic\MainLoopTest.cpp" />
     <ClCompile Include="src\logic\script\ScriptTest.cpp" />

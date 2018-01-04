@@ -18,7 +18,6 @@ namespace logic
 			TEST_METHOD(EventBus_add)
 			{
 				EventBus bus;
-
 				const auto listenerA = bus.add<float, Priority::EARLY>([](auto& event) {});
 				const auto listenerB = bus.add<int>([](auto& event) {});
 
@@ -47,8 +46,8 @@ namespace logic
 			TEST_METHOD(EventBus_post)
 			{
 				EventBus bus;
-				bus.add<int, Priority::EARLY>([](auto& event) { event += 3; });
-				bus.add<int, Priority::LATE>([](auto& event) { event /= 2; });
+				const auto listenerA = bus.add<int, Priority::EARLY>([](auto& event) { event += 3; });
+				const auto listenerB = bus.add<int, Priority::LATE>([](auto& event) { event /= 2; });
 
 				int event = -7;
 				bus.post(event);
