@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<shader type="fragment">
+void main()
+{
+  gl_FragColor = vec4(0, 0, 0, 0);
+}
+</shader>
+<shader type="vertex" file="data/shaders/test.vs" />

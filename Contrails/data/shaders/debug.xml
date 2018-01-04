@@ -1,2 +1,15 @@
-<shader type="fragment" file="data/shaders/debug.fs" />
-<shader type="vertex" file="data/shaders/debug.vs" />
+<?xml version="1.0" ?>
+<shader type="fragment">
+void main()
+{
+  gl_FragColor = vec4(0, 0, 0, 0);
+}
+</shader>
+<shader type="vertex">
+layout(location = 0) in vec3 inPosition;
+
+void main()
+{
+  gl_Position = vec4(inPosition, 1.0);
+}
+</shader>
