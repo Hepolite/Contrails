@@ -209,6 +209,8 @@
     <ClCompile Include="src\logic\script\ScriptTest.cpp" />
     <ClCompile Include="src\logic\script\ScriptUtilTest.cpp" />
     <ClCompile Include="src\render\allegro\AllegroTest.cpp" />
+    <ClCompile Include="src\render\MeshTest.cpp" />
+    <ClCompile Include="src\render\opengl\AttributeTest.cpp" />
     <ClCompile Include="src\render\opengl\fboTest.cpp" />
     <ClCompile Include="src\render\opengl\ProgramTest.cpp" />
     <ClCompile Include="src\render\opengl\ShaderTest.cpp" />

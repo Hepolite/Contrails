@@ -21,6 +21,34 @@ namespace render
 			STREAM_DRAW		= 0x88E0,	// Data will be modified once and used at most a few times
 		};
 
+		/* Types of data format used by OpenGL */
+		enum class DataFormat
+		{
+			BYTE			= 0x1400,
+			UNSIGNED_BYTE	= 0x1401,
+			SHORT			= 0x1402,
+			UNSIGNED_SHORT	= 0x1403,
+			INT				= 0x1404,
+			UNSIGNED_INT	= 0x1405,
+			FLOAT			= 0x1406,
+			DOUBLE			= 0x140A,
+		};
+
+		/* Types of methods for rendering geometry */
+		enum class RenderMode
+		{
+			POINTS			= 0x0000,
+			LINES			= 0x0001,
+			LINE_LOOP		= 0x0002,
+			LINE_STRIP		= 0x0003,
+			TRIANGLES		= 0x0004,
+			TRIANGLE_STRIP	= 0x0005,
+			TRIANGLE_FAN	= 0x0006,
+			QUADS			= 0x0007,
+			QUAD_STRIP		= 0x0008,
+			POLYGON			= 0x0009,
+		};
+
 		/* Types of shaders */
 		enum class ShaderType
 		{

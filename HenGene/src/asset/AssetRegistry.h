@@ -39,7 +39,7 @@ namespace asset
 }
 
 template<typename Type>
-inline asset::Asset<Type>& asset::AssetRegistry::add(const std::string & name)
+inline asset::Asset<Type> & asset::AssetRegistry::add(const std::string & name)
 {
 	auto it = m_data.find(typeid(Type));
 	if (it == m_data.end())

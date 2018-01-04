@@ -17,6 +17,7 @@ int main(int argc, char* argv[])
 		core::Settings settings;
 		core::Engine engine{ settings };
 
+		engine.initialize();
 		engine.setState(std::make_unique<logic::state::StateMainMenu>());
 		engine.start();
 	}

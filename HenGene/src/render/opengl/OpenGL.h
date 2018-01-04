@@ -15,4 +15,4 @@ namespace render
 	}
 }
 
-#define HAS_GL_ERROR hasOpenGLError(__func__, __LINE__);
+#define HAS_GL_ERROR ::render::opengl::hasOpenGLError(__func__, __LINE__)

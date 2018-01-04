@@ -1,8 +1,0 @@
-﻿2018-01-04 13:40:56.845 INFO  [9328] [core::allegro::Allegro::Allegro@40] Initializing Allegro...
-2018-01-04 13:40:56.849 INFO  [9328] [`anonymous-namespace'::install@27] Initialized image addon
-2018-01-04 13:40:56.849 INFO  [9328] [`anonymous-namespace'::install@27] Initialized primitives addon
-2018-01-04 13:40:56.849 INFO  [9328] [`anonymous-namespace'::install@20] Initialized font addon
-2018-01-04 13:40:56.850 INFO  [9328] [`anonymous-namespace'::install@27] Initialized truetype font addon
-2018-01-04 13:40:56.850 INFO  [9328] [`anonymous-namespace'::install@27] Initialized keyboard
-2018-01-04 13:40:56.850 INFO  [9328] [`anonymous-namespace'::install@27] Initialized mouse
-2018-01-04 13:40:59.873 INFO  [9328] [core::allegro::Allegro::~Allegro@61] Shutting down Allegro

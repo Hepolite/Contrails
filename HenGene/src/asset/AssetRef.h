@@ -11,7 +11,7 @@ namespace asset
 	class Ref
 	{
 	public:
-		Ref() = delete;
+		Ref() = default;
 		Ref(Asset<Type> * handle);
 		Ref(const Ref & other);
 		Ref(Ref && other);

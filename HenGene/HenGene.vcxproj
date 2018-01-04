@@ -227,6 +227,8 @@
     <ClInclude Include="src\logic\script\Script.h" />
     <ClInclude Include="src\logic\script\ScriptUtil.h" />
     <ClInclude Include="src\logic\state\State.h" />
+    <ClInclude Include="src\render\Mesh.h" />
+    <ClInclude Include="src\render\opengl\Attribute.h" />
     <ClInclude Include="src\render\opengl\Enums.h" />
     <ClInclude Include="src\render\opengl\fbo.h" />
     <ClInclude Include="src\render\opengl\OpenGL.h" />
@@ -270,6 +272,8 @@
     <ClCompile Include="src\logic\script\Script.cpp" />
     <ClCompile Include="src\logic\script\ScriptUtil.cpp" />
     <ClCompile Include="src\render\core\Pipeline.cpp" />
+    <ClCompile Include="src\render\Mesh.cpp" />
+    <ClCompile Include="src\render\opengl\Attribute.cpp" />
     <ClCompile Include="src\render\opengl\fbo.cpp" />
     <ClCompile Include="src\render\opengl\OpenGL.cpp" />
     <ClCompile Include="src\render\opengl\Program.cpp" />

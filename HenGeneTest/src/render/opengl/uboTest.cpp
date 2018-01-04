@@ -75,7 +75,6 @@ namespace render
 				ubo.add<float>("float");
 				ubo.add<glm::vec3>("vec");
 				ubo.add<glm::mat4>("mat");
-				Assert::IsTrue(ubo.bind());
 				Assert::IsTrue(ubo.build());
 
 				Assert::IsTrue(ubo.set("mat", matOut));

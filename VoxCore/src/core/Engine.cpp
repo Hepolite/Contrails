@@ -60,17 +60,25 @@ core::Engine::Engine(const Settings & settings)
 }
 core::Engine::~Engine() = default;
 
-void core::Engine::setState(std::unique_ptr<logic::state::State>&& state)
+void core::Engine::setState(std::unique_ptr<logic::state::State> && state)
 {
+	if (m_impl->m_state != nullptr)
+		m_impl->m_state->deinitialize(*this);
 	m_impl->m_state = std::move(state);
+	if (m_impl->m_state != nullptr)
+		m_impl->m_state->initialize(*this);
+}
+void core::Engine::initialize()
+{
+	setup::initialize(*this);
 }
 void core::Engine::start()
 {
-	setup::initialize(*this);
 	m_impl->m_loop.process(
 		[this](auto & t, auto & dt) { process(t, dt); },
 		[this](auto & t, auto & dt) { render(t, dt); }
 	);
+	setState(nullptr);
 }
 void core::Engine::stop()
 {
@@ -88,5 +96,6 @@ void core::Engine::render(const Time & t, const Time & dt) const
 
 asset::AssetRegistry & core::Engine::getAssets() { return m_impl->m_assetRegistry; }
 logic::event::EventBus & core::Engine::getEventBus() { return m_impl->m_eventBus; }
+render::scene::Scene & core::Engine::getScene() { return m_impl->m_scene; }
 render::uboRegistry & core::Engine::getUboRegistry() { return m_impl->m_uboRegistry; }
 world::Universe & core::Engine::getUniverse() { return m_impl->m_universe; }

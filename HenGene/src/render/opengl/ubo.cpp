@@ -29,6 +29,7 @@ render::opengl::ubo & render::opengl::ubo::operator=(ubo && other) noexcept
 
 bool render::opengl::ubo::build() const
 {
+	bind();
 	if (!m_vbo.reserve(m_size))
 		return false;
 	glBindBufferBase(GL_UNIFORM_BUFFER, m_port, getHandle());
@@ -53,6 +54,7 @@ bool render::opengl::ubo::get(const std::string & name, unsigned int size, void 
 		LOG_WARNING << name << " does not exist or wrong input size " << size << " (expected " << itSize->second << ")";
 		return false;
 	}
+	bind();
 	return m_vbo.retrieve(size, data, itOffset->second);
 }
 bool render::opengl::ubo::set(const std::string & name, unsigned int size, const void * data) const
@@ -64,5 +66,6 @@ bool render::opengl::ubo::set(const std::string & name, unsigned int size, const
 		LOG_WARNING << name << " does not exist or wrong input size " << size << " (expected " << itSize->second << ")";
 		return false;
 	}
+	bind();
 	return m_vbo.buffer(size, data, itOffset->second);
 }

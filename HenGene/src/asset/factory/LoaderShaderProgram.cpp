@@ -18,6 +18,8 @@ namespace
 
 void asset::util::LoaderShaderProgram::load(render::opengl::Program & asset, const io::File & file, const render::uboRegistry & registry) const
 {
+	asset.setName(file.getPath());
+
 	pugi::xml_document doc;
 	doc.load_file(file.getPath().c_str());
 
@@ -48,7 +50,7 @@ void asset::util::LoaderShaderProgram::bindPorts(render::opengl::Program & asset
 	for (const auto & binding : registry.getBindings())
 	{
 		const auto index = glGetUniformBlockIndex(asset.getHandle(), binding.first.c_str());
-		if (index == GL_INVALID_INDEX)
+		if (HAS_GL_ERROR || index == GL_INVALID_INDEX)
 			LOG_WARNING << "Failed to bind " << binding.first << " to shader program " << asset.getName();
 		else
 			glUniformBlockBinding(asset.getHandle(), index, binding.second);
