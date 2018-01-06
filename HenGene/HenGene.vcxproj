@@ -216,6 +216,11 @@
     <ClInclude Include="src\asset\factory\LoaderShaderProgram.h" />
     <ClInclude Include="src\io\File.h" />
     <ClInclude Include="src\io\Folder.h" />
+    <ClInclude Include="src\logic\ecs\detail\ComponentData.h" />
+    <ClInclude Include="src\logic\ecs\detail\ComponentMask.h" />
+    <ClInclude Include="src\logic\ecs\detail\ComponentStorage.h" />
+    <ClInclude Include="src\logic\ecs\System.h" />
+    <ClInclude Include="src\logic\ecs\SystemRegistry.h" />
     <ClInclude Include="src\logic\event\EventBus.h" />
     <ClInclude Include="src\logic\event\EventListener.h" />
     <ClInclude Include="src\logic\event\EventListenerCollection.h" />
@@ -227,7 +232,7 @@
     <ClInclude Include="src\logic\script\Script.h" />
     <ClInclude Include="src\logic\script\ScriptUtil.h" />
     <ClInclude Include="src\logic\state\State.h" />
-    <ClInclude Include="src\render\scene\Camera.h" />
+    <ClInclude Include="src\logic\ecs\detail\Entity.h" />
     <ClInclude Include="src\render\Mesh.h" />
     <ClInclude Include="src\render\opengl\Attribute.h" />
     <ClInclude Include="src\render\opengl\Enums.h" />
@@ -240,11 +245,8 @@
     <ClInclude Include="src\render\opengl\vao.h" />
     <ClInclude Include="src\render\opengl\vbo.h" />
     <ClInclude Include="src\render\core\Pipeline.h" />
-    <ClInclude Include="src\render\RenderLayer.h" />
-    <ClInclude Include="src\render\scene\detail\SceneLayer.h" />
-    <ClInclude Include="src\render\scene\Scene.h" />
-    <ClInclude Include="src\render\scene\detail\SceneNode.h" />
-    <ClInclude Include="src\render\scene\Screen.h" />
+    <ClInclude Include="src\render\RenderPass.h" />
+    <ClInclude Include="src\core\scene\__Structure__.h" />
     <ClInclude Include="src\render\uboRegistry.h" />
     <ClInclude Include="src\ui\Display.h" />
     <ClInclude Include="src\ui\Keyboard.h" />
@@ -267,6 +269,8 @@
     <ClCompile Include="src\asset\factory\LoaderShaderProgram.cpp" />
     <ClCompile Include="src\io\File.cpp" />
     <ClCompile Include="src\io\Folder.cpp" />
+    <ClCompile Include="src\logic\ecs\System.cpp" />
+    <ClCompile Include="src\logic\ecs\SystemRegistry.cpp" />
     <ClCompile Include="src\logic\event\EventBus.cpp" />
     <ClCompile Include="src\core\allegro\Allegro.cpp" />
     <ClCompile Include="src\logic\event\EventListener.cpp" />
@@ -285,9 +289,6 @@
     <ClCompile Include="src\render\opengl\ubo.cpp" />
     <ClCompile Include="src\render\opengl\vao.cpp" />
     <ClCompile Include="src\render\opengl\vbo.cpp" />
-    <ClCompile Include="src\render\scene\Camera.cpp" />
-    <ClCompile Include="src\render\scene\Detail\SceneLayer.cpp" />
-    <ClCompile Include="src\render\scene\Scene.cpp" />
     <ClCompile Include="src\render\uboRegistry.cpp" />
     <ClCompile Include="src\ui\Display.cpp" />
     <ClCompile Include="src\util\StringGeneric.cpp" />

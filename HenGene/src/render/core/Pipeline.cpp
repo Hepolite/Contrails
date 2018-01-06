@@ -11,8 +11,5 @@ void render::core::Pipeline::render(const Time & t, const Time & dt) const
 	glClearDepth(1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	if (m_scene != nullptr)
-		m_scene->render(t, dt);
-
 	al_flip_display();
 }

@@ -7,8 +7,6 @@
 #include "logic/event/EventBus.h"
 #include "logic/event/EventQueue.h"
 #include "logic/MainLoop.h"
-#include "render/core/Pipeline.h"
-#include "render/scene/Scene.h"
 #include "render/uboRegistry.h"
 #include "render/world/UniverseRenderer.h"
 #include "ui/Display.h"
@@ -24,8 +22,6 @@ struct core::Engine::Impl
 		m_eventBus(),
 		m_eventQueue(),
 		m_loop(settings.m_loop.m_fps, settings.m_loop.m_ups),
-		m_pipeline(),
-		m_scene(),
 		m_uboRegistry()
 	{}
 	~Impl() = default;
@@ -37,8 +33,6 @@ struct core::Engine::Impl
 	logic::event::EventBus m_eventBus;
 	logic::event::EventQueue m_eventQueue;
 	logic::MainLoop m_loop;
-	render::core::Pipeline m_pipeline;
-	render::scene::Scene m_scene;
 	render::uboRegistry m_uboRegistry;
 
 	std::unique_ptr<logic::state::State> m_state = nullptr;
@@ -54,7 +48,6 @@ core::Engine::Engine(const Settings & settings)
 	m_impl = std::make_unique<Impl>(settings);
 
 	m_impl->m_eventQueue.add(al_get_display_event_source(m_impl->m_display.getHandle()));
-	m_impl->m_pipeline.inject(m_impl->m_scene);
 	m_impl->m_universeRenderer.inject(m_impl->m_universe);
 	m_impl->m_universeRenderer.inject(m_impl->m_eventBus);
 }
@@ -91,11 +84,10 @@ void core::Engine::process(const Time & t, const Time & dt)
 }
 void core::Engine::render(const Time & t, const Time & dt) const
 {
-	m_impl->m_pipeline.render(t, dt);
+	
 }
 
 asset::AssetRegistry & core::Engine::getAssets() { return m_impl->m_assetRegistry; }
 logic::event::EventBus & core::Engine::getEventBus() { return m_impl->m_eventBus; }
-render::scene::Scene & core::Engine::getScene() { return m_impl->m_scene; }
 render::uboRegistry & core::Engine::getUboRegistry() { return m_impl->m_uboRegistry; }
 world::Universe & core::Engine::getUniverse() { return m_impl->m_universe; }

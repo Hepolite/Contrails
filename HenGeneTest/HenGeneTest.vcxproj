@@ -203,6 +203,10 @@
     <ClCompile Include="src\asset\factory\LoaderShaderProgramTest.cpp" />
     <ClCompile Include="src\io\FileTest.cpp" />
     <ClCompile Include="src\io\FolderTest.cpp" />
+    <ClCompile Include="src\logic\ecs\detail\ComponentDataTest.cpp" />
+    <ClCompile Include="src\logic\ecs\detail\ComponentStorageTest.cpp" />
+    <ClCompile Include="src\logic\ecs\SystemRegistryTest.cpp" />
+    <ClCompile Include="src\logic\ecs\SystemTest.cpp" />
     <ClCompile Include="src\logic\event\EventBusTest.cpp" />
     <ClCompile Include="src\logic\event\EventListenerTest.cpp" />
     <ClCompile Include="src\logic\event\EventQueueTest.cpp" />
@@ -219,8 +223,6 @@
     <ClCompile Include="src\render\opengl\uboTest.cpp" />
     <ClCompile Include="src\render\opengl\vaoTest.cpp" />
     <ClCompile Include="src\render\opengl\vboTest.cpp" />
-    <ClCompile Include="src\render\scene\detail\SceneLayerTest.cpp" />
-    <ClCompile Include="src\render\scene\SceneTest.cpp" />
     <ClCompile Include="src\render\uboRegistryTest.cpp" />
     <ClCompile Include="src\SanityTest.cpp" />
     <ClCompile Include="src\ui\DisplayTest.cpp" />

@@ -34,7 +34,6 @@ namespace core
 
 		asset::AssetRegistry & getAssets();
 		logic::event::EventBus & getEventBus();
-		render::scene::Scene & getScene();
 		render::uboRegistry & getUboRegistry();
 		world::Universe & getUniverse();
 

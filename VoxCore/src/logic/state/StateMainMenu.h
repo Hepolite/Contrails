@@ -5,7 +5,6 @@
 #include "logic/state/State.h"
 #include "render/Mesh.h"
 #include "render/opengl/Program.h"
-#include "render/scene/Scene.h"
 
 #include <glm/vec3.hpp>
 
@@ -23,7 +22,6 @@ namespace logic
 		private:
 			void render(const Time & t, const Time & dt) const;
 
-			render::scene::SceneRef m_ref;
 			render::Mesh<glm::vec3> m_mesh;
 			asset::Ref<render::opengl::Program> m_program;
 		};

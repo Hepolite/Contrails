@@ -14,8 +14,6 @@ namespace
 
 void logic::state::StateMainMenu::initialize(core::Engine & engine)
 {
-	m_ref = engine.getScene().add([this](auto & t, auto & dt) { render(t, dt); }, render::RenderLayer::SOLID);
-
 	m_mesh.getIndiceData() = { 0, 1, 2 };
 	m_mesh.getVertexData() = {
 		{-0.5f,-0.5f, 0.0f },
@@ -30,7 +28,6 @@ void logic::state::StateMainMenu::initialize(core::Engine & engine)
 }
 void logic::state::StateMainMenu::deinitialize(core::Engine & engine)
 {
-	engine.getScene().remove(m_ref);
 }
 
 void logic::state::StateMainMenu::process(const Time & t, const Time & dt)

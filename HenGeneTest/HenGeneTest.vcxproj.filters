@@ -99,12 +99,6 @@
     <ClCompile Include="src\render\opengl\fboTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\render\scene\detail\SceneLayerTest.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\render\scene\SceneTest.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\render\MeshTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -115,6 +109,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\logic\event\EventListenerTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\logic\ecs\SystemTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\logic\ecs\detail\ComponentStorageTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\logic\ecs\detail\ComponentDataTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\logic\ecs\SystemRegistryTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

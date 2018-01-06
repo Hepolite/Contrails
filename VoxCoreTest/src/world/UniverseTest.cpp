@@ -15,7 +15,7 @@ namespace world
 		{
 			bool created = false;
 			logic::event::EventBus bus;
-			bus.add<logic::event::WorldCreate>([&created](auto &) { created = true; });
+			const auto listener = bus.add<logic::event::WorldCreate>([&created](auto &) { created = true; });
 
 			Universe universe;
 			universe.inject(bus);
@@ -27,7 +27,7 @@ namespace world
 		{
 			bool destroyed = false;
 			logic::event::EventBus bus;
-			bus.add<logic::event::WorldDestroy>([&destroyed](auto &) { destroyed = true; });
+			const auto listener = bus.add<logic::event::WorldDestroy>([&destroyed](auto &) { destroyed = true; });
 
 			Universe universe;
 			universe.inject(bus);
