@@ -3,18 +3,30 @@
 
 void logic::ecs::SystemMovement::process(const Time & t, const Time & dt) const
 {
-	auto & locations = getData<ComponentLocation>();
-	auto & velocities = getData<ComponentVelocity>();
+	auto & position = getData<ComponentPosition>();
+	auto & velocity = getData<ComponentVelocity>();
 
 	for (const auto & entity : *this)
-		locations[entity].m_pos += velocities[entity].m_vel * dt;
+		position[entity].m_pos += velocity[entity].m_vel * dt;
 }
 
-void logic::ecs::SystemAccelerate::process(const Time & t, const Time & dt) const
+void logic::ecs::SystemAcceleration::process(const Time & t, const Time & dt) const
 {
-	auto & velocities = getData<ComponentVelocity>();
-	auto & accelerations = getData<ComponentAcceleration>();
+	auto & velocity = getData<ComponentVelocity>();
+	auto & acceleration = getData<ComponentAcceleration>();
 
 	for (const auto & entity : *this)
-		velocities[entity].m_vel += accelerations[entity].m_acc * dt;
+	{
+		velocity[entity].m_vel += acceleration[entity].m_acc * dt;
+		acceleration[entity].m_acc = AccelerationVec{};
+	}
+}
+
+void logic::ecs::SystemGravitation::process(const Time & t, const Time & dt) const
+{
+	auto & acceleration = getData<ComponentAcceleration>();
+	auto & gravity = getData<ComponentGravity>();
+
+	for (const auto & entity : *this)
+		acceleration[entity].m_acc += gravity[entity].m_grv;
 }

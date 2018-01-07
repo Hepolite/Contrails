@@ -8,6 +8,15 @@
 
 #include <vector>
 
+#define SIMPLE_SYSTEM(SystemName, ...) \
+	SystemName : public System<__VA_ARGS__> \
+	{ \
+	public: \
+		SystemName() = default; \
+		virtual ~SystemName() = default; \
+		virtual void process(const Time & t, const Time & dt) const override final; \
+	}
+
 namespace logic
 {
 	namespace ecs

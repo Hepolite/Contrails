@@ -8,11 +8,12 @@ namespace logic
 {
 	namespace ecs
 	{
-		struct ComponentLocation
+		struct ComponentPosition
 		{
 			world::World * m_world = nullptr;
 			LengthVec m_pos;
 		};
+
 		struct ComponentVelocity
 		{
 			SpeedVec m_vel;
@@ -20,6 +21,10 @@ namespace logic
 		struct ComponentAcceleration
 		{
 			AccelerationVec m_acc;
+		};
+		struct ComponentGravity
+		{
+			AccelerationVec m_grv{ 0.0_ms2, -9.8_ms2, 0.0_ms2 };
 		};
 	}
 }

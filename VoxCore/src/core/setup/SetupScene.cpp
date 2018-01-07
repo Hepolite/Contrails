@@ -16,5 +16,5 @@ void core::setup::detail::setupSystems(scene::Scene & scene)
 {
 	using namespace logic::ecs;
 
-	scene.registerSystems<SystemMovement, SystemAccelerate>();
+	scene.registerSystems<SystemMovement, SystemAcceleration, SystemGravitation>();
 }
