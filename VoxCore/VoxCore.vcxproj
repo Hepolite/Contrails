@@ -194,8 +194,11 @@
     <ClInclude Include="src\core\Engine.h" />
     <ClInclude Include="src\core\Settings.h" />
     <ClInclude Include="src\core\setup\SetupAssets.h" />
+    <ClInclude Include="src\core\setup\SetupScene.h" />
     <ClInclude Include="src\core\setup\SetupScripts.h" />
     <ClInclude Include="src\core\setup\SetupUbos.h" />
+    <ClInclude Include="src\logic\ecs\components\ComponentPhysical.h" />
+    <ClInclude Include="src\logic\ecs\systems\SystemPhysical.h" />
     <ClInclude Include="src\logic\event\ChunkEvents.h" />
     <ClInclude Include="src\logic\event\WorldEvents.h" />
     <ClInclude Include="src\logic\state\StateMainMenu.h" />
@@ -231,8 +234,10 @@
   <ItemGroup>
     <ClCompile Include="src\core\Engine.cpp" />
     <ClCompile Include="src\core\setup\SetupAssets.cpp" />
+    <ClCompile Include="src\core\setup\SetupScene.cpp" />
     <ClCompile Include="src\core\setup\SetupScripts.cpp" />
     <ClCompile Include="src\core\setup\SetupUbos.cpp" />
+    <ClCompile Include="src\logic\ecs\systems\SystemPhysical.cpp" />
     <ClCompile Include="src\logic\state\StateMainMenu.cpp" />
     <ClCompile Include="src\core\setup\Initializer.cpp" />
     <ClCompile Include="src\render\world\BlockTextureAtlas.cpp" />

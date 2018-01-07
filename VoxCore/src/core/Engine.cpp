@@ -3,6 +3,7 @@
 
 #include "asset/AssetRegistry.h"
 #include "core/allegro/Allegro.h"
+#include "core/scene/Scene.h"
 #include "core/setup/Initializer.h"
 #include "logic/event/EventBus.h"
 #include "logic/event/EventQueue.h"
@@ -18,22 +19,19 @@ struct core::Engine::Impl
 	Impl(const Settings & settings) :
 		m_allegro(),
 		m_display(settings.m_display.m_size, settings.m_display.m_fullscreen),
-		m_assetRegistry(),
-		m_eventBus(),
-		m_eventQueue(),
-		m_loop(settings.m_loop.m_fps, settings.m_loop.m_ups),
-		m_uboRegistry()
+		m_loop(settings.m_loop.m_fps, settings.m_loop.m_ups)
 	{}
 	~Impl() = default;
 
 	allegro::Allegro m_allegro;
 	ui::Display m_display;
 
-	asset::AssetRegistry m_assetRegistry;
-	logic::event::EventBus m_eventBus;
-	logic::event::EventQueue m_eventQueue;
 	logic::MainLoop m_loop;
-	render::uboRegistry m_uboRegistry;
+	logic::event::EventBus m_eventBus{};
+	logic::event::EventQueue m_eventQueue{};
+	asset::AssetRegistry m_assetRegistry{};
+	render::uboRegistry m_uboRegistry{};
+	scene::Scene m_scene{};
 
 	std::unique_ptr<logic::state::State> m_state = nullptr;
 	world::Universe m_universe{};
@@ -88,6 +86,7 @@ void core::Engine::render(const Time & t, const Time & dt) const
 }
 
 asset::AssetRegistry & core::Engine::getAssets() { return m_impl->m_assetRegistry; }
+core::scene::Scene & core::Engine::getScene() { return m_impl->m_scene; }
 logic::event::EventBus & core::Engine::getEventBus() { return m_impl->m_eventBus; }
 render::uboRegistry & core::Engine::getUboRegistry() { return m_impl->m_uboRegistry; }
 world::Universe & core::Engine::getUniverse() { return m_impl->m_universe; }

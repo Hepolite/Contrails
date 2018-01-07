@@ -11,13 +11,28 @@ namespace logic
 	namespace ecs
 	{
 		class ComponentDataBase
-		{};
+		{
+		public:
+			ComponentDataBase() = default;
+			ComponentDataBase(const ComponentDataBase &) = delete;
+			ComponentDataBase(ComponentDataBase &&) = delete;
+			virtual ~ComponentDataBase() = default;
+
+			ComponentDataBase & operator=(const ComponentDataBase &) = delete;
+			ComponentDataBase & operator=(ComponentDataBase &&) = delete;
+
+			virtual void clear() = 0;
+			virtual void remove(EntityID entity) = 0;
+		};
 
 		template<typename Component>
 		class ComponentData : public ComponentDataBase
 		{
 		public:
+			inline virtual void clear() override final { m_data.clear(); }
+
 			bool has(EntityID entity) const;
+			void remove(EntityID entity) override final;
 
 			Component & operator[](EntityID entity);
 			const Component & operator[](EntityID entity) const;
@@ -56,6 +71,14 @@ inline bool logic::ecs::ComponentData<Component>::has(EntityID entity) const
 {
 	const auto it = find(entity);
 	return it == m_data.end() ? false : (it->first == entity);
+}
+
+template<typename Component>
+inline void logic::ecs::ComponentData<Component>::remove(EntityID entity)
+{
+	const auto it = find(entity);
+	if (it != m_data.end())
+		m_data.erase(it);
 }
 
 template<typename Component>

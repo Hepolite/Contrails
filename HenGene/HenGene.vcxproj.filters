@@ -96,6 +96,12 @@
     <ClCompile Include="src\logic\ecs\SystemRegistry.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\core\scene\Scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\logic\ecs\EntityRegistry.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\render\opengl\ubo.h">
@@ -257,13 +263,19 @@
     <ClInclude Include="src\logic\ecs\detail\ComponentData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\logic\ecs\detail\ComponentMask.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="src\logic\ecs\SystemRegistry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\logic\ecs\detail\ComponentStorage.h">
+    <ClInclude Include="src\logic\ecs\ComponentStorage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\logic\ecs\detail\ComponentMask.h">
+    <ClInclude Include="src\core\scene\Scene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\logic\ecs\EntityRegistry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -114,13 +114,19 @@
     <ClCompile Include="src\logic\ecs\SystemTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\logic\ecs\detail\ComponentStorageTest.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\logic\ecs\detail\ComponentDataTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\logic\ecs\SystemRegistryTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\logic\ecs\ComponentStorageTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\logic\ecs\EntityRegistryTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\scene\SceneTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

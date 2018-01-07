@@ -1,7 +1,7 @@
 
 #include "CppUnitTest.h"
 
-#include "logic/ecs/detail/ComponentStorage.h"
+#include "logic/ecs/ComponentStorage.h"
 #include "logic/ecs/System.h"
 
 #include <glm/vec3.hpp>
@@ -36,10 +36,28 @@ namespace logic
 				const auto entityB = createEntity<int, double>(storage);
 
 				SystemMockA system;
-				system.assignMask(storage);
+				system.inject(storage);
+				system.assignMask();
 				system.add(entityA);
 
 				Assert::IsTrue(system.has(entityA));
+				Assert::IsFalse(system.has(entityB));
+			}
+			TEST_METHOD(SystemBase_clear)
+			{
+				ComponentStorage storage;
+				storage.add<int, double>();
+				const auto entityA = createEntity<int, double>(storage);
+				const auto entityB = createEntity<int, double>(storage);
+
+				SystemMockA system;
+				system.inject(storage);
+				system.assignMask();
+				system.add(entityA);
+				system.add(entityB);
+				system.clear();
+
+				Assert::IsFalse(system.has(entityA));
 				Assert::IsFalse(system.has(entityB));
 			}
 
@@ -52,7 +70,8 @@ namespace logic
 				const auto entityC = createEntity<int, float, double>(storage);
 
 				SystemMockA system;
-				system.assignMask(storage);
+				system.inject(storage);
+				system.assignMask();
 
 				Assert::IsFalse(system.add(entityA));
 				Assert::IsTrue(system.add(entityC));
@@ -68,7 +87,8 @@ namespace logic
 				const auto entityB = createEntity<int, double>(storage);
 
 				SystemMockA system;
-				system.assignMask(storage);
+				system.inject(storage);
+				system.assignMask();
 				system.add(entityA);
 
 				Assert::IsTrue(system.remove(entityA));
@@ -78,7 +98,7 @@ namespace logic
 
 		private:
 			template<typename ...Components>
-			inline Entity createEntity(ComponentStorage & storage)
+			inline Entity createEntity(const ComponentStorage & storage)
 			{
 				return { m_uniqueId++, storage.getMask<Components...>() };
 			}
@@ -98,11 +118,29 @@ namespace logic
 
 				SystemMockA systemA;
 				SystemMockB systemB;
-				systemA.assignMask(storage);
-				systemB.assignMask(storage);
+				systemA.inject(storage);
+				systemB.inject(storage);
+				systemA.assignMask();
+				systemB.assignMask();
 
 				Assert::IsTrue(maskA == systemA.getMask());
 				Assert::IsTrue(maskB == systemB.getMask());
+			}
+
+			TEST_METHOD(System_getData)
+			{
+				ComponentStorage storage;
+				storage.add<glm::ivec3, std::string>();
+				storage.getData<glm::ivec3>()[42u] = { 1, 2, 3 };
+
+				SystemMockB system;
+				system.inject(storage);
+				system.assignMask();
+				system.add({ 42u, system.getMask() });
+
+				auto & data = system.getData<glm::ivec3>();
+				Assert::IsFalse(data.has(0u));
+				Assert::IsTrue(data.has(42u));
 			}
 		};
 	}

@@ -214,11 +214,13 @@
     <ClInclude Include="src\asset\AssetRef.h" />
     <ClInclude Include="src\asset\AssetRegistry.h" />
     <ClInclude Include="src\asset\factory\LoaderShaderProgram.h" />
+    <ClInclude Include="src\core\scene\Scene.h" />
     <ClInclude Include="src\io\File.h" />
     <ClInclude Include="src\io\Folder.h" />
     <ClInclude Include="src\logic\ecs\detail\ComponentData.h" />
     <ClInclude Include="src\logic\ecs\detail\ComponentMask.h" />
-    <ClInclude Include="src\logic\ecs\detail\ComponentStorage.h" />
+    <ClInclude Include="src\logic\ecs\ComponentStorage.h" />
+    <ClInclude Include="src\logic\ecs\EntityRegistry.h" />
     <ClInclude Include="src\logic\ecs\System.h" />
     <ClInclude Include="src\logic\ecs\SystemRegistry.h" />
     <ClInclude Include="src\logic\event\EventBus.h" />
@@ -267,8 +269,10 @@
   <ItemGroup>
     <ClCompile Include="dependencies\pugixml\pugixml.cpp" />
     <ClCompile Include="src\asset\factory\LoaderShaderProgram.cpp" />
+    <ClCompile Include="src\core\scene\Scene.cpp" />
     <ClCompile Include="src\io\File.cpp" />
     <ClCompile Include="src\io\Folder.cpp" />
+    <ClCompile Include="src\logic\ecs\EntityRegistry.cpp" />
     <ClCompile Include="src\logic\ecs\System.cpp" />
     <ClCompile Include="src\logic\ecs\SystemRegistry.cpp" />
     <ClCompile Include="src\logic\event\EventBus.cpp" />

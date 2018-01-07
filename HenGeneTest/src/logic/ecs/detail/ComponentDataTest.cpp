@@ -52,6 +52,28 @@ namespace logic
 				Assert::IsTrue(dataB.has(3u));
 				Assert::IsFalse(dataB.has(4u));
 			}
+
+			TEST_METHOD(ComponentData_remove)
+			{
+				ComponentData<glm::vec3> data;
+				data[0u] = glm::vec3{};
+				data.remove(0u);
+
+				Assert::IsFalse(data.has(0u));
+			}
+			TEST_METHOD(ComponentData_clear)
+			{
+				ComponentData<glm::vec3> data;
+				data[0u] = glm::vec3{};
+				data[3u] = glm::vec3{};
+				data[2u] = glm::vec3{};
+				data.clear();
+
+				Assert::IsFalse(data.has(0u));
+				Assert::IsFalse(data.has(1u));
+				Assert::IsFalse(data.has(2u));
+				Assert::IsFalse(data.has(3u));
+			}
 		};
 	}
 }

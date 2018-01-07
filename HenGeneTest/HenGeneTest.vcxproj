@@ -201,10 +201,12 @@
     <ClCompile Include="src\asset\AssetRegistryTest.cpp" />
     <ClCompile Include="src\asset\AssetUtilTest.cpp" />
     <ClCompile Include="src\asset\factory\LoaderShaderProgramTest.cpp" />
+    <ClCompile Include="src\core\scene\SceneTest.cpp" />
     <ClCompile Include="src\io\FileTest.cpp" />
     <ClCompile Include="src\io\FolderTest.cpp" />
     <ClCompile Include="src\logic\ecs\detail\ComponentDataTest.cpp" />
-    <ClCompile Include="src\logic\ecs\detail\ComponentStorageTest.cpp" />
+    <ClCompile Include="src\logic\ecs\ComponentStorageTest.cpp" />
+    <ClCompile Include="src\logic\ecs\EntityRegistryTest.cpp" />
     <ClCompile Include="src\logic\ecs\SystemRegistryTest.cpp" />
     <ClCompile Include="src\logic\ecs\SystemTest.cpp" />
     <ClCompile Include="src\logic\event\EventBusTest.cpp" />

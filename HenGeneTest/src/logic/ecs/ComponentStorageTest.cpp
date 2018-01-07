@@ -1,7 +1,7 @@
 
 #include "CppUnitTest.h"
 
-#include "logic/ecs/detail/ComponentStorage.h"
+#include "logic/ecs/ComponentStorage.h"
 
 #include <glm/vec3.hpp>
 #include <string>
@@ -23,7 +23,6 @@ namespace logic
 
 				Assert::IsTrue(storage.has<int>());
 				Assert::IsFalse(storage.has<float>());
-				Assert::ExpectException<std::invalid_argument>([&storage]() { storage.add<int>(); });
 			}
 			TEST_METHOD(ComponentStorage_has)
 			{
@@ -81,18 +80,40 @@ namespace logic
 				const auto idVec3 = storage.getId<glm::ivec3>();
 				const auto idString = storage.getId<std::string>();
 
-				const auto componentsA = storage.getMask<int, glm::ivec3>();
-				const auto componentsB = storage.getMask<std::string, glm::ivec3, int>();
+				const auto maskA = storage.getMask<int, glm::ivec3>();
+				const auto maskB = storage.getMask<std::string, glm::ivec3, int>();
 
-				Assert::IsTrue(componentsA[idInt]);
-				Assert::IsFalse(componentsA[idDouble]);
-				Assert::IsTrue(componentsA[idVec3]);
-				Assert::IsFalse(componentsA[idString]);
+				Assert::IsTrue(maskA[idInt]);
+				Assert::IsFalse(maskA[idDouble]);
+				Assert::IsTrue(maskA[idVec3]);
+				Assert::IsFalse(maskA[idString]);
 
-				Assert::IsTrue(componentsB[idInt]);
-				Assert::IsFalse(componentsB[idDouble]);
-				Assert::IsTrue(componentsB[idVec3]);
-				Assert::IsTrue(componentsB[idString]);
+				Assert::IsTrue(maskB[idInt]);
+				Assert::IsFalse(maskB[idDouble]);
+				Assert::IsTrue(maskB[idVec3]);
+				Assert::IsTrue(maskB[idString]);
+			}
+
+			TEST_METHOD(ComponentStorage_clear)
+			{
+				ComponentStorage storage;
+				storage.add<int, float, double>();
+				storage.clear();
+
+				Assert::IsFalse(storage.has<int>());
+				Assert::IsFalse(storage.has<float>());
+				Assert::IsFalse(storage.has<double>());
+			}
+			TEST_METHOD(ComponentStorage_clearData)
+			{
+				ComponentStorage storage;
+				storage.add<int, float, double>();
+				storage.getData<int>()[3u] = 2;
+				storage.getData<double>()[2u] = 1.5;
+				storage.clearData();
+
+				Assert::IsFalse(storage.getData<int>().has(3u));
+				Assert::IsFalse(storage.getData<int>().has(2u));
 			}
 		};
 	}

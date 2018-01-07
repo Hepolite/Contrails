@@ -8,6 +8,7 @@
 #include <memory>
 
 namespace asset { class AssetRegistry; }
+namespace core { namespace scene { class Scene; } }
 namespace logic { namespace event { class EventBus; } }
 namespace render { namespace scene { class Scene; } }
 namespace render { class uboRegistry; }
@@ -33,6 +34,7 @@ namespace core
 		void stop();
 
 		asset::AssetRegistry & getAssets();
+		core::scene::Scene & getScene();
 		logic::event::EventBus & getEventBus();
 		render::uboRegistry & getUboRegistry();
 		world::Universe & getUniverse();

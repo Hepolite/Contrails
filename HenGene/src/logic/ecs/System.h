@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "logic/ecs/detail/ComponentStorage.h"
+#include "logic/ecs/ComponentStorage.h"
 #include "logic/ecs/detail/ComponentMask.h"
 #include "logic/ecs/detail/Entity.h"
 #include "util/Physics.h"
@@ -24,6 +24,7 @@ namespace logic
 			SystemBase & operator=(SystemBase &&) = delete;
 
 			inline auto getMask() const { return m_mask; }
+			inline void clear() { m_entities.clear(); }
 
 			bool has(const Entity & entity) const;
 			bool add(const Entity & entity);
@@ -54,7 +55,16 @@ namespace logic
 		class System : public SystemBase
 		{
 		public:
-			inline void assignMask(ComponentStorage & storage) { SystemBase::assignMask(storage.getMask<Components...>()); }
+			inline void inject(ComponentStorage & storage) { m_storage = &storage; }
+
+			inline void addComponents(ComponentStorage & storage) { storage.add<Components...>(); }
+			inline void assignMask() { SystemBase::assignMask(m_storage->getMask<Components...>()); }
+
+			template<typename Component>
+			inline ComponentData<Component> & getData() const { return m_storage->getData<Component>(); }
+
+		private:
+			ComponentStorage * m_storage = nullptr;
 		};
 	}
 }

@@ -25,6 +25,9 @@ namespace logic
 
 			template<typename ...Components> ComponentMask getMask() const;
 
+			inline void clear() { m_components.clear(); }
+			inline void clearData() { for (auto & component : m_components) component.second.second->clear(); }
+
 		private:
 			using ComponentPtr = std::unique_ptr<ComponentDataBase>;
 			using ComponentEntry = std::pair<unsigned int, ComponentPtr>;
@@ -46,10 +49,10 @@ inline void logic::ecs::ComponentStorage::add()
 template<typename Component>
 inline void logic::ecs::ComponentStorage::add()
 {
-	if (m_components.size() + 1 >= MAX_COMPONENTS)
-		throw std::invalid_argument("The maximum number of components has been reached");
+	if (m_components.size() >= MAX_COMPONENTS)
+		throw std::exception("The maximum number of components has been reached");
 	if (has<Component>())
-		throw std::invalid_argument("The component has already been added");
+		return;
 
 	auto entry = std::make_pair(m_components.size(), std::make_unique<ComponentData<Component>>());
 	m_components.emplace(typeid(Component), std::move(entry)).first;

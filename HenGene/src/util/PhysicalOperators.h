@@ -46,6 +46,7 @@ namespace physics
 	// ...
 
 	PHYSICAL_TEMPLATE constexpr PHYSICAL_VECTOR operator+(const PHYSICAL_VECTOR & lhs, const PHYSICAL_VECTOR & rhs) noexcept { return PHYSICAL_VECTOR{ lhs.x() + rhs.x(), lhs.y() + rhs.y(), lhs.z() + rhs.z() }; }
+	PHYSICAL_TEMPLATE constexpr PHYSICAL_VECTOR & operator+=(PHYSICAL_VECTOR & lhs, const PHYSICAL_VECTOR & rhs) noexcept { lhs.x() += rhs.x(); lhs.y() += rhs.y(); lhs.z() += rhs.z(); return lhs; }
 	PHYSICAL_TEMPLATE constexpr PHYSICAL_VECTOR operator-(const PHYSICAL_VECTOR & lhs, const PHYSICAL_VECTOR & rhs) noexcept { return PHYSICAL_VECTOR{ lhs.x() - rhs.x(), lhs.y() - rhs.y(), lhs.z() - rhs.z() }; }
 	PHYSICAL_TEMPLATE constexpr PHYSICAL_VECTOR operator-(const PHYSICAL_VECTOR & lhs) noexcept { return PHYSICAL_VECTOR{ -lhs.x(), -lhs.y(), -lhs.z() }; }
 	PHYSICAL_TEMPLATE_EXT constexpr PHYSICAL_VECTOR_ADD operator*(const PHYSICAL_VECTOR & lhs, const PHYSICAL_VECTOR_EXT & rhs) noexcept { return PHYSICAL_VECTOR_ADD{ lhs.x() * rhs.x(), lhs.y() * rhs.y(), lhs.z() * rhs.z() }; }
