@@ -8,6 +8,7 @@
 #include "logic/event/EventBus.h"
 #include "logic/event/EventQueue.h"
 #include "logic/MainLoop.h"
+#include "render/core/Pipeline.h"
 #include "render/uboRegistry.h"
 #include "render/world/UniverseRenderer.h"
 #include "ui/Display.h"
@@ -32,6 +33,7 @@ struct core::Engine::Impl
 	asset::AssetRegistry m_assetRegistry{};
 	render::uboRegistry m_uboRegistry{};
 	scene::Scene m_scene{};
+	render::core::Pipeline m_pipeline{};
 
 	std::unique_ptr<logic::state::State> m_state = nullptr;
 	world::Universe m_universe{};
@@ -82,7 +84,7 @@ void core::Engine::process(const Time & t, const Time & dt)
 }
 void core::Engine::render(const Time & t, const Time & dt) const
 {
-	
+	m_impl->m_pipeline.render(t, dt);
 }
 
 asset::AssetRegistry & core::Engine::getAssets() { return m_impl->m_assetRegistry; }

@@ -1,7 +1,7 @@
 
 #include "SystemPhysical.h"
 
-void logic::ecs::SystemMovement::process(const Time & t, const Time & dt) const
+void logic::ecs::SystemMovement::process(const Time & t, const Time & dt)
 {
 	auto & position = getData<ComponentPosition>();
 	auto & velocity = getData<ComponentVelocity>();
@@ -10,7 +10,7 @@ void logic::ecs::SystemMovement::process(const Time & t, const Time & dt) const
 		position[entity].m_pos += velocity[entity].m_vel * dt;
 }
 
-void logic::ecs::SystemAcceleration::process(const Time & t, const Time & dt) const
+void logic::ecs::SystemAcceleration::process(const Time & t, const Time & dt)
 {
 	auto & velocity = getData<ComponentVelocity>();
 	auto & acceleration = getData<ComponentAcceleration>();
@@ -22,7 +22,7 @@ void logic::ecs::SystemAcceleration::process(const Time & t, const Time & dt) co
 	}
 }
 
-void logic::ecs::SystemGravitation::process(const Time & t, const Time & dt) const
+void logic::ecs::SystemGravitation::process(const Time & t, const Time & dt)
 {
 	auto & acceleration = getData<ComponentAcceleration>();
 	auto & gravity = getData<ComponentGravity>();

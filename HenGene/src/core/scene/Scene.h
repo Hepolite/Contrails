@@ -5,6 +5,9 @@
 #include "logic/ecs/EntityRegistry.h"
 #include "logic/ecs/SystemRegistry.h"
 #include "logic/ecs/detail/Entity.h"
+#include "render/scene/CameraStorage.h"
+#include "render/scene/RendererRegistry.h"
+#include "render/RenderPass.h"
 #include "util/Physics.h"
 
 namespace logic { namespace ecs { class SystemRegistry; } }
@@ -24,10 +27,15 @@ namespace core
 			Scene & operator=(const Scene &) = delete;
 			Scene & operator=(Scene &&) = delete;
 
-			inline void process(const Time & t, const Time & dt) { m_systems.process(t, dt); }
+			void process(const Time & t, const Time & dt);
+			void render(const Time & t, const Time & dt) const;
 
 			template<typename ...Systems> void registerSystems();
 			void clearSystems();
+
+			template<typename First, typename Second, typename ...Remaining> void registerRenderers();
+			template<typename Renderer> void registerRenderers();
+			void clearRenderers();
 
 			template<typename ...Components> logic::ecs::EntityID createEntity();
 			template<typename ...Components> void attachEntityComponent(logic::ecs::EntityID entity);
@@ -40,6 +48,9 @@ namespace core
 			logic::ecs::ComponentStorage m_components;
 			logic::ecs::SystemRegistry m_systems;
 			logic::ecs::EntityRegistry m_entities;
+
+			render::scene::CameraStorage m_cameras;
+			render::scene::RendererRegistry m_renderers;
 		};
 	}
 }
@@ -50,13 +61,25 @@ inline void core::scene::Scene::registerSystems()
 	m_systems.addSystem<Systems...>();
 }
 
+template<typename First, typename Second, typename ...Remaining>
+inline void core::scene::Scene::registerRenderers()
+{
+	registerRenderers<First>();
+	registerRenderers<Second, Remaining...>();
+}
+template<typename Renderer>
+inline void core::scene::Scene::registerRenderers()
+{
+	m_renderers.add(&m_systems.addSystem<Renderer>());
+}
+
 template<typename ...Components>
 inline logic::ecs::EntityID core::scene::Scene::createEntity()
 {
-	const auto id = m_entities.createEntity();
-	m_entities.attachComponent<Components...>(id);
-	m_systems.addEntity(m_entities.getEntity(id));
-	return id;
+	const auto & entity = m_entities.getEntity(m_entities.createEntity());
+	m_entities.attachComponent<Components...>(entity.m_id);
+	m_systems.addEntity(entity);
+	return entity.m_id;
 }
 template<typename ...Components>
 inline void core::scene::Scene::attachEntityComponent(logic::ecs::EntityID entity)

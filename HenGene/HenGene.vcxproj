@@ -249,6 +249,11 @@
     <ClInclude Include="src\render\core\Pipeline.h" />
     <ClInclude Include="src\render\RenderPass.h" />
     <ClInclude Include="src\core\scene\__Structure__.h" />
+    <ClInclude Include="src\render\scene\Camera.h" />
+    <ClInclude Include="src\render\scene\CameraUtil.h" />
+    <ClInclude Include="src\render\scene\CameraStorage.h" />
+    <ClInclude Include="src\render\scene\Renderer.h" />
+    <ClInclude Include="src\render\scene\RendererRegistry.h" />
     <ClInclude Include="src\render\uboRegistry.h" />
     <ClInclude Include="src\ui\Display.h" />
     <ClInclude Include="src\ui\Keyboard.h" />
@@ -293,6 +298,8 @@
     <ClCompile Include="src\render\opengl\ubo.cpp" />
     <ClCompile Include="src\render\opengl\vao.cpp" />
     <ClCompile Include="src\render\opengl\vbo.cpp" />
+    <ClCompile Include="src\render\scene\Renderer.cpp" />
+    <ClCompile Include="src\render\scene\RendererRegistry.cpp" />
     <ClCompile Include="src\render\uboRegistry.cpp" />
     <ClCompile Include="src\ui\Display.cpp" />
     <ClCompile Include="src\util\StringGeneric.cpp" />

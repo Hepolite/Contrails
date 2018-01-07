@@ -16,13 +16,13 @@ namespace logic
 		class SystemMockA : public System<int, double>
 		{
 		public:
-			virtual void process(const Time & t, const Time & dt) const override final {}
+			virtual void process(const Time & t, const Time & dt) override final {}
 		};
 
 		class SystemMockB : public System<glm::ivec3, std::string>
 		{
 		public:
-			virtual void process(const Time & t, const Time & dt) const override final {}
+			virtual void process(const Time & t, const Time & dt) override final {}
 		};
 
 		TEST_CLASS(SystemBaseTest)

@@ -15,7 +15,7 @@ namespace logic
 		class SystemMockA : public System<int, double>
 		{
 		public:
-			virtual void process(const Time & t, const Time & dt) const override final
+			virtual void process(const Time & t, const Time & dt) override final
 			{
 				processedA = 0;
 				for (const auto & entity : *this)
@@ -25,7 +25,7 @@ namespace logic
 		class SystemMockB : public System<float>
 		{
 		public:
-			virtual void process(const Time & t, const Time & dt) const override final
+			virtual void process(const Time & t, const Time & dt) override final
 			{
 				processedB = 0;
 				for (const auto & entity : *this)

@@ -14,7 +14,7 @@
 	public: \
 		SystemName() = default; \
 		virtual ~SystemName() = default; \
-		virtual void process(const Time & t, const Time & dt) const override final; \
+		virtual void process(const Time & t, const Time & dt) override final; \
 	}
 
 namespace logic
@@ -40,7 +40,7 @@ namespace logic
 			bool remove(const Entity & entity);
 
 			// Invoked every frame for as long as the system remains active
-			virtual void process(const Time & t, const Time & dt) const = 0;
+			virtual void process(const Time & t, const Time & dt) = 0;
 
 		protected:
 			inline auto begin() const { return m_entities.begin(); }

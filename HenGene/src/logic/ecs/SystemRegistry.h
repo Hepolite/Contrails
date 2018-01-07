@@ -26,10 +26,10 @@ namespace logic
 
 			inline void inject(ComponentStorage & components) { m_components = &components; }
 
-			void process(const Time & t, const Time & dt);
+			void process(const Time & t, const Time & dt) const;
 
 			template<typename First, typename Second, typename ...Remaning> void addSystem();
-			template<typename System> void addSystem();
+			template<typename System> System & addSystem();
 			inline void clearSystems() { m_systems.clear(); }
 
 			void addEntity(const Entity & entity);
@@ -51,7 +51,7 @@ inline void logic::ecs::SystemRegistry::addSystem()
 	addSystem<Second, Remaining...>();
 }
 template<typename System>
-inline void logic::ecs::SystemRegistry::addSystem()
+inline System & logic::ecs::SystemRegistry::addSystem()
 {
 	static_assert(std::is_base_of<SystemBase, System>::value, "System must derive from base system");
 	
@@ -63,4 +63,5 @@ inline void logic::ecs::SystemRegistry::addSystem()
 		system->assignMask();
 	}
 	m_systems.push_back(std::move(system));
+	return *static_cast<System *>(m_systems.back().get());
 }

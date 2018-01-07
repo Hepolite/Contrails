@@ -225,6 +225,8 @@
     <ClCompile Include="src\render\opengl\uboTest.cpp" />
     <ClCompile Include="src\render\opengl\vaoTest.cpp" />
     <ClCompile Include="src\render\opengl\vboTest.cpp" />
+    <ClCompile Include="src\render\scene\RendererRegistryTest.cpp" />
+    <ClCompile Include="src\render\scene\RendererTest.cpp" />
     <ClCompile Include="src\render\uboRegistryTest.cpp" />
     <ClCompile Include="src\SanityTest.cpp" />
     <ClCompile Include="src\ui\DisplayTest.cpp" />

@@ -11,13 +11,14 @@ namespace core
 	{
 		int processedA = 0;
 		int processedB = 0;
+		int rendered = 0;
 
 		float processedFloat = 0.0f;
 
 		class SystemMockA : public logic::ecs::System<int, double>
 		{
 		public:
-			virtual void process(const Time & t, const Time & dt) const override final
+			virtual void process(const Time & t, const Time & dt) override final
 			{
 				processedA = 0;
 				for (const auto & entity : *this)
@@ -27,7 +28,7 @@ namespace core
 		class SystemMockB : public logic::ecs::System<float>
 		{
 		public:
-			virtual void process(const Time & t, const Time & dt) const override final
+			virtual void process(const Time & t, const Time & dt) override final
 			{
 				processedB = 0;
 				for (const auto & entity : *this)
@@ -35,6 +36,16 @@ namespace core
 					++processedB;
 					processedFloat = getData<float>()[entity];
 				}
+			}
+		};
+		class RendererMock : public render::scene::Renderer<float>
+		{
+		public:
+			virtual void render(const Time & t, const Time & dt, render::RenderPass pass) const override final
+			{
+				rendered = 0;
+				for (const auto & entity : *this)
+					++rendered;
 			}
 		};
 
@@ -50,6 +61,15 @@ namespace core
 
 				Assert::AreEqual(0, processedA);
 			}
+			TEST_METHOD(Scene_registerRenderers)
+			{
+				Scene scene;
+				scene.registerRenderers<RendererMock>();
+				rendered = -1;
+				scene.render(0.0_s, 0.05_s);
+
+				Assert::AreEqual(0, rendered);
+			}
 			TEST_METHOD(Scene_clearSystems)
 			{
 				Scene scene;
@@ -59,6 +79,16 @@ namespace core
 				scene.process(0.0_s, 0.05_s);
 
 				Assert::AreEqual(-1, processedA);
+			}
+			TEST_METHOD(Scene_clearRenderer)
+			{
+				Scene scene;
+				scene.registerRenderers<RendererMock>();
+				scene.clearRenderers();
+				rendered = -1;
+				scene.render(0.0_s, 0.05_s);
+
+				Assert::AreEqual(-1, rendered);
 			}
 
 			TEST_METHOD(Scene_createEntity)
