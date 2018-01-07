@@ -17,6 +17,14 @@ namespace asset
 
 			Assert::AreEqual(1u, asset.m_references);
 		}
+		TEST_METHOD(AssetRef_ctorCopy)
+		{
+			Asset<int> asset;
+			Ref<int> refA{ &asset };
+			Ref<int> refB{ refA };
+
+			Assert::AreEqual(2u, asset.m_references);
+		}
 		TEST_METHOD(AssetRef_dtor)
 		{
 			Asset<int> asset;
@@ -88,6 +96,19 @@ namespace asset
 			Assert::IsFalse(refB != nullptr);
 			Assert::IsTrue(refC == nullptr);
 			Assert::IsFalse(refC != nullptr);
+		}
+		TEST_METHOD(AssetRef_valid)
+		{
+			Asset<int> assetA, assetB;
+			assetA.m_factory = []() { return std::make_unique<int>(0); };
+
+			Ref<int> refA{ &assetA };
+			Ref<int> refB{ &assetB };
+			Ref<int> refC{ nullptr };
+
+			Assert::IsTrue(refA);
+			Assert::IsFalse(refB);
+			Assert::IsFalse(refC);
 		}
 	};
 }

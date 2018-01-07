@@ -24,6 +24,7 @@ namespace asset
 		bool operator!=(const Ref & other) const;
 		bool operator==(const std::nullptr_t &) const;
 		bool operator!=(const std::nullptr_t &) const;
+		operator bool() const;
 
 		Type & operator*() const;
 		Type * operator->() const;
@@ -97,6 +98,12 @@ template<typename Type>
 inline bool asset::Ref<Type>::operator!=(const std::nullptr_t &) const
 {
 	return m_handle != nullptr && m_handle->m_handle != nullptr;
+}
+
+template<typename Type>
+inline asset::Ref<Type>::operator bool() const
+{
+	return operator!=(nullptr);
 }
 
 template<typename Type>
