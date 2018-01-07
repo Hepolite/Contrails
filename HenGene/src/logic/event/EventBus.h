@@ -24,8 +24,8 @@ namespace logic
 			EventBus & operator=(const EventBus &) = delete;
 			EventBus & operator=(EventBus &&) = delete;
 
-			template<typename Event> void post(Event & event) const;
-			template<typename Event> void post(Event && event) const;
+			template<typename Event> Event & post(Event & event) const;
+			template<typename Event> Event post(Event && event) const;
 
 			template<typename Event, Priority priority> Listener add(const Callback<Event> & callback);
 			template<typename Event> Listener add(const CallbackConst<Event> & callback);
@@ -50,7 +50,7 @@ namespace logic
 }
 
 template<typename Event>
-inline void logic::event::EventBus::post(Event & event) const
+inline Event & logic::event::EventBus::post(Event & event) const
 {
 	post<Event, Priority::FIRST>(event);
 	post<Event, Priority::EARLY>(event);
@@ -64,11 +64,12 @@ inline void logic::event::EventBus::post(Event & event) const
 		for (const auto& it : collection->m_callbacks)
 			it.second(event);
 	}
+	return event;
 }
 template<typename Event>
-inline void logic::event::EventBus::post(Event && event) const
+inline Event logic::event::EventBus::post(Event && event) const
 {
-	post(event);
+	return std::move(post(event));
 }
 template<typename Event, logic::event::Priority priority>
 inline void logic::event::EventBus::post(Event & event) const

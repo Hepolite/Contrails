@@ -13,15 +13,28 @@ namespace logic
 		TEST_CLASS(EventListenerTest)
 		{
 		public:
+			TEST_METHOD(EventListener_ctor)
+			{
+				EventBus bus;
+				Listener listener = bus.add<bool, Priority::MIDDLE>([](auto & event) { event = true; });
+
+				Assert::IsTrue(bus.post(false));
+			}
 			TEST_METHOD(EventListener_dtor)
 			{
-				bool received = false;
 				EventBus bus;
+				{ Listener listener = bus.add<bool, Priority::MIDDLE>([](auto & event) { event = true; }); }
 
-				{ Listener listener = bus.add<bool>([&received](auto &) { received = true; }); }
+				Assert::IsFalse(bus.post(false));
+			}
 
-				bus.post(false);
-				Assert::IsFalse(received);
+			TEST_METHOD(EventListener_assign)
+			{
+				EventBus bus;
+				Listener listener;
+				listener = bus.add<bool, Priority::MIDDLE>([](auto & event) { event = true; });
+				
+				Assert::IsTrue(bus.post(false));
 			}
 		};
 	}

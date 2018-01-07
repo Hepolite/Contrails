@@ -4,6 +4,7 @@
 #include "logic/event/EventBus.h"
 
 #include <hen/Unittest.h>
+#include <memory>
 #include <std/Unittest.h>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -37,22 +38,27 @@ namespace logic
 
 				bus.remove(listenerB);
 
-				int event = 0;
-				bus.post(event);
-
-				Assert::AreEqual(3, event);
+				Assert::AreEqual(3, bus.post(0));
 			}
 
-			TEST_METHOD(EventBus_post)
+			TEST_METHOD(EventBus_postLValue)
 			{
 				EventBus bus;
-				const auto listenerA = bus.add<int, Priority::EARLY>([](auto& event) { event += 3; });
-				const auto listenerB = bus.add<int, Priority::LATE>([](auto& event) { event /= 2; });
+				using Event = std::unique_ptr<int>;
+				const auto listenerA = bus.add<Event, Priority::EARLY>([](auto & event) { *event += 3; });
+				const auto listenerB = bus.add<Event, Priority::LATE>([](auto & event) { *event /= 2; });
 
-				int event = -7;
-				bus.post(event);
+				auto event = std::make_unique<int>(-7);
+				Assert::AreEqual(-2, *bus.post(event));
+			}
+			TEST_METHOD(EventBus_postRValue)
+			{
+				EventBus bus;
+				using Event = std::unique_ptr<int>;
+				const auto listenerA = bus.add<Event, Priority::EARLY>([](auto & event) { *event += 3; });
+				const auto listenerB = bus.add<Event, Priority::LATE>([](auto & event) { *event /= 2; });
 
-				Assert::AreEqual(-2, event);
+				Assert::AreEqual(-2, *bus.post(std::make_unique<int>(-7)));
 			}
 		};
 	}

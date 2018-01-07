@@ -12,7 +12,8 @@ logic::event::Listener::Listener(Listener && other)
 }
 logic::event::Listener::~Listener()
 {
-	m_bus->remove(*this);
+	if (m_bus != nullptr)
+		m_bus->remove(*this);
 }
 
 logic::event::Listener & logic::event::Listener::operator=(Listener && other)
