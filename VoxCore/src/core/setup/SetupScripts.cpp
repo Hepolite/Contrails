@@ -1,6 +1,7 @@
 
 #include "SetupScripts.h"
 
+#include "logic/event/EventBus.h"
 #include "logic/script/ScriptUtil.h"
 #include "world/detail/data/WorldQuery.h"
 #include "world/Universe.h"

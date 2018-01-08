@@ -1,6 +1,7 @@
 
 #include "Universe.h"
 
+#include "logic/event/EventBus.h"
 #include "logic/event/WorldEvents.h"
 
 #include <plog/Log.h>
@@ -13,8 +14,10 @@ void world::Universe::createWorld(const std::string & name)
 		return;
 	}
 
-	m_worlds.emplace(name, std::make_unique<World>());
-	
+	auto world = m_worlds.emplace(name, std::make_unique<World>()).first->second.get();
+	world->inject(*m_scene);
+	world->inject(*m_bus);
+
 	if (m_bus != nullptr)
 		m_bus->post(logic::event::WorldCreate{ name });
 }

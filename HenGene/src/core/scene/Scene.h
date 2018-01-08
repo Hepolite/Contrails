@@ -10,8 +10,6 @@
 #include "render/RenderPass.h"
 #include "util/Physics.h"
 
-namespace logic { namespace ecs { class SystemRegistry; } }
-
 namespace core
 {
 	namespace scene
@@ -34,7 +32,7 @@ namespace core
 			void clearSystems();
 
 			template<typename First, typename Second, typename ...Remaining> void registerRenderers();
-			template<typename Renderer> void registerRenderers();
+			template<typename Renderer> Renderer & registerRenderers();
 			void clearRenderers();
 
 			template<typename ...Components> logic::ecs::EntityID createEntity();
@@ -68,9 +66,11 @@ inline void core::scene::Scene::registerRenderers()
 	registerRenderers<Second, Remaining...>();
 }
 template<typename Renderer>
-inline void core::scene::Scene::registerRenderers()
+inline Renderer & core::scene::Scene::registerRenderers()
 {
-	m_renderers.add(&m_systems.addSystem<Renderer>());
+	auto renderer = &m_systems.addSystem<Renderer>();
+	m_renderers.add(renderer);
+	return *renderer;
 }
 
 template<typename ...Components>

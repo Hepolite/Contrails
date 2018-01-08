@@ -47,7 +47,12 @@ namespace render
 	{
 	public:
 		Mesh() : MeshBase(sizeof(Vertex)) {}
+		Mesh(const Mesh &) = delete;
+		Mesh(Mesh &&) = default;
 		virtual ~Mesh() = default;
+
+		Mesh & operator=(const Mesh &) = delete;
+		Mesh & operator=(Mesh &&) = default;
 
 		inline std::vector<unsigned int> & getIndiceData() { return m_indices; }
 		inline std::vector<Vertex> & getVertexData() { return m_vertices; }

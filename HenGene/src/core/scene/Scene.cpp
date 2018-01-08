@@ -30,8 +30,7 @@ void core::scene::Scene::clearRenderers()
 
 void core::scene::Scene::deleteEntity(logic::ecs::EntityID entity)
 {
-	const auto & e = m_entities.getEntity(entity);
-	m_systems.removeEntity(e);
+	m_systems.removeEntity(m_entities.getEntity(entity));
 	m_entities.deleteEntity(entity);
 }
 void core::scene::Scene::clearEntities()

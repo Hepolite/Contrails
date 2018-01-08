@@ -48,6 +48,9 @@ core::Engine::Engine(const Settings & settings)
 	m_impl = std::make_unique<Impl>(settings);
 
 	m_impl->m_eventQueue.add(al_get_display_event_source(m_impl->m_display.getHandle()));
+	m_impl->m_pipeline.inject(m_impl->m_scene);
+	m_impl->m_universe.inject(m_impl->m_scene);
+	m_impl->m_universe.inject(m_impl->m_eventBus);
 	m_impl->m_universeRenderer.inject(m_impl->m_universe);
 	m_impl->m_universeRenderer.inject(m_impl->m_eventBus);
 }
@@ -81,6 +84,7 @@ void core::Engine::process(const Time & t, const Time & dt)
 {
 	m_impl->m_eventQueue.update(m_impl->m_eventBus);
 	m_impl->m_state->process(t, dt);
+	m_impl->m_scene.process(t, dt);
 }
 void core::Engine::render(const Time & t, const Time & dt) const
 {

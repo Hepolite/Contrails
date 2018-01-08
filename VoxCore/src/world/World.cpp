@@ -1,6 +1,8 @@
 
 #include "World.h"
 
+#include "core/scene/Scene.h"
+#include "logic/event/EventBus.h"
 #include "world/ChunkStorage.h"
 #include "world/detail/data/BlockRegion.h"
 
@@ -9,6 +11,7 @@ struct world::World::Impl
 	BlockRegistry m_registry;
 	ChunkStorage m_chunks;
 
+	core::scene::Scene * m_scene = nullptr;
 	const logic::event::EventBus * m_bus = nullptr;
 };
 
@@ -26,7 +29,11 @@ const world::BlockRegistry & world::World::getBlockRegistry() const
 	return m_impl->m_registry;
 }
 
-void world::World::injectEventBus(const logic::event::EventBus & bus)
+void world::World::inject(core::scene::Scene & scene)
+{
+	m_impl->m_scene = &scene;
+}
+void world::World::inject(const logic::event::EventBus & bus)
 {
 	m_impl->m_bus = &bus;
 }

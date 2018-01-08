@@ -257,9 +257,6 @@
     <ClInclude Include="src\render\RenderPass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\scene\__Structure__.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\logic\ecs\System.h">
       <Filter>Header Files</Filter>
     </ClInclude>

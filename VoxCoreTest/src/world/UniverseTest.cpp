@@ -1,6 +1,7 @@
 
 #include "CppUnitTest.h"
 
+#include "logic/event/EventBus.h"
 #include "logic/event/WorldEvents.h"
 #include "world/Universe.h"
 
