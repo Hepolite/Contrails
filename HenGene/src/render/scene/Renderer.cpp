@@ -9,3 +9,12 @@ void render::scene::RendererBase::setVisibleToCamera(CameraType type, bool visib
 {
 	m_mask[static_cast<unsigned int>(type)] = visible;
 }
+
+render::RenderPass render::scene::RendererBase::getRenderPass() const
+{
+	return m_pass;
+}
+void render::scene::RendererBase::setRenderPass(RenderPass pass)
+{
+	m_pass = pass;
+}

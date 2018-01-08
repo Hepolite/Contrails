@@ -213,7 +213,8 @@
     <ClInclude Include="src\asset\AssetUtil.h" />
     <ClInclude Include="src\asset\AssetRef.h" />
     <ClInclude Include="src\asset\AssetRegistry.h" />
-    <ClInclude Include="src\asset\factory\LoaderShaderProgram.h" />
+    <ClInclude Include="src\asset\factory\FactoryShaderProgram.h" />
+    <ClInclude Include="src\asset\factory\FactorySprite.h" />
     <ClInclude Include="src\core\scene\Scene.h" />
     <ClInclude Include="src\io\File.h" />
     <ClInclude Include="src\io\Folder.h" />
@@ -229,12 +230,13 @@
     <ClInclude Include="src\logic\event\EventPriority.h" />
     <ClInclude Include="src\logic\event\EventQueue.h" />
     <ClInclude Include="src\logic\event\Events.h" />
-    <ClInclude Include="src\core\allegro\Allegro.h" />
+    <ClInclude Include="src\render\allegro\Allegro.h" />
     <ClInclude Include="src\logic\MainLoop.h" />
     <ClInclude Include="src\logic\script\Script.h" />
     <ClInclude Include="src\logic\script\ScriptUtil.h" />
     <ClInclude Include="src\logic\state\State.h" />
     <ClInclude Include="src\logic\ecs\detail\Entity.h" />
+    <ClInclude Include="src\render\allegro\Sprite.h" />
     <ClInclude Include="src\render\Mesh.h" />
     <ClInclude Include="src\render\opengl\Attribute.h" />
     <ClInclude Include="src\render\opengl\Enums.h" />
@@ -255,6 +257,8 @@
     <ClInclude Include="src\render\scene\RendererRegistry.h" />
     <ClInclude Include="src\render\uboRegistry.h" />
     <ClInclude Include="src\ui\Display.h" />
+    <ClInclude Include="src\ui\gui\Gui.h" />
+    <ClInclude Include="src\ui\gui\GuiManager.h" />
     <ClInclude Include="src\ui\Keyboard.h" />
     <ClInclude Include="src\ui\Mouse.h" />
     <ClInclude Include="src\util\MathConstants.h" />
@@ -272,7 +276,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dependencies\pugixml\pugixml.cpp" />
-    <ClCompile Include="src\asset\factory\LoaderShaderProgram.cpp" />
+    <ClCompile Include="src\asset\factory\FactoryShaderProgram.cpp" />
+    <ClCompile Include="src\asset\factory\FactorySprite.cpp" />
     <ClCompile Include="src\core\scene\Scene.cpp" />
     <ClCompile Include="src\io\File.cpp" />
     <ClCompile Include="src\io\Folder.cpp" />
@@ -280,12 +285,13 @@
     <ClCompile Include="src\logic\ecs\System.cpp" />
     <ClCompile Include="src\logic\ecs\SystemRegistry.cpp" />
     <ClCompile Include="src\logic\event\EventBus.cpp" />
-    <ClCompile Include="src\core\allegro\Allegro.cpp" />
+    <ClCompile Include="src\render\allegro\Allegro.cpp" />
     <ClCompile Include="src\logic\event\EventListener.cpp" />
     <ClCompile Include="src\logic\event\EventQueue.cpp" />
     <ClCompile Include="src\logic\MainLoop.cpp" />
     <ClCompile Include="src\logic\script\Script.cpp" />
     <ClCompile Include="src\logic\script\ScriptUtil.cpp" />
+    <ClCompile Include="src\render\allegro\Sprite.cpp" />
     <ClCompile Include="src\render\core\Pipeline.cpp" />
     <ClCompile Include="src\render\Mesh.cpp" />
     <ClCompile Include="src\render\opengl\Attribute.cpp" />

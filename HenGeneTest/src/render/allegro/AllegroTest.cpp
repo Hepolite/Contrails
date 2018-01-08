@@ -1,11 +1,11 @@
 
 #include "CppUnitTest.h"
 
-#include "core/allegro/Allegro.h"
+#include "render/allegro/Allegro.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
-namespace core
+namespace render
 {
 	namespace allegro
 	{

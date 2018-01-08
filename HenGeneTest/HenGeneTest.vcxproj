@@ -200,7 +200,8 @@
     <ClCompile Include="src\asset\AssetRefTest.cpp" />
     <ClCompile Include="src\asset\AssetRegistryTest.cpp" />
     <ClCompile Include="src\asset\AssetUtilTest.cpp" />
-    <ClCompile Include="src\asset\factory\LoaderShaderProgramTest.cpp" />
+    <ClCompile Include="src\asset\factory\FactoryShaderProgramTest.cpp" />
+    <ClCompile Include="src\asset\factory\FactorySpriteTest.cpp" />
     <ClCompile Include="src\core\scene\SceneTest.cpp" />
     <ClCompile Include="src\io\FileTest.cpp" />
     <ClCompile Include="src\io\FolderTest.cpp" />
@@ -216,6 +217,7 @@
     <ClCompile Include="src\logic\script\ScriptTest.cpp" />
     <ClCompile Include="src\logic\script\ScriptUtilTest.cpp" />
     <ClCompile Include="src\render\allegro\AllegroTest.cpp" />
+    <ClCompile Include="src\render\allegro\SpriteTest.cpp" />
     <ClCompile Include="src\render\MeshTest.cpp" />
     <ClCompile Include="src\render\opengl\AttributeTest.cpp" />
     <ClCompile Include="src\render\opengl\fboTest.cpp" />

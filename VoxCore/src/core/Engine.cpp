@@ -2,16 +2,18 @@
 #include "Engine.h"
 
 #include "asset/AssetRegistry.h"
-#include "core/allegro/Allegro.h"
 #include "core/scene/Scene.h"
 #include "core/setup/Initializer.h"
 #include "logic/event/EventBus.h"
 #include "logic/event/EventQueue.h"
 #include "logic/MainLoop.h"
+#include "logic/state/State.h"
+#include "render/allegro/Allegro.h"
 #include "render/core/Pipeline.h"
 #include "render/uboRegistry.h"
 #include "render/world/UniverseRenderer.h"
 #include "ui/Display.h"
+#include "ui/gui/GuiManager.h"
 #include "world/Universe.h"
 
 struct core::Engine::Impl
@@ -24,20 +26,21 @@ struct core::Engine::Impl
 	{}
 	~Impl() = default;
 
-	allegro::Allegro m_allegro;
+	render::allegro::Allegro m_allegro;
 	ui::Display m_display;
-
 	logic::MainLoop m_loop;
-	logic::event::EventBus m_eventBus{};
-	logic::event::EventQueue m_eventQueue{};
-	asset::AssetRegistry m_assetRegistry{};
-	render::uboRegistry m_uboRegistry{};
-	scene::Scene m_scene{};
-	render::core::Pipeline m_pipeline{};
 
-	std::unique_ptr<logic::state::State> m_state = nullptr;
-	world::Universe m_universe{};
-	render::world::UniverseRenderer m_universeRenderer{};
+	asset::AssetRegistry m_assetRegistry;
+	scene::Scene m_scene;
+	logic::event::EventBus m_eventBus;
+	logic::event::EventQueue m_eventQueue;
+	render::uboRegistry m_uboRegistry;
+	render::core::Pipeline m_pipeline;
+	ui::gui::GuiManager m_guiManager;
+
+	std::unique_ptr<logic::state::State> m_state;
+	world::Universe m_universe;
+	render::world::UniverseRenderer m_universeRenderer;
 };
 
 core::Engine::Engine()
@@ -95,4 +98,5 @@ asset::AssetRegistry & core::Engine::getAssets() { return m_impl->m_assetRegistr
 core::scene::Scene & core::Engine::getScene() { return m_impl->m_scene; }
 logic::event::EventBus & core::Engine::getEventBus() { return m_impl->m_eventBus; }
 render::uboRegistry & core::Engine::getUboRegistry() { return m_impl->m_uboRegistry; }
+ui::gui::GuiManager & core::Engine::getGuiManager() { return m_impl->m_guiManager; }
 world::Universe & core::Engine::getUniverse() { return m_impl->m_universe; }

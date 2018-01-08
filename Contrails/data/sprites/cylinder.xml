@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<file>data/gfx/cylinder.png</file>
+<frames>
+	<single name="inactive_normal" x="0" y="0" w="32" h="32" />
+	<single name="inactive_hovered" x="32" y="0" w="32" h="32" />
+	<single name="inactive_locked" x="64" y="0" w="32" h="32" />
+	<single name="active_normal" x="0" y="32" w="32" h="32" />
+	<single name="active_hovered" x="32" y="32" w="32" h="32" />
+	<single name="active_locked" x="64" y="32" w="32" h="32" />
+</frames>

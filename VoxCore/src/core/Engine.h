@@ -3,15 +3,16 @@
 
 #include "util/Physics.h"
 #include "core/Settings.h"
-#include "logic/state/State.h"
 
 #include <memory>
 
 namespace asset { class AssetRegistry; }
 namespace core { namespace scene { class Scene; } }
 namespace logic { namespace event { class EventBus; } }
+namespace logic { namespace state { class State; } }
 namespace render { namespace scene { class Scene; } }
 namespace render { class uboRegistry; }
+namespace ui { namespace gui { class GuiManager; } }
 namespace world { class Universe; }
 
 namespace core
@@ -37,6 +38,7 @@ namespace core
 		core::scene::Scene & getScene();
 		logic::event::EventBus & getEventBus();
 		render::uboRegistry & getUboRegistry();
+		ui::gui::GuiManager & getGuiManager();
 		world::Universe & getUniverse();
 
 	private:

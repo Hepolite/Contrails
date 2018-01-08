@@ -29,11 +29,8 @@ namespace
 			m_model = &engine.getUboRegistry().get("Model");
 		}
 
-		virtual void render(const Time & t, const Time & dt, render::RenderPass pass) const override final
+		virtual void render(const Time & t, const Time & dt) const override final
 		{
-			if (pass != render::RenderPass::SOLID)
-				return;
-
 			if (m_model != nullptr)
 				m_model->set("transform", glm::rotate(glm::mat4{ 1.0f }, (float)(t + dt)(), glm::vec3{ 0.0f, 0.0f, 1.0f }));
 			if (m_program != nullptr)
@@ -59,7 +56,7 @@ void logic::state::StateMainMenu::initialize(core::Engine & engine)
 
 	auto & mesh = scene.getEntityData<ComponentMesh>(entity).m_mesh;
 	mesh.getIndiceData() = { 0, 1, 2 };
-	mesh.getVertexData() = { { -0.5f,-0.5f, 0.0f }, { 0.5f,-0.5f, 0.0f }, { 0.0f, 0.5f, 0.0f } };
+	mesh.getVertexData() = { { -0.5f, -0.5f, 0.0f }, { 0.5f, -0.5f, 0.0f }, { 0.0f, 0.5f, 0.0f } };
 	mesh.addAttribute({ 0u, render::opengl::DataFormat::FLOAT, 3u, 0u });
 	mesh.build();
 }

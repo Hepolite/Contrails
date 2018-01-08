@@ -201,6 +201,7 @@
     <ClInclude Include="src\logic\ecs\systems\SystemPhysical.h" />
     <ClInclude Include="src\logic\event\ChunkEvents.h" />
     <ClInclude Include="src\logic\event\WorldEvents.h" />
+    <ClInclude Include="src\logic\state\StateEditorWorld.h" />
     <ClInclude Include="src\logic\state\StateMainMenu.h" />
     <ClInclude Include="src\core\setup\Initializer.h" />
     <ClInclude Include="src\render\world\BlockRenderRegistry.h" />
@@ -238,6 +239,7 @@
     <ClCompile Include="src\core\setup\SetupScripts.cpp" />
     <ClCompile Include="src\core\setup\SetupUbos.cpp" />
     <ClCompile Include="src\logic\ecs\systems\SystemPhysical.cpp" />
+    <ClCompile Include="src\logic\state\StateEditorWorld.cpp" />
     <ClCompile Include="src\logic\state\StateMainMenu.cpp" />
     <ClCompile Include="src\core\setup\Initializer.cpp" />
     <ClCompile Include="src\render\world\BlockTextureAtlas.cpp" />

@@ -132,6 +132,9 @@
     <ClInclude Include="src\logic\ecs\components\ComponentPhysical.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\logic\state\StateEditorWorld.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\core\Engine.cpp">
@@ -219,6 +222,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\logic\ecs\systems\SystemPhysical.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\logic\state\StateEditorWorld.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

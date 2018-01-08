@@ -2,7 +2,7 @@
 #include "core/Engine.h"
 
 #include "io/File.h"
-#include "logic/state/StateMainMenu.h"
+#include "logic/state/StateEditorWorld.h"
 
 #include <iostream>
 #include <plog/Log.h>
@@ -18,7 +18,7 @@ int main(int argc, char* argv[])
 		core::Engine engine{ settings };
 
 		engine.initialize();
-		engine.setState(std::make_unique<logic::state::StateMainMenu>());
+		engine.setState(std::make_unique<logic::state::StateEditorWorld>());
 		engine.start();
 	}
 

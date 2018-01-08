@@ -35,7 +35,7 @@ namespace
 	}
 }
 
-core::allegro::Allegro::Allegro()
+render::allegro::Allegro::Allegro()
 {
 	LOG_INFO << "Initializing Allegro...";
 
@@ -53,7 +53,7 @@ core::allegro::Allegro::Allegro()
 		m_isInitialized = true;
 	}
 }
-core::allegro::Allegro::~Allegro()
+render::allegro::Allegro::~Allegro()
 {
 	if (!m_isInitialized)
 		return;

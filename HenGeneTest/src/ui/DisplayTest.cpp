@@ -1,7 +1,7 @@
 
 #include "CppUnitTest.h"
 
-#include "core/allegro/Allegro.h"
+#include "render/allegro/Allegro.h"
 #include "ui/Display.h"
 
 #include <glm/Unittest.h>
@@ -23,6 +23,6 @@ namespace ui
 		}
 
 	private:
-		core::allegro::Allegro m_allegro;
+		render::allegro::Allegro m_allegro;
 	};
 }

@@ -15,7 +15,7 @@ namespace render
 		class RendererMock : public Renderer<int>
 		{
 		public:
-			virtual void render(const Time & t, const Time & dt, RenderPass pass) const override final
+			virtual void render(const Time & t, const Time & dt) const override final
 			{
 				rendered = true;
 			}
