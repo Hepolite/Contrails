@@ -18,7 +18,7 @@ namespace logic
 			{
 				EventQueue queue;
 
-				const auto source = al_get_display_event_source(m_context.getDisplay().getHandle());
+				const auto source = al_get_display_event_source(m_context.m_display->getHandle());
 				Assert::IsTrue(queue.add(source));
 				Assert::IsFalse(queue.add(source));
 				Assert::IsFalse(queue.add(nullptr));
@@ -27,7 +27,7 @@ namespace logic
 			{
 				EventQueue queue;
 
-				const auto source = al_get_display_event_source(m_context.getDisplay().getHandle());
+				const auto source = al_get_display_event_source(m_context.m_display->getHandle());
 				queue.add(source);
 
 				Assert::IsTrue(queue.remove(source));
