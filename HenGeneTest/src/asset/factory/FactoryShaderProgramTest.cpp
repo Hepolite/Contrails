@@ -35,23 +35,23 @@ namespace asset
 				io::File{ "shaderA.fs" }.write("void main() { gl_FragColor = vec4(1, 1, 1, 1); }");
 				io::File{ "shaderA.vs" }.write("void main() { gl_Position = vec4(0, 0, 0, 1); }");
 				io::File{ "shaderA.xml" }.write(R"(
-				<shader type="vertex" file="shaderA.vs" />
-				<shader type="fragment" file="shaderA.fs" />
-				)");
+					<shader type="vertex" file="shaderA.vs" />
+					<shader type="fragment" file="shaderA.fs" />
+					)");
 				io::File{ "shaderB.xml" }.write(R"(
-				<shader type="vertex">
-				void main()
-				{
-					gl_Position = vec4(0, 0, 0, 1);
-				}
-				</shader>
-				<shader type="fragment">
-				void main()
-				{
-					gl_FragColor = vec4(1, 1, 1, 1);
-				}
-				</shader>
-				)");
+					<shader type="vertex">
+					void main()
+					{
+						gl_Position = vec4(0, 0, 0, 1);
+					}
+					</shader>
+					<shader type="fragment">
+					void main()
+					{
+						gl_FragColor = vec4(1, 1, 1, 1);
+					}
+					</shader>
+					)");
 			}
 			void deinitialize() const
 			{

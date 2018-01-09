@@ -29,6 +29,20 @@ namespace string
 
 	// ...
 
+	template<> inline bool parse(const std::string & string, const bool & def)
+	{
+		if (string.empty())
+			return def;
+		switch (string[0u])
+		{
+		case '1': case 't': case 'T': case 'y': case 'Y':
+			return true;
+		case '0': case 'f': case 'F': case 'n': case 'N':
+			return false;
+		default:
+			return def;
+		}
+	}
 	template<> inline float parse(const std::string & string, const float & def)
 	{
 		try { return std::stof(string); }
@@ -102,6 +116,10 @@ namespace string
 	{
 		return parseVec2<float>(string, def, ' ');
 	}
+	template<> inline glm::bvec2 parse(const std::string & string, const glm::bvec2 & def)
+	{
+		return parseVec2<bool>(string, def, ' ');
+	}
 	template<> inline glm::ivec2 parse(const std::string & string, const glm::ivec2 & def)
 	{
 		return parseVec2<int>(string, def, ' ');
@@ -114,6 +132,10 @@ namespace string
 	{
 		return parseVec3<float>(string, def, ' ');
 	}
+	template<> inline glm::bvec3 parse(const std::string & string, const glm::bvec3 & def)
+	{
+		return parseVec3<bool>(string, def, ' ');
+	}
 	template<> inline glm::ivec3 parse(const std::string & string, const glm::ivec3 & def)
 	{
 		return parseVec3<int>(string, def, ' ');
@@ -125,6 +147,10 @@ namespace string
 	template<> inline glm::vec4 parse(const std::string & string, const glm::vec4 & def)
 	{
 		return parseVec4<float>(string, def, ' ');
+	}
+	template<> inline glm::bvec4 parse(const std::string & string, const glm::bvec4 & def)
+	{
+		return parseVec4<bool>(string, def, ' ');
 	}
 	template<> inline glm::ivec4 parse(const std::string & string, const glm::ivec4 & def)
 	{
