@@ -16,13 +16,13 @@ void core::setup::setupAssets(Engine & engine)
 
 void core::setup::detail::setupShaderPrograms(asset::AssetRegistry & assetRegistry, render::uboRegistry & uboRegistry)
 {
-	asset::util::setupLoaderFactory<render::opengl::Program, asset::util::LoaderShaderProgram>(
+	asset::util::setupLoaderFactory<render::opengl::Program, asset::factory::LoaderShaderProgram>(
 		assetRegistry, "data/shaders", "xml", "data/shaders", uboRegistry
 	);
 }
 void core::setup::detail::setupSprites(asset::AssetRegistry & assetRegistry)
 {
-	asset::util::setupLoaderFactory<render::allegro::Sprite, asset::util::LoaderSprite>(
+	asset::util::setupLoaderFactory<render::allegro::Sprite, asset::factory::LoaderSprite>(
 		assetRegistry, "data/sprites", "xml", "data/sprites"
 	);
 }

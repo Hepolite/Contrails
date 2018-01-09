@@ -196,7 +196,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="dependencies\chaiscript\ChaiscriptTest.cpp" />
     <ClCompile Include="src\asset\AssetRefTest.cpp" />
     <ClCompile Include="src\asset\AssetRegistryTest.cpp" />
     <ClCompile Include="src\asset\AssetUtilTest.cpp" />
@@ -232,6 +231,7 @@
     <ClCompile Include="src\render\uboRegistryTest.cpp" />
     <ClCompile Include="src\SanityTest.cpp" />
     <ClCompile Include="src\ui\DisplayTest.cpp" />
+    <ClCompile Include="src\ui\gui\detail\WidgetLoaderTest.cpp" />
     <ClCompile Include="src\util\MathGenericTest.cpp" />
     <ClCompile Include="src\util\MathGeometryTest.cpp" />
     <ClCompile Include="src\util\MathOperatorsTest.cpp" />

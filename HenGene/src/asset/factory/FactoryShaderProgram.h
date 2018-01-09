@@ -7,7 +7,7 @@
 
 namespace asset
 {
-	namespace util
+	namespace factory
 	{
 		class LoaderShaderProgram
 		{

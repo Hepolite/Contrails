@@ -39,7 +39,7 @@ void render::allegro::SpriteFrame::flip(bool horizontal, bool vertical)
 }
 void render::allegro::SpriteFrame::tint(const glm::vec4 & tint)
 {
-	m_tint = { tint.r, tint.g, tint.b, tint.a };
+	m_tint = { tint.r * tint.a, tint.g * tint.a, tint.b * tint.a, tint.a };
 }
 
 void render::allegro::SpriteFrame::draw(const glm::vec2 & pos, float angle) const

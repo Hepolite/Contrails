@@ -14,5 +14,17 @@ void render::core::Pipeline::render(const Time & t, const Time & dt) const
 	if (m_scene != nullptr)
 		m_scene->render(t, dt);
 
+	if (m_gui != nullptr)
+	{
+		//m_gui->renderOpenGLContext
+		glUseProgram(0);
+		glBindVertexArray(0);
+		glDisable(GL_CULL_FACE);
+		glDisable(GL_DEPTH_TEST);
+		//m_gui->renderAllegroContext
+		glEnable(GL_CULL_FACE);
+		glEnable(GL_DEPTH_TEST);
+	}
+
 	al_flip_display();
 }

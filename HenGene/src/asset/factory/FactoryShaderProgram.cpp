@@ -16,7 +16,7 @@ namespace
 	const std::string TYPE_VERTEX = "vertex";
 }
 
-void asset::util::LoaderShaderProgram::load(render::opengl::Program & asset, const io::File & file, const render::uboRegistry & registry) const
+void asset::factory::LoaderShaderProgram::load(render::opengl::Program & asset, const io::File & file, const render::uboRegistry & registry) const
 {
 	asset.setName(file.getPath());
 
@@ -47,7 +47,7 @@ void asset::util::LoaderShaderProgram::load(render::opengl::Program & asset, con
 	bindPorts(asset, registry);
 }
 
-void asset::util::LoaderShaderProgram::bindPorts(render::opengl::Program & asset, const render::uboRegistry & registry) const
+void asset::factory::LoaderShaderProgram::bindPorts(render::opengl::Program & asset, const render::uboRegistry & registry) const
 {
 	for (const auto & binding : registry.getBindings())
 	{

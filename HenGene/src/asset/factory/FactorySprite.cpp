@@ -17,7 +17,7 @@ namespace
 	constexpr const char * ATTR_FLIP = "flip";
 }
 
-void asset::util::LoaderSprite::load(render::allegro::Sprite & asset, const io::File & file) const
+void asset::factory::LoaderSprite::load(render::allegro::Sprite & asset, const io::File & file) const
 {
 	pugi::xml_document doc;
 	doc.load_file(file.getPath().c_str());
@@ -39,7 +39,7 @@ void asset::util::LoaderSprite::load(render::allegro::Sprite & asset, const io::
 	}
 }
 
-void asset::util::BuilderSprite::build(render::allegro::Sprite & asset, unsigned int width, unsigned int height) const
+void asset::factory::BuilderSprite::build(render::allegro::Sprite & asset, unsigned int width, unsigned int height) const
 {
 	asset.create(width, height);
 }

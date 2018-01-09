@@ -8,7 +8,7 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace asset
 {
-	namespace util
+	namespace factory
 	{
 		TEST_CLASS(LoaderShaderProgramTest)
 		{

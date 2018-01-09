@@ -114,6 +114,9 @@
     <ClCompile Include="src\asset\factory\FactorySprite.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\ui\gui\detail\WidgetLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\render\opengl\ubo.h">
@@ -312,6 +315,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\asset\factory\FactoryShaderProgram.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui\gui\detail\Widget.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui\gui\detail\Data.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui\gui\detail\GuiLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui\gui\detail\WidgetLoader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<!-- Example structure containing all fields that are possible
+
+<script file="">script</script>
+<layout>
+  <widget name="">
+    <position>x y</position>
+    <size min="0 0" max="128 32">width height</size>
+    <group leader="name" />
+    <link target="name" location="location" />
+    <border inner="left right top bottom" outer="left right top bottom" />
+    <assets>
+      <script nameA="scriptA" nameB="scriptB" />
+      <sprite nameA="assetA" nameB="assetB" />
+    </assets>
+    <state locked="false" value="initial value" />
+    <activation button="left" key="modifiers+keyname" />
+    
+    <widget name="childA" />
+    <widget name="childB" />
+  </widget>
+</layout>
+
+-->
