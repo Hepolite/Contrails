@@ -10,11 +10,11 @@
     <link target="name" location="location" />
     <border inner="left right top bottom" outer="left right top bottom" />
     <assets>
-      <script nameA="scriptA" nameB="scriptB" />
-      <sprite nameA="assetA" nameB="assetB" />
+      <scripts nameA="scriptA" nameB="scriptB" />
+      <sprites nameA="assetA" nameB="assetB" />
     </assets>
     <state locked="false" value="initial value" />
-    <activation button="left" key="modifiers+keyname" />
+    <activation key="modifiers+keyname" />
     
     <widget name="childA" />
     <widget name="childB" />

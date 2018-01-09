@@ -1,7 +1,8 @@
 
 #include "WidgetLoader.h"
 
-#include "util/StringParsing.h"
+#include "ui/Keyboard.h"
+#include "util/Strings.h"
 
 #include <plog/Log.h>
 
@@ -9,6 +10,8 @@ namespace
 {
 	constexpr const char * NODE_ACTIVATION = "activation";
 	constexpr const char * NODE_ASSETS = "assets";
+	constexpr const char * NODE_ASSETS_SCRIPTS = "scripts";
+	constexpr const char * NODE_ASSETS_SPRITES = "sprites";
 	constexpr const char * NODE_BORDER = "border";
 	constexpr const char * NODE_FAMILY = "family";
 	constexpr const char * NODE_GROUP = "group";
@@ -17,6 +20,18 @@ namespace
 	constexpr const char * NODE_SIZE = "size";
 	constexpr const char * NODE_STATE = "state";
 
+	constexpr const char * ATTR_ACTIVATION_KEY = "key";
+	constexpr const char * ATTR_BORDER_ALL = "all";
+	constexpr const char * ATTR_BORDER_OUTER = "outer";
+	constexpr const char * ATTR_BORDER_OUTER_LEFT = "outer_left";
+	constexpr const char * ATTR_BORDER_OUTER_RIGHT = "outer_right";
+	constexpr const char * ATTR_BORDER_OUTER_TOP = "outer_top";
+	constexpr const char * ATTR_BORDER_OUTER_BOTTOM = "outer_bottom";
+	constexpr const char * ATTR_BORDER_INNER = "inner";
+	constexpr const char * ATTR_BORDER_INNER_LEFT = "inner_left";
+	constexpr const char * ATTR_BORDER_INNER_RIGHT = "inner_right";
+	constexpr const char * ATTR_BORDER_INNER_TOP = "inner_top";
+	constexpr const char * ATTR_BORDER_INNER_BOTTOM = "inner_bottom";
 	constexpr const char * ATTR_LINK_TARGET = "target";
 	constexpr const char * ATTR_LINK_LOCATION = "location";
 	constexpr const char * ATTR_SIZE_MIN = "min";
@@ -64,12 +79,47 @@ void ui::gui::WidgetLoader::load(Widget & widget, const pugi::xml_node & node)
 
 void ui::gui::WidgetLoader::loadActivation(Widget & widget, const pugi::xml_node & node)
 {
+	const std::string attrKey = node.attribute(ATTR_ACTIVATION_KEY).as_string();
+
+	const auto parts = string::split(attrKey, '+');
+	if (parts.size() > 1u)
+	{
+		for (unsigned int i = 0u; i < parts.size(); ++i)
+			widget.m_activation.m_mask |= keyboard::nameToModifier(parts[i]);
+	}
+	if (!parts.empty())
+		widget.m_activation.m_key = keyboard::nameToKey(parts.back());
 }
 void ui::gui::WidgetLoader::loadAssets(Widget & widget, const pugi::xml_node & node)
 {
+	if (const auto scripts = node.child(NODE_ASSETS_SCRIPTS))
+	{
+		for (auto attr = scripts.first_attribute(); attr; attr = attr.next_attribute())
+			widget.m_assets.m_scripts[attr.name()] = attr.as_string();
+	}
+	if (const auto sprites = node.child(NODE_ASSETS_SPRITES))
+	{
+		if (m_assets != nullptr)
+		{
+			for (auto attr = sprites.first_attribute(); attr; attr = attr.next_attribute())
+				widget.m_assets.m_sprites[attr.name()] = m_assets->get<render::allegro::Sprite>(attr.as_string());
+		}
+	}
 }
 void ui::gui::WidgetLoader::loadBorder(Widget & widget, const pugi::xml_node & node)
 {
+	const auto attrAll = node.attribute(ATTR_BORDER_ALL).as_float();
+	const auto attrOuter = node.attribute(ATTR_BORDER_OUTER).as_float(attrAll);
+	const auto attrInner = node.attribute(ATTR_BORDER_INNER).as_float(attrAll);
+
+	widget.m_border.m_inner.x = node.attribute(ATTR_BORDER_INNER_LEFT).as_float(attrInner);
+	widget.m_border.m_inner.y = node.attribute(ATTR_BORDER_INNER_RIGHT).as_float(attrInner);
+	widget.m_border.m_inner.z = node.attribute(ATTR_BORDER_INNER_TOP).as_float(attrInner);
+	widget.m_border.m_inner.w = node.attribute(ATTR_BORDER_INNER_BOTTOM).as_float(attrInner);
+	widget.m_border.m_outer.x = node.attribute(ATTR_BORDER_OUTER_LEFT).as_float(attrOuter);
+	widget.m_border.m_outer.y = node.attribute(ATTR_BORDER_OUTER_RIGHT).as_float(attrOuter);
+	widget.m_border.m_outer.z = node.attribute(ATTR_BORDER_OUTER_TOP).as_float(attrOuter);
+	widget.m_border.m_outer.w = node.attribute(ATTR_BORDER_OUTER_BOTTOM).as_float(attrOuter);
 }
 void ui::gui::WidgetLoader::loadFamily(Widget & widget, const pugi::xml_node & node)
 {

@@ -312,6 +312,7 @@
     <ClCompile Include="src\render\uboRegistry.cpp" />
     <ClCompile Include="src\ui\Display.cpp" />
     <ClCompile Include="src\ui\gui\detail\WidgetLoader.cpp" />
+    <ClCompile Include="src\ui\Keyboard.cpp" />
     <ClCompile Include="src\util\StringGeneric.cpp" />
   </ItemGroup>
   <ItemGroup>

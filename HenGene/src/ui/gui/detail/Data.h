@@ -84,9 +84,8 @@ namespace ui
 		// Stores the current activation states
 		struct Activation
 		{
-			mouse::Button m_button = mouse::Button::LEFT;
+			mouse::Button m_button;	// The button the user clicked the widget with
 			bool m_hovered = false;	// If true, user hovers mouse over widget
-			bool m_clicked = false;	// If true, user clicks on widget but has not released mouse button yet
 			int m_key = -1;			// The keyboard button required to activate widget (button id)
 			int m_mask = 0;			// The keyboard modifiers required to activate widget (bitfield)
 		};
