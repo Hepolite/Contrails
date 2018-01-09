@@ -1,8 +1,8 @@
 
 #include "CppUnitTest.h"
 
-#include "Setup.h"
 #include "render/world/BlockTextureAtlas.h"
+#include "Setup.h"
 
 #include <allegro5/bitmap.h>
 

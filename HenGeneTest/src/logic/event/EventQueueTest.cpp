@@ -3,6 +3,7 @@
 
 #include "logic/event/EventQueue.h"
 #include "Setup.h"
+#include "ui/Display.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -17,7 +18,7 @@ namespace logic
 			{
 				EventQueue queue;
 
-				const auto source = al_get_display_event_source(m_context.m_display.getHandle());
+				const auto source = al_get_display_event_source(m_context.getDisplay().getHandle());
 				Assert::IsTrue(queue.add(source));
 				Assert::IsFalse(queue.add(source));
 				Assert::IsFalse(queue.add(nullptr));
@@ -26,7 +27,7 @@ namespace logic
 			{
 				EventQueue queue;
 
-				const auto source = al_get_display_event_source(m_context.m_display.getHandle());
+				const auto source = al_get_display_event_source(m_context.getDisplay().getHandle());
 				queue.add(source);
 
 				Assert::IsTrue(queue.remove(source));

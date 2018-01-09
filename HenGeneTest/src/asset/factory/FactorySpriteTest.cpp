@@ -2,7 +2,7 @@
 #include "CppUnitTest.h"
 
 #include "asset/factory/FactorySprite.h"
-#include "render/allegro/Allegro.h"
+#include "Setup.h"
 
 #include <glm/Unittest.h>
 
@@ -55,7 +55,7 @@ namespace asset
 				io::File{ "sprite.xml" }.erase();
 			}
 			
-			render::allegro::Allegro m_allegro;
+			setup::Context m_context;
 		};
 
 		TEST_CLASS(BuilderSpriteTest)
@@ -70,7 +70,7 @@ namespace asset
 			}
 
 		private:
-			render::allegro::Allegro m_allegro;
+			setup::Context m_context;
 		};
 	}
 }

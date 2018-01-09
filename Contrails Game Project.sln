@@ -12,6 +12,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HenGeneTest", "HenGeneTest\HenGeneTest.vcxproj", "{76C03E35-B239-4597-A869-3C2EEE8EA5BB}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VoxCoreTest", "VoxCoreTest\VoxCoreTest.vcxproj", "{1F5B1BDF-851E-4B7A-B39D-BAF6385C5E4C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F6829B92-249A-423E-8CF4-109BB8B5D147} = {F6829B92-249A-423E-8CF4-109BB8B5D147}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ContrailsTest", "ContrailsTest\ContrailsTest.vcxproj", "{812D758B-658F-43F6-A4E0-C07E82B964B4}"
 EndProject

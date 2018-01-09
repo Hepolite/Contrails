@@ -1,8 +1,8 @@
 
 #include "CppUnitTest.h"
 
-#include "render/allegro/Allegro.h"
 #include "render/allegro/Sprite.h"
+#include "Setup.h"
 
 #include <glm/Unittest.h>
 
@@ -35,7 +35,7 @@ namespace render
 			}
 
 		private:
-			Allegro m_allegro;
+			setup::Context m_context;
 		};
 
 		TEST_CLASS(SpriteTest)
@@ -79,7 +79,7 @@ namespace render
 			}
 
 		private:
-			Allegro m_allegro;
+			setup::Context m_context;
 		};
 	}
 }
