@@ -3,6 +3,8 @@
 
 #include "ui/gui/detail/Data.h"
 
+#include <string>
+
 namespace ui
 {
 	namespace gui
@@ -18,6 +20,8 @@ namespace ui
 			Position m_position;
 			Size m_size;
 			State m_state;
+
+			std::string m_name;
 		};
 	}
 }

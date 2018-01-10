@@ -20,10 +20,11 @@ namespace ui
 
 			TEST_METHOD(WidgetLoader_loadActivation)
 			{
+				Widgets widgets;
 				Widget widgetA;
 				Widget widgetB;
-				WidgetLoader{}.loadActivation(widgetA, m_doc.child("activation"));
-				WidgetLoader{}.loadActivation(widgetB, {});
+				WidgetLoader{ widgets, widgetA }.loadActivation(m_doc.child("activation"));
+				WidgetLoader{ widgets, widgetB }.loadActivation({});
 
 				Assert::AreEqual(ALLEGRO_KEY_H | 0, widgetA.m_activation.m_key);
 				Assert::AreEqual(ALLEGRO_KEYMOD_CTRL | ALLEGRO_KEYMOD_SHIFT, widgetA.m_activation.m_mask);
@@ -34,9 +35,9 @@ namespace ui
 			{
 				asset::AssetRegistry registry;
 				Widget widget;
-				WidgetLoader loader;
+				WidgetLoader loader{ Widgets{}, widget };
 				loader.inject(registry);
-				loader.loadAssets(widget, m_doc.child("assets"));
+				loader.loadAssets(m_doc.child("assets"));
 
 				Assert::AreEqual(2u, widget.m_assets.m_sprites.size());
 				Assert::IsFalse(widget.m_assets.m_sprites.find("icon") == widget.m_assets.m_sprites.end());
@@ -46,10 +47,11 @@ namespace ui
 			}
 			TEST_METHOD(WidgetLoader_loadBorder)
 			{
+				Widgets widgets;
 				Widget widgetA;
 				Widget widgetB;
-				WidgetLoader{}.loadBorder(widgetA, m_doc.child("border"));
-				WidgetLoader{}.loadBorder(widgetB, {});
+				WidgetLoader{ widgets, widgetA }.loadBorder(m_doc.child("border"));
+				WidgetLoader{ widgets, widgetB }.loadBorder({});
 
 				Assert::AreEqual({ 5.0f, 5.0f, 2.0f, 5.0f }, widgetA.m_border.m_inner);
 				Assert::AreEqual({ 4.0f, 3.0f, 3.0f, 3.0f }, widgetA.m_border.m_outer);
@@ -58,20 +60,45 @@ namespace ui
 			}
 			TEST_METHOD(WidgetLoader_loadFamily)
 			{
-				Assert::Fail();
+				Widgets widgets;
+				Widget widget;
+				WidgetLoader loader{ widgets, widget };
+				loader.loadFamily(m_doc);
+
+				Assert::IsTrue(widgets.has("child"));
+				Assert::IsTrue(widgets.get("child").m_name == "child");
+				Assert::IsTrue(widgets.get("child").m_link.m_location == Link::Location::CENTER);
 			}
 			TEST_METHOD(WidgetLoader_loadGroup)
 			{
-				Assert::Fail();
+				Widgets widgets;
+				Widget & widgetL = widgets.create("widgetL");
+				Widget & widgetA = widgets.create("widgetA");
+				Widget & widgetB = widgets.create("widgetB");
+				WidgetLoader{ widgets, widgetL }.loadGroup({});
+				WidgetLoader{ widgets, widgetA }.loadGroup(m_doc.child("group"));
+				WidgetLoader{ widgets, widgetB }.loadGroup({});
+
+				Assert::IsTrue(widgetL.m_group.m_leader.empty());
+				Assert::AreEqual(2u, widgetL.m_group.m_members.size());
+				Assert::IsFalse(widgetL.m_group.m_members.find("widgetL") == widgetL.m_group.m_members.end());
+				Assert::IsFalse(widgetL.m_group.m_members.find("widgetA") == widgetL.m_group.m_members.end());
+
+				Assert::AreEqual({ "widgetL" }, widgetA.m_group.m_leader);
+				Assert::IsTrue(widgetA.m_group.m_members.empty());
+
+				Assert::IsTrue(widgetB.m_group.m_leader.empty());
+				Assert::AreEqual(1u, widgetB.m_group.m_members.size());
+				Assert::IsFalse(widgetB.m_group.m_members.find("widgetB") == widgetB.m_group.m_members.end());
 			}
 			TEST_METHOD(WidgetLoader_loadLink)
 			{
-				Widget widgetA;
-				Widget widgetB;
-				widgetA.m_family.m_parent = "widgetP";
-				widgetB.m_family.m_parent = "widgetP";
-				WidgetLoader{}.loadLink(widgetA, m_doc.child("link"));
-				WidgetLoader{}.loadLink(widgetB, {});
+				Widgets widgets;
+				widgets.create("widgetP");
+				Widget & widgetA = widgets.create("widgetA", "widgetP");
+				Widget & widgetB = widgets.create("widgetB", "widgetP");
+				WidgetLoader{ widgets, widgetA }.loadLink(m_doc.child("link"));
+				WidgetLoader{ widgets, widgetB }.loadLink({});
 
 				Assert::AreEqual({ "widgetTarget" }, widgetA.m_link.m_target);
 				Assert::IsTrue(Link::Location::RIGHT_BOTTOM == widgetA.m_link.m_location);
@@ -80,10 +107,11 @@ namespace ui
 			}
 			TEST_METHOD(WidgetLoader_loadPosition)
 			{
+				Widgets widgets;
 				Widget widgetA;
 				Widget widgetB;
-				WidgetLoader{}.loadPosition(widgetA, m_doc.child("position"));
-				WidgetLoader{}.loadPosition(widgetB, {});
+				WidgetLoader{ widgets, widgetA }.loadPosition(m_doc.child("position"));
+				WidgetLoader{ widgets, widgetB }.loadPosition({});
 
 				Assert::IsFalse(widgetA.m_position.m_automatic);
 				Assert::AreEqual({ 64, 48 }, widgetA.m_position.m_pos);
@@ -92,10 +120,11 @@ namespace ui
 			}
 			TEST_METHOD(WidgetLoader_loadSize)
 			{
+				Widgets widgets;
 				Widget widgetA;
 				Widget widgetB;
-				WidgetLoader{}.loadSize(widgetA, m_doc.child("size"));
-				WidgetLoader{}.loadSize(widgetB, {});
+				WidgetLoader{ widgets, widgetA }.loadSize(m_doc.child("size"));
+				WidgetLoader{ widgets, widgetB }.loadSize({});
 
 				Assert::IsFalse(widgetA.m_size.m_automatic);
 				Assert::AreEqual({ 128, 32 }, widgetA.m_size.m_minSize);
@@ -108,10 +137,11 @@ namespace ui
 			}
 			TEST_METHOD(WidgetLoader_loadState)
 			{
+				Widgets widgets;
 				Widget widgetA;
 				Widget widgetB;
-				WidgetLoader{}.loadState(widgetA, m_doc.child("state"));
-				WidgetLoader{}.loadState(widgetB, {});
+				WidgetLoader{ widgets, widgetA }.loadState(m_doc.child("state"));
+				WidgetLoader{ widgets, widgetB }.loadState({});
 
 				Assert::IsTrue(widgetA.m_state.m_locked);
 				Assert::IsFalse(widgetB.m_state.m_locked);
@@ -124,6 +154,13 @@ namespace ui
 			{
 				auto activation = m_doc.append_child("activation");
 				activation.append_attribute("key").set_value("ctrl+shift+H");
+
+				auto family = m_doc.append_child("widget");
+				family.append_attribute("name").set_value("child");
+				family.append_child("link").append_attribute("location").set_value("center");
+
+				auto group = m_doc.append_child("group");
+				group.append_attribute("leader").set_value("widgetL");
 
 				auto assets = m_doc.append_child("assets");
 				auto assetSprite = assets.append_child("sprites");

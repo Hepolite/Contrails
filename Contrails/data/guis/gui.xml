@@ -3,7 +3,7 @@
 
 <script file="">script</script>
 <layout>
-  <widget name="">
+  <widget type="" name="">
     <position>x y</position>
     <size min="0 0" max="128 32">width height</size>
     <group leader="name" />

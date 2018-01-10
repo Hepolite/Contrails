@@ -261,6 +261,7 @@
     <ClInclude Include="src\ui\gui\detail\GuiLoader.h" />
     <ClInclude Include="src\ui\gui\detail\Widget.h" />
     <ClInclude Include="src\ui\gui\detail\WidgetLoader.h" />
+    <ClInclude Include="src\ui\gui\detail\Widgets.h" />
     <ClInclude Include="src\ui\gui\Gui.h" />
     <ClInclude Include="src\ui\gui\GuiManager.h" />
     <ClInclude Include="src\ui\Keyboard.h" />
@@ -312,6 +313,8 @@
     <ClCompile Include="src\render\uboRegistry.cpp" />
     <ClCompile Include="src\ui\Display.cpp" />
     <ClCompile Include="src\ui\gui\detail\WidgetLoader.cpp" />
+    <ClCompile Include="src\ui\gui\detail\Widgets.cpp" />
+    <ClCompile Include="src\ui\gui\Gui.cpp" />
     <ClCompile Include="src\ui\Keyboard.cpp" />
     <ClCompile Include="src\util\StringGeneric.cpp" />
   </ItemGroup>

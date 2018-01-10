@@ -1,10 +1,12 @@
 
 #pragma once
 
-#include "asset/AssetRegistry.h"
 #include "ui/gui/detail/Widget.h"
+#include "ui/gui/detail/Widgets.h"
 
 #include <pugixml/pugixml.hpp>
+
+namespace asset { class AssetRegistry; }
 
 namespace ui
 {
@@ -13,21 +15,26 @@ namespace ui
 		class WidgetLoader
 		{
 		public:
+			WidgetLoader(Widgets & widgets, Widget & widget);
+
 			inline void inject(const asset::AssetRegistry & assets) { m_assets = &assets; }
 
-			void load(Widget & widget, const pugi::xml_node & node);
-			void loadActivation(Widget & widget, const pugi::xml_node & node);
-			void loadAssets(Widget & widget, const pugi::xml_node & node);
-			void loadBorder(Widget & widget, const pugi::xml_node & node);
-			void loadFamily(Widget & widget, const pugi::xml_node & node);
-			void loadGroup(Widget & widget, const pugi::xml_node & node);
-			void loadLink(Widget & widget, const pugi::xml_node & node);
-			void loadPosition(Widget & widget, const pugi::xml_node & node);
-			void loadSize(Widget & widget, const pugi::xml_node & node);
-			void loadState(Widget & widget, const pugi::xml_node & node);
+			void load(const pugi::xml_node & node);
+			void loadActivation(const pugi::xml_node & node);
+			void loadAssets(const pugi::xml_node & node);
+			void loadBorder(const pugi::xml_node & node);
+			void loadFamily(const pugi::xml_node & node);
+			void loadGroup(const pugi::xml_node & node);
+			void loadLink(const pugi::xml_node & node);
+			void loadPosition(const pugi::xml_node & node);
+			void loadSize(const pugi::xml_node & node);
+			void loadState(const pugi::xml_node & node);
 
 		private:
 			const asset::AssetRegistry * m_assets = nullptr;
+
+			Widgets * m_widgets = nullptr;
+			Widget * m_widget = nullptr;
 		};
 	}
 }
