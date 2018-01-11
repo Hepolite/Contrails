@@ -2,6 +2,7 @@
 #include "Sprite.h"
 
 #include <allegro5/allegro.h>
+#include <plog/Log.h>
 #include <utility>
 
 render::allegro::SpriteFrame::SpriteFrame(ALLEGRO_BITMAP * parent, const glm::ivec2 & pos, const glm::ivec2 & size) noexcept
@@ -56,6 +57,15 @@ void render::allegro::SpriteFrame::draw(const glm::vec2 & pos, float angle) cons
 }
 void render::allegro::SpriteFrame::draw(const glm::vec2 & pos, const glm::vec2 & size, float angle) const
 {
+	if (m_handle == nullptr)
+		return;
+	if (angle == 0.0f)
+		al_draw_tinted_scaled_bitmap(m_handle, m_tint, m_pos.x, m_pos.y, m_size.x, m_size.y, pos.x, pos.y, size.x, size.y, m_flags);
+	else
+	{
+		const auto offset = 0.5f * glm::vec2{ m_size };
+		al_draw_tinted_scaled_rotated_bitmap(m_handle, m_tint, offset.x, offset.y, pos.x, pos.y, size.x / m_size.x, size.y / m_size.y, angle, m_flags);
+	}
 }
 
 // ...
@@ -92,6 +102,8 @@ bool render::allegro::Sprite::load(const io::File & file)
 {
 	if (m_handle != nullptr)
 		return false;
+	if (!file.exists())
+		LOG_WARNING << "File " + file.getPath() + " does not exist";
 	m_handle = al_load_bitmap(file.getPath().c_str());
 	return m_handle != nullptr;
 }

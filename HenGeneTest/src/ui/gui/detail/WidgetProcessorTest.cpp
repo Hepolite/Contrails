@@ -126,6 +126,6 @@ void ui::gui::WidgetProcessorTest::appendAttribute(pugi::xml_node & node, const 
 ui::gui::Widget & ui::gui::WidgetProcessorTest::getAndProcess(const std::string widget)
 {
 	auto & w = m_widgets.get(widget);
-	w.m_logic.m_process();
+	w.m_logic.m_process({ 0.0f, 0.0f });
 	return w;
 }

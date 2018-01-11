@@ -26,6 +26,8 @@ namespace ui
 				WidgetLoader{ widgets, widgetA }.loadActivation(m_doc.child("activation"));
 				WidgetLoader{ widgets, widgetB }.loadActivation({});
 
+				Assert::IsTrue(widgetA.m_activation.m_locked);
+				Assert::IsFalse(widgetB.m_activation.m_locked);
 				Assert::AreEqual(ALLEGRO_KEY_H | 0, widgetA.m_activation.m_key);
 				Assert::AreEqual(ALLEGRO_KEYMOD_CTRL | ALLEGRO_KEYMOD_SHIFT, widgetA.m_activation.m_mask);
 				Assert::AreEqual(-1, widgetB.m_activation.m_key);
@@ -154,16 +156,19 @@ namespace ui
 				WidgetLoader{ widgets, widgetA }.loadState(m_doc.child("state"));
 				WidgetLoader{ widgets, widgetB }.loadState({});
 
-				Assert::IsTrue(widgetA.m_state.m_locked);
-				Assert::IsFalse(widgetB.m_state.m_locked);
-				Assert::IsTrue(widgetA.m_state.m_value == "3.14");
-				Assert::IsTrue(widgetB.m_state.m_value.empty());
+				Assert::AreEqual(true, widgetA.m_state.m_bool);
+				Assert::AreEqual(3.14f, widgetA.m_state.m_float);
+				Assert::AreEqual({ "Hello World!" }, widgetA.m_state.m_string);
+				Assert::AreEqual(false, widgetB.m_state.m_bool);
+				Assert::AreEqual(0.0f, widgetB.m_state.m_float);
+				Assert::AreEqual({ "" }, widgetB.m_state.m_string);
 			}
 
 		private:
 			void initialize()
 			{
 				auto activation = m_doc.append_child("activation");
+				activation.append_attribute("locked").set_value(true);
 				activation.append_attribute("key").set_value("ctrl+shift+H");
 
 				auto family = m_doc.append_child("widget");
@@ -201,8 +206,9 @@ namespace ui
 				size.append_child(pugi::node_pcdata).set_value("160 40");
 
 				auto state = m_doc.append_child("state");
-				state.append_attribute("locked").set_value(true);
-				state.append_attribute("value").set_value("3.14");
+				state.append_attribute("bool").set_value("true");
+				state.append_attribute("float").set_value("3.14");
+				state.append_attribute("string").set_value("Hello World!");
 			}
 
 			pugi::xml_document m_doc;

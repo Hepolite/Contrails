@@ -22,7 +22,7 @@ namespace ui
 			Processor & operator=(const Processor &) = default;
 			Processor & operator=(Processor &&) = default;
 
-			virtual void operator()();
+			virtual void operator()(const glm::vec2 & pos);
 
 			const Widget & getParent() const;
 			const Widget & getChild(const std::string & name) const;

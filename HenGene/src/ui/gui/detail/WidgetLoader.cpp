@@ -44,7 +44,9 @@ namespace
 	constexpr const char * ATTR_SIZE_MIN = "min";
 	constexpr const char * ATTR_SIZE_MAX = "max";
 	constexpr const char * ATTR_STATE_LOCKED = "locked";
-	constexpr const char * ATTR_STATE_VALUE = "value";
+	constexpr const char * ATTR_STATE_VALUE_BOOL = "bool";
+	constexpr const char * ATTR_STATE_VALUE_FLOAT = "float";
+	constexpr const char * ATTR_STATE_VALUE_STRING = "string";
 
 	constexpr const char * VALUE_HEADER_BUTTON = "button";
 	constexpr const char * VALUE_HEADER_BUTTON_CHECKBOX = "checkbox";
@@ -103,6 +105,9 @@ void ui::gui::WidgetLoader::loadActivation(const pugi::xml_node & node)
 	}
 	if (!parts.empty())
 		m_widget->m_activation.m_key = keyboard::nameToKey(parts.back());
+
+	if (const auto attr = node.attribute(ATTR_STATE_LOCKED))
+		m_widget->m_activation.m_locked = attr.as_bool();
 }
 void ui::gui::WidgetLoader::loadAssets(const pugi::xml_node & node)
 {
@@ -166,11 +171,11 @@ void ui::gui::WidgetLoader::loadHeader(const pugi::xml_node & node)
 		m_widget->m_render.m_visible = attr.as_bool(true);
 
 	m_widget->m_logic.m_process = Processor{ *m_widgets, *m_widget };
-	m_widget->m_render.m_render = Renderer{ *m_widgets, *m_widget };
+	m_widget->m_render.m_render = Renderer{ *m_widget };
 
 	const std::string attrType = node.attribute(ATTR_HEADER_TYPE).as_string();
 	if (attrType == VALUE_HEADER_BUTTON)
-		m_widget->m_render.m_render = RendererButton{ *m_widgets, *m_widget };
+		m_widget->m_render.m_render = RendererButton{ *m_widget };
 	else
 		LOG_WARNING << "Unknown widget type " << attrType;
 
@@ -236,8 +241,10 @@ void ui::gui::WidgetLoader::loadSize(const pugi::xml_node & node)
 }
 void ui::gui::WidgetLoader::loadState(const pugi::xml_node & node)
 {
-	if (const auto attr = node.attribute(ATTR_STATE_LOCKED))
-		m_widget->m_state.m_locked = attr.as_bool();
-	if (const auto attr = node.attribute(ATTR_STATE_VALUE))
-		m_widget->m_state.m_value = attr.as_string();
+	if (const auto attr = node.attribute(ATTR_STATE_VALUE_BOOL))
+		m_widget->m_state.m_bool = string::parse<bool>(attr.as_string());
+	if (const auto attr = node.attribute(ATTR_STATE_VALUE_FLOAT))
+		m_widget->m_state.m_float = string::parse<float>(attr.as_string());
+	if (const auto attr = node.attribute(ATTR_STATE_VALUE_STRING))
+		m_widget->m_state.m_string = string::parse<std::string>(attr.as_string());
 }

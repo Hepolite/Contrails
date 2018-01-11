@@ -27,5 +27,19 @@ namespace string
 			Assert::AreEqual({ "" }, dataB[3u]);
 			Assert::AreEqual({ "bar" }, dataB[4u]);
 		}
+
+		TEST_METHOD(StringGeneric_replace)
+		{
+			Assert::AreEqual({ "That is a string" }, replace("This is a string", "is", "at"));
+			Assert::AreEqual({ "HeFoolo World!" }, replace("Hello World!", "l", "Foo"));
+			Assert::AreEqual({ "Value: 42/%d" }, replace("Value: %d/%d", "%d", std::to_string(42)));
+			Assert::AreEqual({ "data/sprites/sprite_name" }, replace("data/sprites/sprite_name.xml", ".xml", ""));
+		}
+		TEST_METHOD(StringGeneric_replaceAll)
+		{
+			Assert::AreEqual({ "String" }, replaceAll("String", "", "foo"));
+			Assert::AreEqual({ "HeFooFooo WorFood!" }, replaceAll("Hello World!", "l", "Foo"));
+			Assert::AreEqual({ "Value: 42/42" }, replaceAll("Value: %d/%d", "%d", std::to_string(42)));
+		}
 	};
 }

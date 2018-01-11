@@ -320,6 +320,7 @@
     <ClCompile Include="src\ui\gui\detail\WidgetRenderer.cpp" />
     <ClCompile Include="src\ui\gui\detail\Widgets.cpp" />
     <ClCompile Include="src\ui\gui\Gui.cpp" />
+    <ClCompile Include="src\ui\gui\GuiManager.cpp" />
     <ClCompile Include="src\ui\Keyboard.cpp" />
     <ClCompile Include="src\util\StringGeneric.cpp" />
   </ItemGroup>

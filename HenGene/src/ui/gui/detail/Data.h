@@ -24,12 +24,12 @@ namespace ui
 		// Stores what the widget will be doing every tick
 		struct Logic
 		{
-			std::function<void()> m_process;
+			std::function<void(const glm::vec2 &)> m_process;
 		};
 		// Stores how the widget will be rendered to the screen
 		struct Render
 		{
-			std::function<void()> m_render;
+			std::function<void(const glm::vec2 &)> m_render;
 			glm::vec2 m_offset;
 			bool m_visible = true;
 		};
@@ -97,16 +97,18 @@ namespace ui
 		// Stores the current state of the widget
 		struct State
 		{
-			bool m_locked = false;
-			std::string m_value;
+			bool m_bool = false;
+			float m_float = 0.0f;
+			std::string m_string;
 		};
 		// Stores the current activation states
 		struct Activation
 		{
-			mouse::Button m_button;	// The button the user clicked the widget with
+			bool m_locked = false;	// If true, user may not interact with widget
 			bool m_hovered = false;	// If true, user hovers mouse over widget
 			int m_key = -1;			// The keyboard button required to activate widget (button id)
 			int m_mask = 0;			// The keyboard modifiers required to activate widget (bitfield)
+			mouse::Button m_button = mouse::Button::NONE;
 		};
 	}
 }

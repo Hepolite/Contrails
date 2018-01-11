@@ -21,7 +21,7 @@ void render::core::Pipeline::render(const Time & t, const Time & dt) const
 		glBindVertexArray(0);
 		glDisable(GL_CULL_FACE);
 		glDisable(GL_DEPTH_TEST);
-		//m_gui->renderAllegroContext
+		m_gui->render();
 		glEnable(GL_CULL_FACE);
 		glEnable(GL_DEPTH_TEST);
 	}

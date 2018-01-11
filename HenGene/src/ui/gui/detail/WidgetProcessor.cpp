@@ -7,7 +7,7 @@ ui::gui::Processor::Processor(const Widgets & widgets, Widget & widget)
 	: m_widgets(&widgets), m_widget(&widget)
 {}
 
-void ui::gui::Processor::operator()()
+void ui::gui::Processor::operator()(const glm::vec2 & pos)
 {
 	if (m_widget->m_size.m_automatic)
 		m_widget->m_size.m_size = calculateSize();
@@ -43,26 +43,26 @@ glm::vec2 ui::gui::Processor::calculatePosition() const
 		{
 		case Link::Location::TOP_LEFT:
 		case Link::Location::LEFT_TOP:
-			return glm::vec2{ targetPos.x + border.x, targetPos.y + border.z };
+			return glm::vec2{ border.x, border.z };
 		case Link::Location::TOP:
-			return glm::vec2{ targetPos.x + 0.5f * deltaSize.x, targetPos.y + border.z };
+			return glm::vec2{ 0.5f * deltaSize.x, border.z };
 		case Link::Location::TOP_RIGHT:
 		case Link::Location::RIGHT_TOP:
-			return glm::vec2{ targetPos.x + deltaSize.x - border.y, targetPos.y + border.z };
+			return glm::vec2{ deltaSize.x - border.y, border.z };
 		case Link::Location::LEFT:
-			return glm::vec2{ targetPos.x + border.x, targetPos.y + 0.5f * deltaSize.y };
+			return glm::vec2{ border.x, 0.5f * deltaSize.y };
 		case Link::Location::CENTER:
-			return targetPos + 0.5f * deltaSize;
+			return 0.5f * deltaSize;
 		case Link::Location::RIGHT:
-			return glm::vec2{ targetPos.x + deltaSize.x - border.y, targetPos.y + 0.5f * deltaSize.y };
+			return glm::vec2{ deltaSize.x - border.y, 0.5f * deltaSize.y };
 		case Link::Location::BOTTOM_LEFT:
 		case Link::Location::LEFT_BOTTOM:
-			return glm::vec2{ targetPos.x + border.x, targetPos.y + deltaSize.y - border.w };
+			return glm::vec2{ border.x, deltaSize.y - border.w };
 		case Link::Location::BOTTOM:
-			return glm::vec2{ targetPos.x + 0.5f * deltaSize.x, targetPos.y + deltaSize.y - border.w };
+			return glm::vec2{ 0.5f * deltaSize.x, deltaSize.y - border.w };
 		case Link::Location::BOTTOM_RIGHT:
 		case Link::Location::RIGHT_BOTTOM:
-			return glm::vec2{ targetPos.x + deltaSize.x - border.y, targetPos.y + deltaSize.y - border.w };
+			return glm::vec2{ deltaSize.x - border.y, deltaSize.y - border.w };
 		}
 	}
 	else

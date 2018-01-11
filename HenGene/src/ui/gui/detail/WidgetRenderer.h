@@ -12,7 +12,7 @@ namespace ui
 		{
 		public:
 			Renderer() = delete;
-			Renderer(const Widgets & widgets, Widget & widget);
+			Renderer(Widget & widget);
 			Renderer(const Renderer &) = default;
 			Renderer(Renderer &&) = default;
 			virtual ~Renderer() = default;
@@ -20,19 +20,20 @@ namespace ui
 			Renderer & operator=(const Renderer &) = default;
 			Renderer & operator=(Renderer &&) = default;
 
-			virtual void operator()() const {}
+			virtual void operator()(const glm::vec2 & pos) const {}
 
 		protected:
-			const Widgets * m_widgets = nullptr;
 			Widget * m_widget = nullptr;
 		};
 
 		class RendererButton : public Renderer
 		{
 		public:
-			RendererButton(const Widgets & widgets, Widget & widget);
+			RendererButton(Widget & widget);
 
-			virtual void operator()() const override final;
+			std::string getFrame() const;
+
+			virtual void operator()(const glm::vec2 & pos) const override final;
 		};
 	}
 }

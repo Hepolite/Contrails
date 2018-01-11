@@ -4,6 +4,7 @@
 #include "asset/AssetRegistry.h"
 #include "io/File.h"
 #include "io/Folder.h"
+#include "util/StringGeneric.h"
 
 namespace asset
 {
@@ -53,7 +54,7 @@ void asset::util::setupLoaderFactory(
 		if (file.getExtension() != extension)
 			continue;
 
-		const auto name = file.getFolder().substr(trimmed.length()) + file.getName();
+		const auto name = string::replace(string::replace(file.getPath(), "." + extension, ""), trimmed, "");
 		registry.add<Type>(name).m_factory = [file, &args...]()
 		{
 			auto asset = std::make_unique<Type>();

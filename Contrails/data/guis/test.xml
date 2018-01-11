@@ -2,24 +2,33 @@
 
 <script file="data/scripts/gui_test.chai" />
 <layout>
+  <size>640 480</size>
   <widget type="panel" name="parent">
-    <assets> <sprites background="data/sprites/cylinder.png" /> </assets>
+    <assets> <sprites icon="cylinder" /> </assets>
     <border inner="3" />
     <link location="center" />
-    <widget type="button" name="childA">
-      <assets> <sprites background="data/sprites/cylinder.png" /> </assets>
+    <widget type="button" name="new_game">
+      <assets> <sprites icon="gui/main_menu/new_game" /> </assets>
       <border outer="3" />
-      <link location="top" />
+      <size>128 32</size>
     </widget>
-    <widget type="button" name="childB">
-      <assets> <sprites background="data/sprites/cylinder.png" /> </assets>
+    <widget type="button" name="load_game">
+      <assets> <sprites icon="gui/main_menu/load_game" /> </assets>
       <border outer="3" />
-      <link target="childA" location="bottom" />
+      <link target="new_game" location="bottom" />
+      <size>128 32</size>
     </widget>
-    <widget type="button" name="childC">
-      <assets> <sprites background="data/sprites/cylinder.png" /> </assets>
+    <widget type="button" name="editor">
+      <assets> <sprites icon="gui/main_menu/editor" /> </assets>
       <border outer="3" />
-      <link target="childB" location="bottom" />
+      <link target="load_game" location="bottom" />
+      <size>128 32</size>
+    </widget>
+    <widget type="button" name="quit_game">
+      <assets> <sprites icon="gui/main_menu/quit_game" /> </assets>
+      <border outer="3" />
+      <link target="editor" location="bottom" />
+      <size>128 32</size>
     </widget>
   </widget>
 </layout>
