@@ -1,7 +1,6 @@
 <?xml version="1.0" ?>
 <script file="data/scripts/gui_test.chai" />
 <layout>
-  <size>640 480</size>
   <widget type="panel" name="parent">
     <assets> <sprites background="gui/generic/background" /> </assets>
     <border inner="6" />
@@ -12,6 +11,7 @@
       <size>128 32</size>
     </widget>
     <widget type="button" name="load_game">
+      <activation locked="true" />
       <assets> <sprites icon="gui/main_menu/load_game" /> </assets>
       <border outer="4" />
       <link target="new_game" location="bottom" />
@@ -24,7 +24,10 @@
       <size>128 32</size>
     </widget>
     <widget type="button" name="quit_game">
-      <assets> <sprites icon="gui/main_menu/quit_game" /> </assets>
+      <assets>
+        <sprites icon="gui/main_menu/quit_game" />
+        <scripts activate="ENGINE.terminate()" />
+      </assets>
       <border outer="4" />
       <link target="editor" location="bottom" />
       <size>128 32</size>

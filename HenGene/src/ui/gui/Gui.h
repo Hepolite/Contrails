@@ -24,6 +24,7 @@ namespace ui
 			bool onEvent(const logic::event::KeyPress & event);
 			void onEvent(const logic::event::KeyRelease & event);
 			bool onEvent(const logic::event::MousePress & event);
+			bool onEvent(const logic::event::MouseMove & event);
 			void onEvent(const logic::event::MouseRelease & event);
 
 			void process();
@@ -38,6 +39,10 @@ namespace ui
 			void process(Widget & widget, const glm::vec2 & offset);
 			void render(const Widget & widget, const glm::vec2 & offset) const;
 
+			bool onEvent(const logic::event::MousePress & event, Widget & widget);
+			bool onEvent(const logic::event::MouseMove & event, Widget & widget, const glm::vec2 & offset);
+			void onEvent(const logic::event::MouseRelease & event, Widget & widget);
+			
 			Widgets m_widgets;
 			logic::script::Script m_script;
 		};

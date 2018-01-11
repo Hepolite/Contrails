@@ -16,6 +16,8 @@
 #include "ui/gui/GuiManager.h"
 #include "world/Universe.h"
 
+#include <allegro5/allegro.h>
+
 struct core::Engine::Impl
 {
 	Impl() = delete;
@@ -51,7 +53,11 @@ core::Engine::Engine(const Settings & settings)
 	m_impl = std::make_unique<Impl>(settings);
 
 	m_impl->m_eventQueue.add(al_get_display_event_source(m_impl->m_display.getHandle()));
+	m_impl->m_eventQueue.add(al_get_keyboard_event_source());
+	m_impl->m_eventQueue.add(al_get_mouse_event_source());
 	m_impl->m_guiManager.inject(m_impl->m_assetRegistry);
+	m_impl->m_guiManager.inject(m_impl->m_display);
+	m_impl->m_guiManager.inject(m_impl->m_eventBus);
 	m_impl->m_pipeline.inject(m_impl->m_guiManager);
 	m_impl->m_pipeline.inject(m_impl->m_scene);
 	m_impl->m_universe.inject(m_impl->m_eventBus);

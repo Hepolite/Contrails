@@ -19,9 +19,11 @@ namespace
 	constexpr const char * VALUE_BACKGROUND_BOTTOM_RIGHT = "bottom_right";
 	constexpr const char * VALUE_ICON_ACTIVE = "active";
 	constexpr const char * VALUE_ICON_ACTIVE_CLICKED = "active_clicked";
+	constexpr const char * VALUE_ICON_ACTIVE_HOVERED = "active_hovered";
 	constexpr const char * VALUE_ICON_ACTIVE_LOCKED = "active_locked";
 	constexpr const char * VALUE_ICON_INACTIVE = "inactive";
 	constexpr const char * VALUE_ICON_INACTIVE_CLICKED = "inactive_clicked";
+	constexpr const char * VALUE_ICON_INACTIVE_HOVERED = "inactive_hovered";
 	constexpr const char * VALUE_ICON_INACTIVE_LOCKED = "inactive_locked";
 }
 
@@ -36,21 +38,26 @@ ui::gui::RendererButton::RendererButton(Widget & widget)
 {}
 std::string ui::gui::RendererButton::getFrame() const
 {
+	const auto & activation = m_widget->m_activation;
 	if (m_widget->m_state.m_bool)
 	{
-		if (m_widget->m_activation.m_locked)
+		if (activation.m_locked)
 			return VALUE_ICON_ACTIVE_LOCKED;
-		else if (m_widget->m_activation.m_button != mouse::Button::NONE)
+		else if (activation.m_button != mouse::Button::NONE)
 			return VALUE_ICON_ACTIVE_CLICKED;
+		else if (activation.m_hovered)
+			return VALUE_ICON_ACTIVE_HOVERED;
 		else
 			return VALUE_ICON_ACTIVE;
 	}
 	else
 	{
-		if (m_widget->m_activation.m_locked)
+		if (activation.m_locked)
 			return VALUE_ICON_INACTIVE_LOCKED;
-		else if (m_widget->m_activation.m_button != mouse::Button::NONE)
+		else if (activation.m_button != mouse::Button::NONE)
 			return VALUE_ICON_INACTIVE_CLICKED;
+		else if (activation.m_hovered)
+			return VALUE_ICON_INACTIVE_HOVERED;
 		else
 			return VALUE_ICON_INACTIVE;
 	}
