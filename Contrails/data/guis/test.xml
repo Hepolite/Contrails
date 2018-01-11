@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+
+<script file="data/scripts/gui_test.chai" />
+<layout>
+  <widget type="panel" name="parent">
+    <assets> <sprites background="data/sprites/cylinder.png" /> </assets>
+    <border inner="3" />
+    <link location="center" />
+    <widget type="button" name="childA">
+      <assets> <sprites background="data/sprites/cylinder.png" /> </assets>
+      <border outer="3" />
+      <link location="top" />
+    </widget>
+    <widget type="button" name="childB">
+      <assets> <sprites background="data/sprites/cylinder.png" /> </assets>
+      <border outer="3" />
+      <link target="childA" location="bottom" />
+    </widget>
+    <widget type="button" name="childC">
+      <assets> <sprites background="data/sprites/cylinder.png" /> </assets>
+      <border outer="3" />
+      <link target="childB" location="bottom" />
+    </widget>
+  </widget>
+</layout>

@@ -66,7 +66,7 @@ namespace ui
 				loader.loadFamily(m_doc);
 
 				Assert::IsTrue(widgets.has("child"));
-				Assert::IsTrue(widgets.get("child").m_name == "child");
+				Assert::IsTrue(widgets.get("child").m_header.m_name == "child");
 				Assert::IsTrue(widgets.get("child").m_link.m_location == Link::Location::CENTER);
 			}
 			TEST_METHOD(WidgetLoader_loadGroup)
@@ -90,6 +90,17 @@ namespace ui
 				Assert::IsTrue(widgetB.m_group.m_leader.empty());
 				Assert::AreEqual(1u, widgetB.m_group.m_members.size());
 				Assert::IsFalse(widgetB.m_group.m_members.find("widgetB") == widgetB.m_group.m_members.end());
+			}
+			TEST_METHOD(WidgetLoader_loadHeader)
+			{
+				Widgets widgets;
+				Widget widgetA;
+				Widget widgetB;
+				WidgetLoader{ widgets, widgetA }.loadHeader(m_doc.child("widget"));
+				WidgetLoader{ widgets, widgetB }.loadHeader({});
+
+				Assert::IsFalse(widgetA.m_render.m_visible);
+				Assert::IsTrue(widgetB.m_render.m_visible);
 			}
 			TEST_METHOD(WidgetLoader_loadLink)
 			{
@@ -157,6 +168,8 @@ namespace ui
 
 				auto family = m_doc.append_child("widget");
 				family.append_attribute("name").set_value("child");
+				family.append_attribute("type").set_value("button");
+				family.append_attribute("visible").set_value("false");
 				family.append_child("link").append_attribute("location").set_value("center");
 
 				auto group = m_doc.append_child("group");

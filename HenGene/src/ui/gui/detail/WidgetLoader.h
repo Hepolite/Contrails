@@ -15,7 +15,9 @@ namespace ui
 		class WidgetLoader
 		{
 		public:
+			WidgetLoader() = delete;
 			WidgetLoader(Widgets & widgets, Widget & widget);
+			~WidgetLoader() = default;
 
 			inline void inject(const asset::AssetRegistry & assets) { m_assets = &assets; }
 
@@ -25,6 +27,7 @@ namespace ui
 			void loadBorder(const pugi::xml_node & node);
 			void loadFamily(const pugi::xml_node & node);
 			void loadGroup(const pugi::xml_node & node);
+			void loadHeader(const pugi::xml_node & node);
 			void loadLink(const pugi::xml_node & node);
 			void loadPosition(const pugi::xml_node & node);
 			void loadSize(const pugi::xml_node & node);

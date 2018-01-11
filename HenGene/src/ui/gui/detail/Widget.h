@@ -16,12 +16,13 @@ namespace ui
 			Border m_border;
 			Family m_family;
 			Group m_group;
+			Header m_header;
 			Link m_link;
+			Logic m_logic;
 			Position m_position;
+			Render m_render;
 			Size m_size;
 			State m_state;
-
-			std::string m_name;
 		};
 	}
 }

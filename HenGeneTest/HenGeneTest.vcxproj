@@ -231,7 +231,9 @@
     <ClCompile Include="src\render\uboRegistryTest.cpp" />
     <ClCompile Include="src\SanityTest.cpp" />
     <ClCompile Include="src\ui\DisplayTest.cpp" />
+    <ClCompile Include="src\ui\gui\detail\GuiLoaderTest.cpp" />
     <ClCompile Include="src\ui\gui\detail\WidgetLoaderTest.cpp" />
+    <ClCompile Include="src\ui\gui\detail\WidgetProcessorTest.cpp" />
     <ClCompile Include="src\ui\gui\detail\WidgetsTest.cpp" />
     <ClCompile Include="src\util\MathGenericTest.cpp" />
     <ClCompile Include="src\util\MathGeometryTest.cpp" />

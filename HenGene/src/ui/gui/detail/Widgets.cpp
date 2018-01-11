@@ -8,7 +8,7 @@ ui::gui::Widget & ui::gui::Widgets::create(const std::string & name, const std::
 		throw std::invalid_argument("Either widget " + name + " already exists, or parent " + parent + " does not exist");
 
 	auto & widget = m_widgets.emplace(name, Widget{}).first->second;
-	widget.m_name = name;
+	widget.m_header.m_name = name;
 	widget.m_family.m_parent = parent;
 	get(parent).m_family.m_children.insert(name);
 	return widget;

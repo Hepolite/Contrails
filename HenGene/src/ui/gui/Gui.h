@@ -21,15 +21,23 @@ namespace ui
 			Gui & operator=(Gui &&) = default;
 
 			void onEvent(const logic::event::DisplayResize & event);
-			void onEvent(const logic::event::KeyPress & event);
+			bool onEvent(const logic::event::KeyPress & event);
 			void onEvent(const logic::event::KeyRelease & event);
-			void onEvent(const logic::event::MousePress & event);
+			bool onEvent(const logic::event::MousePress & event);
 			void onEvent(const logic::event::MouseRelease & event);
 
 			void process();
 			void render() const;
 
+			inline auto & getWidgets() { return m_widgets; }
+			inline auto & getWidgets() const { return m_widgets; }
+			inline auto & getScript() { return m_script; }
+			inline auto & getScript() const { return m_script; }
+
 		private:
+			void process(Widget & widget, const glm::vec2 & offset);
+			void render(const Widget & widget, const glm::vec2 & offset) const;
+
 			Widgets m_widgets;
 			logic::script::Script m_script;
 		};

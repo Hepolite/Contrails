@@ -14,14 +14,20 @@ namespace ui
 		class GuiLoader
 		{
 		public:
+			GuiLoader() = delete;
+			GuiLoader(Gui & gui);
+			~GuiLoader() = default;
+
 			inline void inject(const asset::AssetRegistry & assets) { m_assets = &assets; }
 
-			void load(Gui & gui, const io::File & file);
-			void loadScript(Gui & gui, const pugi::xml_node & node);
-			void loadLayout(Gui & gui, const pugi::xml_node & node);
+			void load(const io::File & file);
+			void loadScript(const pugi::xml_node & node);
+			void loadLayout(const pugi::xml_node & node);
 
 		private:
 			const asset::AssetRegistry * m_assets = nullptr;
+
+			Gui * m_gui = nullptr;
 		};
 	}
 }

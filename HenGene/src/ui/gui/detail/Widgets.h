@@ -14,8 +14,8 @@ namespace ui
 		{
 		public:
 			Widget & create(const std::string & name, const std::string & parent = "");
-			Widget & get(const std::string & name);
-			const Widget & get(const std::string & name) const;
+			Widget & get(const std::string & name = "");
+			const Widget & get(const std::string & name = "") const;
 			bool has(const std::string & name) const;
 
 		private:

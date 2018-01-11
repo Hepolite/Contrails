@@ -5,6 +5,7 @@
 #include "render/allegro/Sprite.h"
 #include "ui/Mouse.h"
 
+#include <functional>
 #include <glm/vec2.hpp>
 #include <glm/vec4.hpp>
 #include <string>
@@ -15,6 +16,24 @@ namespace ui
 {
 	namespace gui
 	{
+		// Stores the generic widget data
+		struct Header
+		{
+			std::string m_name;
+		};
+		// Stores what the widget will be doing every tick
+		struct Logic
+		{
+			std::function<void()> m_process;
+		};
+		// Stores how the widget will be rendered to the screen
+		struct Render
+		{
+			std::function<void()> m_render;
+			glm::vec2 m_offset;
+			bool m_visible = true;
+		};
+
 		// Stores the relative position between the parent and child widget
 		struct Position
 		{

@@ -2,6 +2,8 @@
 #include "WidgetLoader.h"
 
 #include "asset/AssetRegistry.h"
+#include "ui/gui/detail/WidgetProcessor.h"
+#include "ui/gui/detail/WidgetRenderer.h"
 #include "ui/Keyboard.h"
 #include "util/Strings.h"
 
@@ -34,8 +36,9 @@ namespace
 	constexpr const char * ATTR_BORDER_INNER_TOP = "inner_top";
 	constexpr const char * ATTR_BORDER_INNER_BOTTOM = "inner_bottom";
 	constexpr const char * ATTR_FAMILY_NAME = "name";
-	constexpr const char * ATTR_FAMILY_TYPE = "type";
 	constexpr const char * ATTR_GROUP_LEADER = "leader";
+	constexpr const char * ATTR_HEADER_TYPE = "type";
+	constexpr const char * ATTR_HEADER_VISIBLE = "visible";
 	constexpr const char * ATTR_LINK_TARGET = "target";
 	constexpr const char * ATTR_LINK_LOCATION = "location";
 	constexpr const char * ATTR_SIZE_MIN = "min";
@@ -43,6 +46,10 @@ namespace
 	constexpr const char * ATTR_STATE_LOCKED = "locked";
 	constexpr const char * ATTR_STATE_VALUE = "value";
 
+	constexpr const char * VALUE_HEADER_BUTTON = "button";
+	constexpr const char * VALUE_HEADER_BUTTON_CHECKBOX = "checkbox";
+	constexpr const char * VALUE_HEADER_BUTTON_RADIO = "radio";
+	constexpr const char * VALUE_HEADER_PANEL = "panel";
 	constexpr const char * VALUE_LINK_PARENT = "parent";
 	constexpr const char * VALUE_LINK_TOP_LEFT = "top_left";
 	constexpr const char * VALUE_LINK_TOP = "top";
@@ -65,6 +72,7 @@ ui::gui::WidgetLoader::WidgetLoader(Widgets & widgets, Widget & widget)
 
 void ui::gui::WidgetLoader::load(const pugi::xml_node & node)
 {
+	loadHeader(node);
 	loadFamily(node);
 	loadGroup(node.child(NODE_GROUP));
 	loadLink(node.child(NODE_LINK));
@@ -134,9 +142,8 @@ void ui::gui::WidgetLoader::loadFamily(const pugi::xml_node & node)
 		if (std::strcmp(child.name(), NODE_FAMILY) != 0)
 			continue;
 		const std::string attrName = child.attribute(ATTR_FAMILY_NAME).as_string();
-		const std::string attrType = child.attribute(ATTR_FAMILY_TYPE).as_string();
-
-		auto & widget = m_widgets->create(attrName, m_widget->m_name);
+		
+		auto & widget = m_widgets->create(attrName, m_widget->m_header.m_name);
 		WidgetLoader loader{ *m_widgets, widget };
 		loader.inject(*m_assets);
 		loader.load(child);
@@ -147,11 +154,26 @@ void ui::gui::WidgetLoader::loadGroup(const pugi::xml_node & node)
 	if (const auto attr = node.attribute(ATTR_GROUP_LEADER))
 	{
 		auto & leader = m_widgets->get(attr.as_string());
-		m_widget->m_group.m_leader = leader.m_name;
-		leader.m_group.m_members.insert(m_widget->m_name);
+		m_widget->m_group.m_leader = leader.m_header.m_name;
+		leader.m_group.m_members.insert(m_widget->m_header.m_name);
 	}
 	else
-		m_widget->m_group.m_members.insert(m_widget->m_name);
+		m_widget->m_group.m_members.insert(m_widget->m_header.m_name);
+}
+void ui::gui::WidgetLoader::loadHeader(const pugi::xml_node & node)
+{
+	if (const auto attr = node.attribute(ATTR_HEADER_VISIBLE))
+		m_widget->m_render.m_visible = attr.as_bool(true);
+
+	m_widget->m_logic.m_process = Processor{ *m_widgets, *m_widget };
+	m_widget->m_render.m_render = Renderer{ *m_widgets, *m_widget };
+
+	const std::string attrType = node.attribute(ATTR_HEADER_TYPE).as_string();
+	if (attrType == VALUE_HEADER_BUTTON)
+		m_widget->m_render.m_render = RendererButton{ *m_widgets, *m_widget };
+	else
+		LOG_WARNING << "Unknown widget type " << attrType;
+
 }
 void ui::gui::WidgetLoader::loadLink(const pugi::xml_node & node)
 {
