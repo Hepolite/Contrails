@@ -6,11 +6,11 @@
 
 void logic::state::StateEditorWorld::initialize(core::Engine & engine)
 {
-	engine.getGuiManager().open("data/guis/test.xml");
+	engine.getGuiManager().open("data/guis/editor_world.xml");
 }
 void logic::state::StateEditorWorld::deinitialize(core::Engine & engine)
 {
-	engine.getGuiManager().close("data/guis/test.xml");
+	engine.getGuiManager().close("data/guis/editor_world.xml");
 }
 
 void logic::state::StateEditorWorld::process(const Time & t, const Time & dt)

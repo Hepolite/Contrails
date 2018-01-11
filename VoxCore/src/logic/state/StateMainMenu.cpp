@@ -9,6 +9,7 @@
 #include "render/opengl/Program.h"
 #include "render/scene/Renderer.h"
 #include "render/uboRegistry.h"
+#include "ui/gui/GuiManager.h"
 
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/vec3.hpp>
@@ -49,11 +50,12 @@ namespace
 
 void logic::state::StateMainMenu::initialize(core::Engine & engine)
 {
+	engine.getGuiManager().open("data/guis/main_menu.xml");
+
 	auto & scene = engine.getScene();
 	scene.registerRenderers<RendererMesh>().initialize(engine);
 
-	const auto entity = scene.createEntity<ComponentMesh>();
-
+	auto entity = scene.createEntity<ComponentMesh>();
 	auto & mesh = scene.getEntityData<ComponentMesh>(entity).m_mesh;
 	mesh.getIndiceData() = { 0, 1, 2 };
 	mesh.getVertexData() = { { -0.5f, -0.5f, 0.0f }, { 0.5f, -0.5f, 0.0f }, { 0.0f, 0.5f, 0.0f } };
@@ -62,6 +64,8 @@ void logic::state::StateMainMenu::initialize(core::Engine & engine)
 }
 void logic::state::StateMainMenu::deinitialize(core::Engine & engine)
 {
+	engine.getGuiManager().close("data/guis/main_menu.xml");
+
 	engine.getScene().clearSystems();
 	engine.getScene().clearRenderers();
 	engine.getScene().clearEntities();

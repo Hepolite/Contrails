@@ -2,7 +2,7 @@
 <shader type="fragment">
 void main()
 {
-  gl_FragColor = vec4(0, 0, 0, 0);
+  gl_FragColor = vec4(0, 0, 0, 1);
 }
 </shader>
 <shader type="vertex" file="data/shaders/test.vs" />

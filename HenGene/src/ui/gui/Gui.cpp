@@ -7,14 +7,6 @@ namespace
 {
 	constexpr const char * ROOT = "";
 	constexpr const char * ASSET_SCRIPT_ACTIVATE = "activate";
-
-	std::vector<ui::gui::Widget*> getChildren(ui::gui::Widgets & widgets, ui::gui::Widget & widget)
-	{
-		std::vector<ui::gui::Widget*> children;
-		for (const auto & name : widget.m_family.m_children)
-			children.push_back(&widgets.get(name));
-		return children;
-	}
 }
 
 void ui::gui::Gui::process()
@@ -27,7 +19,6 @@ void ui::gui::Gui::process(Widget & widget, const glm::vec2 & offset)
 		process(m_widgets.get(name), widget.m_position.m_pos);
 	widget.m_logic.m_process(widget.m_position.m_pos + offset);
 }
-
 void ui::gui::Gui::render() const
 {
 	render(m_widgets.get(ROOT), { 0.0f, 0.0f });
