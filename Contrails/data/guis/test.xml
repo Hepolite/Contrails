@@ -1,32 +1,31 @@
 <?xml version="1.0" ?>
-
 <script file="data/scripts/gui_test.chai" />
 <layout>
   <size>640 480</size>
   <widget type="panel" name="parent">
-    <assets> <sprites icon="cylinder" /> </assets>
-    <border inner="3" />
+    <assets> <sprites background="gui/generic/background" /> </assets>
+    <border inner="6" />
     <link location="center" />
     <widget type="button" name="new_game">
       <assets> <sprites icon="gui/main_menu/new_game" /> </assets>
-      <border outer="3" />
+      <border outer="4" />
       <size>128 32</size>
     </widget>
     <widget type="button" name="load_game">
       <assets> <sprites icon="gui/main_menu/load_game" /> </assets>
-      <border outer="3" />
+      <border outer="4" />
       <link target="new_game" location="bottom" />
       <size>128 32</size>
     </widget>
     <widget type="button" name="editor">
       <assets> <sprites icon="gui/main_menu/editor" /> </assets>
-      <border outer="3" />
+      <border outer="4" />
       <link target="load_game" location="bottom" />
       <size>128 32</size>
     </widget>
     <widget type="button" name="quit_game">
       <assets> <sprites icon="gui/main_menu/quit_game" /> </assets>
-      <border outer="3" />
+      <border outer="4" />
       <link target="editor" location="bottom" />
       <size>128 32</size>
     </widget>

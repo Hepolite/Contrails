@@ -60,7 +60,7 @@ void render::allegro::SpriteFrame::draw(const glm::vec2 & pos, const glm::vec2 &
 	if (m_handle == nullptr)
 		return;
 	if (angle == 0.0f)
-		al_draw_tinted_scaled_bitmap(m_handle, m_tint, m_pos.x, m_pos.y, m_size.x, m_size.y, pos.x, pos.y, size.x, size.y, m_flags);
+		al_draw_tinted_scaled_bitmap(m_handle, m_tint, 0.0f, 0.0f, m_size.x, m_size.y, pos.x, pos.y, size.x, size.y, m_flags);
 	else
 	{
 		const auto offset = 0.5f * glm::vec2{ m_size };

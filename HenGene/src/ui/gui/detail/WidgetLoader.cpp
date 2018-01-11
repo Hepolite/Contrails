@@ -173,9 +173,11 @@ void ui::gui::WidgetLoader::loadHeader(const pugi::xml_node & node)
 	m_widget->m_logic.m_process = Processor{ *m_widgets, *m_widget };
 	m_widget->m_render.m_render = Renderer{ *m_widget };
 
-	const std::string attrType = node.attribute(ATTR_HEADER_TYPE).as_string();
+	const std::string attrType = node.attribute(ATTR_HEADER_TYPE).as_string(VALUE_HEADER_PANEL);
 	if (attrType == VALUE_HEADER_BUTTON)
 		m_widget->m_render.m_render = RendererButton{ *m_widget };
+	else if (attrType == VALUE_HEADER_PANEL)
+		m_widget->m_render.m_render = RendererPanel{ *m_widget };
 	else
 		LOG_WARNING << "Unknown widget type " << attrType;
 

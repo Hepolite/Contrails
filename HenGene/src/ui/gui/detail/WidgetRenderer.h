@@ -31,7 +31,15 @@ namespace ui
 		public:
 			RendererButton(Widget & widget);
 
+			virtual void operator()(const glm::vec2 & pos) const override final;
+
 			std::string getFrame() const;
+		};
+
+		class RendererPanel : public Renderer
+		{
+		public:
+			RendererPanel(Widget & widget);
 
 			virtual void operator()(const glm::vec2 & pos) const override final;
 		};
