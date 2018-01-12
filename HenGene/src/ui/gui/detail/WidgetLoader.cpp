@@ -163,7 +163,10 @@ void ui::gui::WidgetLoader::loadGroup(const pugi::xml_node & node)
 		leader.m_group.m_members.insert(m_widget->m_header.m_name);
 	}
 	else
+	{
+		m_widget->m_group.m_leader = m_widget->m_header.m_name;
 		m_widget->m_group.m_members.insert(m_widget->m_header.m_name);
+	}
 }
 void ui::gui::WidgetLoader::loadHeader(const pugi::xml_node & node)
 {
@@ -171,11 +174,22 @@ void ui::gui::WidgetLoader::loadHeader(const pugi::xml_node & node)
 		m_widget->m_render.m_visible = attr.as_bool(true);
 
 	m_widget->m_logic.m_process = Processor{ *m_widgets, *m_widget };
+	m_widget->m_logic.m_action = Processor{ *m_widgets, *m_widget };
 	m_widget->m_render.m_render = Renderer{ *m_widget };
 
 	const std::string attrType = node.attribute(ATTR_HEADER_TYPE).as_string(VALUE_HEADER_PANEL);
 	if (attrType == VALUE_HEADER_BUTTON)
 		m_widget->m_render.m_render = RendererButton{ *m_widget };
+	else if (attrType == VALUE_HEADER_BUTTON_CHECKBOX)
+	{
+		m_widget->m_logic.m_action = ProcessorButtonCheckbox{ *m_widgets, *m_widget };
+		m_widget->m_render.m_render = RendererButton{ *m_widget };
+	}
+	else if (attrType == VALUE_HEADER_BUTTON_RADIO)
+	{
+		m_widget->m_logic.m_action = ProcessorButtonRadio{ *m_widgets, *m_widget };
+		m_widget->m_render.m_render = RendererButton{ *m_widget };
+	}
 	else if (attrType == VALUE_HEADER_PANEL)
 		m_widget->m_render.m_render = RendererPanel{ *m_widget };
 	else

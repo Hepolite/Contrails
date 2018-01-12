@@ -1,8 +1,8 @@
 
 #include "SetupScripts.h"
 
-#include "logic/event/EventBus.h"
 #include "logic/script/ScriptUtil.h"
+#include "ui/gui/GuiManager.h"
 #include "world/detail/data/WorldQuery.h"
 #include "world/Universe.h"
 #include "world/World.h"
@@ -14,6 +14,8 @@ void core::setup::setupScripts(Engine & engine)
 	util::clearScriptData();
 
 	detail::setupEngine(engine);
+	detail::setupGui(engine);
+	detail::setupUniverse(engine);
 }
 
 void core::setup::detail::setupEngine(Engine & engine)
@@ -23,7 +25,27 @@ void core::setup::detail::setupEngine(Engine & engine)
 	{
 		util::addVarGlobal(script, &engine, "ENGINE");
 		util::addFun(script, &Engine::stop, "terminate");
-		util::addFun(script, &Engine::getEventBus, "getEventBus");
+	});
+}
+void core::setup::detail::setupGui(Engine & engine)
+{
+	using namespace ui::gui;
+	util::registerScriptData([&guiManager = engine.getGuiManager()](Script & script)
+	{
+		util::addVarGlobalConst(script, &guiManager, "GUI_MANAGER");
+		util::addFun(script, &GuiManager::open, "open");
+		util::addFun(script, &GuiManager::close, "close");
+		util::addFun(script, &GuiManager::get, "get");
+
+		util::addFun<Gui, logic::script::Script &>(script, &Gui::getScript, "getScript");
+		util::addFun<Gui, const logic::script::Script &>(script, &Gui::getScript, "getScript");
+		util::addFun<Gui, Widgets &>(script, &Gui::getWidgets, "getWidgets");
+		util::addFun<Gui, const Widgets &>(script, &Gui::getWidgets, "getWidgets");
+
+		util::addFun(script, &Widgets::has, "has");
+		util::addFun(script, &Widgets::create, "create");
+		util::addFun<Widgets, Widget &, const std::string &>(script, &Widgets::get, "get");
+		util::addFun<Widgets, const Widget &, const std::string &>(script, &Widgets::get, "get");
 	});
 }
 void core::setup::detail::setupUniverse(Engine & engine)

@@ -33,6 +33,15 @@ namespace ui
 				Assert::IsFalse(manager.close("invalid.xml"));
 			}
 
+			TEST_METHOD(GuiManager_get)
+			{
+				GuiManager manager;
+				manager.open("gui.xml");
+
+				Assert::IsNotNull(manager.get("gui.xml"));
+				Assert::IsNull(manager.get("invalid.xml"));
+			}
+
 		private:
 			void initialize()
 			{

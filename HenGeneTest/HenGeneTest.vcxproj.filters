@@ -156,6 +156,9 @@
     <ClCompile Include="src\ui\gui\detail\WidgetRendererTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\ui\gui\detail\WidgetProcessorButtonTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dependencies\glm\Unittest.h">

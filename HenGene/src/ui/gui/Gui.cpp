@@ -6,7 +6,6 @@
 namespace
 {
 	constexpr const char * ROOT = "";
-	constexpr const char * ASSET_SCRIPT_ACTIVATE = "activate";
 }
 
 void ui::gui::Gui::process()
@@ -56,10 +55,11 @@ bool ui::gui::Gui::onEvent(const logic::event::MousePress & event, Widget & widg
 		if (onEvent(event, m_widgets.get(name)))
 			return true;
 	}
-
-	if (!widget.m_activation.m_hovered || widget.m_activation.m_locked || !widget.m_render.m_visible)
+	// If the widget is invisible or not hovered, it cannot be clicked; consider it clicked otherwise
+	if (!widget.m_activation.m_hovered || !widget.m_render.m_visible)
 		return false;
-	widget.m_activation.m_button = event.m_button;
+	if (!widget.m_activation.m_locked && widget.m_activation.m_button == mouse::Button::NONE)
+		widget.m_activation.m_button = event.m_button;
 	return true;
 }
 bool ui::gui::Gui::onEvent(const logic::event::MouseMove & event)
@@ -79,15 +79,17 @@ bool ui::gui::Gui::onEvent(const logic::event::MouseMove & event, Widget & widge
 	}
 
 	const auto bbox = (event.m_pos - (widget.m_position.m_pos + offset)) / widget.m_size.m_size;
-	widget.m_activation.m_hovered = !widget.m_activation.m_locked && widget.m_render.m_visible &&
-		bbox.x >= 0.0f && bbox.x <= 1.0f && bbox.y >= 0.0f && bbox.y <= 1.0f;
+	widget.m_activation.m_hovered = bbox.x >= 0.0f && bbox.x <= 1.0f && bbox.y >= 0.0f && bbox.y <= 1.0f;
 	return widget.m_activation.m_hovered;
 }
 void ui::gui::Gui::onEvent(const logic::event::MouseRelease & event)
 {
 	onEvent(event, m_widgets.get());
 	for (auto & it : m_widgets)
-		it.second.m_activation.m_button = mouse::Button::NONE;
+	{
+		if (it.second.m_activation.m_button == event.m_button)
+			it.second.m_activation.m_button = mouse::Button::NONE;
+	}
 }
 void ui::gui::Gui::onEvent(const logic::event::MouseRelease & event, Widget & widget)
 {
@@ -96,6 +98,6 @@ void ui::gui::Gui::onEvent(const logic::event::MouseRelease & event, Widget & wi
 		onEvent(event, m_widgets.get(name));
 
 	if (widget.m_activation.m_hovered && !widget.m_activation.m_locked && widget.m_render.m_visible &&
-		widget.m_activation.m_button != mouse::Button::NONE)
-		m_script.execute(widget.m_assets.m_scripts[ASSET_SCRIPT_ACTIVATE]);
+		widget.m_activation.m_button == event.m_button)
+		widget.m_logic.m_action(m_script);
 }

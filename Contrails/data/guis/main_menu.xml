@@ -1,29 +1,28 @@
 <?xml version="1.0" ?>
-<script file="data/scripts/gui_test.chai" />
 <layout>
-  <widget type="panel" name="parent">
+  <widget type="panel" name="parent" >
     <assets> <sprites background="gui/generic/background" /> </assets>
     <border inner="6" />
     <link location="left" />
-    <widget type="button" name="new_game">
+    <widget type="button" name="new_game" >
       <assets> <sprites icon="gui/main_menu/new_game" /> </assets>
       <border outer="4" />
       <size>128 32</size>
     </widget>
-    <widget type="button" name="load_game">
+    <widget type="button" name="load_game" >
       <activation locked="true" />
       <assets> <sprites icon="gui/main_menu/load_game" /> </assets>
       <border outer="4" />
       <link target="new_game" location="bottom" />
       <size>128 32</size>
     </widget>
-    <widget type="button" name="editor">
+    <widget type="button" name="editor" >
       <assets> <sprites icon="gui/main_menu/editor" /> </assets>
       <border outer="4" />
       <link target="load_game" location="bottom" />
       <size>128 32</size>
     </widget>
-    <widget type="button" name="quit_game">
+    <widget type="button" name="quit_game" >
       <assets>
         <sprites icon="gui/main_menu/quit_game" />
         <scripts activate="ENGINE.terminate()" />

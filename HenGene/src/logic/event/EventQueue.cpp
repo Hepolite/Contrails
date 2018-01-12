@@ -5,12 +5,9 @@
 
 #include <allegro5/display.h>
 #include <plog/Log.h>
-#include <unordered_set>
 
 namespace
 {
-	std::unordered_set<ALLEGRO_EVENT_SOURCE*> sources;
-
 	auto convert(unsigned int mouseButton)
 	{
 		using ui::mouse::Button;
@@ -100,22 +97,22 @@ bool logic::event::EventQueue::add(ALLEGRO_EVENT_SOURCE * source)
 {
 	if (m_handle == nullptr || source == nullptr)
 		return false;
-	if (sources.find(source) != sources.end())
+	if (m_sources.find(source) != m_sources.end())
 	{
 		LOG_WARNING << "Attempted to add an event source which has already been added";
 		return false;
 	}
 
 	al_register_event_source(m_handle, source);
-	sources.emplace(source);
+	m_sources.emplace(source);
 	return true;
 }
 bool logic::event::EventQueue::remove(ALLEGRO_EVENT_SOURCE * source)
 {
-	if (m_handle == nullptr || source == nullptr || sources.find(source) == sources.end())
+	if (m_handle == nullptr || source == nullptr || m_sources.find(source) == m_sources.end())
 		return false;
 
 	al_unregister_event_source(m_handle, source);
-	sources.erase(source);
+	m_sources.erase(source);
 	return true;
 }

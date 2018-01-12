@@ -12,6 +12,7 @@ namespace core
 		namespace detail
 		{
 			void setupEngine(Engine & engine);
+			void setupGui(Engine & engine);
 			void setupUniverse(Engine & engine);
 		}
 	}

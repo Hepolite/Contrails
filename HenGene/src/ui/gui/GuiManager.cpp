@@ -32,11 +32,6 @@ bool ui::gui::GuiManager::open(const io::File & file, std::unique_ptr<Gui> && gu
 	if (m_guis.find(file.getPath()) != m_guis.end() || !file.exists())
 		return false;
 	load(file, *gui);
-	if (m_display != nullptr)
-	{
-		gui->getWidgets().get().m_size.m_automatic = false;
-		gui->getWidgets().get().m_size.m_size = m_display->getSize();
-	}
 	m_guis.emplace(file.getPath(), std::move(gui)).first->second;
 	return true;
 }
@@ -47,6 +42,11 @@ bool ui::gui::GuiManager::close(const io::File & file)
 	m_guis.erase(file.getPath());
 	return true;
 }
+ui::gui::Gui * ui::gui::GuiManager::get(const io::File & file) const
+{
+	const auto it = m_guis.find(file.getPath());
+	return it == m_guis.end() ? nullptr : it->second.get();
+}
 
 void ui::gui::GuiManager::load(const io::File & file, Gui & gui)
 {
@@ -54,6 +54,12 @@ void ui::gui::GuiManager::load(const io::File & file, Gui & gui)
 	if (m_assets != nullptr)
 		loader.inject(*m_assets);
 	loader.load(file);
+
+	if (m_display != nullptr)
+	{
+		gui.getWidgets().get().m_size.m_automatic = false;
+		gui.getWidgets().get().m_size.m_size = m_display->getSize();
+	}
 }
 
 void ui::gui::GuiManager::process()

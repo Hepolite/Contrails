@@ -12,11 +12,7 @@ void render::core::Pipeline::render(const Time & t, const Time & dt) const
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	if (m_scene != nullptr)
-	{
-		glEnable(GL_CULL_FACE);
-		glEnable(GL_DEPTH_TEST);
 		m_scene->render(t, dt);
-	}
 	if (m_gui != nullptr)
 	{
 		int boundProgram, boundVao, boundVbo;

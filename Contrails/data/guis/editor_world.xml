@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<script file="data/scripts/editor_world.chai" />
+<layout>
+  <widget type="panel" name="toolbar">
+    <assets> <sprites background="gui/generic/background" /> </assets>
+    <border inner="6" />
+    <link location="center" />
+  </widget>
+</layout>

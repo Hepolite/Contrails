@@ -33,9 +33,6 @@ ui::gui::Renderer::Renderer(Widget & widget)
 
 // ...
 
-ui::gui::RendererButton::RendererButton(Widget & widget)
-	: Renderer(widget)
-{}
 std::string ui::gui::RendererButton::getFrame() const
 {
 	const auto & activation = m_widget->m_activation;
@@ -76,10 +73,6 @@ void ui::gui::RendererButton::operator()(const glm::vec2 & pos) const
 }
 
 // ...
-
-ui::gui::RendererPanel::RendererPanel(Widget & widget)
-	: Renderer(widget)
-{}
 
 void ui::gui::RendererPanel::operator()(const glm::vec2 & pos) const
 {

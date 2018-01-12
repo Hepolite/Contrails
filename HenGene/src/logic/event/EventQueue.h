@@ -4,6 +4,7 @@
 #include "logic/event/EventBus.h"
 
 #include <allegro5/events.h>
+#include <unordered_set>
 
 namespace logic
 {
@@ -27,6 +28,8 @@ namespace logic
 
 		private:
 			ALLEGRO_EVENT_QUEUE * m_handle = nullptr;
+
+			std::unordered_set<ALLEGRO_EVENT_SOURCE*> m_sources;
 		};
 	}
 }

@@ -24,6 +24,7 @@ namespace ui
 			bool open(const io::File & file) { return open(file, std::make_unique<Type>()); }
 			bool open(const io::File & file, std::unique_ptr<Gui> && gui);
 			bool close(const io::File & file);
+			Gui * get(const io::File & file) const;
 
 			void process();
 			void render() const;

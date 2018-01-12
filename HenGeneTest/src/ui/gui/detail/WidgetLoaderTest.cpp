@@ -81,7 +81,7 @@ namespace ui
 				WidgetLoader{ widgets, widgetA }.loadGroup(m_doc.child("group"));
 				WidgetLoader{ widgets, widgetB }.loadGroup({});
 
-				Assert::IsTrue(widgetL.m_group.m_leader.empty());
+				Assert::AreEqual({ "widgetL" }, widgetL.m_group.m_leader);
 				Assert::AreEqual(2u, widgetL.m_group.m_members.size());
 				Assert::IsFalse(widgetL.m_group.m_members.find("widgetL") == widgetL.m_group.m_members.end());
 				Assert::IsFalse(widgetL.m_group.m_members.find("widgetA") == widgetL.m_group.m_members.end());
@@ -89,7 +89,7 @@ namespace ui
 				Assert::AreEqual({ "widgetL" }, widgetA.m_group.m_leader);
 				Assert::IsTrue(widgetA.m_group.m_members.empty());
 
-				Assert::IsTrue(widgetB.m_group.m_leader.empty());
+				Assert::AreEqual({ "widgetB" }, widgetB.m_group.m_leader);
 				Assert::AreEqual(1u, widgetB.m_group.m_members.size());
 				Assert::IsFalse(widgetB.m_group.m_members.find("widgetB") == widgetB.m_group.m_members.end());
 			}

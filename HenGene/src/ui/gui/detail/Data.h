@@ -2,6 +2,7 @@
 #pragma once
 
 #include "asset/AssetRef.h"
+#include "logic/script/Script.h"
 #include "render/allegro/Sprite.h"
 #include "ui/Mouse.h"
 
@@ -25,6 +26,7 @@ namespace ui
 		struct Logic
 		{
 			std::function<void(const glm::vec2 &)> m_process;
+			std::function<void(const logic::script::Script &)> m_action;
 		};
 		// Stores how the widget will be rendered to the screen
 		struct Render

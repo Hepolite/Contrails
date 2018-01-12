@@ -3,16 +3,25 @@
 
 #include "util/MathGeneric.h"
 
-ui::gui::Processor::Processor(const Widgets & widgets, Widget & widget)
+namespace
+{
+	constexpr const char * ASSET_SCRIPT_ACTIVATE = "activate";
+}
+
+ui::gui::Processor::Processor(Widgets & widgets, Widget & widget)
 	: m_widgets(&widgets), m_widget(&widget)
 {}
 
-void ui::gui::Processor::operator()(const glm::vec2 & pos)
+void ui::gui::Processor::onProcess(const glm::vec2 & pos)
 {
 	if (m_widget->m_size.m_automatic)
 		m_widget->m_size.m_size = calculateSize();
 	if (m_widget->m_position.m_automatic)
 		m_widget->m_position.m_pos = calculatePosition();
+}
+void ui::gui::Processor::onAction(const logic::script::Script & script)
+{
+	script.execute(m_widget->m_assets.m_scripts[ASSET_SCRIPT_ACTIVATE]);
 }
 
 const ui::gui::Widget & ui::gui::Processor::getParent() const
@@ -123,4 +132,31 @@ glm::vec2 ui::gui::Processor::calculateSize() const
 		minSize = math::max(minSize, child.m_position.m_pos + child.m_size.m_size + border);
 	}
 	return math::min(minSize, m_widget->m_size.m_maxSize);
+}
+
+// ...
+
+void ui::gui::ProcessorButtonCheckbox::onAction(const logic::script::Script & script)
+{
+	m_widget->m_state.m_bool = !m_widget->m_state.m_bool;
+	Processor::onAction(script);
+}
+void ui::gui::ProcessorButtonRadio::onAction(const logic::script::Script & script)
+{
+	if (m_widget->m_state.m_bool)
+		return;
+
+	auto & leader = m_widgets->get(m_widget->m_group.m_leader);
+	for (const auto name : leader.m_group.m_members)
+	{
+		auto & member = m_widgets->get(name);
+		if (member.m_state.m_bool)
+		{
+			member.m_state.m_bool = false;
+			Processor{ *m_widgets, member }.onAction(script);
+		}
+	}
+
+	m_widget->m_state.m_bool = true;
+	Processor::onAction(script);
 }

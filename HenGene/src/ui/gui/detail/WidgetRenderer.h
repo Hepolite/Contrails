@@ -29,7 +29,7 @@ namespace ui
 		class RendererButton : public Renderer
 		{
 		public:
-			RendererButton(Widget & widget);
+			RendererButton(Widget & widget) : Renderer(widget) {}
 
 			virtual void operator()(const glm::vec2 & pos) const override final;
 
@@ -39,7 +39,7 @@ namespace ui
 		class RendererPanel : public Renderer
 		{
 		public:
-			RendererPanel(Widget & widget);
+			RendererPanel(Widget & widget) : Renderer(widget) {}
 
 			virtual void operator()(const glm::vec2 & pos) const override final;
 		};
