@@ -215,6 +215,7 @@
     <ClCompile Include="src\logic\MainLoopTest.cpp" />
     <ClCompile Include="src\logic\script\ScriptTest.cpp" />
     <ClCompile Include="src\logic\script\ScriptUtilTest.cpp" />
+    <ClCompile Include="src\logic\state\StateManagerTest.cpp" />
     <ClCompile Include="src\render\allegro\AllegroTest.cpp" />
     <ClCompile Include="src\render\allegro\SpriteTest.cpp" />
     <ClCompile Include="src\render\MeshTest.cpp" />

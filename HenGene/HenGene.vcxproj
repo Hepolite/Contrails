@@ -230,6 +230,7 @@
     <ClInclude Include="src\logic\event\EventPriority.h" />
     <ClInclude Include="src\logic\event\EventQueue.h" />
     <ClInclude Include="src\logic\event\Events.h" />
+    <ClInclude Include="src\logic\state\StateManager.h" />
     <ClInclude Include="src\render\allegro\Allegro.h" />
     <ClInclude Include="src\logic\MainLoop.h" />
     <ClInclude Include="src\logic\script\Script.h" />
@@ -292,6 +293,7 @@
     <ClCompile Include="src\logic\ecs\System.cpp" />
     <ClCompile Include="src\logic\ecs\SystemRegistry.cpp" />
     <ClCompile Include="src\logic\event\EventBus.cpp" />
+    <ClCompile Include="src\logic\state\StateManager.cpp" />
     <ClCompile Include="src\render\allegro\Allegro.cpp" />
     <ClCompile Include="src\logic\event\EventListener.cpp" />
     <ClCompile Include="src\logic\event\EventQueue.cpp" />

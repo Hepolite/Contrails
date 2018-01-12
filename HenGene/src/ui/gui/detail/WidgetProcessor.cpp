@@ -5,7 +5,7 @@
 
 namespace
 {
-	constexpr const char * ASSET_SCRIPT_ACTIVATE = "activate";
+	constexpr const char * ASSET_SCRIPT_ACTION = "action";
 }
 
 ui::gui::Processor::Processor(Widgets & widgets, Widget & widget)
@@ -21,7 +21,7 @@ void ui::gui::Processor::onProcess(const glm::vec2 & pos)
 }
 void ui::gui::Processor::onAction(const logic::script::Script & script)
 {
-	script.execute(m_widget->m_assets.m_scripts[ASSET_SCRIPT_ACTIVATE]);
+	script.execute(m_widget->m_assets.m_scripts[ASSET_SCRIPT_ACTION]);
 }
 
 const ui::gui::Widget & ui::gui::Processor::getParent() const

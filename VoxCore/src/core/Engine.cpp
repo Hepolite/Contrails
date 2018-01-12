@@ -7,7 +7,7 @@
 #include "logic/event/EventBus.h"
 #include "logic/event/EventQueue.h"
 #include "logic/MainLoop.h"
-#include "logic/state/State.h"
+#include "logic/state/StateManager.h"
 #include "render/allegro/Allegro.h"
 #include "render/core/Pipeline.h"
 #include "render/uboRegistry.h"
@@ -36,11 +36,11 @@ struct core::Engine::Impl
 	scene::Scene m_scene;
 	logic::event::EventBus m_eventBus;
 	logic::event::EventQueue m_eventQueue;
+	logic::state::StateManager m_stateManager;
 	render::uboRegistry m_uboRegistry;
 	render::core::Pipeline m_pipeline;
 	ui::gui::GuiManager m_guiManager;
 
-	std::unique_ptr<logic::state::State> m_state;
 	world::Universe m_universe;
 	render::world::UniverseRenderer m_universeRenderer;
 };
@@ -60,6 +60,7 @@ core::Engine::Engine(const Settings & settings)
 	m_impl->m_guiManager.inject(m_impl->m_eventBus);
 	m_impl->m_pipeline.inject(m_impl->m_guiManager);
 	m_impl->m_pipeline.inject(m_impl->m_scene);
+	m_impl->m_stateManager.inject(*this);
 	m_impl->m_universe.inject(m_impl->m_eventBus);
 	m_impl->m_universe.inject(m_impl->m_scene);
 	m_impl->m_universeRenderer.inject(m_impl->m_eventBus);
@@ -67,14 +68,6 @@ core::Engine::Engine(const Settings & settings)
 }
 core::Engine::~Engine() = default;
 
-void core::Engine::setState(std::unique_ptr<logic::state::State> && state)
-{
-	if (m_impl->m_state != nullptr)
-		m_impl->m_state->deinitialize(*this);
-	m_impl->m_state = std::move(state);
-	if (m_impl->m_state != nullptr)
-		m_impl->m_state->initialize(*this);
-}
 void core::Engine::initialize()
 {
 	setup::initialize(*this);
@@ -85,7 +78,6 @@ void core::Engine::start()
 		[this](auto & t, auto & dt) { process(t, dt); },
 		[this](auto & t, auto & dt) { render(t, dt); }
 	);
-	setState(nullptr);
 }
 void core::Engine::stop()
 {
@@ -94,7 +86,7 @@ void core::Engine::stop()
 void core::Engine::process(const Time & t, const Time & dt)
 {
 	m_impl->m_eventQueue.update(m_impl->m_eventBus);
-	m_impl->m_state->process(t, dt);
+	m_impl->m_stateManager.process(t, dt);
 	m_impl->m_scene.process(t, dt);
 	m_impl->m_guiManager.process();
 }
@@ -106,6 +98,7 @@ void core::Engine::render(const Time & t, const Time & dt) const
 asset::AssetRegistry & core::Engine::getAssets() { return m_impl->m_assetRegistry; }
 core::scene::Scene & core::Engine::getScene() { return m_impl->m_scene; }
 logic::event::EventBus & core::Engine::getEventBus() { return m_impl->m_eventBus; }
+logic::state::StateManager & core::Engine::getStateManager() { return m_impl->m_stateManager; }
 render::uboRegistry & core::Engine::getUboRegistry() { return m_impl->m_uboRegistry; }
 ui::gui::GuiManager & core::Engine::getGuiManager() { return m_impl->m_guiManager; }
 world::Universe & core::Engine::getUniverse() { return m_impl->m_universe; }

@@ -7,7 +7,7 @@ namespace logic
 {
 	namespace state
 	{
-		class StateEditorWorld : public State
+		class StateEditorWorld : public State<StateEditorWorld>
 		{
 		public:
 			virtual void initialize(core::Engine & engine) override final;

@@ -17,7 +17,10 @@
       <size>128 32</size>
     </widget>
     <widget type="button" name="editor" >
-      <assets> <sprites icon="gui/main_menu/editor" /> </assets>
+      <assets>
+        <sprites icon="gui/main_menu/editor" />
+        <scripts action="STATE_MANAGER.set(StateEditorWorld())" />
+      </assets>
       <border outer="4" />
       <link target="load_game" location="bottom" />
       <size>128 32</size>
@@ -25,7 +28,7 @@
     <widget type="button" name="quit_game" >
       <assets>
         <sprites icon="gui/main_menu/quit_game" />
-        <scripts activate="ENGINE.terminate()" />
+        <scripts action="ENGINE.terminate()" />
       </assets>
       <border outer="4" />
       <link target="editor" location="bottom" />

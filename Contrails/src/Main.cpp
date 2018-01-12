@@ -3,6 +3,7 @@
 
 #include "io/File.h"
 #include "logic/state/StateMainMenu.h"
+#include "logic/state/StateManager.h"
 
 #include <iostream>
 #include <plog/Log.h>
@@ -18,7 +19,7 @@ int main(int argc, char* argv[])
 		core::Engine engine{ settings };
 
 		engine.initialize();
-		engine.setState(std::make_unique<logic::state::StateMainMenu>());
+		engine.getStateManager().set(std::make_shared<logic::state::StateMainMenu>());
 		engine.start();
 	}
 

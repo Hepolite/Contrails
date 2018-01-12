@@ -5,5 +5,13 @@
     <assets> <sprites background="gui/generic/background" /> </assets>
     <border inner="6" />
     <link location="center" />
+    <widget type="button" name="back" >
+      <assets>
+        <sprites icon="gui/main_menu/quit_game" />
+        <scripts action="STATE_MANAGER.set(StateMainMenu())" />
+      </assets>
+      <border outer="4" />
+      <size>128 32</size>
+    </widget>
   </widget>
 </layout>

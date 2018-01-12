@@ -3,6 +3,9 @@
 
 #include "logic/script/ScriptUtil.h"
 #include "ui/gui/GuiManager.h"
+#include "logic/state/StateManager.h"
+#include "logic/state/StateEditorWorld.h"
+#include "logic/state/StateMainMenu.h"
 #include "world/detail/data/WorldQuery.h"
 #include "world/Universe.h"
 #include "world/World.h"
@@ -15,6 +18,7 @@ void core::setup::setupScripts(Engine & engine)
 
 	detail::setupEngine(engine);
 	detail::setupGui(engine);
+	detail::setupStates(engine);
 	detail::setupUniverse(engine);
 }
 
@@ -32,7 +36,7 @@ void core::setup::detail::setupGui(Engine & engine)
 	using namespace ui::gui;
 	util::registerScriptData([&guiManager = engine.getGuiManager()](Script & script)
 	{
-		util::addVarGlobalConst(script, &guiManager, "GUI_MANAGER");
+		util::addVarGlobal(script, &guiManager, "GUI_MANAGER");
 		util::addFun(script, &GuiManager::open, "open");
 		util::addFun(script, &GuiManager::close, "close");
 		util::addFun(script, &GuiManager::get, "get");
@@ -48,12 +52,30 @@ void core::setup::detail::setupGui(Engine & engine)
 		util::addFun<Widgets, const Widget &, const std::string &>(script, &Widgets::get, "get");
 	});
 }
+void core::setup::detail::setupStates(Engine & engine)
+{
+	using namespace logic::state;
+	util::registerScriptData([&stateManager = engine.getStateManager()](Script & script)
+	{
+		util::addVarGlobal(script, &stateManager, "STATE_MANAGER");
+		util::addFun(script, &StateManager::clear, "clear");
+		util::addFun(script, &StateManager::has, "has");
+		util::addFun(script, &StateManager::set, "set");
+		util::addFun(script, &StateManager::add, "add");
+		util::addFun(script, &StateManager::remove, "remove");
+
+		util::addRelation<StateBase, StateEditorWorld>(script);
+		util::addRelation<StateBase, StateMainMenu>(script);
+		util::addCtor<StateEditorWorld()>(script, "StateEditorWorld");
+		util::addCtor<StateMainMenu()>(script, "StateMainMenu");
+	});
+}
 void core::setup::detail::setupUniverse(Engine & engine)
 {
 	using namespace world;
 	util::registerScriptData([&universe = engine.getUniverse()](Script & script)
 	{
-		util::addVarGlobalConst(script, &universe, "UNIVERSE");
+		util::addVarGlobal(script, &universe, "UNIVERSE");
 		util::addFun(script, &Universe::createWorld, "createWorld");
 		util::addFun(script, &Universe::destroyWorld, "destroyWorld");
 		util::addFun(script, &Universe::hasWorld, "hasWorld");

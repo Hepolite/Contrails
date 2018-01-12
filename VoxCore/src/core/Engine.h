@@ -9,7 +9,7 @@
 namespace asset { class AssetRegistry; }
 namespace core { namespace scene { class Scene; } }
 namespace logic { namespace event { class EventBus; } }
-namespace logic { namespace state { class State; } }
+namespace logic { namespace state { class StateManager; } }
 namespace render { namespace scene { class Scene; } }
 namespace render { class uboRegistry; }
 namespace ui { namespace gui { class GuiManager; } }
@@ -30,13 +30,13 @@ namespace core
 		Engine & operator=(Engine &&) = delete;
 
 		void initialize();
-		void setState(std::unique_ptr<logic::state::State> && state);
 		void start();
 		void stop();
 
 		asset::AssetRegistry & getAssets();
 		core::scene::Scene & getScene();
 		logic::event::EventBus & getEventBus();
+		logic::state::StateManager & getStateManager();
 		render::uboRegistry & getUboRegistry();
 		ui::gui::GuiManager & getGuiManager();
 		world::Universe & getUniverse();

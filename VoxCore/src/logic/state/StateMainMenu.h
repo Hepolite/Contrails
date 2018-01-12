@@ -7,7 +7,7 @@ namespace logic
 {
 	namespace state
 	{
-		class StateMainMenu : public State
+		class StateMainMenu : public State<StateMainMenu>
 		{
 		public:
 			virtual void initialize(core::Engine & engine) override final;
