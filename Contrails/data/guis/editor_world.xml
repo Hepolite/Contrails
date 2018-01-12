@@ -3,11 +3,11 @@
 <layout>
   <widget type="panel" name="toolbar">
     <assets> <sprites background="gui/generic/background" /> </assets>
-    <border inner="6" />
-    <link location="center" />
+    <border inner="4" />
+    <link location="bottom_left" />
     <widget type="button" name="back" >
       <assets>
-        <sprites icon="gui/main_menu/quit_game" />
+        <sprites icon="gui/editor_world/back" />
         <scripts action="STATE_MANAGER.set(StateMainMenu())" />
       </assets>
       <border outer="4" />

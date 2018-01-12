@@ -3,8 +3,9 @@
   <widget type="panel" name="parent" >
     <assets> <sprites background="gui/generic/background" /> </assets>
     <border inner="6" />
-    <link location="left" />
+    <link location="center" />
     <widget type="button" name="new_game" >
+      <activation locked="true" />
       <assets> <sprites icon="gui/main_menu/new_game" /> </assets>
       <border outer="4" />
       <size>128 32</size>
