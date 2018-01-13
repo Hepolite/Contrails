@@ -60,6 +60,8 @@ void ui::gui::GuiManager::load(const io::File & file, Gui & gui)
 		gui.getWidgets().get().m_size.m_automatic = false;
 		gui.getWidgets().get().m_size.m_size = m_display->getSize();
 	}
+
+	gui.getScript().execute("GUI = GUI_MANAGER.get();");
 }
 
 void ui::gui::GuiManager::process()

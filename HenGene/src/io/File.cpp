@@ -1,16 +1,14 @@
 
 #include "File.h"
 
-#include <plog/Log.h>
-
+#include <filesystem>
 #include <fstream>
+#include <plog/Log.h>
 #include <sstream>
-#include <sys/stat.h>
 
 bool io::File::exists() const
 {
-	struct stat fileInfo;
-	return stat(m_path.c_str(), &fileInfo) == 0;
+	return std::experimental::filesystem::is_regular_file(m_path);
 }
 bool io::File::create() const
 {

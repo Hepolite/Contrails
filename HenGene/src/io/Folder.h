@@ -12,10 +12,12 @@ namespace io
 	{
 	public:
 		Folder() = delete;
-		Folder(const char* path) : m_path(path) {}
-		Folder(const std::string& path) : m_path(path) {}
+		Folder(const char * path) : m_path(path) {}
+		Folder(const std::string & path) : m_path(path) {}
 
 		bool exists() const;
+		bool create() const;
+		bool erase() const;
 
 		std::vector<File> getFiles() const;
 		std::vector<Folder> getFolders() const;

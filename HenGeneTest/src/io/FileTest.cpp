@@ -10,6 +10,8 @@ namespace io
 	TEST_CLASS(FileTest)
 	{
 	public:
+		~FileTest() { deinitialize(); }
+
 		TEST_METHOD(File_get)
 		{
 			File fileA{ "data/root/subfolder/name.txt" };
@@ -26,30 +28,36 @@ namespace io
 			Assert::AreEqual({ "" }, fileB.getExtension());
 		}
 
-		TEST_METHOD(File_io)
+		TEST_METHOD(File_create)
 		{
-			File file{ "TestFileIo" };
-			file.erase();
+			Assert::IsFalse(m_file.exists());
+			Assert::IsTrue(m_file.create());
+			Assert::IsFalse(m_file.create());
+			Assert::IsTrue(m_file.exists());
+		}
+		TEST_METHOD(File_erase)
+		{
+			m_file.create();
 
-			Assert::IsFalse(file.exists());
-			Assert::IsTrue(file.create());
-			Assert::IsFalse(file.create());
-			Assert::IsTrue(file.exists());
-			Assert::IsTrue(file.erase());
-			Assert::IsFalse(file.erase());
-			Assert::IsFalse(file.exists());
+			Assert::IsTrue(m_file.exists());
+			Assert::IsTrue(m_file.erase());
+			Assert::IsFalse(m_file.erase());
+			Assert::IsFalse(m_file.exists());
 		}
 
 		TEST_METHOD(File_write)
 		{
-			File file{ "TestFileWrite.txt" };
-			file.erase();
-
-			file.write("This is some data");
-			Assert::AreEqual({ "This is some data" }, file.read());
-			Assert::AreEqual({ "This is some data" }, file.parse());
-
-			file.erase();
+			m_file.write("This is some data");
+			Assert::AreEqual({ "This is some data" }, m_file.read());
+			Assert::AreEqual({ "This is some data" }, m_file.parse());
 		}
+
+	private:
+		void deinitialize()
+		{
+			m_file.erase();
+		}
+
+		File m_file{ "testfile.txt" };
 	};
 }

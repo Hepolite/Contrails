@@ -1,6 +1,8 @@
 
 #include "SetupScripts.h"
 
+#include "io/File.h"
+#include "io/Folder.h"
 #include "logic/script/ScriptUtil.h"
 #include "ui/gui/GuiManager.h"
 #include "logic/state/StateManager.h"
@@ -18,6 +20,7 @@ void core::setup::setupScripts(Engine & engine)
 
 	detail::setupEngine(engine);
 	detail::setupGui(engine);
+	detail::setupIO(engine);
 	detail::setupStates(engine);
 	detail::setupUniverse(engine);
 }
@@ -50,6 +53,45 @@ void core::setup::detail::setupGui(Engine & engine)
 		util::addFun(script, &Widgets::create, "create");
 		util::addFun<Widgets, Widget &, const std::string &>(script, &Widgets::get, "get");
 		util::addFun<Widgets, const Widget &, const std::string &>(script, &Widgets::get, "get");
+
+		// ...
+
+		util::addAttribute(script, &Widget::m_state, "state");
+		util::addAttribute(script, &State::m_bool, "bool");
+		util::addAttribute(script, &State::m_float, "float");
+		util::addAttribute(script, &State::m_string, "string");
+	});
+}
+void core::setup::detail::setupIO(Engine & engine)
+{
+	using namespace io;
+	util::registerScriptData([](Script & script)
+	{
+		util::addType<File>(script, "File");
+		util::addCtor<File(const char *)>(script, "File");
+		util::addCtor<File(const std::string &)>(script, "File");
+		util::addFun(script, &File::exists, "exists");
+		util::addFun(script, &File::create, "create");
+		util::addFun(script, &File::erase, "erase");
+		util::addFun(script, &File::read, "read");
+		util::addFun(script, &File::parse, "parse");
+		util::addFun(script, &File::write, "write");
+		util::addFun(script, &File::getPath, "getPath");
+		util::addFun(script, &File::getFolder, "getFolder");
+		util::addFun(script, &File::getName, "getName");
+		util::addFun(script, &File::getExtension, "getExtension");
+
+		util::addType<Folder>(script, "Folder");
+		util::addCtor<Folder(const char *)>(script, "Folder");
+		util::addCtor<Folder(const std::string &)>(script, "Folder");
+		util::addFun(script, &Folder::exists, "exists");
+		util::addFun(script, &Folder::create, "create");
+		util::addFun(script, &Folder::erase, "erase");
+		util::addFun(script, &Folder::getFiles, "getFiles");
+		util::addFun(script, &Folder::getFolders, "getFolders");
+		util::addFun(script, &Folder::getPath, "getPath");
+		util::addFun(script, &Folder::getFolder, "getFolder");
+		util::addFun(script, &Folder::getName, "getName");
 	});
 }
 void core::setup::detail::setupStates(Engine & engine)

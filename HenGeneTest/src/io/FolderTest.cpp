@@ -10,6 +10,8 @@ namespace io
 	TEST_CLASS(FolderTest)
 	{
 	public:
+		~FolderTest() { deinitialize(); }
+
 		TEST_METHOD(Folder_get)
 		{
 			Folder folderA{ "data/root/subfolder/name" };
@@ -23,5 +25,30 @@ namespace io
 			Assert::AreEqual({ "" }, folderB.getFolder());
 			Assert::AreEqual({ "name" }, folderB.getName());
 		}
+
+		TEST_METHOD(Folder_create)
+		{
+			Assert::IsFalse(m_folder.exists());
+			Assert::IsTrue(m_folder.create());
+			Assert::IsFalse(m_folder.create());
+			Assert::IsTrue(m_folder.exists());
+		}
+		TEST_METHOD(Folder_erase)
+		{
+			m_folder.create();
+
+			Assert::IsTrue(m_folder.exists());
+			Assert::IsTrue(m_folder.erase());
+			Assert::IsFalse(m_folder.erase());
+			Assert::IsFalse(m_folder.exists());
+		}
+
+	private:
+		void deinitialize()
+		{
+			m_folder.erase();
+		}
+
+		Folder m_folder{ "testfolder" };
 	};
 }

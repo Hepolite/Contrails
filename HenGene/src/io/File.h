@@ -9,8 +9,8 @@ namespace io
 	{
 	public:
 		File() = delete;
-		File(const char* path) : m_path(path) {}
-		File(const std::string& path) : m_path(path) {}
+		File(const char * path) : m_path(path) {}
+		File(const std::string & path) : m_path(path) {}
 
 		bool exists() const;
 		bool create() const;

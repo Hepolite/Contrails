@@ -1,49 +1,42 @@
 
 #include "Folder.h"
 
-#include <dirent/dirent.h>
+#include "util/StringGeneric.h"
 
-namespace
-{
-	template<class T>
-	std::vector<T> getEntry(const std::string& path, int filter)
-	{
-		DIR* dir = opendir(path.c_str());
-		if (dir == nullptr)
-			return{};
-		struct stat st;
-
-		std::vector<T> entries;
-		for (struct dirent* ent; (ent = readdir(dir)) != nullptr; )
-		{
-			const std::string file_name = ent->d_name;
-			const std::string full_file_name = path + "/" + file_name;
-
-			if (file_name[0] == '.')
-				continue;
-			if (stat(full_file_name.c_str(), &st) == -1)
-				continue;
-
-			if ((st.st_mode & filter) != 0)
-				entries.emplace_back(full_file_name);
-		}
-		return entries;
-	}
-}
+#include <filesystem>
 
 bool io::Folder::exists() const
 {
-	struct stat dirInfo;
-	return stat(m_path.c_str(), &dirInfo) == 0 && (dirInfo.st_mode & S_IFDIR) != 0;
+	return std::experimental::filesystem::is_directory(m_path);
+}
+bool io::Folder::create() const
+{
+	return std::experimental::filesystem::create_directories(m_path);
+}
+bool io::Folder::erase() const
+{
+	return std::experimental::filesystem::remove(m_path);
 }
 
 std::vector<io::File> io::Folder::getFiles() const
 {
-	return getEntry<File>(m_path, S_IFMT & ~S_IFDIR);
+	std::vector<File> files;
+	for (auto & item : std::experimental::filesystem::directory_iterator(m_path))
+	{
+		if (std::experimental::filesystem::is_regular_file(item))
+			files.emplace_back(string::replaceAll(item.path().string(), "\\", "/"));
+	}
+	return files;
 }
 std::vector<io::Folder> io::Folder::getFolders() const
 {
-	return getEntry<Folder>(m_path, S_IFDIR);
+	std::vector<Folder> folders;
+	for (auto & item : std::experimental::filesystem::directory_iterator(m_path))
+	{
+		if (std::experimental::filesystem::is_directory(item))
+			folders.emplace_back(string::replaceAll(item.path().string(), "\\", "/"));
+	}
+	return folders;
 }
 
 std::string io::Folder::getFolder() const
