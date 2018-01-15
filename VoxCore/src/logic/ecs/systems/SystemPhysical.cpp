@@ -7,7 +7,10 @@ void logic::ecs::SystemMovement::process(const Time & t, const Time & dt)
 	auto & velocity = getData<ComponentVelocity>();
 
 	for (const auto & entity : *this)
+	{
+		position[entity].m_prevPos = position[entity].m_pos;
 		position[entity].m_pos += velocity[entity].m_vel * dt;
+	}
 }
 
 void logic::ecs::SystemAcceleration::process(const Time & t, const Time & dt)

@@ -2,11 +2,11 @@
 #include "Engine.h"
 
 #include "asset/AssetRegistry.h"
+#include "core/MainLoop.h"
 #include "core/scene/Scene.h"
 #include "core/setup/Initializer.h"
 #include "logic/event/EventBus.h"
 #include "logic/event/EventQueue.h"
-#include "logic/MainLoop.h"
 #include "logic/state/StateManager.h"
 #include "render/allegro/Allegro.h"
 #include "render/core/Pipeline.h"
@@ -61,6 +61,8 @@ core::Engine::Engine(const Settings & settings)
 	m_impl->m_pipeline.inject(m_impl->m_guiManager);
 	m_impl->m_pipeline.inject(m_impl->m_scene);
 	m_impl->m_stateManager.inject(*this);
+	m_impl->m_scene.inject(m_impl->m_display);
+	m_impl->m_scene.inject(m_impl->m_uboRegistry);
 	m_impl->m_universe.inject(m_impl->m_eventBus);
 	m_impl->m_universe.inject(m_impl->m_scene);
 	m_impl->m_universeRenderer.inject(m_impl->m_eventBus);
@@ -76,7 +78,7 @@ void core::Engine::start()
 {
 	m_impl->m_loop.process(
 		[this](auto & t, auto & dt) { process(t, dt); },
-		[this](auto & t, auto & dt) { render(t, dt); }
+		[this](auto & t, auto & dt, auto pt) { render(t, dt, pt); }
 	);
 }
 void core::Engine::stop()
@@ -90,9 +92,9 @@ void core::Engine::process(const Time & t, const Time & dt)
 	m_impl->m_scene.process(t, dt);
 	m_impl->m_guiManager.process();
 }
-void core::Engine::render(const Time & t, const Time & dt) const
+void core::Engine::render(const Time & t, const Time & dt, float pt) const
 {
-	m_impl->m_pipeline.render(t, dt);
+	m_impl->m_pipeline.render(t, dt, pt);
 }
 
 asset::AssetRegistry & core::Engine::getAssets() { return m_impl->m_assetRegistry; }

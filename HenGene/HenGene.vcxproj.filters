@@ -60,9 +60,6 @@
     <ClCompile Include="src\logic\script\ScriptUtil.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\logic\MainLoop.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\render\uboRegistry.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -139,6 +136,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\logic\state\StateManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\render\scene\CameraStorage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\MainLoop.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\render\scene\Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -222,9 +228,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\logic\script\ScriptUtil.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\logic\MainLoop.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\util\Physics.h">
@@ -363,6 +366,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\logic\state\StateManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\MainLoop.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

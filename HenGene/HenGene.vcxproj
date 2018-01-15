@@ -232,7 +232,7 @@
     <ClInclude Include="src\logic\event\Events.h" />
     <ClInclude Include="src\logic\state\StateManager.h" />
     <ClInclude Include="src\render\allegro\Allegro.h" />
-    <ClInclude Include="src\logic\MainLoop.h" />
+    <ClInclude Include="src\core\MainLoop.h" />
     <ClInclude Include="src\logic\script\Script.h" />
     <ClInclude Include="src\logic\script\ScriptUtil.h" />
     <ClInclude Include="src\logic\state\State.h" />
@@ -297,7 +297,7 @@
     <ClCompile Include="src\render\allegro\Allegro.cpp" />
     <ClCompile Include="src\logic\event\EventListener.cpp" />
     <ClCompile Include="src\logic\event\EventQueue.cpp" />
-    <ClCompile Include="src\logic\MainLoop.cpp" />
+    <ClCompile Include="src\core\MainLoop.cpp" />
     <ClCompile Include="src\logic\script\Script.cpp" />
     <ClCompile Include="src\logic\script\ScriptUtil.cpp" />
     <ClCompile Include="src\render\allegro\Sprite.cpp" />
@@ -312,6 +312,8 @@
     <ClCompile Include="src\render\opengl\ubo.cpp" />
     <ClCompile Include="src\render\opengl\vao.cpp" />
     <ClCompile Include="src\render\opengl\vbo.cpp" />
+    <ClCompile Include="src\render\scene\Camera.cpp" />
+    <ClCompile Include="src\render\scene\CameraStorage.cpp" />
     <ClCompile Include="src\render\scene\Renderer.cpp" />
     <ClCompile Include="src\render\scene\RendererRegistry.cpp" />
     <ClCompile Include="src\render\uboRegistry.cpp" />

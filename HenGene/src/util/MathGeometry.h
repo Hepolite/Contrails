@@ -108,7 +108,7 @@ namespace math
 		glm::tvec2<T> rot;
 		rot.x = atan2(v.x, v.y);
 		rot.x = rot.x < T{ 0 } ? rot.x + T{ 360 } : rot.x;
-		rot.y = T{ 90 } - angle(glm::tvec3<T>(0, 0, 1), v);
+		rot.y = T{ 90 } - angle(glm::tvec3<T>{ 0, 0, 1 }, v);
 		return rot;
 	}
 }

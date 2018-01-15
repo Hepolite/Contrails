@@ -1,7 +1,7 @@
 
 #include "CppUnitTest.h"
 
-#include "logic/MainLoop.h"
+#include "core/MainLoop.h"
 #include "Setup.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -25,7 +25,7 @@ namespace logic
 			MainLoop loop{ 60.0, 60.0 };
 			loop.process(
 				[&](auto & t, auto & dt) { if (i > 120 || t > 1.0_s) loop.terminate(); else i++; },
-				[](auto&, auto&) {}
+				[&](auto & t, auto & dt, auto pt) {}
 			);
 
 			Assert::AreEqual(60u, i);

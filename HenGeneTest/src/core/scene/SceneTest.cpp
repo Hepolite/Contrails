@@ -41,7 +41,7 @@ namespace core
 		class RendererMock : public render::scene::Renderer<float>
 		{
 		public:
-			virtual void render(const Time & t, const Time & dt) const override final
+			virtual void render(const Time & t, const Time & dt, float pt) const override final
 			{
 				rendered = 0;
 				for (const auto & entity : *this)
@@ -66,7 +66,7 @@ namespace core
 				Scene scene;
 				scene.registerRenderers<RendererMock>();
 				rendered = -1;
-				scene.render(0.0_s, 0.05_s);
+				scene.render(0.0_s, 0.05_s, 0.0f);
 
 				Assert::AreEqual(0, rendered);
 			}
@@ -86,7 +86,7 @@ namespace core
 				scene.registerRenderers<RendererMock>();
 				scene.clearRenderers();
 				rendered = -1;
-				scene.render(0.0_s, 0.05_s);
+				scene.render(0.0_s, 0.05_s, 0.0f);
 
 				Assert::AreEqual(-1, rendered);
 			}

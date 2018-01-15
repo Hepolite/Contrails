@@ -15,7 +15,7 @@ namespace render
 			inline void inject(const ::core::scene::Scene & scene) { m_scene = &scene; }
 			inline void inject(const ::ui::gui::GuiManager & gui) { m_gui = &gui; }
 
-			void render(const Time & t, const Time & dt) const;
+			void render(const Time & t, const Time & dt, float pt) const;
 
 		private:
 			const ::core::scene::Scene * m_scene = nullptr;

@@ -12,7 +12,7 @@ namespace render
 		class RendererMock : public Renderer<int>
 		{
 		public:
-			virtual void render(const Time & t, const Time & dt) const override final {}
+			virtual void render(const Time & t, const Time & dt, float pt) const override final {}
 		};
 
 		TEST_CLASS(RendererTest)

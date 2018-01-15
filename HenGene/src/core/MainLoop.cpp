@@ -8,7 +8,7 @@ void logic::MainLoop::terminate()
 {
 	m_running = false;
 }
-void logic::MainLoop::process(const Function & update, const Function & render)
+void logic::MainLoop::process(const LogicFunction & update, const RenderFunction & render)
 {
 	if (update == nullptr || render == nullptr)
 	{
@@ -40,6 +40,6 @@ void logic::MainLoop::process(const Function & update, const Function & render)
 			accumulatedTime -= deltaTime;
 			time += deltaTime;
 		}
-		render(time, accumulatedTime);
+		render(time, accumulatedTime, static_cast<float>((accumulatedTime / deltaTime)()));
 	}
 }

@@ -31,10 +31,10 @@ namespace
 			m_model = &engine.getUboRegistry().get("Model");
 		}
 
-		virtual void render(const Time & t, const Time & dt) const override final
+		virtual void render(const Time & t, const Time & dt, float pt) const override final
 		{
 			if (m_model != nullptr)
-				m_model->set("transform", glm::rotate(glm::mat4{ 1.0f }, (float)(t + dt)(), glm::vec3{ 0.0f, 0.0f, 1.0f }));
+				m_model->set("transform", glm::rotate(glm::mat4{ 1.0f }, (float)(t + dt * pt)(), glm::vec3{ 0.0f, 0.0f, 1.0f }));
 			if (m_program != nullptr)
 				m_program->bind();
 

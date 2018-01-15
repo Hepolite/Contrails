@@ -43,7 +43,7 @@ namespace core
 
 	private:
 		void process(const Time & t, const Time & dt);
-		void render(const Time & t, const Time & dt) const;
+		void render(const Time & t, const Time & dt, float pt) const;
 
 		struct Impl;
 		std::unique_ptr<Impl> m_impl = nullptr;

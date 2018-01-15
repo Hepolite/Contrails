@@ -8,6 +8,7 @@
 #include "render/scene/CameraStorage.h"
 #include "render/scene/RendererRegistry.h"
 #include "render/RenderPass.h"
+#include "render/uboRegistry.h"
 #include "util/Physics.h"
 
 namespace core
@@ -25,8 +26,13 @@ namespace core
 			Scene & operator=(const Scene &) = delete;
 			Scene & operator=(Scene &&) = delete;
 
+			inline void inject(const render::uboRegistry & registry) { m_cameras.inject(registry); }
+			inline void inject(const ui::Display & display) { m_cameras.inject(display); }
+
 			void process(const Time & t, const Time & dt);
-			void render(const Time & t, const Time & dt) const;
+			void render(const Time & t, const Time & dt, float pt) const;
+
+			// ...
 
 			template<typename ...Systems> void registerSystems();
 			void clearSystems();

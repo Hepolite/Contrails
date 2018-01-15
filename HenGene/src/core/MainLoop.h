@@ -10,7 +10,8 @@ namespace logic
 	class MainLoop
 	{
 	public:
-		using Function = std::function<void(const Time & t, const Time & dt)>;
+		using LogicFunction = std::function<void(const Time & t, const Time & dt)>;
+		using RenderFunction = std::function<void(const Time & t, const Time & dt, float pt)>;
 
 		MainLoop() = delete;
 		MainLoop(double fps, double ups) : m_fps(fps), m_ups(ups) {}
@@ -22,7 +23,7 @@ namespace logic
 		MainLoop & operator=(MainLoop &&) = default;
 
 		void terminate();
-		void process(const Function & update, const Function & render);
+		void process(const LogicFunction & update, const RenderFunction & render);
 
 		inline auto running() const { return m_running; }
 

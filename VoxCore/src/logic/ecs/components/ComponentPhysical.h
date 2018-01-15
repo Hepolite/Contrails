@@ -12,6 +12,7 @@ namespace logic
 		{
 			world::World * m_world = nullptr;
 			LengthVec m_pos;
+			LengthVec m_prevPos = m_pos;
 		};
 
 		struct ComponentVelocity
