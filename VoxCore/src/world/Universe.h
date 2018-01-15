@@ -1,24 +1,23 @@
 
 #pragma once
 
-#include "world/World.h"
-
 #include <memory>
 #include <string>
 #include <unordered_map>
 
 namespace core { namespace scene { class Scene; } }
 namespace logic { namespace event { class EventBus; } }
+namespace world { class World; }
 
 namespace world
 {
 	class Universe
 	{
 	public:
-		Universe() = default;
+		Universe();
 		Universe(const Universe &) = delete;
 		Universe(Universe &&) = delete;
-		~Universe() = default;
+		~Universe();
 
 		Universe & operator=(const Universe &) = delete;
 		Universe & operator=(Universe &&) = delete;

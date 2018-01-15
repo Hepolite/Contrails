@@ -31,8 +31,9 @@ bool ui::gui::GuiManager::open(const io::File & file, std::unique_ptr<Gui> && gu
 {
 	if (m_guis.find(file.getPath()) != m_guis.end() || !file.exists())
 		return false;
-	load(file, *gui);
+	auto & reference = *gui;
 	m_guis.emplace(file.getPath(), std::move(gui)).first->second;
+	load(file, reference);
 	return true;
 }
 bool ui::gui::GuiManager::close(const io::File & file)
@@ -61,7 +62,7 @@ void ui::gui::GuiManager::load(const io::File & file, Gui & gui)
 		gui.getWidgets().get().m_size.m_size = m_display->getSize();
 	}
 
-	gui.getScript().execute("GUI = GUI_MANAGER.get();");
+	gui.getScript().execute("global GUI = GUI_MANAGER.get(File(\"" + file.getPath() + "\"));");
 }
 
 void ui::gui::GuiManager::process()

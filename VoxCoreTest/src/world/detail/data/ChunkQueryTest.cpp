@@ -36,6 +36,15 @@ namespace world
 				Assert::AreEqual({ 5u, 2u, 4u }, query.max());
 			}
 
+			TEST_METHOD(ChunkQuery_has)
+			{
+				ChunkQuery query;
+				query.add({ 3u, 1u, 4u });
+
+				Assert::IsTrue(query.has({ 3u, 1u, 4u }));
+				Assert::IsFalse(query.has({ 2u, 1u, 4u }));
+			}
+
 			TEST_METHOD(ChunkQuery_iteration)
 			{
 				ChunkQuery query;

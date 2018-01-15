@@ -10,6 +10,7 @@
 #include "logic/state/StateMainMenu.h"
 #include "world/detail/data/WorldQuery.h"
 #include "world/Universe.h"
+#include "world/util/Query.h"
 #include "world/World.h"
 
 using namespace logic::script;
@@ -56,7 +57,9 @@ void core::setup::detail::setupGui(Engine & engine)
 
 		// ...
 
+		util::addAttribute(script, &Widget::m_render, "render");
 		util::addAttribute(script, &Widget::m_state, "state");
+		util::addAttribute(script, &Render::m_visible, "visible");
 		util::addAttribute(script, &State::m_bool, "bool");
 		util::addAttribute(script, &State::m_float, "float");
 		util::addAttribute(script, &State::m_string, "string");
@@ -114,22 +117,29 @@ void core::setup::detail::setupStates(Engine & engine)
 }
 void core::setup::detail::setupUniverse(Engine & engine)
 {
-	using namespace world;
 	util::registerScriptData([&universe = engine.getUniverse()](Script & script)
 	{
+		using namespace world::data;
+		using namespace world::util;
 		util::addVarGlobal(script, &universe, "UNIVERSE");
-		util::addFun(script, &Universe::createWorld, "createWorld");
-		util::addFun(script, &Universe::destroyWorld, "destroyWorld");
-		util::addFun(script, &Universe::hasWorld, "hasWorld");
-		util::addFun(script, &Universe::getWorld, "getWorld");
+		util::addFun(script, &world::Universe::createWorld, "createWorld");
+		util::addFun(script, &world::Universe::destroyWorld, "destroyWorld");
+		util::addFun(script, &world::Universe::hasWorld, "hasWorld");
+		util::addFun(script, &world::Universe::getWorld, "getWorld");
 
-		util::addFun(script, &World::getBlockRegistry, "getBlockRegistry");
-		util::addFun<World, void, data::WorldQuery &>(script, &World::write, "write");
-		util::addFun<World, void, const glm::ivec3 &, data::BlockData &, data::ColorData &>(script, &World::write, "write");
-		util::addFun<World, void, const glm::ivec3 &, data::BlockData &>(script, &World::write, "write");
-		util::addFun<World, void, const glm::ivec3 &, data::ColorData &>(script, &World::write, "write");
-		util::addFun(script, &World::read, "read");
-		util::addFun(script, &World::readBlock, "readBlock");
-		util::addFun(script, &World::readColor, "readColor");
+		util::addFun(script, &world::World::getBlockRegistry, "getBlockRegistry");
+		util::addFun<world::World, void, WorldQuery &>(script, &world::World::write, "write");
+		util::addFun<world::World, void, const glm::ivec3 &, BlockData &, ColorData &>(script, &world::World::write, "write");
+		util::addFun<world::World, void, const glm::ivec3 &, BlockData &>(script, &world::World::write, "write");
+		util::addFun<world::World, void, const glm::ivec3 &, ColorData &>(script, &world::World::write, "write");
+		util::addFun(script, &world::World::read, "read");
+		util::addFun(script, &world::World::readBlock, "readBlock");
+		util::addFun(script, &world::World::readColor, "readColor");
+
+		util::addVarGlobal(script, Query{}, "QUERY");
+		util::addFun(script, &Query::readBlock, "readBlock");
+		util::addFun(script, &Query::readRectangle, "readRectangle");
+		util::addFun(script, &Query::writeBlock, "writeBlock");
+		util::addFun(script, &Query::writeRectangle, "writeRectangle");
 	});
 }

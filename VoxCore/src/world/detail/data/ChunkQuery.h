@@ -45,6 +45,8 @@ namespace world
 			void add(const glm::uvec3 & start, const glm::uvec3 & end);
 			void add(const glm::uvec3 & start, const glm::uvec3 & end, const BlockData & block, const ColorData & color = {});
 
+			bool has(const glm::uvec3 & pos) const;
+
 		private:
 			void inject(Index index, const BlockData & block, const ColorData & color);
 			void updateBounds(const glm::uvec3 & start, const glm::uvec3 & end);

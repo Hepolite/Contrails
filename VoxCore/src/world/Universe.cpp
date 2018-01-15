@@ -3,8 +3,12 @@
 
 #include "logic/event/EventBus.h"
 #include "logic/event/WorldEvents.h"
+#include "world/World.h"
 
 #include <plog/Log.h>
+
+world::Universe::Universe() = default;
+world::Universe::~Universe() = default;
 
 void world::Universe::createWorld(const std::string & name)
 {
@@ -15,11 +19,13 @@ void world::Universe::createWorld(const std::string & name)
 	}
 
 	auto world = m_worlds.emplace(name, std::make_unique<World>()).first->second.get();
-	world->inject(*m_scene);
-	world->inject(*m_bus);
-
+	if (m_scene != nullptr)
+		world->inject(*m_scene);
 	if (m_bus != nullptr)
-		m_bus->post(logic::event::WorldCreate{ name });
+	{
+		world->inject(*m_bus);
+		m_bus->post(logic::event::WorldCreate { name });
+	}
 }
 void world::Universe::destroyWorld(const std::string & name)
 {
@@ -29,10 +35,9 @@ void world::Universe::destroyWorld(const std::string & name)
 		return;
 	}
 
-	m_worlds.erase(name);
-
 	if (m_bus != nullptr)
 		m_bus->post(logic::event::WorldDestroy{ name });
+	m_worlds.erase(name);
 }
 
 bool world::Universe::hasWorld(const std::string & name) const

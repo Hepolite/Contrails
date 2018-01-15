@@ -32,9 +32,13 @@ namespace world
 			inline auto end() const { return m_data.end(); }
 			inline auto memuse() const { return m_memuse; }
 
+			unsigned int count() const;
+
 			void add(const glm::ivec3 & cpos, ChunkQuery && query);
 			void add(const glm::ivec3 & pos);
 			void add(const glm::ivec3 & pos, const BlockData & block, const ColorData & color = {});
+
+			bool has(const glm::ivec3 & pos) const;
 
 		private:
 			std::unordered_map<glm::ivec3, ChunkQuery> m_data;

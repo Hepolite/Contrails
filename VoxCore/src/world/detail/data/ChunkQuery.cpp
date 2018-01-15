@@ -3,8 +3,6 @@
 
 #include "util/Maths.h"
 
-#include <typeinfo>
-
 void world::data::ChunkQuery::add(const glm::uvec3 & pos)
 {
 	add(pos, BlockData{});
@@ -29,6 +27,15 @@ void world::data::ChunkQuery::add(const glm::uvec3 & start, const glm::uvec3 & e
 	for (pos.y = min.y; pos.y <= max.y; ++pos.y)
 	for (pos.x = min.x; pos.x <= max.x; ++pos.x)
 		inject(toIndex(pos), block, color);
+}
+
+bool world::data::ChunkQuery::has(const glm::uvec3 & pos) const
+{
+	const auto index = toIndex(pos);
+	const auto it = std::upper_bound(begin(), end(), index,
+		[](auto & lhs, auto & rhs) { return lhs <= rhs.m_index; }
+	);
+	return it != m_data.end() && it->m_index == index;
 }
 
 void world::data::ChunkQuery::inject(Index index, const BlockData & block, const ColorData & color)

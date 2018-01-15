@@ -120,6 +120,8 @@ glm::vec2 ui::gui::Processor::calculateSize() const
 	for (const auto & name : m_widget->m_family.m_children)
 	{
 		auto & child = getChild(name);
+		if (!child.m_render.m_visible)
+			continue;
 		if (child.m_link.m_target == m_widget->m_header.m_name &&
 			child.m_link.m_location != Link::Location::TOP_LEFT &&
 			child.m_link.m_location != Link::Location::LEFT_TOP &&

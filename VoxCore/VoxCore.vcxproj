@@ -229,6 +229,7 @@
     <ClInclude Include="src\world\detail\Limits.h" />
     <ClInclude Include="src\world\detail\data\WorldQuery.h" />
     <ClInclude Include="src\world\Universe.h" />
+    <ClInclude Include="src\world\util\Query.h" />
     <ClInclude Include="src\world\util\Side.h" />
     <ClInclude Include="src\world\World.h" />
   </ItemGroup>
@@ -261,6 +262,7 @@
     <ClCompile Include="src\world\detail\data\Light.cpp" />
     <ClCompile Include="src\world\detail\data\WorldQuery.cpp" />
     <ClCompile Include="src\world\Universe.cpp" />
+    <ClCompile Include="src\world\util\Query.cpp" />
     <ClCompile Include="src\world\util\Side.cpp" />
     <ClCompile Include="src\world\World.cpp" />
   </ItemGroup>

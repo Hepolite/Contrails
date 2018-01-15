@@ -34,6 +34,25 @@ namespace world
 				Assert::AreEqual(2u, query.size());
 				Assert::AreNotEqual(0u, query.memuse());
 			}
+
+			TEST_METHOD(WorldQuery_has)
+			{
+				WorldQuery query;
+				query.add({ 3, -1, 4 });
+
+				Assert::IsTrue(query.has({ 3, -1, 4 }));
+				Assert::IsFalse(query.has({ 3, -2, 4 }));
+			}
+
+			TEST_METHOD(WorldQuery_count)
+			{
+				WorldQuery query;
+				
+				query.add({ 0, 0, -1 });
+				query.add({ 0, 0, 0 });
+				query.add({ 0, 0, 1 });
+				Assert::AreEqual(3u, query.count());
+			}
 		};
 	}
 }
