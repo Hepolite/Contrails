@@ -10,6 +10,7 @@ core::scene::Scene::Scene()
 void core::scene::Scene::process(const Time & t, const Time & dt)
 {
 	m_systems.process(t, dt);
+	m_cameras.process();
 }
 void core::scene::Scene::render(const Time & t, const Time & dt, float pt) const
 {

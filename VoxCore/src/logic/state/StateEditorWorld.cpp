@@ -11,6 +11,10 @@
 #include "render/opengl/Program.h"
 #include "render/scene/Renderer.h"
 #include "render/uboRegistry.h"
+#include "util/Maths.h"
+#include "world/Universe.h"
+#include "world/util/Query.h"
+#include "world/World.h"
 
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/vec3.hpp>
@@ -55,13 +59,24 @@ void logic::state::StateEditorWorld::initialize(core::Engine & engine)
 
 	auto & scene = engine.getScene();
 	scene.registerRenderers<RendererMesh>().initialize(engine);
+	scene.getCameras().getCamera(render::scene::CameraType::NORMAL).setPosition({ -15.0f, -15.0f, 20.0f });
+	scene.getCameras().getCamera(render::scene::CameraType::NORMAL).lookTowards({ 0.0f, 0.0f, 0.0f });
 
 	auto entity = scene.createEntity<ComponentMesh>();
 	auto & mesh = scene.getEntityData<ComponentMesh>(entity).m_mesh;
-	mesh.getIndiceData() = { 0, 1, 2 };
-	mesh.getVertexData() = { { -0.5f, -0.5f, 0.0f },{ 0.5f, -0.5f, 0.0f },{ 0.0f, 0.5f, 0.0f } };
+	mesh.getIndiceData() = { 0u, 1u, 2u };
+	mesh.getVertexData() = { { -0.5f, -0.5f, 0.0f }, { 0.5f, -0.5f, 0.0f }, { 0.0f, 0.5f, 0.0f } };
 	mesh.addAttribute({ 0u, render::opengl::DataFormat::FLOAT, 3u, 0u });
 	mesh.build();
+
+	engine.getUniverse().createWorld("world");
+	auto * world = engine.getUniverse().getWorld("world");
+	auto query = world::util::Query{}.writeRectangle(
+		world->getBlockRegistry()["stone"],
+		{ 0, 0, 0 },
+		{ world::data::CHUNK_SIZE_BITS<int>, world::data::CHUNK_SIZE_BITS<int>, 8 }
+	);
+	world->write(query);
 }
 void logic::state::StateEditorWorld::deinitialize(core::Engine & engine)
 {

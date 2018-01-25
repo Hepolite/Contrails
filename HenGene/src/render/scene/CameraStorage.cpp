@@ -12,6 +12,12 @@ void render::scene::CameraStorage::inject(const ui::Display & display)
 		m_cameras[i].inject(display);
 }
 
+void render::scene::CameraStorage::process()
+{
+	for (unsigned int i = 0; i < MAX_CAMERA_COUNT; ++i)
+		m_cameras[i].process();
+}
+
 render::scene::Camera & render::scene::CameraStorage::getCamera(CameraType type)
 {
 	return m_cameras[static_cast<unsigned int>(type)];

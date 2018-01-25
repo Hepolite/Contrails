@@ -5,6 +5,7 @@
 #include "logic/event/EventBus.h"
 #include "world/ChunkStorage.h"
 #include "world/detail/data/BlockRegion.h"
+#include "world/detail/data/WorldQuery.h"
 
 struct world::World::Impl
 {
@@ -67,6 +68,8 @@ const world::data::BlockRegion world::World::extractRenderData(const glm::ivec3 
 
 void world::World::write(data::WorldQuery & query)
 {
+	for (auto & it : query)
+		m_impl->m_chunks.createOrGetChunk(it.first).write(it.second);
 }
 void world::World::write(const glm::ivec3 & pos, data::BlockData & block, data::ColorData & color)
 {
@@ -85,6 +88,11 @@ void world::World::write(const glm::ivec3 & pos, data::ColorData & color)
 }
 void world::World::read(data::WorldQuery & query) const
 {
+	for (auto & it : query)
+	{
+		if (const auto * chunk = m_impl->m_chunks.getChunkAt(it.first))
+			chunk->read(it.second);
+	}
 }
 world::data::BlockData world::World::readBlock(const glm::ivec3 & pos) const
 {

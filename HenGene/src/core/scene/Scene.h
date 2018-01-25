@@ -48,6 +48,8 @@ namespace core
 			void deleteEntity(logic::ecs::EntityID entity);
 			void clearEntities();
 
+			inline render::scene::CameraStorage & getCameras() { return m_cameras; }
+
 		private:
 			logic::ecs::ComponentStorage m_components;
 			logic::ecs::SystemRegistry m_systems;

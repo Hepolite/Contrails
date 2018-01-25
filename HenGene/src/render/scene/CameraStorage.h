@@ -24,6 +24,8 @@ namespace render
 			void inject(const uboRegistry & registry);
 			void inject(const ui::Display & display);
 
+			void process();
+
 			Camera & getCamera(CameraType type);
 			const Camera & getCamera(CameraType type) const;
 
