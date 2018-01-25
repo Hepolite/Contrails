@@ -31,13 +31,22 @@ namespace world
 				Assert::AreEqual(MAX_BLOCK_ID, dataB.getId());
 				Assert::AreEqual(MAX_BLOCK_LIGHT, dataB.getLight());
 			}
-			TEST_METHOD(BlockData_set)
+			TEST_METHOD(BlockData_setId)
 			{
 				BlockData data;
 				data.setId(2047u);
-				data.setLight(31u);
+				data.setLight(0u);
 
 				Assert::AreEqual(2047u, data.getId());
+				Assert::AreEqual(0u, data.getLight());
+			}
+			TEST_METHOD(BlockData_setLight)
+			{
+				BlockData data;
+				data.setLight(31u);
+				data.setId(0u);
+
+				Assert::AreEqual(0u, data.getId());
 				Assert::AreEqual(31u, data.getLight());
 			}
 

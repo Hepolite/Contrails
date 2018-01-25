@@ -127,7 +127,7 @@ void world::World::write(data::WorldQuery & query)
 {
 	for (auto & it : query)
 	{
-		createChunk(it.first).write(it.second);
+		createChunk(it.first, true).write(it.second);
 		markLightingChange(it.first);
 	}
 }
@@ -213,6 +213,8 @@ void world::World::propagateLight()
 		std::unordered_set<glm::ivec3> m_chunks;
 		std::swap(m_impl->m_chunksToLight, m_chunks);
 
+		for (auto & it : m_chunks)
+			data::LightRemover{ *this, it }.propagate();
 		for (auto & it : m_chunks)
 			data::LightPropagator{ *this, it }.propagate();
 	}

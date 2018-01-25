@@ -214,7 +214,8 @@
     <ClCompile Include="src\world\detail\data\ChunkDataTest.cpp" />
     <ClCompile Include="src\world\detail\data\ChunkQueryTest.cpp" />
     <ClCompile Include="src\world\detail\data\IndexingTest.cpp" />
-    <ClCompile Include="src\world\detail\data\LightTest.cpp" />
+    <ClCompile Include="src\world\detail\data\LightPropagatorTest.cpp" />
+    <ClCompile Include="src\world\detail\data\LightRemoverTest.cpp" />
     <ClCompile Include="src\world\detail\data\WorldQueryTest.cpp" />
     <ClCompile Include="src\world\detail\WorldLightingTest.cpp" />
     <ClCompile Include="src\world\UniverseTest.cpp" />

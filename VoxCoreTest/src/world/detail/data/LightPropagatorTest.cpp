@@ -1,7 +1,6 @@
 
 #include "CppUnitTest.h"
 
-#include "world/detail/Chunk.h"
 #include "world/detail/data/Light.h"
 #include "world/World.h"
 
@@ -14,31 +13,38 @@ namespace world
 {
 	namespace data
 	{
-		TEST_CLASS(LightTest)
+		TEST_CLASS(LightPropagatorTest)
 		{
 		public:
 			TEST_METHOD(LightPropagator_ctor)
 			{
 				World world;
-				LightPropagator worker{ world, { 0, 0, 0} };
+				LightPropagator propagator{ world, { 0, 0, 0} };
 			}
 
 			TEST_METHOD(LightPropagator_propagateTo)
 			{
+				const auto expected = {
+					std::make_pair(glm::ivec3{ 3, 6, 5 }, glm::uvec4{ 2u, 8u, 17u, 30u }),
+					std::make_pair(glm::ivec3{ 3, 6, 6 }, glm::uvec4{ 8u, 8u, 17u, 30u }),
+					std::make_pair(glm::ivec3{ 3, 6, 7 }, glm::uvec4{ 31u, 31u, 31u, 31u }),
+				};
+
 				World world;
 				auto & chunk = world.createChunk({ 0, 0, 0 });
-				LightPropagator propagator{ world, glm::ivec3{ 0, 0, 0 } };
+				world.write({ 3, 6, 6 }, BlockData{ 0u, 0u }, ColorData{ { 8u, 8u, 8u } });
+				world.write({ 3, 6, 7 }, BlockData{ 0u, 31u }, ColorData{ { 31u, 31u, 31u } });
 
-				propagator.propagateTo(chunk, { 3, 6, 5 }, { 3u, 9u, 9u, 31u });
+				LightPropagator propagator{ world, { 0, 0, 0 } };
+				propagator.propagateTo(chunk, { 3, 6, 5 }, { 3u, 9u, 18u, 31u });
+				propagator.propagateTo(chunk, { 3, 6, 6 }, { 3u, 9u, 18u, 31u });
+				propagator.propagateTo(chunk, { 3, 6, 7 }, { 3u, 9u, 18u, 31u });
 
-				const auto block = chunk.readBlock(toIndex(glm::uvec3{ 3u, 6u, 5u }));
-				const auto color = chunk.readColor(toIndex(glm::uvec3{ 3u, 6u, 5u }));
-				Assert::AreEqual(30u, block.getLight());
-				Assert::AreEqual({ 2u, 8u, 8u }, color.getColor());
+				validate(world, { 0, 0, 0 }, expected);
 			}
 			TEST_METHOD(LightPropagator_propagateFrom)
 			{
-				const auto data = {
+				const auto expected = {
 					std::make_pair(glm::ivec3{ 6, 5, 5 }, glm::uvec4{ 2u, 8u, 0u, 30u }),
 					std::make_pair(glm::ivec3{ 4, 5, 5 }, glm::uvec4{ 2u, 8u, 0u, 30u }),
 					std::make_pair(glm::ivec3{ 5, 6, 5 }, glm::uvec4{ 2u, 8u, 0u, 30u }),
@@ -49,11 +55,11 @@ namespace world
 
 				World world;
 				auto & chunk = world.createChunk({ 0, 0, 0 });
-				LightPropagator propagator{ world, { 0, 0, 0 } };
 
+				LightPropagator propagator{ world, { 0, 0, 0 } };
 				propagator.propagateFrom(chunk, { 5, 5, 5 }, { 3u, 9u, 1u, 31u });
 
-				validate(world, { 0, 0, 0 }, data);
+				validate(world, { 0, 0, 0 }, expected);
 			}
 
 			TEST_METHOD(LightPropagator_propagateInCenter)
@@ -61,28 +67,28 @@ namespace world
 				World world = getWorld({ 15, 15, 15 });
 				LightPropagator{ world, { 0, 0, 0 } }.propagate();
 
-				validate(world, { 15, 15, 15 }, m_data);
+				validate(world, { 15, 15, 15 }, m_expected);
 			}
 			TEST_METHOD(LightPropagator_propagateOnEdge)
 			{
 				World world = getWorld({ 0, 15, 15 });
 				world.propagateLight();
 
-				validate(world, { 0, 15, 15 }, m_data);
+				validate(world, { 0, 15, 15 }, m_expected);
 			}
 			TEST_METHOD(LightPropagator_propagateOnCorner)
 			{
 				World world = getWorld({ 0, 0, 0 });
 				world.propagateLight();
 
-				validate(world, { 0, 0, 0 }, m_data);
+				validate(world, { 0, 0, 0 }, m_expected);
 			}
 
 		private:
 			World getWorld(const glm::ivec3 & offset)
 			{
-				const auto pos = m_data.begin()->first;
-				const auto light = m_data.begin()->second;
+				const auto pos = m_expected.begin()->first;
+				const auto light = m_expected.begin()->second;
 
 				World world;
 				world.write(pos + offset, BlockData { 1u, light.a }, ColorData{ light });
@@ -90,9 +96,9 @@ namespace world
 			}
 
 			template<typename Data>
-			void validate(const World & world, const glm::ivec3 & offset, const Data & data)
+			void validate(const World & world, const glm::ivec3 & offset, const Data & expected)
 			{
-				for (const auto & it : data)
+				for (const auto & it : expected)
 				{
 					const auto block = world.readBlock(it.first + offset);
 					const auto color = world.readColor(it.first + offset);
@@ -102,7 +108,7 @@ namespace world
 				}
 			}
 
-			const std::vector<std::pair<glm::ivec3, glm::uvec4>> m_data = {
+			const std::vector<std::pair<glm::ivec3, glm::uvec4>> m_expected = {
 				std::make_pair(glm::ivec3{ 0, 0, 0 }, glm::uvec4{ 3u, 9u, 1u, 31u }),
 
 				std::make_pair(glm::ivec3{ 1, 0, 0 }, glm::uvec4{ 2u, 8u, 0u, 30u }),
