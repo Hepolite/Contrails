@@ -3,9 +3,13 @@
 
 #include "core/scene/Scene.h"
 #include "logic/event/EventBus.h"
-#include "world/ChunkStorage.h"
+#include "world/detail/ChunkStorage.h"
 #include "world/detail/data/BlockRegion.h"
+#include "world/detail/data/Light.h"
 #include "world/detail/data/WorldQuery.h"
+
+#include <glm/gtx/hash.hpp>
+#include <unordered_set>
 
 struct world::World::Impl
 {
@@ -14,6 +18,8 @@ struct world::World::Impl
 
 	core::scene::Scene * m_scene = nullptr;
 	const logic::event::EventBus * m_bus = nullptr;
+
+	std::unordered_set<glm::ivec3> m_chunksToLight;
 };
 
 world::World::World()
@@ -24,6 +30,8 @@ world::World::World(World &&) noexcept = default;
 world::World::~World() = default;
 
 world::World & world::World::operator=(World &&) noexcept = default;
+
+// ...
 
 const world::BlockRegistry & world::World::getBlockRegistry() const
 {
@@ -66,26 +74,81 @@ const world::data::BlockRegion world::World::extractRenderData(const glm::ivec3 
 
 // ...
 
+world::Chunk & world::World::createChunk(const glm::ivec3 & cpos)
+{
+	glm::ivec3 pos;
+	for (pos.x = cpos.x - 1; pos.x <= cpos.x + 1; ++pos.x)
+	for (pos.y = cpos.y - 1; pos.y <= cpos.y + 1; ++pos.y)
+	for (pos.z = cpos.z - 1; pos.z <= cpos.z + 1; ++pos.z)
+	{
+		if (!m_impl->m_chunks.hasChunkAt(pos))
+			m_impl->m_chunks.createChunk(pos);
+	}
+	return *m_impl->m_chunks.getChunkAt(cpos);
+}
+void world::World::destroyChunk(const glm::ivec3 & cpos)
+{
+	m_impl->m_chunks.destroyChunk(cpos);
+}
+
+bool world::World::hasChunkAt(const glm::ivec3 & cpos) const
+{
+	return m_impl->m_chunks.hasChunkAt(cpos);
+}
+world::Chunk * world::World::getChunkAt(const glm::ivec3 & cpos) const
+{
+	return m_impl->m_chunks.getChunkAt(cpos);
+}
+world::Chunk * world::World::getChunkAbove(const glm::ivec3 & cpos) const
+{
+	return m_impl->m_chunks.getChunkAbove(cpos);
+}
+world::Chunk * world::World::getChunkBelow(const glm::ivec3 & cpos) const
+{
+	return m_impl->m_chunks.getChunkBelow(cpos);
+}
+
+world::Chunk * world::World::getTopmostChunk(const glm::ivec2 & cpos) const
+{
+	return m_impl->m_chunks.getTopmostChunk(cpos);
+}
+world::Chunk * world::World::getBottommostChunk(const glm::ivec2 & cpos) const
+{
+	return m_impl->m_chunks.getBottommostChunk(cpos);
+}
+
+// ...
+
 void world::World::write(data::WorldQuery & query)
 {
 	for (auto & it : query)
-		m_impl->m_chunks.createOrGetChunk(it.first).write(it.second);
+	{
+		createChunk(it.first).write(it.second);
+		markLightingChange(it.first);
+	}
 }
 void world::World::write(const glm::ivec3 & pos, data::BlockData & block, data::ColorData & color)
 {
-	auto & chunk = m_impl->m_chunks.createOrGetChunk(pos >> data::CHUNK_SIZE_LG<int>);
+	const auto cpos = pos >> data::CHUNK_SIZE_LG<int>;
+	auto & chunk = createChunk(cpos);
 	chunk.write(data::toIndex(pos & data::CHUNK_SIZE_BITS<int>), block, color);
+	markLightingChange(cpos);
 }
 void world::World::write(const glm::ivec3 & pos, data::BlockData & block)
 {
-	auto & chunk = m_impl->m_chunks.createOrGetChunk(pos >> data::CHUNK_SIZE_LG<int>);
+	const auto cpos = pos >> data::CHUNK_SIZE_LG<int>;
+	auto & chunk = createChunk(cpos);
 	chunk.write(data::toIndex(pos & data::CHUNK_SIZE_BITS<int>), block);
+	markLightingChange(cpos);
 }
 void world::World::write(const glm::ivec3 & pos, data::ColorData & color)
 {
-	auto & chunk = m_impl->m_chunks.createOrGetChunk(pos >> data::CHUNK_SIZE_LG<int>);
+	const auto cpos = pos >> data::CHUNK_SIZE_LG<int>;
+	auto & chunk = createChunk(cpos);
 	chunk.write(data::toIndex(pos & data::CHUNK_SIZE_BITS<int>), color);
+	markLightingChange(cpos);
 }
+
 void world::World::read(data::WorldQuery & query) const
 {
 	for (auto & it : query)
@@ -107,4 +170,23 @@ world::data::ColorData world::World::readColor(const glm::ivec3 & pos) const
 	if (chunk == nullptr)
 		return data::ColorData{};
 	return chunk->readColor(data::toIndex(pos & data::CHUNK_SIZE_BITS<int>));
+}
+
+// ...
+
+void world::World::markLightingChange(const glm::ivec3 & cpos)
+{
+	m_impl->m_chunksToLight.insert(cpos);
+}
+
+void world::World::propagateLight()
+{
+	while (!m_impl->m_chunksToLight.empty())
+	{
+		std::unordered_set<glm::ivec3> m_chunks;
+		std::swap(m_impl->m_chunksToLight, m_chunks);
+
+		for (auto & it : m_chunks)
+			data::LightPropagator{ *this, it }.propagate();
+	}
 }

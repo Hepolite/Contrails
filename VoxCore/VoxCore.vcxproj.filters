@@ -60,9 +60,6 @@
     <ClInclude Include="src\world\detail\Limits.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\world\ChunkStorage.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\world\detail\BlockLoader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -138,6 +135,9 @@
     <ClInclude Include="src\world\util\Query.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\world\detail\ChunkStorage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\core\Engine.cpp">
@@ -168,9 +168,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\world\detail\data\WorldQuery.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\world\ChunkStorage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\world\detail\BlockLoader.cpp">
@@ -231,6 +228,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\world\util\Query.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\world\detail\ChunkStorage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

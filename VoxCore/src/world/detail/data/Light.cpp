@@ -32,7 +32,7 @@ world::data::LightPropagator::LightPropagator(World & world, const glm::ivec3 & 
 
 void world::data::LightPropagator::propagate() const
 {
-	Chunk * chunk = nullptr;// auto chunk = m_world->getChunkAt(m_cpos);
+	auto * chunk = m_world->getChunkAt(m_cpos);
 	if (chunk == nullptr)
 		return;
 
@@ -53,24 +53,24 @@ void world::data::LightPropagator::propagateFrom(Chunk & chunk, const glm::uvec3
 	{
 		if (source[side.m_dimensions.x] == CHUNK_SIZE_BITS<int>)
 		{
-			/*auto neighbor = m_world->getChunkAt(m_cpos + side.m_normal);
+			auto * neighbor = m_world->getChunkAt(m_cpos + side.m_normal);
 			if (neighbor != nullptr)
 			{
 				propagateTo(*neighbor, (glm::ivec3{ source } + side.m_normal) & CHUNK_SIZE_BITS<int>, light);
-				m_world->markForLighting(m_cpos + side.m_normal);
-			}*/
+				m_world->markLightingChange(m_cpos + side.m_normal);
+			}
 		}
 		else
 			propagateTo(chunk, glm::ivec3{ source } + side.m_normal, light);
 
 		if (source[side.m_dimensions.x] == 0)
 		{
-			/*auto neighbor = m_world->getChunkAt(m_cpos - side.m_normal);
+			auto * neighbor = m_world->getChunkAt(m_cpos - side.m_normal);
 			if (neighbor != nullptr)
 			{
 				propagateTo(*neighbor, (glm::ivec3{ source } - side.m_normal) & CHUNK_SIZE_BITS<int>, light);
-				m_world->markForLighting(m_cpos - side.m_normal);
-			}*/
+				m_world->markLightingChange(m_cpos - side.m_normal);
+			}
 		}
 		else
 			propagateTo(chunk, glm::ivec3{ source } - side.m_normal, light);

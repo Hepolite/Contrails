@@ -1,7 +1,7 @@
 
 #include "CppUnitTest.h"
 
-#include "world/ChunkStorage.h"
+#include "world/detail/ChunkStorage.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
