@@ -26,7 +26,15 @@ namespace world
 				Assert::IsTrue(world.hasChunkAt(pos));
 			Assert::IsTrue(&chunk == world.getChunkAt({ 0, 0, 0 }));
 		}
-		// TEST_METHOD(World_destroyChunk)
+		TEST_METHOD(World_destroyChunk)
+		{
+			World world;
+			world.createChunk({ 0, 0, 0 });
+
+			Assert::IsTrue(world.hasChunkAt({ 0, 0, 0 }));
+			world.destroyChunk({ 0, 0, 0 });
+			Assert::IsFalse(world.hasChunkAt({ 0, 0, 0 }));
+		}
 
 		TEST_METHOD(World_hasChunkAt)
 		{

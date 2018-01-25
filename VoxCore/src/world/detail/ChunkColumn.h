@@ -28,9 +28,13 @@ namespace world
 		Chunk * getChunkAt(int cz) const;
 		Chunk * getChunkAbove(int cz) const;
 		Chunk * getChunkBelow(int cz) const;
+		int getChunkPosAbove(int cz) const;
+		int getChunkPosBelow(int cz) const;
 
 		Chunk * getTopmostChunk() const;
 		Chunk * getBottommostChunk() const;
+		int getTopmostChunkPos() const;
+		int getBottommostChunkPos() const;
 
 	private:
 		mutable std::map<int, Chunk> m_chunks;

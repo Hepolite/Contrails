@@ -3,6 +3,8 @@
 
 #include "world/detail/data/ChunkData.h"
 
+#include <glm/vec3.hpp>
+
 namespace world
 {
 	namespace data
@@ -16,6 +18,7 @@ namespace world
 	class Chunk
 	{
 	public:
+		void setFastUnsafe(unsigned int index, const data::BlockData & block, const data::ColorData & color);
 		void write(data::ChunkQuery & query);
 		void write(unsigned int index, data::BlockData & block, data::ColorData & color);
 		void write(unsigned int index, data::BlockData & block);

@@ -36,6 +36,11 @@ world::data::ColorData world::data::ChunkDataBloated::readColor(unsigned int ind
 	return index < m_colors.size() ? m_colors[index] : ColorData{};
 }
 
+void world::data::ChunkDataBloated::setFastUnsafe(unsigned int index, const BlockData & block, const ColorData & color)
+{
+	m_blocks[index] = block;
+	m_colors[index] = color;
+}
 void world::data::ChunkDataBloated::write(ChunkQuery & query)
 {
 	for (auto & it : query)

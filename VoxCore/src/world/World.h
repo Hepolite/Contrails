@@ -41,7 +41,7 @@ namespace world
 
 		// ...
 
-		Chunk & createChunk(const glm::ivec3 & cpos);
+		Chunk & createChunk(const glm::ivec3 & cpos, bool initLight = false);
 		void destroyChunk(const glm::ivec3 & cpos);
 
 		bool hasChunkAt(const glm::ivec3 & cpos) const;
@@ -66,10 +66,11 @@ namespace world
 		// ...
 
 		void markLightingChange(const glm::ivec3 & cpos);
-
 		void propagateLight();
 
 	private:
+		void initializeLight(const glm::ivec3 & cpos);
+
 		struct Impl;
 		std::unique_ptr<Impl> m_impl = nullptr;
 	};

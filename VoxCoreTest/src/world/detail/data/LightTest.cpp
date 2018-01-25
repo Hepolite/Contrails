@@ -49,7 +49,7 @@ namespace world
 
 				World world;
 				auto & chunk = world.createChunk({ 0, 0, 0 });
-				LightPropagator propagator{ world, glm::ivec3{ 0, 0, 0 } };
+				LightPropagator propagator{ world, { 0, 0, 0 } };
 
 				propagator.propagateFrom(chunk, { 5, 5, 5 }, { 3u, 9u, 1u, 31u });
 

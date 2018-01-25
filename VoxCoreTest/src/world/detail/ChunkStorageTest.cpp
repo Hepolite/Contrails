@@ -3,6 +3,8 @@
 
 #include "world/detail/ChunkStorage.h"
 
+#include <glm/Unittest.h>
+
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace world
@@ -78,8 +80,32 @@ namespace world
 			Assert::IsTrue(&chunkC == storage.getChunkBelow({ 0, 0, 161 }));
 			Assert::IsNull(storage.getChunkBelow({ 0, 0, -4 }));
 		}
+		TEST_METHOD(ChunkStorage_getChunkPosAbove)
+		{
+			ChunkStorage storage;
+			storage.createChunk({ 0, 0, -4 });
+			storage.createChunk({ 0, 0, 1 });
+			storage.createChunk({ 0, 0, 9 });
 
-		TEST_METHOD(ChunkStorage_getBottommostChunk)
+			Assert::AreEqual({ 0, 0, -4 }, storage.getChunkPosAbove({ 0, 0, -5 }));
+			Assert::AreEqual({ 0, 0, 1 }, storage.getChunkPosAbove({ 0, 0, -4 }));
+			Assert::AreEqual({ 0, 0, 9 }, storage.getChunkPosAbove({ 0, 0, 3 }));
+			Assert::AreEqual({ 0, 0, std::numeric_limits<int>::max() }, storage.getChunkPosAbove({ 0, 0, 9 }));
+		}
+		TEST_METHOD(ChunkStorage_getChunkPosBelow)
+		{
+			ChunkStorage storage;
+			storage.createChunk({ 0, 0, -4 });
+			storage.createChunk({ 0, 0, 1 });
+			storage.createChunk({ 0, 0, 9 });
+
+			Assert::AreEqual({ 0, 0, -4 }, storage.getChunkPosBelow({ 0, 0, -3 }));
+			Assert::AreEqual({ 0, 0, 1 }, storage.getChunkPosBelow({ 0, 0, 9 }));
+			Assert::AreEqual({ 0, 0, 9 }, storage.getChunkPosBelow({ 0, 0, 161 }));
+			Assert::AreEqual({ 0, 0, std::numeric_limits<int>::min() }, storage.getChunkPosBelow({ 0, 0, -4 }));
+		}
+
+		TEST_METHOD(ChunkStorage_getOutermostChunks)
 		{
 			ChunkStorage storage;
 			auto & chunkA = storage.createChunk({ 0, 0, -4 });
@@ -87,15 +113,17 @@ namespace world
 			auto & chunkC = storage.createChunk({ 0, 0, 9 });
 
 			Assert::IsTrue(&chunkA == storage.getBottommostChunk({ 0, 0 }));
+			Assert::IsTrue(&chunkC == storage.getTopmostChunk({ 0, 0 }));
 		}
-		TEST_METHOD(ChunkStorage_getTopmostChunk)
+		TEST_METHOD(ChunkStorage_getOutermostChunkPos)
 		{
 			ChunkStorage storage;
 			auto & chunkA = storage.createChunk({ 0, 0, -4 });
 			auto & chunkB = storage.createChunk({ 0, 0, 1 });
 			auto & chunkC = storage.createChunk({ 0, 0, 9 });
 
-			Assert::IsTrue(&chunkC == storage.getTopmostChunk({ 0, 0 }));
+			Assert::AreEqual({ 0, 0, -4 }, storage.getBottommostChunkPos({ 0, 0 }));
+			Assert::AreEqual({ 0, 0, 9 }, storage.getTopmostChunkPos({ 0, 0 }));
 		}
 	};
 }

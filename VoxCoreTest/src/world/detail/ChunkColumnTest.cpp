@@ -57,6 +57,28 @@ namespace world
 			Assert::IsTrue(&chunkA == column.getChunkBelow(8));
 			Assert::IsTrue(&chunkB == column.getChunkBelow(9));
 		}
+		TEST_METHOD(ChunkColumn_getChunkPosAbove)
+		{
+			ChunkColumn column;
+			column.createChunk(7);
+			column.createChunk(-2);
+
+			Assert::AreEqual(std::numeric_limits<int>::max(), column.getChunkPosAbove(7));
+			Assert::AreEqual(7, column.getChunkPosAbove(6));
+			Assert::AreEqual(7, column.getChunkPosAbove(-2));
+			Assert::AreEqual(-2, column.getChunkPosAbove(-3));
+		}
+		TEST_METHOD(ChunkColumn_getChunkPosBelow)
+		{
+			ChunkColumn column;
+			column.createChunk(-4);
+			column.createChunk(8);
+
+			Assert::AreEqual(std::numeric_limits<int>::min(), column.getChunkPosBelow(-4));
+			Assert::AreEqual(-4, column.getChunkPosBelow(-3));
+			Assert::AreEqual(-4, column.getChunkPosBelow(8));
+			Assert::AreEqual(8, column.getChunkPosBelow(9));
+		}
 
 		TEST_METHOD(ChunkColumn_getOutermostChunks)
 		{
@@ -67,6 +89,16 @@ namespace world
 
 			Assert::IsTrue(&chunkB == column.getBottommostChunk());
 			Assert::IsTrue(&chunkC == column.getTopmostChunk());
+		}
+		TEST_METHOD(ChunkColumn_getOutermostChunkPos)
+		{
+			ChunkColumn column;
+			column.createChunk(3);
+			column.createChunk(-4);
+			column.createChunk(8);
+
+			Assert::AreEqual(-4, column.getBottommostChunkPos());
+			Assert::AreEqual(8, column.getTopmostChunkPos());
 		}
 	};
 }

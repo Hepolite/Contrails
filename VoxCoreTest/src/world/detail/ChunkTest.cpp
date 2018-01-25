@@ -12,6 +12,15 @@ namespace world
 	TEST_CLASS(ChunkTest)
 	{
 	public:
+		TEST_METHOD(Chunk_setFastUnsafe)
+		{
+			Chunk chunk;
+			chunk.setFastUnsafe(1337u, data::BlockData{ 2u, 3u }, data::ColorData{ { 4u, 5u, 6u } });
+
+			Assert::AreEqual(2u, chunk.readBlock(1337u).getId());
+			Assert::AreEqual(3u, chunk.readBlock(1337u).getLight());
+			Assert::AreEqual({ 4u, 5u, 6u }, chunk.readColor(1337u).getColor());
+		}
 		TEST_METHOD(Chunk_write)
 		{
 			Chunk chunk;

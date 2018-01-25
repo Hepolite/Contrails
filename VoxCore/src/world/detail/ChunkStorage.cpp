@@ -33,6 +33,16 @@ world::Chunk * world::ChunkStorage::getChunkBelow(const glm::ivec3 & cpos) const
 {
 	return hasColumn(cpos) ? getColumn(cpos).getChunkBelow(cpos.z) : nullptr;
 }
+glm::ivec3 world::ChunkStorage::getChunkPosAbove(glm::ivec3 cpos) const
+{
+	cpos.z = hasColumn(cpos) ? getColumn(cpos).getChunkPosAbove(cpos.z) : 0;
+	return cpos;
+}
+glm::ivec3 world::ChunkStorage::getChunkPosBelow(glm::ivec3 cpos) const
+{
+	cpos.z = hasColumn(cpos) ? getColumn(cpos).getChunkPosBelow(cpos.z) : 0;
+	return cpos;
+}
 
 world::Chunk * world::ChunkStorage::getTopmostChunk(const glm::ivec2 & cpos) const
 {
@@ -41,6 +51,14 @@ world::Chunk * world::ChunkStorage::getTopmostChunk(const glm::ivec2 & cpos) con
 world::Chunk * world::ChunkStorage::getBottommostChunk(const glm::ivec2 & cpos) const
 {
 	return hasColumn(cpos) ? getColumn(cpos).getBottommostChunk() : nullptr;
+}
+glm::ivec3 world::ChunkStorage::getTopmostChunkPos(const glm::ivec2 & cpos) const
+{
+	return glm::ivec3{ cpos, hasColumn(cpos) ? getColumn(cpos).getTopmostChunkPos() : std::numeric_limits<int>::max() };
+}
+glm::ivec3 world::ChunkStorage::getBottommostChunkPos(const glm::ivec2 & cpos) const
+{
+	return glm::ivec3{ cpos, hasColumn(cpos) ? getColumn(cpos).getBottommostChunkPos() : std::numeric_limits<int>::min() };
 }
 
 bool world::ChunkStorage::hasColumn(const glm::ivec2 & cpos) const

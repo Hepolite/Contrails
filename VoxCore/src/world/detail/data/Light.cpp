@@ -39,7 +39,7 @@ void world::data::LightPropagator::propagate() const
 	Index index;
 	while (chunk->pollLightPropagation(index))
 	{
-		const auto pos = toPos<int>(index);
+		const auto pos = toPos<unsigned int>(index);
 		const auto light = glm::uvec4{
 			chunk->readColor(index).getColor(),
 			chunk->readBlock(index).getLight()

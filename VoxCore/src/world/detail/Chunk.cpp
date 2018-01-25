@@ -4,6 +4,10 @@
 #include "world/detail/data/ChunkQuery.h"
 #include "world/detail/data/Indexing.h"
 
+void world::Chunk::setFastUnsafe(unsigned int index, const data::BlockData & block, const data::ColorData & color)
+{
+	m_data.setFastUnsafe(index, block, color);
+}
 void world::Chunk::write(data::ChunkQuery & query)
 {
 	m_data.write(query);

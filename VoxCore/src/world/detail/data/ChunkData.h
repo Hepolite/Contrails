@@ -28,6 +28,7 @@ namespace world
 		class ChunkDataBloated
 		{
 		public:
+			void setFastUnsafe(unsigned int index, const BlockData & block, const ColorData & color);
 			void write(ChunkQuery & query);
 			void write(unsigned int index, BlockData & block, ColorData & color);
 			void write(unsigned int index, BlockData & block);

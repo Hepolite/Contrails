@@ -74,7 +74,7 @@ const world::data::BlockRegion world::World::extractRenderData(const glm::ivec3 
 
 // ...
 
-world::Chunk & world::World::createChunk(const glm::ivec3 & cpos)
+world::Chunk & world::World::createChunk(const glm::ivec3 & cpos, bool initLight)
 {
 	glm::ivec3 pos;
 	for (pos.x = cpos.x - 1; pos.x <= cpos.x + 1; ++pos.x)
@@ -82,7 +82,11 @@ world::Chunk & world::World::createChunk(const glm::ivec3 & cpos)
 	for (pos.z = cpos.z - 1; pos.z <= cpos.z + 1; ++pos.z)
 	{
 		if (!m_impl->m_chunks.hasChunkAt(pos))
+		{
 			m_impl->m_chunks.createChunk(pos);
+			if (initLight)
+				initializeLight(pos);
+		}
 	}
 	return *m_impl->m_chunks.getChunkAt(cpos);
 }
@@ -179,6 +183,29 @@ void world::World::markLightingChange(const glm::ivec3 & cpos)
 	m_impl->m_chunksToLight.insert(cpos);
 }
 
+void world::World::initializeLight(const glm::ivec3 & cpos)
+{
+	auto * chunk = getChunkAt(cpos);
+	if (chunk == nullptr)
+		return;
+
+	if (auto * above = m_impl->m_chunks.getChunkAbove(cpos))
+	{
+		glm::uvec3 pos{ 0, 0, 0 };
+		for (pos.x = 0u; pos.x < data::CHUNK_SIZE<unsigned int>; ++pos.x)
+		for (pos.y = 0u; pos.y < data::CHUNK_SIZE<unsigned int>; ++pos.y)
+			above->pushLightPropagation(data::toIndex(pos));
+		markLightingChange(m_impl->m_chunks.getChunkPosAbove(cpos));
+	}
+	else
+	{
+		glm::uvec3 pos;
+		for (pos.x = 0u; pos.x < data::CHUNK_SIZE<unsigned int>; ++pos.x)
+		for (pos.y = 0u; pos.y < data::CHUNK_SIZE<unsigned int>; ++pos.y)
+		for (pos.z = 0u; pos.z < data::CHUNK_SIZE<unsigned int>; ++pos.z)
+			chunk->setFastUnsafe(data::toIndex(pos), data::BlockData{ 0u, data::MAX_BLOCK_LIGHT }, data::ColorData{});
+	}
+}
 void world::World::propagateLight()
 {
 	while (!m_impl->m_chunksToLight.empty())

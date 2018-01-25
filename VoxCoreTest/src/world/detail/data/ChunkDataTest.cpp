@@ -15,10 +15,18 @@ namespace world
 		TEST_CLASS(ChunkDataBloatedTest)
 		{
 		public:
+			TEST_METHOD(ChunkDataBloated_setFastUnsafe)
+			{
+				ChunkDataBloated data;
+				data.setFastUnsafe(1337u, BlockData{ 2u, 3u }, ColorData{ { 4u, 5u, 6u } });
+
+				Assert::AreEqual(2u, data.readBlock(1337u).getId());
+				Assert::AreEqual(3u, data.readBlock(1337u).getLight());
+				Assert::AreEqual({ 4u, 5u, 6u }, data.readColor(1337u).getColor());
+			}
 			TEST_METHOD(ChunkDataBloated_write)
 			{
 				ChunkDataBloated data;
-
 				data.write(42u, BlockData{ 1u, 5u }, ColorData{ { 4u, 2u, 8u } });
 
 				Assert::AreEqual(1u, data.readBlock(42u).getId());
