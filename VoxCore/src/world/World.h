@@ -65,6 +65,9 @@ namespace world
 
 		// ...
 
+		void markChunkChange(const glm::ivec3 & cpos);
+		void markChunkChange(const glm::ivec3 & cpos, const glm::uvec3 & min, const glm::uvec3 & max);
+
 		void markLightPropagation(const glm::ivec3 & cpos);
 		void markLightRemoval(const glm::ivec3 & cpos);
 		void calculateLight();

@@ -3,6 +3,7 @@
 
 #include "core/scene/Scene.h"
 #include "logic/event/EventBus.h"
+#include "logic/event/ChunkEvents.h"
 #include "world/detail/ChunkStorage.h"
 #include "world/detail/data/BlockRegion.h"
 #include "world/detail/data/LightPropagation.h"
@@ -97,6 +98,8 @@ world::Chunk & world::World::createChunk(const glm::ivec3 & cpos, bool initLight
 		if (!m_impl->m_chunks.hasChunkAt(pos))
 		{
 			m_impl->m_chunks.createChunk(pos);
+			if (m_impl->m_bus != nullptr)
+				m_impl->m_bus->post(logic::event::ChunkCreate{ this, cpos });
 			if (initLight)
 				initializeLight(pos);
 		}
@@ -105,6 +108,8 @@ world::Chunk & world::World::createChunk(const glm::ivec3 & cpos, bool initLight
 }
 void world::World::destroyChunk(const glm::ivec3 & cpos)
 {
+	if (m_impl->m_bus != nullptr)
+		m_impl->m_bus->post(logic::event::ChunkDestroy{ this, cpos });
 	m_impl->m_chunks.destroyChunk(cpos);
 }
 
@@ -143,6 +148,7 @@ void world::World::write(data::WorldQuery & query)
 		createChunk(it.first, true).write(it.second);
 		markLightRemoval(it.first);
 		markLightPropagation(it.first);
+		markChunkChange(it.first);
 	}
 }
 void world::World::write(const glm::ivec3 & pos, data::BlockData & block, data::ColorData & color)
@@ -152,6 +158,7 @@ void world::World::write(const glm::ivec3 & pos, data::BlockData & block, data::
 	chunk.write(data::toIndex(pos & data::CHUNK_SIZE_BITS<int>), block, color);
 	markLightRemoval(cpos);
 	markLightPropagation(cpos);
+	markChunkChange(cpos);
 }
 void world::World::write(const glm::ivec3 & pos, data::BlockData & block)
 {
@@ -160,6 +167,7 @@ void world::World::write(const glm::ivec3 & pos, data::BlockData & block)
 	chunk.write(data::toIndex(pos & data::CHUNK_SIZE_BITS<int>), block);
 	markLightRemoval(cpos);
 	markLightPropagation(cpos);
+	markChunkChange(cpos);
 }
 void world::World::write(const glm::ivec3 & pos, data::ColorData & color)
 {
@@ -168,6 +176,7 @@ void world::World::write(const glm::ivec3 & pos, data::ColorData & color)
 	chunk.write(data::toIndex(pos & data::CHUNK_SIZE_BITS<int>), color);
 	markLightRemoval(cpos);
 	markLightPropagation(cpos);
+	markChunkChange(cpos);
 }
 
 void world::World::read(data::WorldQuery & query) const
@@ -195,6 +204,15 @@ world::data::ColorData world::World::readColor(const glm::ivec3 & pos) const
 
 // ...
 
+void world::World::markChunkChange(const glm::ivec3 & cpos)
+{
+	markChunkChange(cpos, glm::uvec3{}, glm::uvec3{ data::CHUNK_SIZE_BITS<unsigned int> });
+}
+void world::World::markChunkChange(const glm::ivec3 & cpos, const glm::uvec3 & min, const glm::uvec3 & max)
+{
+	if (m_impl->m_bus != nullptr)
+		m_impl->m_bus->post(logic::event::ChunkChange{ this, cpos, min, max });
+}
 void world::World::markLightPropagation(const glm::ivec3 & cpos)
 {
 	m_impl->m_chunksToLight.insert(cpos);
@@ -232,6 +250,7 @@ void world::World::initializeLight(const glm::ivec3 & cpos)
 		for (pos.z = 0u; pos.z < data::CHUNK_SIZE<unsigned int>; ++pos.z)
 			chunk->setFastUnsafe(data::toIndex(pos), data::BlockData{ 0u, data::MAX_BLOCK_LIGHT }, data::ColorData{});
 	}
+	markChunkChange(cpos);
 }
 void world::World::calculateLight()
 {
@@ -246,6 +265,7 @@ void world::World::calculateLight()
 			{
 				data::LightSunRemover{ *this, it }.spread(*chunk);
 				data::LightColorRemover{ *this, it }.spread(*chunk);
+				markChunkChange(it);
 			}
 		}
 	}
@@ -260,6 +280,7 @@ void world::World::calculateLight()
 			{
 				data::LightSunPropagator{ *this, it }.spread(*chunk);
 				data::LightColorPropagator{ *this, it }.spread(*chunk);
+				markChunkChange(it);
 			}
 		}
 	}
