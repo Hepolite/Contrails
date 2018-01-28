@@ -8,6 +8,14 @@ void world::Chunk::setFastUnsafe(unsigned int index, const data::BlockData & blo
 {
 	m_data.setFastUnsafe(index, block, color);
 }
+void world::Chunk::setFastUnsafe(unsigned int index, const data::BlockData & block)
+{
+	m_data.setFastUnsafe(index, block);
+}
+void world::Chunk::setFastUnsafe(unsigned int index, const data::ColorData & color)
+{
+	m_data.setFastUnsafe(index, color);
+}
 void world::Chunk::write(data::ChunkQuery & query)
 {
 	m_data.write(query);
@@ -49,3 +57,12 @@ void world::Chunk::pushLightPropagation(const data::LightPropagationNode & node,
 {
 	m_data.pushLightPropagation(node, channel);
 }
+bool world::Chunk::pollLightRemoval(data::LightPropagationNode & node, unsigned int channel)
+{
+	return m_data.pollLightRemoval(node, channel);
+}
+void world::Chunk::pushLightRemoval(const data::LightPropagationNode & node, unsigned int channel)
+{
+	m_data.pushLightRemoval(node, channel);
+}
+

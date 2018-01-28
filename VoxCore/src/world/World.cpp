@@ -219,10 +219,10 @@ void world::World::initializeLight(const glm::ivec3 & cpos)
 			const auto index = data::toIndex(pos);
 			const auto block = above->readBlock(index);
 			const auto color = above->readColor(index);
-			above->pushLightPropagation({ index, block.getLight() }, 0u);
-			above->pushLightPropagation({ index, color.getColor().r }, 1u);
-			above->pushLightPropagation({ index, color.getColor().g }, 2u);
-			above->pushLightPropagation({ index, color.getColor().b }, 3u);
+			above->pushLightPropagation({ index, color.getColor().r }, data::LIGHT_PROPAGATION_CHANNEL_RED);
+			above->pushLightPropagation({ index, color.getColor().g }, data::LIGHT_PROPAGATION_CHANNEL_GREEN);
+			above->pushLightPropagation({ index, color.getColor().b }, data::LIGHT_PROPAGATION_CHANNEL_BLUE);
+			above->pushLightPropagation({ index, block.getLight() }, data::LIGHT_PROPAGATION_CHANNEL_SUN);
 		}
 		markLightPropagation(m_impl->m_chunks.getChunkPosAbove(cpos));
 	}
@@ -243,7 +243,10 @@ void world::World::calculateLight()
 		std::swap(m_impl->m_chunksToDarken, m_chunks);
 
 		for (auto & it : m_chunks)
-			;
+		{
+			if (auto * chunk = getChunkAt(it))
+				data::LightSunRemover{ *this, it }.spread(*chunk);
+		}
 	}
 	while (!m_impl->m_chunksToLight.empty())
 	{
@@ -251,6 +254,9 @@ void world::World::calculateLight()
 		std::swap(m_impl->m_chunksToLight, m_chunks);
 
 		for (auto & it : m_chunks)
-			;
+		{
+			if (auto * chunk = getChunkAt(it))
+				data::LightSunPropagator{ *this, it }.spread(*chunk);
+		}
 	}
 }

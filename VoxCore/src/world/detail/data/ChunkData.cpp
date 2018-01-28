@@ -8,12 +8,6 @@
 #include <glm/vec4.hpp>
 #include <utility>
 
-namespace
-{
-	constexpr unsigned int CHANNEL_SUN = 0u;
-	constexpr unsigned int CHANNEL_COLOR = 1u;
-}
-
 void world::data::ChunkDataBloated::read(ChunkQuery & query) const
 {
 	for (auto & it : query)
@@ -47,6 +41,14 @@ void world::data::ChunkDataBloated::setFastUnsafe(Index index, const BlockData &
 	m_blocks[index] = block;
 	m_colors[index] = color;
 }
+void world::data::ChunkDataBloated::setFastUnsafe(Index index, const BlockData & block)
+{
+	m_blocks[index] = block;
+}
+void world::data::ChunkDataBloated::setFastUnsafe(Index index, const ColorData & color)
+{
+	m_colors[index] = color;
+}
 void world::data::ChunkDataBloated::write(ChunkQuery & query)
 {
 	for (auto & it : query)
@@ -54,19 +56,8 @@ void world::data::ChunkDataBloated::write(ChunkQuery & query)
 }
 void world::data::ChunkDataBloated::write(Index index, BlockData & block, ColorData & color)
 {
-	const auto oldLight = glm::uvec4{ readBlock(index).getLight(), readColor(index).getColor() };
-	const auto newLight = glm::uvec4{ block.getLight(), color.getColor() };
-
-	for (unsigned int i = 0u; i < 4u; ++i)
-	{
-		if (oldLight[i] > newLight[i])
-			pushLightRemoval({ index, oldLight[i] }, i);
-		else if (oldLight[i] < newLight[i])
-			pushLightPropagation({ index, newLight[i] }, i);
-	}
-	
-	std::swap(m_blocks[index], block);
-	std::swap(m_colors[index], color);
+	write(index, block);
+	write(index, color);
 }
 void world::data::ChunkDataBloated::write(Index index, BlockData & block)
 {
@@ -74,9 +65,9 @@ void world::data::ChunkDataBloated::write(Index index, BlockData & block)
 	const auto newLight = block.getLight();
 
 	if (oldLight > newLight)
-		pushLightRemoval({ index, oldLight }, CHANNEL_SUN);
+		pushLightRemoval({ index, oldLight }, LIGHT_PROPAGATION_CHANNEL_SUN);
 	else if (oldLight < newLight)
-		pushLightPropagation({ index, newLight }, CHANNEL_SUN);
+		pushLightPropagation({ index, newLight }, LIGHT_PROPAGATION_CHANNEL_SUN);
 
 	std::swap(m_blocks[index], block);
 }
@@ -88,9 +79,9 @@ void world::data::ChunkDataBloated::write(Index index, ColorData & color)
 	for (unsigned int i = 0u; i < 3u; ++i)
 	{
 		if (oldLight[i] > newLight[i])
-			pushLightRemoval({ index, oldLight[i] }, CHANNEL_COLOR + i);
+			pushLightRemoval({ index, oldLight[i] }, LIGHT_PROPAGATION_CHANNEL_COLOR + i);
 		else if (oldLight[i] < newLight[i])
-			pushLightPropagation({ index, newLight[i] }, CHANNEL_COLOR + i);
+			pushLightPropagation({ index, newLight[i] }, LIGHT_PROPAGATION_CHANNEL_COLOR + i);
 	}
 
 	std::swap(m_colors[index], color);
@@ -98,7 +89,7 @@ void world::data::ChunkDataBloated::write(Index index, ColorData & color)
 
 bool world::data::ChunkDataBloated::pollLightPropagation(LightPropagationNode & node, unsigned int channel)
 {
-	if (channel >= 4u || m_lightPropagation[channel].empty())
+	if (channel >= LIGHT_PROPAGATION_CHANNEL_COUNT || m_lightPropagation[channel].empty())
 		return false;
 	node = m_lightPropagation[channel].front();
 	m_lightPropagation[channel].pop();
@@ -106,12 +97,12 @@ bool world::data::ChunkDataBloated::pollLightPropagation(LightPropagationNode & 
 }
 void world::data::ChunkDataBloated::pushLightPropagation(const LightPropagationNode & node, unsigned int channel)
 {
-	if (channel < 4u)
+	if (channel < LIGHT_PROPAGATION_CHANNEL_COUNT)
 		m_lightPropagation[channel].push(node);
 }
 bool world::data::ChunkDataBloated::pollLightRemoval(LightPropagationNode & node, unsigned int channel)
 {
-	if (channel >= 4u || m_lightRemoval[channel].empty())
+	if (channel >= LIGHT_PROPAGATION_CHANNEL_COUNT || m_lightRemoval[channel].empty())
 		return false;
 	node = m_lightRemoval[channel].front();
 	m_lightRemoval[channel].pop();
@@ -119,6 +110,6 @@ bool world::data::ChunkDataBloated::pollLightRemoval(LightPropagationNode & node
 }
 void world::data::ChunkDataBloated::pushLightRemoval(const LightPropagationNode & node, unsigned int channel)
 {
-	if (channel < 4u)
+	if (channel < LIGHT_PROPAGATION_CHANNEL_COUNT)
 		m_lightRemoval[channel].push(node);
 }

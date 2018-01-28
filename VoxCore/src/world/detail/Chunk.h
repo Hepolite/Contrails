@@ -19,6 +19,8 @@ namespace world
 	{
 	public:
 		void setFastUnsafe(unsigned int index, const data::BlockData & block, const data::ColorData & color);
+		void setFastUnsafe(unsigned int index, const data::BlockData & block);
+		void setFastUnsafe(unsigned int index, const data::ColorData & color);
 		void write(data::ChunkQuery & query);
 		void write(unsigned int index, data::BlockData & block, data::ColorData & color);
 		void write(unsigned int index, data::BlockData & block);
@@ -30,6 +32,8 @@ namespace world
 
 		bool pollLightPropagation(data::LightPropagationNode & node, unsigned int channel);
 		void pushLightPropagation(const data::LightPropagationNode & node, unsigned int channel);
+		bool pollLightRemoval(data::LightPropagationNode & node, unsigned int channel);
+		void pushLightRemoval(const data::LightPropagationNode & node, unsigned int channel);
 
 	private:
 		data::ChunkDataBloated m_data;

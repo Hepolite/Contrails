@@ -70,12 +70,12 @@ namespace world
 				LightPropagationNode node;
 				for (unsigned int i = 0; i < 4u; ++i)
 					Assert::IsFalse(data.pollLightPropagation(node, i));
-				data.write(42u, BlockData{ 1u, 2u }, ColorData{ { 3u, 4u, 5u } });
+				data.write(42u, BlockData{ 1u, 2u }, ColorData{ { 5u, 4u, 3u } });
 				for (unsigned int i = 0; i < 4u; ++i)
 				{
 					Assert::IsTrue(data.pollLightPropagation(node, i));
 					Assert::AreEqual(42u, static_cast<unsigned int>(node.m_index));
-					Assert::AreEqual(2u + i, static_cast<unsigned int>(node.m_light));
+					Assert::AreEqual(5u - i, static_cast<unsigned int>(node.m_light));
 				}
 			}
 		};

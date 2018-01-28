@@ -30,6 +30,8 @@ namespace world
 		{
 		public:
 			void setFastUnsafe(Index index, const BlockData & block, const ColorData & color);
+			void setFastUnsafe(Index index, const BlockData & block);
+			void setFastUnsafe(Index index, const ColorData & color);
 			void write(ChunkQuery & query);
 			void write(Index index, BlockData & block, ColorData & color);
 			void write(Index index, BlockData & block);
@@ -47,7 +49,8 @@ namespace world
 		private:
 			std::array<BlockData, CHUNK_SIZE_VOLUME<unsigned int>> m_blocks;
 			std::array<ColorData, CHUNK_SIZE_VOLUME<unsigned int>> m_colors;
-			std::queue<LightPropagationNode> m_lightPropagation[4u], m_lightRemoval[4u];
+			std::queue<LightPropagationNode> m_lightPropagation[LIGHT_PROPAGATION_CHANNEL_COUNT];
+			std::queue<LightPropagationNode> m_lightRemoval[LIGHT_PROPAGATION_CHANNEL_COUNT];
 		};
 
 		class ChunkDataCompressed
@@ -63,7 +66,7 @@ namespace world
 		private:
 			std::vector<ChunkBlockDataNode> m_blocks;
 			std::vector<ChunkColorDataNode> m_colors;
-			std::queue<LightPropagationNode> m_lightPropagation[4u];
+			std::queue<LightPropagationNode> m_lightPropagation[LIGHT_PROPAGATION_CHANNEL_COUNT];
 		};
 	}
 }

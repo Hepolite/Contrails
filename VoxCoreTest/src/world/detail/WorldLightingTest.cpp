@@ -31,15 +31,17 @@ namespace world
 			
 			World world;
 			world.inject(registry);
-			world.write(util::Query{}.writeRectangle(registry["stone"], { 0, 0, 1 }, { 31, 31, 1 }));
+			world.write(util::Query{}.writeRectangle(registry["stone"], { 0, 0, 30 }, { 31, 31, 30 }));
 			world.calculateLight();
 			
-			Assert::AreEqual({ 0u, 0u, 0u, 31u }, readLight(world, { -1, 0, 0 }));
-			Assert::AreEqual({ 0u, 0u, 0u, 30u }, readLight(world, { 0, 0, 0 }));
-			Assert::AreEqual({ 0u, 0u, 0u, 25u }, readLight(world, { 5, 0, 0 }));
-			Assert::AreEqual({ 0u, 0u, 0u, 20u }, readLight(world, { 10, 0, 0 }));
-			Assert::AreEqual({ 0u, 0u, 0u, 15u }, readLight(world, { 15, 0, 0 }));
-			Assert::AreEqual({ 0u, 0u, 0u, 15u }, readLight(world, { 15, 0, -10 }));
+			Assert::AreEqual({ 0u, 0u, 0u, 31u }, readLight(world, { -1, 15, 20 }));
+			Assert::AreEqual({ 0u, 0u, 0u, 30u }, readLight(world, { 0, 15, 20 }));
+			Assert::AreEqual({ 0u, 0u, 0u, 25u }, readLight(world, { 5, 15, 20 }));
+			Assert::AreEqual({ 0u, 0u, 0u, 20u }, readLight(world, { 10, 15, 20 }));
+			Assert::AreEqual({ 0u, 0u, 0u, 15u }, readLight(world, { 15, 15, 20 }));
+			Assert::AreEqual({ 0u, 0u, 0u, 15u }, readLight(world, { 15, 15, 0 }));
+			Assert::AreEqual({ 0u, 0u, 0u, 20u }, readLight(world, { 21, 15, 20 }));
+			Assert::AreEqual({ 0u, 0u, 0u, 30u }, readLight(world, { 31, 15, 20 }));
 		}
 
 		TEST_METHOD(WorldLighting_writeLightBlock)
