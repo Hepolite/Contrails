@@ -34,10 +34,10 @@ namespace world
 		TEST_METHOD(Chunk_pushLight)
 		{
 			Chunk chunk;
+			data::LightPropagationNode node;
 
-			for (unsigned int i = 0; i < 4u; ++i)
+			for (unsigned int i = 0; i < data::LIGHT_PROPAGATION_CHANNEL_COUNT; ++i)
 			{
-				data::LightPropagationNode node;
 				Assert::IsFalse(chunk.pollLightPropagation(node, i));
 				chunk.pushLightPropagation({ 42u, 31u }, i);
 				Assert::IsTrue(chunk.pollLightPropagation(node, i));
@@ -49,17 +49,19 @@ namespace world
 		TEST_METHOD(Chunk_pollLight)
 		{
 			Chunk chunk;
+			data::LightPropagationNode nodeA, nodeB;
 
-			data::LightPropagationNode node;
-			for (unsigned int i = 0; i < 4u; ++i)
-				Assert::IsFalse(chunk.pollLightPropagation(node, i));
+			Assert::IsFalse(chunk.pollLightPropagation(nodeA, data::LIGHT_PROPAGATION_CHANNEL_SUN));
+			Assert::IsFalse(chunk.pollLightPropagation(nodeB, data::LIGHT_PROPAGATION_CHANNEL_COLOR));
+
 			chunk.write(42u, data::BlockData{ 1u, 2u }, data::ColorData{ { 5u, 4u, 3u } });
-			for (unsigned int i = 0; i < 4u; ++i)
-			{
-				Assert::IsTrue(chunk.pollLightPropagation(node, i));
-				Assert::AreEqual(42u, static_cast<unsigned int>(node.m_index));
-				Assert::AreEqual(5u - i, static_cast<unsigned int>(node.m_light));
-			}
+
+			Assert::IsTrue(chunk.pollLightPropagation(nodeA, data::LIGHT_PROPAGATION_CHANNEL_SUN));
+			Assert::IsTrue(chunk.pollLightPropagation(nodeB, data::LIGHT_PROPAGATION_CHANNEL_COLOR));
+			Assert::AreEqual(42u, static_cast<unsigned int>(nodeA.m_index));
+			Assert::AreEqual(42u, static_cast<unsigned int>(nodeB.m_index));
+			Assert::AreEqual(2u, nodeA.m_light);
+			Assert::AreEqual((5u << 16u) | (4u << 8u) | 3u, nodeB.m_light);
 		}
 	};
 }

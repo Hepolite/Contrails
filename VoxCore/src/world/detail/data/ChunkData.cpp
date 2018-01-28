@@ -76,13 +76,18 @@ void world::data::ChunkDataBloated::write(Index index, ColorData & color)
 	const auto oldLight = readColor(index).getColor();
 	const auto newLight = color.getColor();
 
-	for (unsigned int i = 0u; i < 3u; ++i)
-	{
-		if (oldLight[i] > newLight[i])
-			pushLightRemoval({ index, oldLight[i] }, LIGHT_PROPAGATION_CHANNEL_COLOR + i);
-		else if (oldLight[i] < newLight[i])
-			pushLightPropagation({ index, newLight[i] }, LIGHT_PROPAGATION_CHANNEL_COLOR + i);
-	}
+	unsigned int propagate = 0u;
+	unsigned int remove = 0u;
+	if		(oldLight.r > newLight.r) remove |= oldLight.r << 16u;
+	else if (newLight.r > oldLight.r) propagate |= newLight.r << 16u;
+	if		(oldLight.g > newLight.g) remove |= oldLight.g << 8u;
+	else if (newLight.g > oldLight.g) propagate |= newLight.g << 8u;
+	if		(oldLight.b > newLight.b) remove |= oldLight.b;
+	else if (newLight.b > oldLight.b) propagate |= newLight.b;
+	if (propagate != 0u)
+		pushLightPropagation({ index, propagate }, LIGHT_PROPAGATION_CHANNEL_COLOR);
+	if (remove != 0u)
+		pushLightRemoval({ index, remove }, LIGHT_PROPAGATION_CHANNEL_COLOR);
 
 	std::swap(m_colors[index], color);
 }

@@ -14,11 +14,8 @@ namespace world
 	namespace data
 	{
 		constexpr unsigned int LIGHT_PROPAGATION_CHANNEL_COLOR = 0u;
-		constexpr unsigned int LIGHT_PROPAGATION_CHANNEL_RED = 0u;
-		constexpr unsigned int LIGHT_PROPAGATION_CHANNEL_GREEN = 0u;
-		constexpr unsigned int LIGHT_PROPAGATION_CHANNEL_BLUE = 0u;
-		constexpr unsigned int LIGHT_PROPAGATION_CHANNEL_SUN = 3u;
-		constexpr unsigned int LIGHT_PROPAGATION_CHANNEL_COUNT = 4u;
+		constexpr unsigned int LIGHT_PROPAGATION_CHANNEL_SUN = 1u;
+		constexpr unsigned int LIGHT_PROPAGATION_CHANNEL_COUNT = 2u;
 
 		struct LightPropagationNode
 		{
@@ -61,21 +58,25 @@ namespace world
 			void spreadSide(Chunk & chunk, const glm::ivec3 & target, unsigned int light);
 		};
 
-		class LightColorPropagator
+		class LightColorPropagator : public LightSpreaderBase
 		{
 		public:
+			LightColorPropagator() = delete;
+			LightColorPropagator(World & world, const glm::ivec3 pos) noexcept : LightSpreaderBase(world, pos) {}
 
-
-		private:
-
+			void spread(Chunk & chunk);
+			void spreadFrom(Chunk & chunk, const glm::ivec3 & source, const glm::uvec3 & light);
+			void spreadSide(Chunk & chunk, const glm::ivec3 & target, glm::uvec3 light);
 		};
-		class LightColorRemover
+		class LightColorRemover : public LightSpreaderBase
 		{
 		public:
+			LightColorRemover() = delete;
+			LightColorRemover(World & world, const glm::ivec3 pos) noexcept : LightSpreaderBase(world, pos) {}
 
-
-		private:
-
+			void spread(Chunk & chunk);
+			void spreadFrom(Chunk & chunk, const glm::ivec3 & source, const glm::uvec3 & light);
+			void spreadSide(Chunk & chunk, const glm::ivec3 & target, glm::uvec3 light);
 		};
 	}
 }

@@ -46,10 +46,13 @@ namespace world
 
 		TEST_METHOD(WorldLighting_writeLightBlock)
 		{
-			Block block{ 1u, "glowblock" };
+			BlockRegistry registry;
+			auto & block = registry.add("glowblock");
+			block.m_lightAbsorbed = { 31u, 31u, 31u, 31u };
 			block.m_lightEmitted = { 0u, 16u, 31u, 0u };
 
 			World world;
+			world.inject(registry);
 			world.write(util::Query{}.writeBlock(block, { 0, 0, 0 }));
 			world.calculateLight();
 

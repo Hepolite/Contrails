@@ -217,12 +217,10 @@ void world::World::initializeLight(const glm::ivec3 & cpos)
 		for (pos.y = 0u; pos.y < data::CHUNK_SIZE<unsigned int>; ++pos.y)
 		{
 			const auto index = data::toIndex(pos);
-			const auto block = above->readBlock(index);
-			const auto color = above->readColor(index);
-			above->pushLightPropagation({ index, color.getColor().r }, data::LIGHT_PROPAGATION_CHANNEL_RED);
-			above->pushLightPropagation({ index, color.getColor().g }, data::LIGHT_PROPAGATION_CHANNEL_GREEN);
-			above->pushLightPropagation({ index, color.getColor().b }, data::LIGHT_PROPAGATION_CHANNEL_BLUE);
-			above->pushLightPropagation({ index, block.getLight() }, data::LIGHT_PROPAGATION_CHANNEL_SUN);
+			const auto light = above->readBlock(index).getLight();
+			const auto color = above->readColor(index).getColor();
+			above->pushLightPropagation({ index, light }, data::LIGHT_PROPAGATION_CHANNEL_SUN);
+			above->pushLightPropagation({ index, (color.r << 16u) | (color.g << 8u) | color.b }, data::LIGHT_PROPAGATION_CHANNEL_COLOR);
 		}
 		markLightPropagation(m_impl->m_chunks.getChunkPosAbove(cpos));
 	}
@@ -245,7 +243,10 @@ void world::World::calculateLight()
 		for (auto & it : m_chunks)
 		{
 			if (auto * chunk = getChunkAt(it))
+			{
 				data::LightSunRemover{ *this, it }.spread(*chunk);
+				data::LightColorRemover{ *this, it }.spread(*chunk);
+			}
 		}
 	}
 	while (!m_impl->m_chunksToLight.empty())
@@ -256,7 +257,10 @@ void world::World::calculateLight()
 		for (auto & it : m_chunks)
 		{
 			if (auto * chunk = getChunkAt(it))
+			{
 				data::LightSunPropagator{ *this, it }.spread(*chunk);
+				data::LightColorPropagator{ *this, it }.spread(*chunk);
+			}
 		}
 	}
 }
