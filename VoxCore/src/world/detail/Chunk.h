@@ -28,10 +28,8 @@ namespace world
 		data::BlockData readBlock(unsigned int index) const;
 		data::ColorData readColor(unsigned int index) const;
 
-		bool pollLightPropagation(data::Index & index);
-		void pushLightPropagation(const data::Index & index);
-		bool pollLightRemoval(data::Index & index);
-		void pushLightRemoval(const data::Index & index);
+		bool pollLightPropagation(data::LightPropagationNode & node, unsigned int channel);
+		void pushLightPropagation(const data::LightPropagationNode & node, unsigned int channel);
 
 	private:
 		data::ChunkDataBloated m_data;

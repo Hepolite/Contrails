@@ -34,33 +34,32 @@ namespace world
 		TEST_METHOD(Chunk_pushLight)
 		{
 			Chunk chunk;
-			data::Index propagation, removal;
 
-			Assert::IsFalse(chunk.pollLightPropagation(propagation));
-			Assert::IsFalse(chunk.pollLightRemoval(removal));
-
-			chunk.pushLightPropagation(42u);
-			chunk.pushLightRemoval(1337u);
-
-			Assert::IsTrue(chunk.pollLightPropagation(propagation));
-			Assert::IsTrue(chunk.pollLightRemoval(removal));
-			Assert::IsFalse(chunk.pollLightPropagation(propagation));
-			Assert::IsFalse(chunk.pollLightRemoval(removal));
-			Assert::AreEqual(42u, static_cast<unsigned int>(propagation));
-			Assert::AreEqual(1337u, static_cast<unsigned int>(removal));
+			for (unsigned int i = 0; i < 4u; ++i)
+			{
+				data::LightPropagationNode node;
+				Assert::IsFalse(chunk.pollLightPropagation(node, i));
+				chunk.pushLightPropagation({ 42u, 31u }, i);
+				Assert::IsTrue(chunk.pollLightPropagation(node, i));
+				Assert::IsFalse(chunk.pollLightPropagation(node, i));
+				Assert::AreEqual(42u, static_cast<unsigned int>(node.m_index));
+				Assert::AreEqual(31u, static_cast<unsigned int>(node.m_light));
+			}
 		}
 		TEST_METHOD(Chunk_pollLight)
 		{
 			Chunk chunk;
-			data::Index index;
 
-			Assert::IsFalse(chunk.pollLightPropagation(index));
-			chunk.write(42u, data::BlockData{ 1u, 31u }, data::ColorData{ { 0u, 0u, 0u } });
-			Assert::IsTrue(chunk.pollLightPropagation(index));
-
-			Assert::IsFalse(chunk.pollLightRemoval(index));
-			chunk.write(42u, data::BlockData{ 0u, 0u }, data::ColorData{ { 0u, 0u, 0u } });
-			Assert::IsTrue(chunk.pollLightRemoval(index));
+			data::LightPropagationNode node;
+			for (unsigned int i = 0; i < 4u; ++i)
+				Assert::IsFalse(chunk.pollLightPropagation(node, i));
+			chunk.write(42u, data::BlockData{ 1u, 2u }, data::ColorData{ { 3u, 4u, 5u } });
+			for (unsigned int i = 0; i < 4u; ++i)
+			{
+				Assert::IsTrue(chunk.pollLightPropagation(node, i));
+				Assert::AreEqual(42u, static_cast<unsigned int>(node.m_index));
+				Assert::AreEqual(2u + i, static_cast<unsigned int>(node.m_light));
+			}
 		}
 	};
 }

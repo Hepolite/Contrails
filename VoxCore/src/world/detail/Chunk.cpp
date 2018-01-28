@@ -41,19 +41,11 @@ world::data::ColorData world::Chunk::readColor(unsigned int index) const
 	return m_data.readColor(index);
 }
 
-bool world::Chunk::pollLightPropagation(data::Index & index)
+bool world::Chunk::pollLightPropagation(data::LightPropagationNode & node, unsigned int channel)
 {
-	return m_data.pollLightPropagation(index);
+	return m_data.pollLightPropagation(node, channel);
 }
-void world::Chunk::pushLightPropagation(const data::Index & index)
+void world::Chunk::pushLightPropagation(const data::LightPropagationNode & node, unsigned int channel)
 {
-	m_data.pushLightPropagation(index);
-}
-bool world::Chunk::pollLightRemoval(data::Index & index)
-{
-	return m_data.pollLightRemoval(index);
-}
-void world::Chunk::pushLightRemoval(const data::Index & index)
-{
-	m_data.pushLightRemoval(index);
+	m_data.pushLightPropagation(node, channel);
 }

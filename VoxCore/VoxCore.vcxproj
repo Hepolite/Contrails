@@ -225,7 +225,7 @@
     <ClInclude Include="src\world\detail\data\ChunkData.h" />
     <ClInclude Include="src\world\detail\data\ChunkQuery.h" />
     <ClInclude Include="src\world\detail\data\Indexing.h" />
-    <ClInclude Include="src\world\detail\data\Light.h" />
+    <ClInclude Include="src\world\detail\data\LightPropagation.h" />
     <ClInclude Include="src\world\detail\Limits.h" />
     <ClInclude Include="src\world\detail\data\WorldQuery.h" />
     <ClInclude Include="src\world\Universe.h" />
@@ -259,7 +259,7 @@
     <ClCompile Include="src\world\detail\data\BlockRegion.cpp" />
     <ClCompile Include="src\world\detail\data\ChunkData.cpp" />
     <ClCompile Include="src\world\detail\data\ChunkQuery.cpp" />
-    <ClCompile Include="src\world\detail\data\Light.cpp" />
+    <ClCompile Include="src\world\detail\data\LightPropagation.cpp" />
     <ClCompile Include="src\world\detail\data\WorldQuery.cpp" />
     <ClCompile Include="src\world\Universe.cpp" />
     <ClCompile Include="src\world\util\Query.cpp" />

@@ -65,8 +65,9 @@ namespace world
 
 		// ...
 
-		void markLightingChange(const glm::ivec3 & cpos);
-		void propagateLight();
+		void markLightPropagation(const glm::ivec3 & cpos);
+		void markLightRemoval(const glm::ivec3 & cpos);
+		void calculateLight();
 
 	private:
 		void initializeLight(const glm::ivec3 & cpos);

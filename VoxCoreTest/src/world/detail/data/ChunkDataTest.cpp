@@ -51,33 +51,32 @@ namespace world
 			TEST_METHOD(ChunkDataBloated_pushLight)
 			{
 				ChunkDataBloated data;
-				Index propagation, removal;
 
-				Assert::IsFalse(data.pollLightPropagation(propagation));
-				Assert::IsFalse(data.pollLightRemoval(removal));
-
-				data.pushLightPropagation(42u);
-				data.pushLightRemoval(1337u);
-
-				Assert::IsTrue(data.pollLightPropagation(propagation));
-				Assert::IsTrue(data.pollLightRemoval(removal));
-				Assert::IsFalse(data.pollLightPropagation(propagation));
-				Assert::IsFalse(data.pollLightRemoval(removal));
-				Assert::AreEqual(42u, static_cast<unsigned int>(propagation));
-				Assert::AreEqual(1337u, static_cast<unsigned int>(removal));
+				for (unsigned int i = 0; i < 4u; ++i)
+				{
+					LightPropagationNode node;
+					Assert::IsFalse(data.pollLightPropagation(node, i));
+					data.pushLightPropagation({ 42u, 31u }, i);
+					Assert::IsTrue(data.pollLightPropagation(node, i));
+					Assert::IsFalse(data.pollLightPropagation(node, i));
+					Assert::AreEqual(42u, static_cast<unsigned int>(node.m_index));
+					Assert::AreEqual(31u, static_cast<unsigned int>(node.m_light));
+				}
 			}
 			TEST_METHOD(ChunkDataBloated_pollLight)
 			{
 				ChunkDataBloated data;
-				Index index;
-
-				Assert::IsFalse(data.pollLightPropagation(index));
-				data.write(42u, BlockData{ 1u, 31u }, ColorData{ { 0u, 0u, 0u } });
-				Assert::IsTrue(data.pollLightPropagation(index));
-
-				Assert::IsFalse(data.pollLightRemoval(index));
-				data.write(42u, BlockData{ 0u, 0u }, ColorData{ { 0u, 0u, 0u } });
-				Assert::IsTrue(data.pollLightRemoval(index));
+				
+				LightPropagationNode node;
+				for (unsigned int i = 0; i < 4u; ++i)
+					Assert::IsFalse(data.pollLightPropagation(node, i));
+				data.write(42u, BlockData{ 1u, 2u }, ColorData{ { 3u, 4u, 5u } });
+				for (unsigned int i = 0; i < 4u; ++i)
+				{
+					Assert::IsTrue(data.pollLightPropagation(node, i));
+					Assert::AreEqual(42u, static_cast<unsigned int>(node.m_index));
+					Assert::AreEqual(2u + i, static_cast<unsigned int>(node.m_light));
+				}
 			}
 		};
 

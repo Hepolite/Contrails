@@ -5,7 +5,7 @@
 #include "logic/event/EventBus.h"
 #include "world/detail/ChunkStorage.h"
 #include "world/detail/data/BlockRegion.h"
-#include "world/detail/data/Light.h"
+#include "world/detail/data/LightPropagation.h"
 #include "world/detail/data/WorldQuery.h"
 
 #include <glm/gtx/hash.hpp>
@@ -20,6 +20,7 @@ struct world::World::Impl
 	const logic::event::EventBus * m_bus = nullptr;
 
 	std::unordered_set<glm::ivec3> m_chunksToLight;
+	std::unordered_set<glm::ivec3> m_chunksToDarken;
 };
 
 world::World::World()
@@ -45,6 +46,18 @@ void world::World::inject(core::scene::Scene & scene)
 void world::World::inject(const logic::event::EventBus & bus)
 {
 	m_impl->m_bus = &bus;
+}
+void world::World::inject(const BlockRegistry & registry)
+{
+	for (unsigned int i = 1u; i < registry.size(); ++i)
+	{
+		const auto & block = registry[i];
+		auto & newBlock = m_impl->m_registry.add(block.m_name, block.m_id);
+		newBlock.m_phase = block.m_phase;
+		newBlock.m_lightAbsorbed = block.m_lightAbsorbed;
+		newBlock.m_lightEmitted = block.m_lightEmitted;
+		newBlock.m_lightFiltered = block.m_lightFiltered;
+	}
 }
 
 const world::data::BlockRegion world::World::extractRenderData(const glm::ivec3 & cpos) const
@@ -128,7 +141,8 @@ void world::World::write(data::WorldQuery & query)
 	for (auto & it : query)
 	{
 		createChunk(it.first, true).write(it.second);
-		markLightingChange(it.first);
+		markLightRemoval(it.first);
+		markLightPropagation(it.first);
 	}
 }
 void world::World::write(const glm::ivec3 & pos, data::BlockData & block, data::ColorData & color)
@@ -136,21 +150,24 @@ void world::World::write(const glm::ivec3 & pos, data::BlockData & block, data::
 	const auto cpos = pos >> data::CHUNK_SIZE_LG<int>;
 	auto & chunk = createChunk(cpos);
 	chunk.write(data::toIndex(pos & data::CHUNK_SIZE_BITS<int>), block, color);
-	markLightingChange(cpos);
+	markLightRemoval(cpos);
+	markLightPropagation(cpos);
 }
 void world::World::write(const glm::ivec3 & pos, data::BlockData & block)
 {
 	const auto cpos = pos >> data::CHUNK_SIZE_LG<int>;
 	auto & chunk = createChunk(cpos);
 	chunk.write(data::toIndex(pos & data::CHUNK_SIZE_BITS<int>), block);
-	markLightingChange(cpos);
+	markLightRemoval(cpos);
+	markLightPropagation(cpos);
 }
 void world::World::write(const glm::ivec3 & pos, data::ColorData & color)
 {
 	const auto cpos = pos >> data::CHUNK_SIZE_LG<int>;
 	auto & chunk = createChunk(cpos);
 	chunk.write(data::toIndex(pos & data::CHUNK_SIZE_BITS<int>), color);
-	markLightingChange(cpos);
+	markLightRemoval(cpos);
+	markLightPropagation(cpos);
 }
 
 void world::World::read(data::WorldQuery & query) const
@@ -178,9 +195,13 @@ world::data::ColorData world::World::readColor(const glm::ivec3 & pos) const
 
 // ...
 
-void world::World::markLightingChange(const glm::ivec3 & cpos)
+void world::World::markLightPropagation(const glm::ivec3 & cpos)
 {
 	m_impl->m_chunksToLight.insert(cpos);
+}
+void world::World::markLightRemoval(const glm::ivec3 & cpos)
+{
+	m_impl->m_chunksToDarken.insert(cpos);
 }
 
 void world::World::initializeLight(const glm::ivec3 & cpos)
@@ -194,8 +215,16 @@ void world::World::initializeLight(const glm::ivec3 & cpos)
 		glm::uvec3 pos{ 0, 0, 0 };
 		for (pos.x = 0u; pos.x < data::CHUNK_SIZE<unsigned int>; ++pos.x)
 		for (pos.y = 0u; pos.y < data::CHUNK_SIZE<unsigned int>; ++pos.y)
-			above->pushLightPropagation(data::toIndex(pos));
-		markLightingChange(m_impl->m_chunks.getChunkPosAbove(cpos));
+		{
+			const auto index = data::toIndex(pos);
+			const auto block = above->readBlock(index);
+			const auto color = above->readColor(index);
+			above->pushLightPropagation({ index, block.getLight() }, 0u);
+			above->pushLightPropagation({ index, color.getColor().r }, 1u);
+			above->pushLightPropagation({ index, color.getColor().g }, 2u);
+			above->pushLightPropagation({ index, color.getColor().b }, 3u);
+		}
+		markLightPropagation(m_impl->m_chunks.getChunkPosAbove(cpos));
 	}
 	else
 	{
@@ -206,16 +235,22 @@ void world::World::initializeLight(const glm::ivec3 & cpos)
 			chunk->setFastUnsafe(data::toIndex(pos), data::BlockData{ 0u, data::MAX_BLOCK_LIGHT }, data::ColorData{});
 	}
 }
-void world::World::propagateLight()
+void world::World::calculateLight()
 {
+	while (!m_impl->m_chunksToDarken.empty())
+	{
+		std::unordered_set<glm::ivec3> m_chunks;
+		std::swap(m_impl->m_chunksToDarken, m_chunks);
+
+		for (auto & it : m_chunks)
+			;
+	}
 	while (!m_impl->m_chunksToLight.empty())
 	{
 		std::unordered_set<glm::ivec3> m_chunks;
 		std::swap(m_impl->m_chunksToLight, m_chunks);
 
 		for (auto & it : m_chunks)
-			data::LightRemover{ *this, it }.propagate();
-		for (auto & it : m_chunks)
-			data::LightPropagator{ *this, it }.propagate();
+			;
 	}
 }

@@ -8,6 +8,12 @@
 #include <glm/vec4.hpp>
 #include <utility>
 
+namespace
+{
+	constexpr unsigned int CHANNEL_SUN = 0u;
+	constexpr unsigned int CHANNEL_COLOR = 1u;
+}
+
 void world::data::ChunkDataBloated::read(ChunkQuery & query) const
 {
 	for (auto & it : query)
@@ -27,16 +33,16 @@ void world::data::ChunkDataBloated::read(BlockRegion & region, const glm::ivec3 
 		region.write(pos + target, readBlock(index), readColor(index));
 	}
 }
-world::data::BlockData world::data::ChunkDataBloated::readBlock(unsigned int index) const
+world::data::BlockData world::data::ChunkDataBloated::readBlock(Index index) const
 {
 	return index < m_blocks.size() ? m_blocks[index] : BlockData{};
 }
-world::data::ColorData world::data::ChunkDataBloated::readColor(unsigned int index) const
+world::data::ColorData world::data::ChunkDataBloated::readColor(Index index) const
 {
 	return index < m_colors.size() ? m_colors[index] : ColorData{};
 }
 
-void world::data::ChunkDataBloated::setFastUnsafe(unsigned int index, const BlockData & block, const ColorData & color)
+void world::data::ChunkDataBloated::setFastUnsafe(Index index, const BlockData & block, const ColorData & color)
 {
 	m_blocks[index] = block;
 	m_colors[index] = color;
@@ -44,62 +50,75 @@ void world::data::ChunkDataBloated::setFastUnsafe(unsigned int index, const Bloc
 void world::data::ChunkDataBloated::write(ChunkQuery & query)
 {
 	for (auto & it : query)
-	{
-		write(it.m_index, it.m_block);
-		write(it.m_index, it.m_color);
-	}
+		write(it.m_index, it.m_block, it.m_color);
 }
-void world::data::ChunkDataBloated::write(unsigned int index, BlockData & block, ColorData & color)
+void world::data::ChunkDataBloated::write(Index index, BlockData & block, ColorData & color)
 {
-	write(index, block);
-	write(index, color);
+	const auto oldLight = glm::uvec4{ readBlock(index).getLight(), readColor(index).getColor() };
+	const auto newLight = glm::uvec4{ block.getLight(), color.getColor() };
+
+	for (unsigned int i = 0u; i < 4u; ++i)
+	{
+		if (oldLight[i] > newLight[i])
+			pushLightRemoval({ index, oldLight[i] }, i);
+		else if (oldLight[i] < newLight[i])
+			pushLightPropagation({ index, newLight[i] }, i);
+	}
+	
+	std::swap(m_blocks[index], block);
+	std::swap(m_colors[index], color);
 }
-void world::data::ChunkDataBloated::write(unsigned int index, BlockData & block)
+void world::data::ChunkDataBloated::write(Index index, BlockData & block)
 {
 	const auto oldLight = readBlock(index).getLight();
 	const auto newLight = block.getLight();
 
 	if (oldLight > newLight)
-		pushLightRemoval(index);
+		pushLightRemoval({ index, oldLight }, CHANNEL_SUN);
 	else if (oldLight < newLight)
-		pushLightPropagation(index);
+		pushLightPropagation({ index, newLight }, CHANNEL_SUN);
 
 	std::swap(m_blocks[index], block);
 }
-void world::data::ChunkDataBloated::write(unsigned int index, ColorData & color)
+void world::data::ChunkDataBloated::write(Index index, ColorData & color)
 {
 	const auto oldLight = readColor(index).getColor();
 	const auto newLight = color.getColor();
 
-	if (oldLight.x > newLight.x || oldLight.y > newLight.y || oldLight.z > newLight.z)
-		pushLightRemoval(index);
-	else if (oldLight.x < newLight.x || oldLight.y < newLight.y || oldLight.z < newLight.z)
-		pushLightPropagation(index);
+	for (unsigned int i = 0u; i < 3u; ++i)
+	{
+		if (oldLight[i] > newLight[i])
+			pushLightRemoval({ index, oldLight[i] }, CHANNEL_COLOR + i);
+		else if (oldLight[i] < newLight[i])
+			pushLightPropagation({ index, newLight[i] }, CHANNEL_COLOR + i);
+	}
 
 	std::swap(m_colors[index], color);
 }
 
-bool world::data::ChunkDataBloated::pollLightPropagation(Index & index)
+bool world::data::ChunkDataBloated::pollLightPropagation(LightPropagationNode & node, unsigned int channel)
 {
-	if (m_lightPropagation.empty())
+	if (channel >= 4u || m_lightPropagation[channel].empty())
 		return false;
-	index = m_lightPropagation.front();
-	m_lightPropagation.pop();
+	node = m_lightPropagation[channel].front();
+	m_lightPropagation[channel].pop();
 	return true;
 }
-void world::data::ChunkDataBloated::pushLightPropagation(const Index & index)
+void world::data::ChunkDataBloated::pushLightPropagation(const LightPropagationNode & node, unsigned int channel)
 {
-	m_lightPropagation.push(index);
+	if (channel < 4u)
+		m_lightPropagation[channel].push(node);
 }
-bool world::data::ChunkDataBloated::pollLightRemoval(Index & index)
+bool world::data::ChunkDataBloated::pollLightRemoval(LightPropagationNode & node, unsigned int channel)
 {
-	if (m_lightRemoval.empty())
+	if (channel >= 4u || m_lightRemoval[channel].empty())
 		return false;
-	index = m_lightRemoval.front();
-	m_lightRemoval.pop();
+	node = m_lightRemoval[channel].front();
+	m_lightRemoval[channel].pop();
 	return true;
 }
-void world::data::ChunkDataBloated::pushLightRemoval(const Index & index)
+void world::data::ChunkDataBloated::pushLightRemoval(const LightPropagationNode & node, unsigned int channel)
 {
-	m_lightRemoval.push(index);
+	if (channel < 4u)
+		m_lightRemoval[channel].push(node);
 }

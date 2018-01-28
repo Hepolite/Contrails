@@ -3,6 +3,7 @@
 
 #include "world/detail/data/BlockData.h"
 #include "world/detail/data/Indexing.h"
+#include "world/detail/data/LightPropagation.h"
 #include "world/detail/Limits.h"
 
 #include <array>
@@ -28,25 +29,25 @@ namespace world
 		class ChunkDataBloated
 		{
 		public:
-			void setFastUnsafe(unsigned int index, const BlockData & block, const ColorData & color);
+			void setFastUnsafe(Index index, const BlockData & block, const ColorData & color);
 			void write(ChunkQuery & query);
-			void write(unsigned int index, BlockData & block, ColorData & color);
-			void write(unsigned int index, BlockData & block);
-			void write(unsigned int index, ColorData & color);
+			void write(Index index, BlockData & block, ColorData & color);
+			void write(Index index, BlockData & block);
+			void write(Index index, ColorData & color);
 			void read(ChunkQuery & query) const;
 			void read(BlockRegion & region, const glm::ivec3 & source, const glm::ivec3 & target, const glm::ivec3 & size) const;
-			BlockData readBlock(unsigned int index) const;
-			ColorData readColor(unsigned int index) const;
+			BlockData readBlock(Index index) const;
+			ColorData readColor(Index index) const;
 
-			bool pollLightPropagation(Index & index);
-			void pushLightPropagation(const Index & index);
-			bool pollLightRemoval(Index & index);
-			void pushLightRemoval(const Index & index);
+			bool pollLightPropagation(LightPropagationNode & node, unsigned int channel);
+			void pushLightPropagation(const LightPropagationNode & node, unsigned int channel);
+			bool pollLightRemoval(LightPropagationNode & node, unsigned int channel);
+			void pushLightRemoval(const LightPropagationNode & node, unsigned int channel);
 
 		private:
 			std::array<BlockData, CHUNK_SIZE_VOLUME<unsigned int>> m_blocks;
 			std::array<ColorData, CHUNK_SIZE_VOLUME<unsigned int>> m_colors;
-			std::queue<Index> m_lightPropagation, m_lightRemoval;
+			std::queue<LightPropagationNode> m_lightPropagation[4u], m_lightRemoval[4u];
 		};
 
 		class ChunkDataCompressed
@@ -54,16 +55,15 @@ namespace world
 		public:
 			void read(ChunkQuery & query) const;
 			void read(BlockRegion & region, const glm::ivec3 & offset, const glm::ivec3 & size) const;
-			BlockData readBlock(unsigned int index) const;
-			ColorData readColor(unsigned int index) const;
+			BlockData readBlock(Index index) const;
+			ColorData readColor(Index index) const;
 
-			void pushLightPropagation(const Index & index);
-			void pushLightRemoval(const Index & index);
+			void pushLightPropagation(const LightPropagationNode & node, unsigned int channel);
 
 		private:
 			std::vector<ChunkBlockDataNode> m_blocks;
 			std::vector<ChunkColorDataNode> m_colors;
-			std::queue<Index> m_lightPropagation, m_lightRemoval;
+			std::queue<LightPropagationNode> m_lightPropagation[4u];
 		};
 	}
 }
