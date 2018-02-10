@@ -15,11 +15,13 @@ namespace world
 		template<typename T> constexpr T CHUNK_SIZE_LG = T(5);
 		template<typename T> constexpr T CHUNK_SIZE = T(T(1) << CHUNK_SIZE_LG<T>);
 		template<typename T> constexpr T CHUNK_SIZE_BITS = T(CHUNK_SIZE<T> - T(1));
+		template<typename T> constexpr T CHUNK_SIZE_AREA = T(CHUNK_SIZE<T> * CHUNK_SIZE<T>);
 		template<typename T> constexpr T CHUNK_SIZE_VOLUME = T(CHUNK_SIZE<T> * CHUNK_SIZE<T> * CHUNK_SIZE<T>);
 
 		template<typename T> constexpr T REGION_SIZE_LG = T(4);
 		template<typename T> constexpr T REGION_SIZE = T(T(1) << REGION_SIZE_LG<T>);
 		template<typename T> constexpr T REGION_SIZE_BITS = T(REGION_SIZE<T> - T(1));
+		template<typename T> constexpr T REGION_SIZE_AREA = T(REGION_SIZE<T> * REGION_SIZE<T>);
 		template<typename T> constexpr T REGION_SIZE_VOLUME = T(REGION_SIZE<T> * REGION_SIZE<T> * REGION_SIZE<T>);
 	}
 }

@@ -63,9 +63,6 @@
     <ClInclude Include="src\render\world\BlockRenderRegistry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\render\world\BlockRender.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\render\world\detail\data\BlockModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -136,6 +133,24 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\world\detail\data\LightPropagation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render\world\BlockRender.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render\world\detail\meshing\ChunkMesher.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render\world\detail\meshing\ChunkMesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render\world\detail\meshing\ChunkMeshTask.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render\world\detail\data\TextureData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render\world\detail\meshing\NaiveGreedyMesher.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -231,6 +246,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\world\detail\data\LightPropagation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\render\world\detail\meshing\NaiveGreedyMesher.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

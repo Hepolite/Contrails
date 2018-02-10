@@ -7,6 +7,11 @@
 
 namespace math
 {
+	template<typename T> constexpr T sqr(const T & v)
+	{
+		return v * v;
+	}
+
 	template<typename T, typename P> constexpr T pow(const T & base, const P & exp)
 	{
 		return static_cast<T>(std::pow(base, exp));

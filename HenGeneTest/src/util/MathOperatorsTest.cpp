@@ -12,6 +12,13 @@ namespace math
 	TEST_CLASS(MathOperatorsTest)
 	{
 	public:
+		TEST_METHOD(MathOperatorsSqr)
+		{
+			Assert::AreEqual(9, sqr(-3));
+			Assert::AreEqual(0.25f, sqr(0.5f));
+			Assert::AreEqual({ 25.0, 0.0, 4.0 }, sqr(glm::dvec3{ 5.0, 0.0, 2.0 }));
+		}
+
 		TEST_METHOD(MathOperators_pow)
 		{
 			Assert::AreEqual(9, pow(-3, 2));

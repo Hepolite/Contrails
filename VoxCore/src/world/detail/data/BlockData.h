@@ -12,6 +12,7 @@ namespace world
 		{
 		public:
 			BlockData() noexcept = default;
+			BlockData(uint16_t data) noexcept : m_data(data) {}
 			BlockData(unsigned int id, unsigned int light) noexcept;
 			BlockData(const BlockData &) noexcept = default;
 			BlockData(BlockData &&) noexcept = default;
@@ -35,6 +36,7 @@ namespace world
 		{
 		public:
 			ColorData() noexcept = default;
+			ColorData(uint16_t data) noexcept : m_data(data) {}
 			ColorData(const glm::uvec3 & color) noexcept;
 			ColorData(const ColorData &) noexcept = default;
 			ColorData(ColorData &&) noexcept = default;

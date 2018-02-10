@@ -202,6 +202,7 @@
     <ClCompile Include="src\render\world\detail\BlockRenderLoaderTest.cpp" />
     <ClCompile Include="src\render\world\detail\BlockTextureLoaderTest.cpp" />
     <ClCompile Include="src\render\world\detail\data\BlockTextureTest.cpp" />
+    <ClCompile Include="src\render\world\detail\meshing\ChunkMesherAlgorithmTest.cpp" />
     <ClCompile Include="src\render\world\WorldRendererTest.cpp" />
     <ClCompile Include="src\SanityTest.cpp" />
     <ClCompile Include="src\logic\event\ChunkEventTest.cpp" />

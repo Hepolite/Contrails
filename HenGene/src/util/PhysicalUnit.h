@@ -10,7 +10,7 @@ namespace physics
 	};
 
 	using UnitAcceleration		= Unit<0, 1, -2, 0, 0>;
-	using UnitArea				= Unit<0, 1, 0, 0, 0>;
+	using UnitArea				= Unit<0, 2, 0, 0, 0>;
 	using UnitDensity			= Unit<1, -3, 0, 0, 0>;
 	using UnitDimensionless		= Unit<0, 0, 0, 0, 0>;
 	using UnitEnergy			= Unit<1, 2, -2, 0, 0>;

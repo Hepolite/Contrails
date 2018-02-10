@@ -212,6 +212,11 @@
     <ClInclude Include="src\render\world\detail\data\BlockModel.h" />
     <ClInclude Include="src\render\world\BlockRender.h" />
     <ClInclude Include="src\render\world\detail\data\BlockTexture.h" />
+    <ClInclude Include="src\render\world\detail\data\TextureData.h" />
+    <ClInclude Include="src\render\world\detail\meshing\ChunkMesh.h" />
+    <ClInclude Include="src\render\world\detail\meshing\ChunkMesher.h" />
+    <ClInclude Include="src\render\world\detail\meshing\NaiveGreedyMesher.h" />
+    <ClInclude Include="src\render\world\detail\meshing\ChunkMeshTask.h" />
     <ClInclude Include="src\render\world\UniverseRenderer.h" />
     <ClInclude Include="src\render\world\WorldRenderer.h" />
     <ClInclude Include="src\world\detail\BlockLoader.h" />
@@ -248,6 +253,7 @@
     <ClCompile Include="src\render\world\detail\BlockRenderLoader.cpp" />
     <ClCompile Include="src\render\world\BlockRenderRegistry.cpp" />
     <ClCompile Include="src\render\world\detail\BlockTextureLoader.cpp" />
+    <ClCompile Include="src\render\world\detail\meshing\NaiveGreedyMesher.cpp" />
     <ClCompile Include="src\render\world\UniverseRenderer.cpp" />
     <ClCompile Include="src\render\world\WorldRenderer.cpp" />
     <ClCompile Include="src\world\detail\ChunkStorage.cpp" />

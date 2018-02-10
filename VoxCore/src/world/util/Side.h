@@ -41,6 +41,15 @@ namespace world
 			SIDE_TOP,
 			SIDE_BOTTOM
 		};
+		const Side SIDES_ALL[] = {
+			SIDE_FRONT,
+			SIDE_BACK,
+			SIDE_LEFT,
+			SIDE_RIGHT,
+			SIDE_TOP,
+			SIDE_BOTTOM,
+			SIDE_UNKNOWN
+		};
 		const Side SIDES_AXIS[] = {
 			SIDE_FRONT,
 			SIDE_LEFT,
