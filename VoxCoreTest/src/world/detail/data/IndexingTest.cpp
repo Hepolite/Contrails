@@ -16,7 +16,7 @@ namespace world
 		public:
 			TEST_METHOD(Indexing_limit)
 			{
-				static_assert(MAX_CHUNK_SIZE <= 32u, "Chunks bigger than 32 blocks are not supported");
+				static_assert(MAX_CHUNK_SIZE <= 32u, "Chunk size bigger than 32 blocks is not supported");
 			}
 
 			TEST_METHOD(Indexing_toIndex)

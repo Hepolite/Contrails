@@ -59,6 +59,7 @@ void core::setup::detail::setupGui(Engine & engine)
 
 		util::addAttribute(script, &Widget::m_render, "render");
 		util::addAttribute(script, &Widget::m_state, "state");
+
 		util::addAttribute(script, &Render::m_visible, "visible");
 		util::addAttribute(script, &State::m_bool, "bool");
 		util::addAttribute(script, &State::m_float, "float");

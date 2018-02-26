@@ -35,7 +35,6 @@ namespace ui
 			glm::vec2 calculateSize() const;
 
 		protected:
-
 			Widgets * m_widgets = nullptr;
 			Widget * m_widget = nullptr;
 		};

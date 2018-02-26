@@ -204,6 +204,7 @@
     <ClInclude Include="src\logic\state\StateEditorWorld.h" />
     <ClInclude Include="src\logic\state\StateMainMenu.h" />
     <ClInclude Include="src\core\setup\Initializer.h" />
+    <ClInclude Include="src\render\ecs\renders\RenderWorld.h" />
     <ClInclude Include="src\render\world\BlockRenderRegistry.h" />
     <ClInclude Include="src\render\world\BlockTextureAtlas.h" />
     <ClInclude Include="src\render\world\detail\BlockModelLoader.h" />
@@ -248,11 +249,13 @@
     <ClCompile Include="src\logic\state\StateEditorWorld.cpp" />
     <ClCompile Include="src\logic\state\StateMainMenu.cpp" />
     <ClCompile Include="src\core\setup\Initializer.cpp" />
+    <ClCompile Include="src\render\ecs\renders\RenderWorld.cpp" />
     <ClCompile Include="src\render\world\BlockTextureAtlas.cpp" />
     <ClCompile Include="src\render\world\detail\BlockModelLoader.cpp" />
     <ClCompile Include="src\render\world\detail\BlockRenderLoader.cpp" />
     <ClCompile Include="src\render\world\BlockRenderRegistry.cpp" />
     <ClCompile Include="src\render\world\detail\BlockTextureLoader.cpp" />
+    <ClCompile Include="src\render\world\detail\meshing\ChunkMesher.cpp" />
     <ClCompile Include="src\render\world\detail\meshing\NaiveGreedyMesher.cpp" />
     <ClCompile Include="src\render\world\UniverseRenderer.cpp" />
     <ClCompile Include="src\render\world\WorldRenderer.cpp" />

@@ -12,4 +12,6 @@ namespace render
 
 		INVISIBLE,		// Not rendered at all
 	};
+
+	constexpr unsigned int RENDER_PASS_COUNT = 5u;
 }

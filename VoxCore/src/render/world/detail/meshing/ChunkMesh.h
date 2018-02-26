@@ -2,6 +2,7 @@
 #pragma once
 
 #include "render/Mesh.h"
+#include "render/RenderPass.h"
 
 #include <glm/vec2.hpp>
 #include <glm/vec3.hpp>
@@ -19,6 +20,9 @@ namespace render
 			glm::vec4 m_color;
 		};
 
-		struct ChunkMesh : public Mesh<ChunkMeshVertex>{};
+		struct ChunkMesh
+		{
+			Mesh<ChunkMeshVertex> m_meshes[RENDER_PASS_COUNT];
+		};
 	}
 }

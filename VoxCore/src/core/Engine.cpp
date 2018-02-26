@@ -102,5 +102,6 @@ core::scene::Scene & core::Engine::getScene() { return m_impl->m_scene; }
 logic::event::EventBus & core::Engine::getEventBus() { return m_impl->m_eventBus; }
 logic::state::StateManager & core::Engine::getStateManager() { return m_impl->m_stateManager; }
 render::uboRegistry & core::Engine::getUboRegistry() { return m_impl->m_uboRegistry; }
+render::world::UniverseRenderer & core::Engine::getUniverseRenderer() { return m_impl->m_universeRenderer; }
 ui::gui::GuiManager & core::Engine::getGuiManager() { return m_impl->m_guiManager; }
 world::Universe & core::Engine::getUniverse() { return m_impl->m_universe; }

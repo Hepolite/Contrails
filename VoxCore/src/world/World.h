@@ -35,7 +35,7 @@ namespace world
 		void inject(const logic::event::EventBus & bus);
 		void inject(const BlockRegistry & registry);
 
-		const data::BlockRegion extractRenderData(const glm::ivec3 & cpos) const;
+		data::BlockRegion extractRenderData(const glm::ivec3 & cpos) const;
 
 		const BlockRegistry & getBlockRegistry() const;
 

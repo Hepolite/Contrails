@@ -14,6 +14,14 @@ namespace render
 		class ChunkMesher
 		{
 		public:
+			ChunkMesher();
+			ChunkMesher(const ChunkMesher &) = delete;
+			ChunkMesher(ChunkMesher &&) = delete;
+			~ChunkMesher();
+
+			ChunkMesher & operator=(const ChunkMesher &) = delete;
+			ChunkMesher & operator=(ChunkMesher &&) = delete;
+
 			void scheduleTask(ChunkMeshTask && task);
 			bool extractTask(ChunkMeshTask & task);
 

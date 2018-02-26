@@ -1,6 +1,7 @@
 
 #pragma once
 
+#include "core/scene/Scene.h"
 #include "logic/event/EventBus.h"
 #include "world/Universe.h"
 
@@ -21,8 +22,10 @@ namespace render
 			UniverseRenderer & operator=(const UniverseRenderer&) = delete;
 			UniverseRenderer & operator=(UniverseRenderer &&) = delete;
 
-			void inject(logic::event::EventBus & bus);
+			void inject(::logic::event::EventBus & bus);
 			void inject(::world::Universe & universe);
+
+
 
 		private:
 			class Impl;

@@ -9,7 +9,8 @@
 
 namespace
 {
-	const std::string DATA_PATH = "data/universe/blocks/";
+	const std::string MODEL_PATH = "data/universe/models/";
+	const std::string TEXTURE_PATH = "data/universe/textures/";
 
 	constexpr const char * NODE_VISUAL = "visual";
 
@@ -72,7 +73,7 @@ void render::world::BlockRenderVariantLoader::loadModel(const pugi::xml_node & m
 {
 	const auto attrPath = model.attribute(ATTR_MODEL_PATH).as_string();
 
-	const io::File file{ DATA_PATH + attrPath };
+	const io::File file{ MODEL_PATH + attrPath };
 	if (!file.exists())
 		return;
 
@@ -93,7 +94,7 @@ void render::world::BlockRenderVariantLoader::loadTexture(const pugi::xml_node &
 		const auto attrSide = attr.name();
 		const auto attrPath = attr.as_string();
 
-		const io::File file{ DATA_PATH + attrPath };
+		const io::File file{ TEXTURE_PATH + attrPath };
 		if (!file.exists())
 			continue;
 

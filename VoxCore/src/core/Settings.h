@@ -7,13 +7,13 @@ namespace core
 {
 	struct Settings
 	{
-		struct
+		struct Display
 		{
 			glm::ivec2 m_size{ 640, 480 };
 			bool m_fullscreen = false;
 		} m_display;
 
-		struct
+		struct MainLoop
 		{
 			double m_fps = 60.0;
 			double m_ups = 60.0;

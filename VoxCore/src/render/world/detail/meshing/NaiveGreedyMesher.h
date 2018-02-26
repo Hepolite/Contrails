@@ -86,7 +86,7 @@ namespace render
 			const BlockRegion * m_data;
 			const BlockRenderRegistry * m_renders;
 
-			unsigned int m_offsetIndex = 0u;
+			unsigned int m_offsetIndex[RENDER_PASS_COUNT] = { 0u };
 		};
 	}
 }

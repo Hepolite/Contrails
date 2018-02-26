@@ -61,7 +61,7 @@ void world::World::inject(const BlockRegistry & registry)
 	}
 }
 
-const world::data::BlockRegion world::World::extractRenderData(const glm::ivec3 & cpos) const
+world::data::BlockRegion world::World::extractRenderData(const glm::ivec3 & cpos) const
 {
 	constexpr const auto SIZE = data::CHUNK_SIZE<int>;
 	constexpr const auto EDGE = SIZE - 1;

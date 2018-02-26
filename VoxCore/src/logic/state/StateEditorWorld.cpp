@@ -11,6 +11,7 @@
 #include "render/opengl/Program.h"
 #include "render/scene/Renderer.h"
 #include "render/uboRegistry.h"
+#include "render/world/WorldRenderer.h"
 #include "util/Maths.h"
 #include "world/Universe.h"
 #include "world/util/Query.h"
@@ -51,6 +52,8 @@ namespace
 		asset::Ref<render::opengl::Program> m_program;
 		const render::opengl::ubo * m_model = nullptr;
 	};
+
+	render::world::WorldRenderer worldRenderer;
 }
 
 void logic::state::StateEditorWorld::initialize(core::Engine & engine)
@@ -71,12 +74,12 @@ void logic::state::StateEditorWorld::initialize(core::Engine & engine)
 
 	engine.getUniverse().createWorld("world");
 	auto * world = engine.getUniverse().getWorld("world");
-	auto query = world::util::Query{}.writeRectangle(
+	const world::util::Query query;
+	world->write(query.writeRectangle(
 		world->getBlockRegistry()["stone"],
 		{ 0, 0, 0 },
 		{ world::data::CHUNK_SIZE_BITS<int>, world::data::CHUNK_SIZE_BITS<int>, 8 }
-	);
-	world->write(query);
+	));
 }
 void logic::state::StateEditorWorld::deinitialize(core::Engine & engine)
 {

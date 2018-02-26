@@ -13,6 +13,7 @@ namespace core
 		namespace detail
 		{
 			void setupSystems(scene::Scene & scene);
+			void setupRenders(scene::Scene & scene, Engine & engine);
 		}
 	}
 }

@@ -12,6 +12,7 @@ namespace logic { namespace event { class EventBus; } }
 namespace logic { namespace state { class StateManager; } }
 namespace render { namespace scene { class Scene; } }
 namespace render { class uboRegistry; }
+namespace render { namespace world { class UniverseRenderer; } }
 namespace ui { namespace gui { class GuiManager; } }
 namespace world { class Universe; }
 
@@ -38,6 +39,7 @@ namespace core
 		logic::event::EventBus & getEventBus();
 		logic::state::StateManager & getStateManager();
 		render::uboRegistry & getUboRegistry();
+		render::world::UniverseRenderer & getUniverseRenderer();
 		ui::gui::GuiManager & getGuiManager();
 		world::Universe & getUniverse();
 

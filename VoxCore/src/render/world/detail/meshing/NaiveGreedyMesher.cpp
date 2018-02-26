@@ -121,10 +121,12 @@ void render::world::NaiveGreedyMesher::buildFace(const glm::ivec3 & pos, const M
 	const auto & vertices = render.m_model.m_vertices[side.m_id];
 	if (indices.empty() || vertices.empty())
 		return;
+	const auto layer = 0u;
+	auto & mesh = m_mesh->m_meshes[layer];
 
 	for (const auto & vertex : vertices)
 	{
-		m_mesh->getVertexData().push_back({
+		mesh.getVertexData().push_back({
 			glm::vec3{}, // Position
 			glm::vec3{}, // Normal
 			glm::vec3{}, // UV
@@ -132,8 +134,8 @@ void render::world::NaiveGreedyMesher::buildFace(const glm::ivec3 & pos, const M
 		});
 	}
 	for (const auto & index : indices)
-		m_mesh->getIndiceData().push_back(index + m_offsetIndex);
-	m_offsetIndex += vertices.size();
+		mesh.getIndiceData().push_back(index + m_offsetIndex[layer]);
+	m_offsetIndex[layer] += vertices.size();
 }
 
 LayerMask render::world::NaiveGreedyMesher::getLayerMask(unsigned int layer, const Side & side) const

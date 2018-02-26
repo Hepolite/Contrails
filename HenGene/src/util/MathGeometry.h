@@ -96,11 +96,8 @@ namespace math
 	}
 	template<typename T> constexpr glm::tvec3<T> cartesian(const T & yaw, const T & pitch)
 	{
-		const auto sinYaw = sin(yaw);
-		const auto cosYaw = cos(yaw);
-		const auto sinPitch = sin(pitch);
 		const auto cosPitch = cos(pitch);
-		return { cosYaw * cosPitch, sinYaw * cosPitch, sinPitch };
+		return { cos(yaw) * cosPitch, sin(yaw) * cosPitch, sin(pitch) };
 	}
 
 	template<typename T> constexpr glm::tvec2<T> spherical(const glm::tvec3<T> & v)

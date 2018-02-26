@@ -36,6 +36,16 @@ namespace logic
 				
 				Assert::IsTrue(bus.post(false));
 			}
+			TEST_METHOD(EventListener_move)
+			{
+				EventBus bus;
+				Listener listenerA, listenerB;
+				listenerA = bus.add<int, Priority::LATE>([](auto & event) { event = 1; });
+				listenerB = bus.add<int, Priority::LAST>([](auto & event) { event = 2; });
+
+				listenerB = std::move(listenerA);
+				Assert::AreEqual(1, bus.post(0));
+			}
 		};
 	}
 }

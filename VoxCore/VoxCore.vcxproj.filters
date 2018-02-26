@@ -153,6 +153,9 @@
     <ClInclude Include="src\render\world\detail\meshing\NaiveGreedyMesher.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\render\ecs\renders\RenderWorld.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\core\Engine.cpp">
@@ -249,6 +252,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\render\world\detail\meshing\NaiveGreedyMesher.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\render\world\detail\meshing\ChunkMesher.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\render\ecs\renders\RenderWorld.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

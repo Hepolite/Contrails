@@ -37,8 +37,8 @@ namespace world
 			std::vector<BlockData> m_blocks;
 			std::vector<ColorData> m_colors;
 
-			const glm::ivec3 m_pos;
-			const glm::ivec3 m_size;
+			glm::ivec3 m_pos;
+			glm::ivec3 m_size;
 		};
 	}
 }

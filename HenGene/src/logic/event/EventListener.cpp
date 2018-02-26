@@ -18,6 +18,8 @@ logic::event::Listener::~Listener()
 
 logic::event::Listener & logic::event::Listener::operator=(Listener && other)
 {
+	if (m_bus != nullptr)
+		m_bus->remove(*this);
 	if (this != &other)
 	{
 		m_id = other.m_id;

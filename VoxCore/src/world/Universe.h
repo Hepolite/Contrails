@@ -11,6 +11,11 @@ namespace world { class World; }
 
 namespace world
 {
+	struct ComponentWorld
+	{
+		std::string m_name;
+	};
+
 	class Universe
 	{
 	public:
