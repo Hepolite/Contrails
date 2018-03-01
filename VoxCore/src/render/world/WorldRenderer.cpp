@@ -5,6 +5,7 @@
 #include "render/world/BlockRenderRegistry.h"
 #include "render/world/BlockTextureAtlas.h"
 #include "render/world/detail/BlockRenderLoader.h"
+#include "render/world/detail/meshing/ChunkMesh.h"
 #include "render/world/detail/meshing/ChunkMesher.h"
 
 #define GLM_ENABLE_EXPERIMENTAL
@@ -17,6 +18,7 @@ class render::world::WorldRenderer::Impl
 {
 public:
 	void process();
+	void render(render::RenderPass pass) const;
 
 	void scheduleChunkMeshing(const glm::ivec3 & cpos);
 	void injectMesh(const glm::ivec3 & cpos, std::unique_ptr<ChunkMesh> && mesh);
@@ -43,10 +45,15 @@ void render::world::WorldRenderer::Impl::process()
 	while (m_mesher.extractTask(task))
 		injectMesh(task.m_cpos, std::move(task.m_mesh));
 }
+void render::world::WorldRenderer::Impl::render(render::RenderPass pass) const
+{
+	for (const auto & it : m_chunks)
+		(*it.second)[static_cast<unsigned int>(pass)].render();
+}
 
 void render::world::WorldRenderer::Impl::scheduleChunkMeshing(const glm::ivec3 & cpos)
 {
-	m_mesher.scheduleTask({ cpos, m_world->extractRenderData(cpos), {} });
+	m_mesher.scheduleTask({ cpos, m_world->extractRenderData(cpos), std::make_unique<ChunkMesh>() });
 }
 
 void render::world::WorldRenderer::Impl::injectMesh(const glm::ivec3 & cpos, std::unique_ptr<ChunkMesh> && mesh)
@@ -63,6 +70,7 @@ void render::world::WorldRenderer::Impl::eraseMesh(const glm::ivec3 & cpos)
 render::world::WorldRenderer::WorldRenderer()
 {
 	m_impl = std::make_unique<Impl>();
+	m_impl->m_mesher.inject(m_impl->m_blocks);
 }
 render::world::WorldRenderer::WorldRenderer(WorldRenderer &&) noexcept = default;
 render::world::WorldRenderer::~WorldRenderer() = default;
@@ -104,4 +112,12 @@ void render::world::WorldRenderer::load(const io::Folder & data)
 	loader.inject(m_impl->m_blocks);
 	loader.inject(m_impl->m_atlas);
 	loader.loadBlocks(data);
+}
+void render::world::WorldRenderer::process()
+{
+	m_impl->process();
+}
+void render::world::WorldRenderer::render(render::RenderPass pass) const
+{
+	m_impl->render(pass);
 }

@@ -3,6 +3,7 @@
 
 #include "io/Folder.h"
 #include "logic/event/EventBus.h"
+#include "render/RenderPass.h"
 #include "world/World.h"
 
 #include <memory>
@@ -26,6 +27,8 @@ namespace render
 			void inject(const ::world::World & world);
 
 			void load(const io::Folder & data);
+			void process();
+			void render(render::RenderPass pass) const;
 
 		private:
 			class Impl;

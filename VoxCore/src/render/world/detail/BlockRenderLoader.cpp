@@ -39,6 +39,7 @@ void render::world::BlockRenderLoader::loadBlock(const io::File & file) const
 		LOG_WARNING << "Attempted to load blocks before block registries and/or texture atlas has been injected";
 		return;
 	}
+	LOG_INFO << "Loading block render from " << file.getPath() << "...";
 
 	pugi::xml_document doc;
 	doc.load_file(file.getPath().c_str());
@@ -50,6 +51,8 @@ void render::world::BlockRenderLoader::loadBlock(const io::File & file) const
 		{
 			const std::string attrName = variant.attribute(ATTR_VARIANT_NAME).as_string();
 			const std::string blockName = file.getName() + (attrName.empty() ? "" : ":" + attrName);
+
+			LOG_INFO << "Loading block render variant " << blockName << "...";
 
 			BlockRenderVariantLoader loader;
 			loader.inject(*m_atlas);

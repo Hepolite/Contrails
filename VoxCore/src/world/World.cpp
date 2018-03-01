@@ -5,6 +5,7 @@
 #include "logic/event/EventBus.h"
 #include "logic/event/ChunkEvents.h"
 #include "world/detail/ChunkStorage.h"
+#include "world/detail/BlockLoader.h"
 #include "world/detail/data/BlockRegion.h"
 #include "world/detail/data/LightPropagation.h"
 #include "world/detail/data/WorldQuery.h"
@@ -32,6 +33,13 @@ world::World::World(World &&) noexcept = default;
 world::World::~World() = default;
 
 world::World & world::World::operator=(World &&) noexcept = default;
+
+void world::World::load(const io::Folder & data)
+{
+	BlockLoader loader;
+	loader.inject(m_impl->m_registry);
+	loader.loadBlocks(data);
+}
 
 // ...
 

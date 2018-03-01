@@ -19,6 +19,9 @@ public:
 	void createWorld(const std::string & name);
 	void destroyWorld(const std::string & name);
 
+	void process(const std::string & name);
+	void render(const std::string & name, render::RenderPass pass) const;
+
 	::world::Universe * m_universe = nullptr;
 
 	logic::event::EventBus * m_bus = nullptr;
@@ -54,6 +57,19 @@ void render::world::UniverseRenderer::Impl::destroyWorld(const std::string & nam
 	m_worlds.erase(name);
 }
 
+void render::world::UniverseRenderer::Impl::process(const std::string & name)
+{
+	const auto & it = m_worlds.find(name);
+	if (it != m_worlds.end())
+		it->second.process();
+}
+void render::world::UniverseRenderer::Impl::render(const std::string & name, render::RenderPass pass) const
+{
+	const auto & it = m_worlds.find(name);
+	if (it != m_worlds.end())
+		it->second.render(pass);
+}
+
 // ...
 
 render::world::UniverseRenderer::UniverseRenderer()
@@ -75,5 +91,14 @@ void render::world::UniverseRenderer::inject(::logic::event::EventBus & bus)
 void render::world::UniverseRenderer::inject(::world::Universe & universe)
 {
 	m_impl->m_universe = &universe;
+}
+
+void render::world::UniverseRenderer::process(const std::string & world)
+{
+	m_impl->process(world);
+}
+void render::world::UniverseRenderer::render(const std::string & world, render::RenderPass pass) const
+{
+	m_impl->render(world, pass);
 }
 

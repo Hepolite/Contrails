@@ -1,6 +1,7 @@
 
 #pragma once
 
+#include "io/Folder.h"
 #include "world/BlockRegistry.h"
 #include "world/detail/data/BlockData.h"
 
@@ -28,6 +29,8 @@ namespace world
 
 		World & operator=(const World &) = delete;
 		World & operator=(World &&) noexcept;
+
+		void load(const io::Folder & data);
 
 		// ...
 

@@ -19,7 +19,7 @@ namespace world
 		{
 			BlockRegistry registry;
 			BlockLoader loader;
-			loader.injectBlockRegistry(registry);
+			loader.inject(registry);
 
 			loader.loadBlock(file);
 

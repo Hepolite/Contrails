@@ -38,7 +38,10 @@ void render::world::BlockTextureLoader::loadConnection(const pugi::xml_node & co
 	if (attrType == VALUE_CONNECTION_DEFAULT)
 		loadDefaultConnection(connection);
 	else
+	{
+		loadDefaultConnection(connection);
 		LOG_WARNING << "Unknown texture connection " << attrType;
+	}
 }
 void render::world::BlockTextureLoader::loadDefaultConnection(const pugi::xml_node & node)
 {

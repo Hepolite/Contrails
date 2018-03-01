@@ -3,6 +3,7 @@
 
 #include "core/scene/Scene.h"
 #include "logic/event/EventBus.h"
+#include "render/RenderPass.h"
 #include "world/Universe.h"
 
 #include <memory>
@@ -25,7 +26,8 @@ namespace render
 			void inject(::logic::event::EventBus & bus);
 			void inject(::world::Universe & universe);
 
-
+			void process(const std::string & world);
+			void render(const std::string & world, render::RenderPass pass) const;
 
 		private:
 			class Impl;

@@ -121,8 +121,8 @@ void render::world::NaiveGreedyMesher::buildFace(const glm::ivec3 & pos, const M
 	const auto & vertices = render.m_model.m_vertices[side.m_id];
 	if (indices.empty() || vertices.empty())
 		return;
-	const auto layer = 0u;
-	auto & mesh = m_mesh->m_meshes[layer];
+	const auto layer = 1u;
+	auto & mesh = (*m_mesh)[layer];
 
 	for (const auto & vertex : vertices)
 	{

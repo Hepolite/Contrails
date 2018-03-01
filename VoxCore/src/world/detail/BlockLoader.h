@@ -13,7 +13,7 @@ namespace world
 	class BlockLoader
 	{
 	public:
-		inline void injectBlockRegistry(BlockRegistry & registry) { m_registry = &registry; }
+		inline void inject(BlockRegistry & registry) { m_registry = &registry; }
 
 		void loadBlocks(const io::Folder & folder) const;
 		void loadBlock(const io::File & file) const;

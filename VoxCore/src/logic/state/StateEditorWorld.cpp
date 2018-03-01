@@ -13,6 +13,7 @@
 #include "render/uboRegistry.h"
 #include "render/world/WorldRenderer.h"
 #include "util/Maths.h"
+#include "world/detail/data/BlockRegion.h"
 #include "world/Universe.h"
 #include "world/util/Query.h"
 #include "world/World.h"
@@ -52,8 +53,6 @@ namespace
 		asset::Ref<render::opengl::Program> m_program;
 		const render::opengl::ubo * m_model = nullptr;
 	};
-
-	render::world::WorldRenderer worldRenderer;
 }
 
 void logic::state::StateEditorWorld::initialize(core::Engine & engine)
@@ -83,6 +82,8 @@ void logic::state::StateEditorWorld::initialize(core::Engine & engine)
 }
 void logic::state::StateEditorWorld::deinitialize(core::Engine & engine)
 {
+	engine.getUniverse().destroyWorld("world");
+
 	engine.getGuiManager().close("data/guis/editor_world.xml");
 
 	engine.getScene().clearSystems();

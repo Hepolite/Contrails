@@ -8,6 +8,11 @@
 
 #include <plog/Log.h>
 
+namespace
+{
+	constexpr const char * DATA_PATH = "data/universe/blocks/";
+}
+
 world::Universe::Universe() = default;
 world::Universe::~Universe() = default;
 
@@ -21,6 +26,7 @@ void world::Universe::createWorld(const std::string & name)
 	LOG_INFO << "Creating world " << name << "...";
 
 	auto world = m_worlds.emplace(name, std::make_unique<World>()).first->second.get();
+	world->load(DATA_PATH);
 	if (m_scene != nullptr)
 	{
 		world->inject(*m_scene);

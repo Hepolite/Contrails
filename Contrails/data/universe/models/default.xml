@@ -6,8 +6,6 @@
       <vertex position="" normal="" uv="" color="" />
       <vertex position="" normal="" uv="" color="" />
     </vertices>
-    <indices>
-      0 1 2
-    </indices>
+    <indices>0 1 2</indices>
   </front>
 </geometry>

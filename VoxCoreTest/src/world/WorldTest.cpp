@@ -1,6 +1,7 @@
 
 #include "CppUnitTest.h"
 
+#include "world/detail/data/BlockRegion.h"
 #include "world/detail/data/WorldQuery.h"
 #include "world/util/Query.h"
 #include "world/World.h"
@@ -128,6 +129,20 @@ namespace world
 			Assert::AreEqual(4u, data.m_block.getId());
 			Assert::AreEqual(29u, data.m_block.getLight());
 			Assert::AreEqual({ 1u, 2u, 3u }, data.m_color.getColor());
+		}
+
+		// ...
+
+		TEST_METHOD(World_extractRenderData)
+		{
+			const glm::ivec3 pos{ 3, 1, 4 };
+			World world;
+			world.write(pos, data::BlockData{ 4u, 29u }, data::ColorData{ { 1u, 2u, 3u } });
+
+			const auto & data = world.extractRenderData({ 0, 0, 0 });
+			Assert::AreEqual(4u, data.readBlock(pos).getId());
+			Assert::AreEqual(29u, data.readBlock(pos).getLight());
+			Assert::AreEqual({ 1u, 2u, 3u }, data.readColor(pos).getColor());
 		}
 	};
 }

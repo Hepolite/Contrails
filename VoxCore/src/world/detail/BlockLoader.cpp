@@ -39,6 +39,7 @@ void world::BlockLoader::loadBlock(const io::File & file) const
 		LOG_WARNING << "Attempted to load blocks before block registry has been injected";
 		return;
 	}
+	LOG_INFO << "Loading block from " << file.getPath() << "...";
 
 	pugi::xml_document doc;
 	doc.load_file(file.getPath().c_str());
@@ -49,6 +50,8 @@ void world::BlockLoader::loadBlock(const io::File & file) const
 		{
 			const std::string attrName = variant.attribute(ATTR_VARIANT_NAME).as_string();
 			const std::string blockName = file.getName() + (attrName.empty() ? "" : ":" + attrName);
+
+			LOG_INFO << "Loading block variant " << blockName << "...";
 
 			BlockVariantLoader{}.loadVariant(m_registry->add(blockName), variant.child(NODE_LOGIC));
 		}
