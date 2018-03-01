@@ -2,10 +2,56 @@
 <geometry>
   <front>
     <vertices>
-      <vertex position="" normal="" uv="" color="" />
-      <vertex position="" normal="" uv="" color="" />
-      <vertex position="" normal="" uv="" color="" />
+      <vertex position="1 0 0" normal="1 0 0" uv="0 0" color="1 0 0" />
+      <vertex position="1 1 0" normal="1 0 0" uv="1 0" color="1 0 0" />
+      <vertex position="1 1 1" normal="1 0 0" uv="1 1" color="1 0 0" />
+      <vertex position="1 0 1" normal="1 0 0" uv="0 1" color="1 0 0" />
     </vertices>
-    <indices>0 1 2</indices>
+    <indices>0 1 2 0 2 3</indices>
   </front>
+  <back>
+    <vertices>
+      <vertex position="0 1 0" normal="-1 0 0" uv="0 0" color="0 1 1" />
+      <vertex position="0 0 0" normal="-1 0 0" uv="1 0" color="0 1 1" />
+      <vertex position="0 0 1" normal="-1 0 0" uv="1 1" color="0 1 1" />
+      <vertex position="0 1 1" normal="-1 0 0" uv="0 1" color="0 1 1" />
+    </vertices>
+    <indices>0 1 2 0 2 3</indices>
+  </back>
+  <left>
+    <vertices>
+      <vertex position="1 1 0" normal="0 1 0" uv="0 0" color="0 1 0" />
+      <vertex position="0 1 0" normal="0 1 0" uv="1 0" color="0 1 0" />
+      <vertex position="0 1 1" normal="0 1 0" uv="1 1" color="0 1 0" />
+      <vertex position="1 1 1" normal="0 1 0" uv="0 1" color="0 1 0" />
+    </vertices>
+    <indices>0 1 2 0 2 3</indices>
+  </left>
+  <right>
+    <vertices>
+      <vertex position="0 0 0" normal="0 1 0" uv="0 0" color="0 1 0" />
+      <vertex position="1 0 0" normal="0 1 0" uv="1 0" color="0 1 0" />
+      <vertex position="1 0 1" normal="0 1 0" uv="1 1" color="0 1 0" />
+      <vertex position="0 0 1" normal="0 1 0" uv="0 1" color="0 1 0" />
+    </vertices>
+    <indices>0 1 2 0 2 3</indices>
+  </right>
+  <top>
+    <vertices>
+      <vertex position="1 0 1" normal="0 0 1" uv="0 0" color="0 0 1" />
+      <vertex position="1 1 1" normal="0 0 1" uv="1 0" color="0 0 1" />
+      <vertex position="0 1 1" normal="0 0 1" uv="1 1" color="0 0 1" />
+      <vertex position="0 0 1" normal="0 0 1" uv="0 1" color="0 0 1" />
+    </vertices>
+    <indices>0 1 2 0 2 3</indices>
+  </top>
+  <bottom>
+    <vertices>
+      <vertex position="1 0 0" normal="0 0 -1" uv="0 0" color="1 1 0" />
+      <vertex position="1 1 0" normal="0 0 -1" uv="1 0" color="1 1 0" />
+      <vertex position="0 1 0" normal="0 0 -1" uv="1 1" color="1 1 0" />
+      <vertex position="0 0 0" normal="0 0 -1" uv="0 1" color="1 1 0" />
+    </vertices>
+    <indices>0 1 2 0 2 3</indices>
+  </bottom>
 </geometry>

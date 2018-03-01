@@ -75,7 +75,7 @@ glm::uvec2 render::world::LayerMask::getExtractionSize() const
 		if (current != get({ k, pos.y }))
 			return pos - m_pos;
 
-	return glm::uvec2{ pos.x, pos.y - 1u } - m_pos;
+	return pos - m_pos;
 }
 bool LayerMask::extract(MeshFace & face)
 {
@@ -127,10 +127,10 @@ void render::world::NaiveGreedyMesher::buildFace(const glm::ivec3 & pos, const M
 	for (const auto & vertex : vertices)
 	{
 		mesh.getVertexData().push_back({
-			glm::vec3{}, // Position
-			glm::vec3{}, // Normal
-			glm::vec3{}, // UV
-			glm::vec4{} // Color
+			vertex.m_position,
+			vertex.m_normal,
+			vertex.m_uv,
+			glm::vec4{ vertex.m_color, 1.0f }
 		});
 	}
 	for (const auto & index : indices)

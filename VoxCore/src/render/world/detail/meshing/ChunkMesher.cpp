@@ -21,7 +21,17 @@ void render::world::ChunkMesher::scheduleTask(ChunkMeshTask && task)
 }
 bool render::world::ChunkMesher::extractTask(ChunkMeshTask & task)
 {
-	return popTask(task, m_output);
+	bool valid = popTask(task, m_output);
+	if (valid)
+	{
+		for (unsigned int i = 0u; i < RENDER_PASS_COUNT; ++i)
+		{
+			auto & mesh = (*task.m_mesh)[i];
+			mesh.addAttribute({ 0u, opengl::DataFormat::FLOAT, 3u, 0u });
+			mesh.build();
+		}
+	}
+	return valid;
 }
 
 void render::world::ChunkMesher::pushTask(ChunkMeshTask && task, std::queue<ChunkMeshTask> & queue)
