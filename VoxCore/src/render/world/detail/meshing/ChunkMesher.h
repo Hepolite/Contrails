@@ -4,6 +4,7 @@
 #include "render/world/BlockRenderRegistry.h"
 #include "render/world/detail/meshing/ChunkMeshTask.h"
 
+#include <chrono>
 #include <queue>
 #include <mutex>
 #include <thread>
@@ -29,9 +30,13 @@ namespace render
 			bool extractTask(ChunkMeshTask & task);
 
 		private:
-			void performWorkInThread();
 			void pushTask(ChunkMeshTask && task, std::queue<ChunkMeshTask> & queue);
 			bool popTask(ChunkMeshTask & task, std::queue<ChunkMeshTask> & queue);
+
+			void startMeasuring();
+			void endMeasuring();
+			void performWorkInThread();
+			void performMeshTask(ChunkMeshTask & task);
 
 			const BlockRenderRegistry * m_renders;
 
@@ -40,6 +45,9 @@ namespace render
 			std::mutex m_mutex;
 
 			bool m_working = true;
+
+			std::chrono::steady_clock::time_point m_begin;
+			unsigned int m_tasksPerformed;
 		};
 	}
 }
