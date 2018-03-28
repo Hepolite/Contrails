@@ -123,9 +123,6 @@
     <ClCompile Include="src\render\scene\RendererRegistryTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\render\scene\RendererTest.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\render\allegro\AllegroTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -162,10 +159,10 @@
     <ClCompile Include="src\logic\state\StateManagerTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\render\scene\CameraStorageTest.cpp">
+    <ClCompile Include="src\render\CameraTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\render\scene\CameraTest.cpp">
+    <ClCompile Include="src\render\CameraStorageTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

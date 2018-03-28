@@ -15,7 +15,7 @@ namespace render
 		class RendererMock : public Renderer<int>
 		{
 		public:
-			virtual void render(const Time & t, const Time & dt, float pt) const override final
+			virtual void render(const RenderContext & context, const Time & t, const Time & dt) const override final
 			{
 				rendered = true;
 			}
@@ -31,7 +31,7 @@ namespace render
 				registry.add(&renderer);
 
 				rendered = false;
-				registry.render(0.0_s, 0.05_s, 0.0f, RenderPass::SOLID);
+				registry.render(0.0_s, 0.05_s, 0.0f, RenderPass::SOLID, CameraType::NORMAL);
 
 				Assert::IsTrue(rendered);
 			}
@@ -44,7 +44,7 @@ namespace render
 				registry.clear();
 
 				rendered = false;
-				registry.render(0.0_s, 0.05_s, 0.0f, RenderPass::SOLID);
+				registry.render(0.0_s, 0.05_s, 0.0f, RenderPass::SOLID, CameraType::NORMAL);
 
 				Assert::IsFalse(rendered);
 			}

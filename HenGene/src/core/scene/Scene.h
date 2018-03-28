@@ -5,7 +5,7 @@
 #include "logic/ecs/EntityRegistry.h"
 #include "logic/ecs/SystemRegistry.h"
 #include "logic/ecs/detail/Entity.h"
-#include "render/scene/CameraStorage.h"
+#include "render/CameraStorage.h"
 #include "render/scene/RendererRegistry.h"
 #include "render/RenderPass.h"
 #include "render/uboRegistry.h"
@@ -26,9 +26,6 @@ namespace core
 			Scene & operator=(const Scene &) = delete;
 			Scene & operator=(Scene &&) = delete;
 
-			inline void inject(const render::uboRegistry & registry) { m_cameras.inject(registry); }
-			inline void inject(const ui::Display & display) { m_cameras.inject(display); }
-
 			void process(const Time & t, const Time & dt);
 			void render(const Time & t, const Time & dt, float pt) const;
 
@@ -48,14 +45,11 @@ namespace core
 			void deleteEntity(logic::ecs::EntityID entity);
 			void clearEntities();
 
-			inline render::scene::CameraStorage & getCameras() { return m_cameras; }
-
 		private:
 			logic::ecs::ComponentStorage m_components;
 			logic::ecs::SystemRegistry m_systems;
 			logic::ecs::EntityRegistry m_entities;
 
-			render::scene::CameraStorage m_cameras;
 			render::scene::RendererRegistry m_renderers;
 		};
 	}

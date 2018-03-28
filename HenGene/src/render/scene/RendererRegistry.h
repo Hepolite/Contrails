@@ -14,7 +14,7 @@ namespace render
 		class RendererRegistry
 		{
 		public:
-			void render(const Time & t, const Time & dt, float pt, RenderPass pass) const;
+			void render(const Time & t, const Time & dt, float pt, RenderPass pass, CameraType camera) const;
 
 			inline void add(RendererBase * renderer) { m_renderers.push_back(renderer); }
 			inline void clear() { m_renderers.clear(); }

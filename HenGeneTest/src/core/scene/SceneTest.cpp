@@ -41,7 +41,7 @@ namespace core
 		class RendererMock : public render::scene::Renderer<float>
 		{
 		public:
-			virtual void render(const Time & t, const Time & dt, float pt) const override final
+			virtual void render(const render::RenderContext & context, const Time & t, const Time & dt) const override final
 			{
 				rendered = 0;
 				for (const auto & entity : *this)

@@ -10,17 +10,13 @@ core::scene::Scene::Scene()
 void core::scene::Scene::process(const Time & t, const Time & dt)
 {
 	m_systems.process(t, dt);
-	m_cameras.process();
 }
 void core::scene::Scene::render(const Time & t, const Time & dt, float pt) const
 {
-	auto & camera = m_cameras.getCamera(render::scene::CameraType::NORMAL);
-	camera.upload(pt);
-
-	m_renderers.render(t, dt, pt, render::RenderPass::BACKGROUND);
-	m_renderers.render(t, dt, pt, render::RenderPass::SOLID);
-	m_renderers.render(t, dt, pt, render::RenderPass::CUTOFF);
-	m_renderers.render(t, dt, pt, render::RenderPass::TRANSPARENT);
+	m_renderers.render(t, dt, pt, render::RenderPass::BACKGROUND, render::CameraType::NORMAL);
+	m_renderers.render(t, dt, pt, render::RenderPass::SOLID, render::CameraType::NORMAL);
+	m_renderers.render(t, dt, pt, render::RenderPass::CUTOFF, render::CameraType::NORMAL);
+	m_renderers.render(t, dt, pt, render::RenderPass::TRANSPARENT, render::CameraType::NORMAL);
 }
 
 void core::scene::Scene::clearSystems()

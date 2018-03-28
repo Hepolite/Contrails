@@ -251,9 +251,10 @@
     <ClInclude Include="src\render\opengl\vbo.h" />
     <ClInclude Include="src\render\core\Pipeline.h" />
     <ClInclude Include="src\render\RenderPass.h" />
-    <ClInclude Include="src\render\scene\Camera.h" />
-    <ClInclude Include="src\render\scene\CameraUtil.h" />
-    <ClInclude Include="src\render\scene\CameraStorage.h" />
+    <ClInclude Include="src\render\Camera.h" />
+    <ClInclude Include="src\render\CameraUtil.h" />
+    <ClInclude Include="src\render\CameraStorage.h" />
+    <ClInclude Include="src\render\RenderContext.h" />
     <ClInclude Include="src\render\scene\Renderer.h" />
     <ClInclude Include="src\render\scene\RendererRegistry.h" />
     <ClInclude Include="src\render\uboRegistry.h" />
@@ -312,9 +313,8 @@
     <ClCompile Include="src\render\opengl\ubo.cpp" />
     <ClCompile Include="src\render\opengl\vao.cpp" />
     <ClCompile Include="src\render\opengl\vbo.cpp" />
-    <ClCompile Include="src\render\scene\Camera.cpp" />
-    <ClCompile Include="src\render\scene\CameraStorage.cpp" />
-    <ClCompile Include="src\render\scene\Renderer.cpp" />
+    <ClCompile Include="src\render\Camera.cpp" />
+    <ClCompile Include="src\render\CameraStorage.cpp" />
     <ClCompile Include="src\render\scene\RendererRegistry.cpp" />
     <ClCompile Include="src\render\uboRegistry.cpp" />
     <ClCompile Include="src\ui\Display.cpp" />

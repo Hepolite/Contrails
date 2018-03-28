@@ -2,8 +2,7 @@
 #pragma once
 
 #include "logic/ecs/System.h"
-#include "render/RenderPass.h"
-#include "render/scene/CameraUtil.h"
+#include "render/RenderContext.h"
 
 namespace render
 {
@@ -20,17 +19,7 @@ namespace render
 			RendererBase & operator=(const RendererBase &) = delete;
 			RendererBase & operator=(RendererBase &&) = delete;
 
-			virtual void render(const Time & t, const Time & dt, float pt) const = 0;
-
-			bool isVisibleToCamera(CameraType type) const;
-			RenderPass getRenderPass() const;
-
-			void setVisibleToCamera(CameraType type, bool visible);
-			void setRenderPass(RenderPass pass);
-
-		private:
-			RenderPass m_pass = RenderPass::SOLID;
-			CameraMask m_mask;
+			virtual void render(const RenderContext & context, const Time & t, const Time & dt) const = 0;
 		};
 
 		template<typename ...Components>
