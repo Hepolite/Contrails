@@ -126,6 +126,7 @@ void render::world::NaiveGreedyMesher::buildFace(const glm::ivec3 & pos, const M
 
 	for (const auto & vertex : vertices)
 	{
+		// TODO: This needs to be fixed
 		mesh.getVertexData().push_back({
 			vertex.m_position,
 			vertex.m_normal,

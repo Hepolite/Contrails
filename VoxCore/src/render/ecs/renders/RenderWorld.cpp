@@ -1,6 +1,12 @@
 
 #include "RenderWorld.h"
 
+#include "io/File.h"
+#include "render/opengl/Program.h"
+#include "render/opengl/Shader.h"
+
+#include "render/opengl/OpenGL.h"
+
 void render::ecs::RenderWorld::process(const Time & t, const Time & dt)
 {
 	auto & worlds = getData<::world::ComponentWorld>();
