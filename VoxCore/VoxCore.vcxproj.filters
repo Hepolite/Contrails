@@ -60,40 +60,13 @@
     <ClInclude Include="src\world\detail\BlockLoader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\render\world\BlockRenderRegistry.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\render\world\detail\data\BlockModel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\render\world\detail\data\BlockTexture.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\render\world\detail\BlockRenderLoader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\render\world\detail\BlockModelLoader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\render\world\detail\BlockTextureLoader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\world\detail\data\BlockRegion.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\render\world\BlockTextureAtlas.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\render\world\WorldRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\core\Settings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\world\Universe.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\render\world\UniverseRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\logic\event\WorldEvents.h">
@@ -135,25 +108,43 @@
     <ClInclude Include="src\world\detail\data\LightPropagation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\render\world\BlockRender.h">
+    <ClInclude Include="src\world\render\detail\data\BlockModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\render\world\detail\meshing\ChunkMesher.h">
+    <ClInclude Include="src\world\render\detail\data\BlockTexture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\render\world\detail\meshing\ChunkMesh.h">
+    <ClInclude Include="src\world\render\detail\data\TextureData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\render\world\detail\meshing\ChunkMeshTask.h">
+    <ClInclude Include="src\world\render\detail\meshing\ChunkMesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\render\world\detail\data\TextureData.h">
+    <ClInclude Include="src\world\render\detail\meshing\ChunkMesher.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\render\world\detail\meshing\NaiveGreedyMesher.h">
+    <ClInclude Include="src\world\render\detail\meshing\ChunkMeshTask.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\render\ecs\renders\RenderWorld.h">
+    <ClInclude Include="src\world\render\detail\meshing\NaiveGreedyMesher.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\world\render\detail\BlockModelLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\world\render\detail\BlockRenderLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\world\render\detail\BlockTextureLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\world\render\BlockRender.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\world\render\BlockRenderRegistry.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\world\render\BlockTextureAtlas.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -188,31 +179,10 @@
     <ClCompile Include="src\world\detail\BlockLoader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\render\world\BlockRenderRegistry.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\render\world\detail\BlockRenderLoader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\world\util\Side.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\render\world\detail\BlockModelLoader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\render\world\detail\BlockTextureLoader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\world\detail\data\BlockRegion.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\render\world\BlockTextureAtlas.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\render\world\WorldRenderer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\render\world\UniverseRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\world\Universe.cpp">
@@ -251,13 +221,25 @@
     <ClCompile Include="src\world\detail\data\LightPropagation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\render\world\detail\meshing\NaiveGreedyMesher.cpp">
+    <ClCompile Include="src\world\render\detail\meshing\ChunkMesher.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\render\world\detail\meshing\ChunkMesher.cpp">
+    <ClCompile Include="src\world\render\detail\meshing\NaiveGreedyMesher.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\render\ecs\renders\RenderWorld.cpp">
+    <ClCompile Include="src\world\render\detail\BlockModelLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\world\render\detail\BlockRenderLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\world\render\detail\BlockTextureLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\world\render\BlockRenderRegistry.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\world\render\BlockTextureAtlas.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

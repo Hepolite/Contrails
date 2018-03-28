@@ -39,7 +39,6 @@ namespace core
 		logic::event::EventBus & getEventBus();
 		logic::state::StateManager & getStateManager();
 		render::uboRegistry & getUboRegistry();
-		render::world::UniverseRenderer & getUniverseRenderer();
 		ui::gui::GuiManager & getGuiManager();
 		world::Universe & getUniverse();
 
