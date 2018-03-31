@@ -5,7 +5,7 @@
 #include "logic/ecs/EntityRegistry.h"
 #include "logic/ecs/SystemRegistry.h"
 #include "logic/ecs/detail/Entity.h"
-#include "render/CameraStorage.h"
+#include "render/scene/CameraStorage.h"
 #include "render/scene/RendererRegistry.h"
 #include "render/RenderPass.h"
 #include "render/uboRegistry.h"
@@ -26,10 +26,14 @@ namespace core
 			Scene & operator=(const Scene &) = delete;
 			Scene & operator=(Scene &&) = delete;
 
+			inline void inject(core::Engine & engine) { m_systems.inject(engine); }
+
 			void process(const Time & t, const Time & dt);
 			void render(const Time & t, const Time & dt, float pt) const;
 
 			// ...
+
+			inline render::scene::Camera & getCamera(render::scene::CameraType type) { return m_cameras.getCamera(type); }
 
 			template<typename ...Systems> void registerSystems();
 			void clearSystems();
@@ -51,6 +55,7 @@ namespace core
 			logic::ecs::EntityRegistry m_entities;
 
 			render::scene::RendererRegistry m_renderers;
+			render::scene::CameraStorage m_cameras;
 		};
 	}
 }

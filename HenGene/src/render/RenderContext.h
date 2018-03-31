@@ -3,13 +3,13 @@
 
 #include "util/Physics.h"
 #include "render/RenderPass.h"
-#include "render/CameraUtil.h"
+#include "render/scene/CameraUtil.h"
 
 namespace render
 {
 	struct RenderContext
 	{
-		CameraType m_camera;
+		scene::CameraType m_camera;
 		RenderPass m_renderPass;
 		float m_partialFrame;
 	};

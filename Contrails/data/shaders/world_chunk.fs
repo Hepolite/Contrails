@@ -1,13 +1,10 @@
 #version 330 core
 
+#include "data/shaders/common/vertex.vs"
+
 layout(location = 0) out vec4 color;
 
-in Vertex
-{
-	vec3 normal;
-	vec3 uv;
-	vec4 color;
-} vertex;
+in Vertex vertex;
 
 void main()
 {

@@ -87,9 +87,6 @@
     <ClCompile Include="src\logic\ecs\SystemRegistry.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\scene\Scene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\logic\ecs\EntityRegistry.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -138,10 +135,13 @@
     <ClCompile Include="src\core\MainLoop.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\render\Camera.cpp">
+    <ClCompile Include="src\core\scene\Scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\render\CameraStorage.cpp">
+    <ClCompile Include="src\render\scene\CameraStorage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\render\scene\Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -299,9 +299,6 @@
     <ClInclude Include="src\logic\ecs\ComponentStorage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\scene\Scene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\logic\ecs\EntityRegistry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -362,13 +359,16 @@
     <ClInclude Include="src\render\RenderContext.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\render\CameraUtil.h">
+    <ClInclude Include="src\core\scene\Scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\render\Camera.h">
+    <ClInclude Include="src\render\scene\CameraUtil.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\render\CameraStorage.h">
+    <ClInclude Include="src\render\scene\CameraStorage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render\scene\Camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

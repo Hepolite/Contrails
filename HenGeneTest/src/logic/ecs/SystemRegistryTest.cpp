@@ -5,16 +5,23 @@
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
+namespace core
+{
+	class Engine {};
+}
+
 namespace logic
 {
 	namespace ecs
 	{
+		bool initializedA = false;
 		int processedA = 0;
 		int processedB = 0;
 
 		class SystemMockA : public System<int, double>
 		{
 		public:
+			virtual void initialize(core::Engine & engine) override final { initializedA = true; }
 			virtual void process(const Time & t, const Time & dt) override final
 			{
 				processedA = 0;
@@ -37,6 +44,16 @@ namespace logic
 		{
 		public:
 			TEST_METHOD(SystemRegistry_addSystem)
+			{
+				core::Engine engine;
+				SystemRegistry registry;
+				registry.inject(engine);
+				registry.addSystem<SystemMockA, SystemMockB>();
+
+				Assert::IsTrue(initializedA);
+			}
+
+			TEST_METHOD(SystemRegistry_process)
 			{
 				SystemRegistry registry;
 				registry.addSystem<SystemMockA, SystemMockB>();

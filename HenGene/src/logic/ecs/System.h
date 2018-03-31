@@ -17,6 +17,8 @@
 		virtual void process(const Time & t, const Time & dt) override final; \
 	}
 
+namespace core { class Engine; }
+
 namespace logic
 {
 	namespace ecs
@@ -39,7 +41,7 @@ namespace logic
 			bool add(const Entity & entity);
 			bool remove(const Entity & entity);
 
-			// Invoked every frame for as long as the system remains active
+			virtual void initialize(core::Engine & engine) {}
 			virtual void process(const Time & t, const Time & dt) = 0;
 
 		protected:

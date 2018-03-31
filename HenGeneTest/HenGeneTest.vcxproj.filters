@@ -117,9 +117,6 @@
     <ClCompile Include="src\logic\ecs\EntityRegistryTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\scene\SceneTest.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\render\scene\RendererRegistryTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -159,10 +156,13 @@
     <ClCompile Include="src\logic\state\StateManagerTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\render\CameraTest.cpp">
+    <ClCompile Include="src\core\scene\SceneTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\render\CameraStorageTest.cpp">
+    <ClCompile Include="src\render\scene\CameraTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\render\scene\CameraStorageTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

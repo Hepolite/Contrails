@@ -10,6 +10,7 @@ namespace sanity
 	public:
 		TEST_METHOD(Sanity_sanity)
 		{
+			Assert::IsTrue(true);
 		}
 	};
 }
