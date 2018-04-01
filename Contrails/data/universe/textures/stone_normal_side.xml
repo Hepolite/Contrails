@@ -1,1 +1,3 @@
 <?xml version="1.0" ?>
+<texture path="data/gfx/blocks/stone.png" />
+<connection type="default" />

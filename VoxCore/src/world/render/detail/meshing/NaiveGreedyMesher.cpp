@@ -121,16 +121,19 @@ void NaiveGreedyMesher::buildFace(const glm::ivec3 & pos, const MeshFace & face,
 	const auto & vertices = render.m_model.m_vertices[side.m_id];
 	if (indices.empty() || vertices.empty())
 		return;
-	const auto layer = 1u;
+	const auto layer = 1u; // TODO: The render pass the block should be added to
 	auto & mesh = (*m_mesh)[layer];
-
+	
+	glm::vec3 size;
+	size[side.m_dimensions.x] = 1.0f;
+	size[side.m_dimensions.y] = static_cast<float>(face.m_size.x);
+	size[side.m_dimensions.z] = static_cast<float>(face.m_size.y);
 	for (const auto & vertex : vertices)
 	{
-		// TODO: This needs to be fixed
 		mesh.getVertexData().push_back({
-			vertex.m_position,
+			vertex.m_position * size + glm::vec3{ pos },
 			vertex.m_normal,
-			vertex.m_uv,
+			vertex.m_uv * glm::vec3{ face.m_size, 1.0f } + glm::vec3{ 0.0f, 0.0f, face.m_texture.getData() },
 			glm::vec4{ vertex.m_color, 1.0f }
 		});
 	}
@@ -163,7 +166,7 @@ LayerData NaiveGreedyMesher::getLayerData(const glm::ivec3 & pos, const Side & s
 		data.set(
 			{ currentId, upper.getLight() },
 			m_data->readColor(pos + side.m_normal),
-			(*m_renders)[currentId].m_texture->m_lookup(*m_data, pos, side)
+			{ (*m_renders)[currentId].m_texture[side.m_id].m_lookup(*m_data, pos, side) }
 		);
 	return data;
 }

@@ -14,11 +14,19 @@ void world::render::UniverseRenderer::inject(const Universe & universe)
 {
 	m_universe = &universe;
 }
+void world::render::UniverseRenderer::inject(asset::AssetRegistry & assets)
+{
+	m_assets = &assets;
+}
 void world::render::UniverseRenderer::inject(logic::event::EventBus & bus)
 {
 	m_bus = &bus;
 	m_worldCreate = bus.add<logic::event::WorldCreate>([this](auto & event) { createWorld(event.m_name); });
 	m_worldDestroy = bus.add<logic::event::WorldDestroy>([this](auto & event) { destroyWorld(event.m_name); });
+}
+void world::render::UniverseRenderer::inject(::render::uboRegistry & ubos)
+{
+	m_ubos = &ubos;
 }
 
 void world::render::UniverseRenderer::createWorld(const std::string & name)
@@ -30,8 +38,12 @@ void world::render::UniverseRenderer::createWorld(const std::string & name)
 	}
 
 	auto world = std::make_unique<WorldRenderer>();
+	if (m_assets != nullptr)
+		world->inject(*m_assets);
 	if (m_bus != nullptr)
 		world->inject(*m_bus);
+	if (m_ubos != nullptr)
+		world->inject(*m_ubos);
 	world->inject(*m_universe->getWorld(name));
 	world->load(DATA_PATH);
 	m_worlds[name] = std::move(world);

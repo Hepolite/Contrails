@@ -3,7 +3,9 @@
 
 #include "logic/event/ChunkEvents.h"
 #include "world/render/detail/BlockRenderLoader.h"
+#include "world/detail/Limits.h"
 
+#include <glm/gtc/matrix_transform.hpp>
 #include <plog/Log.h>
 
 world::render::WorldRenderer::WorldRenderer()
@@ -25,6 +27,15 @@ void world::render::WorldRenderer::inject(logic::event::EventBus & bus)
 			m_mesher.scheduleTask({ event.m_cpos, m_world->extractRenderData(event.m_cpos), std::make_unique<ChunkMesh>() });
 	});
 }
+void world::render::WorldRenderer::inject(asset::AssetRegistry & assets)
+{
+	for (unsigned int i = 0u; i < ::render::RENDER_PASS_COUNT; ++i)
+		m_program[i] = assets.get<::render::opengl::Program>("world_chunk");
+}
+void world::render::WorldRenderer::inject(::render::uboRegistry & ubos)
+{
+	m_model = &ubos.get("Model");
+}
 
 void world::render::WorldRenderer::load(const io::Folder & data)
 {
@@ -39,6 +50,8 @@ void world::render::WorldRenderer::load(const io::Folder & data)
 	loader.inject(m_registry);
 	loader.inject(m_texture);
 	loader.loadBlocks(data);
+
+	m_texture.build();
 }
 
 void world::render::WorldRenderer::process()
@@ -47,11 +60,15 @@ void world::render::WorldRenderer::process()
 }
 void world::render::WorldRenderer::render(::render::RenderPass pass) const
 {
+	m_program[static_cast<int>(pass)]->bind();
 	m_texture.bind();
 	for (const auto & it : m_chunks)
 	{
 		if (it.second != nullptr)
+		{
+			m_model->set("transform", glm::translate(glm::mat4{ 1.0f }, glm::vec3{ it.first * world::data::CHUNK_SIZE<int> }));
 			(*it.second)[static_cast<unsigned int>(pass)].render();
+		}
 	}
 }
 

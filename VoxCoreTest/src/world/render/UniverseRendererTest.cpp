@@ -14,7 +14,10 @@ namespace world
 		public:
 			TEST_METHOD(UniverseRenderer_createWorld)
 			{
+				Universe universe;
+				universe.createWorld("world");
 				UniverseRenderer renderer;
+				renderer.inject(universe);
 				renderer.createWorld("world");
 
 				Assert::IsTrue(renderer.hasWorld("world"));
@@ -22,7 +25,10 @@ namespace world
 			}
 			TEST_METHOD(UniverseRenderer_destroyWorld)
 			{
+				Universe universe;
+				universe.createWorld("world");
 				UniverseRenderer renderer;
+				renderer.inject(universe);
 				renderer.createWorld("world");
 				renderer.destroyWorld("world");
 
@@ -30,7 +36,10 @@ namespace world
 			}
 			TEST_METHOD(UniverseRenderer_getWorld)
 			{
+				Universe universe;
+				universe.createWorld("world");
 				UniverseRenderer renderer;
+				renderer.inject(universe);
 				renderer.createWorld("world");
 
 				Assert::IsNotNull(renderer.getWorld("world"));

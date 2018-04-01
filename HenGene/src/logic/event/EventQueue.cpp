@@ -77,8 +77,8 @@ void logic::event::EventQueue::update(const EventBus & bus)
 			break;
 		case ALLEGRO_EVENT_MOUSE_AXES:
 			bus.post(MouseMove{
-				{ event.mouse.x, event.mouse.y }, { event.mouse.z, event.mouse.w },
-				{ event.mouse.dx, event.mouse.dy }, { event.mouse.dz, event.mouse.dw }
+				{ event.mouse.x, event.mouse.y }, { event.mouse.dx, event.mouse.dy },
+				{ event.mouse.z, event.mouse.w }, { event.mouse.dz, event.mouse.dw }
 			});
 			break;
 		case ALLEGRO_EVENT_MOUSE_WARPED:

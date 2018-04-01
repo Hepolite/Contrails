@@ -51,6 +51,12 @@ void world::BlockLoader::loadBlock(const io::File & file) const
 			const std::string attrName = variant.attribute(ATTR_VARIANT_NAME).as_string();
 			const std::string blockName = file.getName() + (attrName.empty() ? "" : ":" + attrName);
 
+			if (blockName == "air")
+			{
+				LOG_INFO << "Skipping air block";
+				continue;
+			}
+
 			LOG_INFO << "Loading block variant " << blockName << "...";
 
 			BlockVariantLoader{}.loadVariant(m_registry->add(blockName), variant.child(NODE_LOGIC));

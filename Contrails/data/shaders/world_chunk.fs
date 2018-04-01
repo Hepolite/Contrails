@@ -9,7 +9,9 @@ in Vertex
 	vec4 color;
 } vertex;
 
+uniform sampler2DArray textureArraySampler;
+
 void main()
 {
-  color = vec4(vertex.color.rgb, 1);
+  color = texture(textureArraySampler, vertex.uv) * vec4(vertex.color.rgb, 1.0);
 }

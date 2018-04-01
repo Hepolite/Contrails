@@ -65,7 +65,9 @@ core::Engine::Engine(const Settings & settings)
 	m_impl->m_stateManager.inject(*this);
 	m_impl->m_universe.inject(m_impl->m_eventBus);
 	m_impl->m_universe.inject(m_impl->m_scene);
+	m_impl->m_universeRenderer.inject(m_impl->m_assetRegistry);
 	m_impl->m_universeRenderer.inject(m_impl->m_eventBus);
+	m_impl->m_universeRenderer.inject(m_impl->m_uboRegistry);
 	m_impl->m_universeRenderer.inject(m_impl->m_universe);
 }
 core::Engine::~Engine() = default;
