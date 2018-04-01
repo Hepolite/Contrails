@@ -1,5 +1,5 @@
 
-class Vertex
+struct Vertex
 {
 	vec3 normal;
 	vec3 uv;

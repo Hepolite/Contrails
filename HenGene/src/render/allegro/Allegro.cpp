@@ -14,13 +14,13 @@
 
 namespace
 {
-	bool install(const std::function<void()>& func, const std::string& succeeded)
+	bool install(const std::function<void()> & func, const std::string & succeeded)
 	{
 		func();
 		LOG_INFO << succeeded;
 		return false;
 	}
-	bool install(const std::function<bool()>& func, const std::string& succeeded, const std::string& failed)
+	bool install(const std::function<bool()> & func, const std::string & succeeded, const std::string & failed)
 	{
 		if (func())
 		{

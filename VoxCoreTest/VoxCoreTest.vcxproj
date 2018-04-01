@@ -218,6 +218,8 @@
     <ClCompile Include="src\world\detail\data\LightPropagationTest.cpp" />
     <ClCompile Include="src\world\detail\data\WorldQueryTest.cpp" />
     <ClCompile Include="src\world\detail\WorldLightingTest.cpp" />
+    <ClCompile Include="src\world\render\UniverseRendererTest.cpp" />
+    <ClCompile Include="src\world\render\WorldRendererTest.cpp" />
     <ClCompile Include="src\world\UniverseTest.cpp" />
     <ClCompile Include="src\world\util\QueryTest.cpp" />
     <ClCompile Include="src\world\util\SideTest.cpp" />

@@ -29,7 +29,6 @@ void world::Universe::createWorld(const std::string & name)
 	world->load(DATA_PATH);
 	if (m_scene != nullptr)
 	{
-		world->inject(*m_scene);
 		// TODO: Destroy the entity at some point
 		const auto entity = m_scene->createEntity<ComponentWorld>();
 		m_scene->getEntityData<ComponentWorld>(entity).m_name = name;

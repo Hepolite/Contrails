@@ -23,21 +23,7 @@ void world::render::ChunkMesher::scheduleTask(ChunkMeshTask && task)
 }
 bool world::render::ChunkMesher::extractTask(ChunkMeshTask & task)
 {
-	bool valid = popTask(task, m_output);
-	if (valid)
-	{
-		// TODO: Seriously, this is NOT ChunkMesher's task - move this elsewhere!
-		for (unsigned int i = 0u; i < ::render::RENDER_PASS_COUNT; ++i)
-		{
-			auto & mesh = (*task.m_mesh)[i];
-			mesh.addAttribute({ 0u, ::render::opengl::DataFormat::FLOAT, 3u, 0u });
-			mesh.addAttribute({ 1u, ::render::opengl::DataFormat::FLOAT, 3u, 12u });
-			mesh.addAttribute({ 2u, ::render::opengl::DataFormat::FLOAT, 3u, 24u });
-			mesh.addAttribute({ 3u, ::render::opengl::DataFormat::FLOAT, 4u, 36u });
-			mesh.build();
-		}
-	}
-	return valid;
+	return popTask(task, m_output);
 }
 
 void world::render::ChunkMesher::pushTask(ChunkMeshTask && task, std::queue<ChunkMeshTask> & queue)

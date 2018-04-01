@@ -13,6 +13,7 @@
 #include "render/uboRegistry.h"
 #include "ui/Display.h"
 #include "ui/gui/GuiManager.h"
+#include "world/render/UniverseRenderer.h"
 #include "world/Universe.h"
 
 #include <allegro5/allegro.h>
@@ -40,6 +41,7 @@ struct core::Engine::Impl
 	render::core::Pipeline m_pipeline;
 	ui::gui::GuiManager m_guiManager;
 	world::Universe m_universe;
+	world::render::UniverseRenderer m_universeRenderer;
 };
 
 core::Engine::Engine()
@@ -58,9 +60,13 @@ core::Engine::Engine(const Settings & settings)
 	m_impl->m_pipeline.inject(m_impl->m_guiManager);
 	m_impl->m_pipeline.inject(m_impl->m_scene);
 	m_impl->m_scene.inject(*this);
+	m_impl->m_scene.inject(m_impl->m_display);
+	m_impl->m_scene.inject(m_impl->m_uboRegistry);
 	m_impl->m_stateManager.inject(*this);
 	m_impl->m_universe.inject(m_impl->m_eventBus);
 	m_impl->m_universe.inject(m_impl->m_scene);
+	m_impl->m_universeRenderer.inject(m_impl->m_eventBus);
+	m_impl->m_universeRenderer.inject(m_impl->m_universe);
 }
 core::Engine::~Engine() = default;
 
@@ -98,3 +104,4 @@ logic::state::StateManager & core::Engine::getStateManager() { return m_impl->m_
 render::uboRegistry & core::Engine::getUboRegistry() { return m_impl->m_uboRegistry; }
 ui::gui::GuiManager & core::Engine::getGuiManager() { return m_impl->m_guiManager; }
 world::Universe & core::Engine::getUniverse() { return m_impl->m_universe; }
+world::render::UniverseRenderer & core::Engine::getUniverseRenderer() { return m_impl->m_universeRenderer; }

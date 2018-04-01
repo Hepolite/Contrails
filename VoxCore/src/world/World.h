@@ -34,7 +34,6 @@ namespace world
 
 		// ...
 
-		void inject(core::scene::Scene & scene);
 		void inject(const logic::event::EventBus & bus);
 		void inject(const BlockRegistry & registry);
 

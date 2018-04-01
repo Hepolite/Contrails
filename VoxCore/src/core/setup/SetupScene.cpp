@@ -2,6 +2,7 @@
 #include "SetupScene.h"
 
 #include "logic/ecs/systems/SystemPhysical.h"
+#include "render/scene/renderers/RendererWorld.h"
 
 void core::setup::setupScene(Engine & engine)
 {
@@ -21,4 +22,7 @@ void core::setup::detail::setupSystems(scene::Scene & scene)
 }
 void core::setup::detail::setupRenders(scene::Scene & scene, Engine & engine)
 {
+	using namespace render::scene;
+
+	scene.registerRenderers<RendererWorld>();
 }

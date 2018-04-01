@@ -201,6 +201,7 @@
     <ClInclude Include="src\logic\ecs\systems\SystemPhysical.h" />
     <ClInclude Include="src\logic\event\ChunkEvents.h" />
     <ClInclude Include="src\logic\event\WorldEvents.h" />
+    <ClInclude Include="src\render\scene\renderers\RendererWorld.h" />
     <ClInclude Include="src\logic\state\StateEditorWorld.h" />
     <ClInclude Include="src\logic\state\StateMainMenu.h" />
     <ClInclude Include="src\core\setup\Initializer.h" />
@@ -231,6 +232,8 @@
     <ClInclude Include="src\world\detail\data\LightPropagation.h" />
     <ClInclude Include="src\world\detail\Limits.h" />
     <ClInclude Include="src\world\detail\data\WorldQuery.h" />
+    <ClInclude Include="src\world\render\UniverseRenderer.h" />
+    <ClInclude Include="src\world\render\WorldRenderer.h" />
     <ClInclude Include="src\world\Universe.h" />
     <ClInclude Include="src\world\util\Query.h" />
     <ClInclude Include="src\world\util\Side.h" />
@@ -246,6 +249,7 @@
     <ClCompile Include="src\logic\state\StateEditorWorld.cpp" />
     <ClCompile Include="src\logic\state\StateMainMenu.cpp" />
     <ClCompile Include="src\core\setup\Initializer.cpp" />
+    <ClCompile Include="src\render\scene\renderers\RendererWorld.cpp" />
     <ClCompile Include="src\world\render\BlockTextureAtlas.cpp" />
     <ClCompile Include="src\world\render\detail\BlockModelLoader.cpp" />
     <ClCompile Include="src\world\render\detail\BlockRenderLoader.cpp" />
@@ -264,6 +268,8 @@
     <ClCompile Include="src\world\detail\data\ChunkQuery.cpp" />
     <ClCompile Include="src\world\detail\data\LightPropagation.cpp" />
     <ClCompile Include="src\world\detail\data\WorldQuery.cpp" />
+    <ClCompile Include="src\world\render\UniverseRenderer.cpp" />
+    <ClCompile Include="src\world\render\WorldRenderer.cpp" />
     <ClCompile Include="src\world\Universe.cpp" />
     <ClCompile Include="src\world\util\Query.cpp" />
     <ClCompile Include="src\world\util\Side.cpp" />

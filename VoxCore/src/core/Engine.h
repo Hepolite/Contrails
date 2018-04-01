@@ -12,9 +12,9 @@ namespace logic { namespace event { class EventBus; } }
 namespace logic { namespace state { class StateManager; } }
 namespace render { namespace scene { class Scene; } }
 namespace render { class uboRegistry; }
-namespace render { namespace world { class UniverseRenderer; } }
 namespace ui { namespace gui { class GuiManager; } }
 namespace world { class Universe; }
+namespace world { namespace render { class UniverseRenderer; } }
 
 namespace core
 {
@@ -41,6 +41,7 @@ namespace core
 		render::uboRegistry & getUboRegistry();
 		ui::gui::GuiManager & getGuiManager();
 		world::Universe & getUniverse();
+		world::render::UniverseRenderer & getUniverseRenderer();
 
 	private:
 		void process(const Time & t, const Time & dt);

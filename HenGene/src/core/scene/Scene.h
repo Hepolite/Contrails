@@ -27,6 +27,8 @@ namespace core
 			Scene & operator=(Scene &&) = delete;
 
 			inline void inject(core::Engine & engine) { m_systems.inject(engine); }
+			inline void inject(const ui::Display & display) { m_cameras.inject(display); }
+			inline void inject(const render::uboRegistry & registry) { m_cameras.inject(registry); }
 
 			void process(const Time & t, const Time & dt);
 			void render(const Time & t, const Time & dt, float pt) const;

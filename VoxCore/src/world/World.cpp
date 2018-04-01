@@ -18,7 +18,6 @@ struct world::World::Impl
 	BlockRegistry m_registry;
 	ChunkStorage m_chunks;
 
-	core::scene::Scene * m_scene = nullptr;
 	const logic::event::EventBus * m_bus = nullptr;
 
 	std::unordered_set<glm::ivec3> m_chunksToLight;
@@ -48,10 +47,6 @@ const world::BlockRegistry & world::World::getBlockRegistry() const
 	return m_impl->m_registry;
 }
 
-void world::World::inject(core::scene::Scene & scene)
-{
-	m_impl->m_scene = &scene;
-}
 void world::World::inject(const logic::event::EventBus & bus)
 {
 	m_impl->m_bus = &bus;

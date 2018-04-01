@@ -1,6 +1,12 @@
 <?xml version="1.0" ?>
 <variant>
-  <light filter="0 0 0 0" />
-  <model path="default.xml" />
-  <texture all="grass.xml" side="grass_side.xml" bottom="dirt.xml" />
+  <logic>
+    <phase type="solid" />
+    <light filter="0 0 0 0" />
+  </logic>
+  <visual>
+    <model path="default.xml" />
+    <texture all="grass.xml" side="grass_side.xml" bottom="dirt.xml" />
+    <occlude all="true" />
+  </visual>
 </variant>
