@@ -2,7 +2,7 @@
 <variant>
   <logic>
     <phase type="solid" />
-    <light filter="0 0 0 0" />
+    <light absorb="31 31 31 31" />
   </logic>
   <visual>
     <model path="default.xml" />

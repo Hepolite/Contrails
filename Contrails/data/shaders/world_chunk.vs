@@ -7,12 +7,14 @@ layout(location = 0) in vec3 inPosition;
 layout(location = 1) in vec3 inNormal;
 layout(location = 2) in vec3 inUV;
 layout(location = 3) in vec4 inColor;
+layout(location = 4) in uint inTexture;
 
 out Vertex
 {
 	vec3 normal;
 	vec3 uv;
 	vec4 color;
+  float texture;
 } vertex;
 
 void main()
@@ -22,4 +24,5 @@ void main()
   vertex.normal = inNormal;
   vertex.uv = inUV; 
   vertex.color = inColor;
+  vertex.texture = float(inTexture);
 }

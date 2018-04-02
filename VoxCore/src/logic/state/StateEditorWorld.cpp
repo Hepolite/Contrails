@@ -58,13 +58,18 @@ void logic::state::StateEditorWorld::initialize(core::Engine & engine)
 	auto & blocks = world->getBlockRegistry();
 
 	world::util::Query query;
-	world->write(query.writeRectangle(blocks["stone"], { -15, -15, 0 }, { 15, 15, 3 }));
-	world->write(query.writeRectangle(blocks["dirt"], { -15, -15, 4 }, { 15, 15, 5 }));
-	world->write(query.writeRectangle(blocks["grass"], { -15, -15, 6 }, { 15, 15, 6 }));
+	world->write(query.writeRectangle(blocks["stone"], { -31, -31, 0 }, { 31, 31, 3 }));
+	world->write(query.writeRectangle(blocks["dirt"], { -31, -31, 4 }, { 31, 31, 5 }));
+	world->write(query.writeRectangle(blocks["grass"], { -31, -31, 6 }, { 31, 31, 6 }));
+	world->write(query.writeRectangle(blocks["stone"], { 0, 0, 12 }, { 15, 15, 12 }));
+	world->write(query.writeRectangle(blocks["dirt"], { 0, 0, 13 }, { 15, 15, 14 }));
+	world->write(query.writeRectangle(blocks["grass"], { 0, 0, 15 }, { 15, 15, 15 }));
+	world->write(query.writeBlock(blocks["glowstone"], { -15, -15, -3 }));
+	world->calculateLight();
 
 	// Place camera in a suitable location
 	m_camera = &engine.getScene().getCamera(render::scene::CameraType::NORMAL);
-	m_camera->setPosition({ -32, -32, 32 });
+	m_camera->setPosition({ -32, -32, -32 });
 	m_camera->lookTowards({ 0, 0, 0 });
 }
 void logic::state::StateEditorWorld::deinitialize(core::Engine & engine)

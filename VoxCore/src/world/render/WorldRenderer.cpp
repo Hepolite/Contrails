@@ -87,6 +87,7 @@ void world::render::WorldRenderer::handleChunkMeshes()
 			mesh.addAttribute({ 1u, ::render::opengl::DataFormat::FLOAT, 3u, 12u });
 			mesh.addAttribute({ 2u, ::render::opengl::DataFormat::FLOAT, 3u, 24u });
 			mesh.addAttribute({ 3u, ::render::opengl::DataFormat::FLOAT, 4u, 36u });
+			mesh.addAttribute({ 4u, ::render::opengl::DataFormat::UNSIGNED_INT, 1u, 52u });
 			mesh.build();
 		}
 		m_chunks[task.m_cpos] = std::move(task.m_mesh);

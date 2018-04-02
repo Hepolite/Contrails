@@ -19,6 +19,7 @@ namespace world
 			glm::vec3 m_normal;
 			glm::vec3 m_uv;
 			glm::vec4 m_color;
+			unsigned int m_texture;
 		};
 
 		using ChunkMesh = std::array<::render::Mesh<ChunkMeshVertex>, ::render::RENDER_PASS_COUNT>;

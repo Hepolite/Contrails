@@ -2,11 +2,12 @@
 <variant>
   <logic>
     <phase type="solid" />
-    <light absorb="31 31 31 31" />
+    <light absorb="31 31 31 31" emit="31 31 0 0" />
   </logic>
   <visual>
     <model path="default.xml" />
-    <texture all="dirt.xml" side="dirt_side.xml" />
+    <texture all="glowstone.xml" />
     <occlude all="true" />
   </visual>
 </variant>
+

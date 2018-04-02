@@ -116,6 +116,8 @@ void NaiveGreedyMesher::buildLayer(unsigned int layer, LayerMask && mask, const 
 }
 void NaiveGreedyMesher::buildFace(const glm::ivec3 & pos, const MeshFace & face, const Side & side)
 {
+	static const float shadows[util::SIDE_COUNT] = { 1.0f, 0.95f, 0.8f, 0.9f, 0.75f, 1.0f, 0.7f };
+
 	const auto & render = (*m_renders)[face.m_block.getId()];
 	const auto & indices = render.m_model.m_indices[side.m_id];
 	const auto & vertices = render.m_model.m_vertices[side.m_id];
@@ -124,17 +126,24 @@ void NaiveGreedyMesher::buildFace(const glm::ivec3 & pos, const MeshFace & face,
 	const auto layer = 1u; // TODO: The render pass the block should be added to
 	auto & mesh = (*m_mesh)[layer];
 	
-	glm::vec3 size;
-	size[side.m_dimensions.x] = 1.0f;
-	size[side.m_dimensions.y] = static_cast<float>(face.m_size.x);
-	size[side.m_dimensions.z] = static_cast<float>(face.m_size.y);
+	const auto facePos = glm::vec3{ pos };
+	const auto faceSize = glm::vec3{ face.m_size, 1.0f };
+	const auto faceColor = glm::vec3{ face.m_color.getColor() + 1u } / static_cast<float>(MAX_BLOCK_LIGHT);
+	const auto faceBrightness = static_cast<float>(face.m_block.getLight() + 1u) / static_cast<float>(MAX_BLOCK_LIGHT);;
+	const auto faceTexture = face.m_texture.getData();
+
+	glm::vec3 scale;
+	scale[side.m_dimensions.x] = 1.0f;
+	scale[side.m_dimensions.y] = static_cast<float>(face.m_size.x);
+	scale[side.m_dimensions.z] = static_cast<float>(face.m_size.y);
 	for (const auto & vertex : vertices)
 	{
 		mesh.getVertexData().push_back({
-			vertex.m_position * size + glm::vec3{ pos },
+			vertex.m_position * scale + facePos,
 			vertex.m_normal,
-			vertex.m_uv * glm::vec3{ face.m_size, 1.0f } + glm::vec3{ 0.0f, 0.0f, face.m_texture.getData() },
-			glm::vec4{ vertex.m_color, 1.0f }
+			vertex.m_uv * faceSize,
+			glm::vec4{ vertex.m_color * faceColor * shadows[side.m_id], faceBrightness },
+			faceTexture
 		});
 	}
 	for (const auto & index : indices)
