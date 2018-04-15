@@ -44,7 +44,6 @@ void world::World::load(const io::Folder & data)
 void world::World::process()
 {
 	calculateLight();
-	updateChunks();
 }
 
 // ...
@@ -236,12 +235,8 @@ void world::World::markChunkChange(const glm::ivec3 & cpos)
 }
 void world::World::markChunkChange(const glm::ivec3 & cpos, const glm::uvec3 & min, const glm::uvec3 & max)
 {
-	if (m_impl->m_chunkChanges.find(cpos) == m_impl->m_chunkChanges.end())
-		m_impl->m_chunkChanges[cpos] = std::make_pair(min, max);
-
-	auto & pair = m_impl->m_chunkChanges[cpos];
-	pair.first = math::min(pair.first, min);
-	pair.second = math::max(pair.second, max);
+	if (m_impl->m_bus != nullptr)
+		m_impl->m_bus->post(logic::event::ChunkChange { this, cpos, min, max });
 }
 void world::World::markLightPropagation(const glm::ivec3 & cpos)
 {
@@ -313,17 +308,5 @@ void world::World::calculateLight()
 				markChunkChange(it);
 			}
 		}
-	}
-}
-
-void world::World::updateChunks()
-{
-	if (m_impl->m_bus == nullptr)
-		return;
-	for (auto & it : m_impl->m_chunkChanges)
-	{
-		auto & cpos = it.first;
-		auto & data = it.second;
-		m_impl->m_bus->post(logic::event::ChunkChange{ this, cpos, data.first, data.second });
 	}
 }

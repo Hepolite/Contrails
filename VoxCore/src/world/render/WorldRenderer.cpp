@@ -32,7 +32,21 @@ void world::render::WorldRenderer::inject(logic::event::EventBus & bus)
 	m_chunkChange = bus.add<logic::event::ChunkChange>([this](auto & event)
 	{
 		if (m_world == event.m_world)
-			m_mesher.schedule({ event.m_cpos, m_world->extractRenderData(event.m_cpos), std::make_unique<ChunkMesh>() });
+		{
+			m_chunksToMesh.emplace(event.m_cpos);
+			if (event.m_min.x == 0u)
+				m_chunksToMesh.emplace(event.m_cpos - glm::ivec3{ 1, 0, 0 });
+			if (event.m_max.x == world::data::CHUNK_SIZE_BITS<unsigned int>)
+				m_chunksToMesh.emplace(event.m_cpos + glm::ivec3{ 1, 0, 0 });
+			if (event.m_min.y == 0u)
+				m_chunksToMesh.emplace(event.m_cpos - glm::ivec3{ 0, 1, 0 });
+			if (event.m_max.y == world::data::CHUNK_SIZE_BITS<unsigned int>)
+				m_chunksToMesh.emplace(event.m_cpos + glm::ivec3{ 0, 1, 0 });
+			if (event.m_min.z == 0u)
+				m_chunksToMesh.emplace(event.m_cpos - glm::ivec3{ 0, 0, 1 });
+			if (event.m_max.z == world::data::CHUNK_SIZE_BITS<unsigned int>)
+				m_chunksToMesh.emplace(event.m_cpos + glm::ivec3{ 0, 0, 1 });
+		}
 	});
 }
 void world::render::WorldRenderer::inject(asset::AssetRegistry & assets)
@@ -64,7 +78,8 @@ void world::render::WorldRenderer::load(const io::Folder & data)
 
 void world::render::WorldRenderer::process()
 {
-	handleChunkMeshes();
+	scheduleChunkMeshes();
+	extractChunkMeshes();
 }
 void world::render::WorldRenderer::render(::render::RenderPass pass) const
 {
@@ -80,7 +95,13 @@ void world::render::WorldRenderer::render(::render::RenderPass pass) const
 	}
 }
 
-void world::render::WorldRenderer::handleChunkMeshes()
+void world::render::WorldRenderer::scheduleChunkMeshes()
+{
+	for (const auto & chunk : m_chunksToMesh)
+		m_mesher.schedule({ chunk, m_world->extractRenderData(chunk), std::make_unique<ChunkMesh>() });
+	m_chunksToMesh.clear();
+}
+void world::render::WorldRenderer::extractChunkMeshes()
 {
 	ChunkMeshTask task;
 	while (m_mesher.extract(task))

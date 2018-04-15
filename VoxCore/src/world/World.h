@@ -81,7 +81,6 @@ namespace world
 	private:
 		void initializeLight(const glm::ivec3 & cpos);
 		void calculateLight();
-		void updateChunks();
 
 		struct Impl;
 		std::unique_ptr<Impl> m_impl = nullptr;

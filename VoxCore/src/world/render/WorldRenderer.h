@@ -49,7 +49,8 @@ namespace world
 			inline auto size() { return m_chunks.size(); }
 
 		private:
-			void handleChunkMeshes();
+			void scheduleChunkMeshes();
+			void extractChunkMeshes();
 
 			BlockRenderRegistry m_registry;
 			BlockTextureAtlas m_texture;

@@ -22,10 +22,12 @@ namespace world
 				renderer.inject(bus);
 				renderer.inject(world);
 
+				// 26 surrounding chunks are automatically created
 				world.createChunk({ 0, 0, 0 });
-				Assert::AreEqual(1u, renderer.size());
+				Assert::AreEqual(27u, renderer.size());
+				// Does not clean up automatically created chunks
 				world.destroyChunk({ 0, 0, 0 });
-				Assert::AreEqual(0u, renderer.size());
+				Assert::AreEqual(26u, renderer.size());
 			}
 
 		private:
