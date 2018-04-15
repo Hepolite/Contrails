@@ -72,9 +72,6 @@
     <ClCompile Include="src\logic\event\ChunkEventTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\world\render\detail\data\BlockTextureTest.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\world\render\detail\meshing\ChunkMesherAlgorithmTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -97,6 +94,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\world\render\UniverseRendererTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\world\render\detail\data\TextureDataTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -255,6 +255,7 @@
     <ClCompile Include="src\world\render\detail\BlockRenderLoader.cpp" />
     <ClCompile Include="src\world\render\BlockRenderRegistry.cpp" />
     <ClCompile Include="src\world\render\detail\BlockTextureLoader.cpp" />
+    <ClCompile Include="src\world\render\detail\data\TextureData.cpp" />
     <ClCompile Include="src\world\render\detail\meshing\ChunkMesher.cpp" />
     <ClCompile Include="src\world\render\detail\meshing\NaiveGreedyMesher.cpp" />
     <ClCompile Include="src\world\detail\ChunkStorage.cpp" />

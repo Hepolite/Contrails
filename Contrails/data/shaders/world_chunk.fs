@@ -7,7 +7,7 @@ in Vertex
 	vec3 normal;
 	vec3 uv;
 	vec4 color;
-  float texture;
+  flat uint texture;
 } vertex;
 
 uniform sampler2DArray textureArraySampler;
@@ -21,7 +21,11 @@ vec4 calculateTextureColor()
 	light.g = clamp(light.g, 0.0, 1.0);
 	light.b = clamp(light.b, 0.0, 1.0);
   
-  vec4 color = texture(textureArraySampler, vertex.uv + vec3(0, 0, vertex.texture));
+  uint offset = vertex.texture & 0x0000FFFFu;
+  uint meta = (vertex.texture & 0x00FF0000u) >> 16u;
+  uint hash = (vertex.texture & 0xFF000000u) >> 24u ^ (137u * uint(vertex.uv.x)) ^ (2467u * uint(vertex.uv.y));
+  
+  vec4 color = texture(textureArraySampler, vertex.uv + vec3(0, 0, offset + hash % (meta + 1u)));
   return color * vec4(light, 1);
 }
 

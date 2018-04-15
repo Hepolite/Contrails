@@ -14,7 +14,7 @@ out Vertex
 	vec3 normal;
 	vec3 uv;
 	vec4 color;
-  float texture;
+  flat uint texture;
 } vertex;
 
 void main()
@@ -24,5 +24,5 @@ void main()
   vertex.normal = inNormal;
   vertex.uv = inUV; 
   vertex.color = inColor;
-  vertex.texture = float(inTexture);
+  vertex.texture = inTexture;
 }

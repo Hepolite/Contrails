@@ -19,8 +19,10 @@ namespace world
 
 			void loadTexture(const io::File & file);
 			void loadTexture(const pugi::xml_node & texture);
+
 			void loadConnection(const pugi::xml_node & connection);
 			void loadDefaultConnection(const pugi::xml_node & connection);
+			void loadRandomConnection(const pugi::xml_node & connection);
 
 			inline auto extractTexture() { return m_texture; }
 

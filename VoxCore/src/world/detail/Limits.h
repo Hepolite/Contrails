@@ -8,6 +8,8 @@ namespace world
 		constexpr unsigned int MAX_BLOCK_ID = 2047u;	// Highest allowed block id
 		constexpr unsigned int MAX_BLOCK_LIGHT = 31u;	// Highest allowed light value
 		constexpr unsigned int MAX_CHUNK_SIZE = 32u;	// Highest allowed chunk size
+		constexpr unsigned int MAX_TEXTURE_ID = 65535u;	// Highest allowed texture id
+		constexpr unsigned int MAX_TEXTURE_META = 255u;	// Highest allowed texture meta
 
 		constexpr unsigned int MAX_QUERY_BYTE_SIZE = 512u * 1024u * 1024u;	// Highest allowed bytecount
 

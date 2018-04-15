@@ -2,6 +2,7 @@
 #pragma once
 
 #include "world/detail/data/BlockRegion.h"
+#include "world/render/detail/data/TextureData.h"
 #include "world/util/Side.h"
 
 #include <functional>
@@ -15,7 +16,7 @@ namespace world
 		{
 			struct BlockTexture
 			{
-				std::function<unsigned int(
+				std::function<TextureData(
 					const ::world::data::BlockRegion &,
 					const glm::ivec3 &,
 					const ::world::util::Side &

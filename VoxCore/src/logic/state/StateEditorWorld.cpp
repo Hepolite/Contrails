@@ -61,8 +61,6 @@ void logic::state::StateEditorWorld::initialize(core::Engine & engine)
 	world->write(query.writeRectangle(blocks["stone"], { -31, -31, 0 }, { 31, 31, 3 }));
 	world->write(query.writeRectangle(blocks["dirt"], { -31, -31, 4 }, { 31, 31, 5 }));
 	world->write(query.writeRectangle(blocks["grass"], { -31, -31, 6 }, { 31, 31, 6 }));
-	world->write(query.writeRectangle(blocks["stone"], { 0, 0, 12 }, { 15, 15, 12 }));
-	world->write(query.writeRectangle(blocks["dirt"], { 0, 0, 13 }, { 15, 15, 14 }));
 	world->write(query.writeRectangle(blocks["grass"], { 0, 0, 15 }, { 15, 15, 15 }));
 	world->write(query.writeBlock(blocks["glowstone"], { -15, -15, -3 }));
 	world->calculateLight();

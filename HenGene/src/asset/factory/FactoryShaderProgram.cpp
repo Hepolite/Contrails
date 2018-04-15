@@ -19,6 +19,7 @@ namespace
 void asset::factory::LoaderShaderProgram::load(render::opengl::Program & asset, const io::File & file, const render::uboRegistry & registry) const
 {
 	asset.setName(file.getPath());
+	LOG_INFO << "Loading shader program " << asset.getName() << "...";
 
 	pugi::xml_document doc;
 	doc.load_file(file.getPath().c_str());
@@ -28,6 +29,7 @@ void asset::factory::LoaderShaderProgram::load(render::opengl::Program & asset, 
 		std::string attrType = node.attribute(ATTR_TYPE).as_string();
 		io::File attrFile = node.attribute(ATTR_FILE).as_string();
 
+		LOG_INFO << "Compiling " << attrType << " shader from " << (attrFile.exists() ? attrFile.getPath() : "internal data");
 		render::opengl::ShaderType type = render::opengl::ShaderType::VERTEX;
 		if (attrType == TYPE_FRAGMENT)
 			type = render::opengl::ShaderType::FRAGMENT;

@@ -175,7 +175,7 @@ LayerData NaiveGreedyMesher::getLayerData(const glm::ivec3 & pos, const Side & s
 		data.set(
 			{ currentId, upper.getLight() },
 			m_data->readColor(pos + side.m_normal),
-			{ (*m_renders)[currentId].m_texture[side.m_id].m_lookup(*m_data, pos, side) }
+			(*m_renders)[currentId].m_texture[side.m_id].m_lookup(*m_data, pos, side)
 		);
 	return data;
 }
