@@ -131,7 +131,8 @@ namespace world
 				m_mesher.inject(m_region);
 				m_mesher.inject(m_mesh);
 
-				m_registry[1u].m_texture->m_lookup = [](auto &, auto &, auto &) { return 0u; };
+				for (auto & side : util::SIDES_ALL)
+					m_registry[1u].m_texture[side.m_id].m_lookup = [](auto &, auto &, auto &) { return 0u; };
 
 				m_region.write({ 3u, 0u, 1u }, BlockData{ 0u, 25u }, ColorData{ { 5u, 6u, 7u } });
 				m_region.write({ 4u, 0u, 1u }, BlockData{ 0u, 31u }, ColorData{ { 1u, 2u, 3u } });

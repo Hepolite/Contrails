@@ -43,6 +43,22 @@ namespace world
 			Assert::AreEqual({ 0u, 0u, 0u, 20u }, readLight(world, { 21, 15, 20 }));
 			Assert::AreEqual({ 0u, 0u, 0u, 30u }, readLight(world, { 31, 15, 20 }));
 		}
+		TEST_METHOD(WorldLighting_castShadowChunkBorder)
+		{
+			BlockRegistry registry;
+			registry.add("stone").m_lightAbsorbed = { 31u, 31u, 31u, 31u };
+
+			World world;
+			world.inject(registry);
+			world.write(util::Query{}.writeRectangle(registry["stone"], { -5, 0, 30 }, { 5, 31, 30 }));
+			world.calculateLight();
+
+			Assert::AreEqual({ 0u, 0u, 0u, 30u }, readLight(world, { -5, 15, 20 }));
+			Assert::AreEqual({ 0u, 0u, 0u, 26u }, readLight(world, { -1, 15, 20 }));
+			Assert::AreEqual({ 0u, 0u, 0u, 25u }, readLight(world, { 0, 15, 20 }));
+			Assert::AreEqual({ 0u, 0u, 0u, 26u }, readLight(world, { 1, 15, 20 }));
+			Assert::AreEqual({ 0u, 0u, 0u, 30u }, readLight(world, { 5, 15, 20 }));
+		}
 
 		TEST_METHOD(WorldLighting_writeLightBlock)
 		{

@@ -8,6 +8,8 @@
 
 namespace
 {
+	const unsigned int USE_CHUNK_LIGHT = std::numeric_limits<unsigned int>::max();
+
 	inline auto reduce(unsigned int in, unsigned int absorbed, unsigned int filtered)
 	{
 		return in < absorbed ? 0u : math::min(in - absorbed, filtered);
@@ -22,7 +24,11 @@ void world::data::LightSunPropagator::spread(Chunk & chunk)
 {
 	LightPropagationNode node;
 	while (chunk.pollLightPropagation(node, LIGHT_PROPAGATION_CHANNEL_SUN))
+	{
+		if (node.m_light == USE_CHUNK_LIGHT)
+			node.m_light = chunk.readBlock(node.m_index).getLight();
 		spreadFrom(chunk, toPos<int>(node.m_index), node.m_light);
+	}
 }
 void world::data::LightSunPropagator::spreadFrom(Chunk & chunk, const glm::ivec3 & source, unsigned int light)
 {
@@ -115,7 +121,7 @@ void world::data::LightSunPropagator::spreadSide(Chunk & chunk, const glm::ivec3
 
 void world::data::LightSunRemover::spread(Chunk & chunk)
 {
-	LightPropagationNode node;
+	LightPropagationNode node{};
 	while (chunk.pollLightRemoval(node, LIGHT_PROPAGATION_CHANNEL_SUN))
 		spreadFrom(chunk, toPos<int>(node.m_index), node.m_light);
 }
@@ -207,7 +213,7 @@ void world::data::LightSunRemover::spreadSide(Chunk & chunk, const glm::ivec3 & 
 		chunk.pushLightRemoval({ index, oldLight }, LIGHT_PROPAGATION_CHANNEL_SUN);
 	}
 	else
-		chunk.pushLightPropagation({ index, oldLight }, LIGHT_PROPAGATION_CHANNEL_SUN);
+		chunk.pushLightPropagation({ index, USE_CHUNK_LIGHT }, LIGHT_PROPAGATION_CHANNEL_SUN);
 }
 
 // ...

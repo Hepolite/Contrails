@@ -259,10 +259,10 @@ void world::World::calculateLight()
 {
 	while (!m_impl->m_chunksToDarken.empty())
 	{
-		std::unordered_set<glm::ivec3> m_chunks;
-		std::swap(m_impl->m_chunksToDarken, m_chunks);
+		std::unordered_set<glm::ivec3> chunks;
+		std::swap(m_impl->m_chunksToDarken, chunks);
 
-		for (auto & it : m_chunks)
+		for (auto & it : chunks)
 		{
 			if (auto * chunk = getChunkAt(it))
 			{
@@ -274,10 +274,10 @@ void world::World::calculateLight()
 	}
 	while (!m_impl->m_chunksToLight.empty())
 	{
-		std::unordered_set<glm::ivec3> m_chunks;
-		std::swap(m_impl->m_chunksToLight, m_chunks);
+		std::unordered_set<glm::ivec3> chunks;
+		std::swap(m_impl->m_chunksToLight, chunks);
 
-		for (auto & it : m_chunks)
+		for (auto & it : chunks)
 		{
 			if (auto * chunk = getChunkAt(it))
 			{
