@@ -58,9 +58,9 @@ void logic::state::StateEditorWorld::initialize(core::Engine & engine)
 	auto & blocks = world->getBlockRegistry();
 
 	world::util::Query query;
-	world->write(query.writeRectangle(blocks["stone"], { -310, -310, 0 }, { 310, 310, 3 }));
-	world->write(query.writeRectangle(blocks["dirt"], { -310, -310, 4 }, { 310, 310, 5 }));
-	world->write(query.writeRectangle(blocks["grass"], { -310, -310, 6 }, { 310, 310, 6 }));
+	world->write(query.writeRectangle(blocks["stone"], { -10, -10, 0 }, { 310, 310, 3 }));
+	world->write(query.writeRectangle(blocks["dirt"], { -10, -10, 4 }, { 310, 310, 5 }));
+	world->write(query.writeRectangle(blocks["grass"], { -10, -10, 6 }, { 310, 310, 6 }));
 	world->write(query.writeRectangle(blocks["grass"], { 0, 0, 15 }, { 15, 15, 15 }));
 	world->write(query.writeBlock(blocks["glowstone"], { -15, -15, -3 }));
 	world->process();

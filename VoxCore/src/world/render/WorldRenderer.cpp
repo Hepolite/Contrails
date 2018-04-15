@@ -19,8 +19,16 @@ void world::render::WorldRenderer::inject(const World & world)
 }
 void world::render::WorldRenderer::inject(logic::event::EventBus & bus)
 {
-	m_chunkCreate = bus.add<logic::event::ChunkCreate>([this](auto & event) { m_chunks[event.m_cpos] = nullptr; });
-	m_chunkDestroy = bus.add<logic::event::ChunkDestroy>([this](auto & event) { m_chunks.erase(event.m_cpos); });
+	m_chunkCreate = bus.add<logic::event::ChunkCreate>([this](auto & event)
+	{
+		if (m_world == event.m_world)
+			m_chunks[event.m_cpos] = nullptr;
+	});
+	m_chunkDestroy = bus.add<logic::event::ChunkDestroy>([this](auto & event)
+	{
+		if (m_world == event.m_world)
+			m_chunks.erase(event.m_cpos);
+	});
 	m_chunkChange = bus.add<logic::event::ChunkChange>([this](auto & event)
 	{
 		if (m_world == event.m_world)

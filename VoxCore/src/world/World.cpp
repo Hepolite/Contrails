@@ -109,7 +109,7 @@ world::Chunk & world::World::createChunk(const glm::ivec3 & cpos, bool initLight
 		{
 			m_impl->m_chunks.createChunk(pos);
 			if (m_impl->m_bus != nullptr)
-				m_impl->m_bus->post(logic::event::ChunkCreate{ this, cpos });
+				m_impl->m_bus->post(logic::event::ChunkCreate{ this, pos });
 			if (initLight)
 				initializeLight(pos);
 		}
@@ -324,6 +324,6 @@ void world::World::updateChunks()
 	{
 		auto & cpos = it.first;
 		auto & data = it.second;
-		m_impl->m_bus->post(logic::event::ChunkChange { this, cpos, data.first, data.second });
+		m_impl->m_bus->post(logic::event::ChunkChange{ this, cpos, data.first, data.second });
 	}
 }

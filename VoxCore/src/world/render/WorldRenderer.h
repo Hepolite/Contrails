@@ -20,6 +20,7 @@
 #include <glm/gtx/hash.hpp>
 #include <memory>
 #include <unordered_map>
+#include <unordered_set>
 
 namespace world
 {
@@ -55,6 +56,7 @@ namespace world
 			ChunkMesher m_mesher;
 
 			std::unordered_map<glm::ivec3, std::unique_ptr<ChunkMesh>> m_chunks;
+			std::unordered_set<glm::ivec3> m_chunksToMesh;
 
 			asset::Ref<::render::opengl::Program> m_program[::render::RENDER_PASS_COUNT];
 			logic::event::Listener m_chunkCreate;
