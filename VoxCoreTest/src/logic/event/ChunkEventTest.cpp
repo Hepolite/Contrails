@@ -50,12 +50,15 @@ namespace logic
 				auto listener = bus.add<ChunkChange>([&counter](auto & event) { ++counter; });
 
 				world.write({ 0, 0, 0 }, world::data::BlockData{ 1u, 0u });
+				world.process();
 				Assert::AreEqual(1u, counter);
 
 				world.write({ 0, 0, 0 }, world::data::ColorData{ { 0u, 0u, 0u } });
+				world.process();
 				Assert::AreEqual(2u, counter);
 
 				world.markChunkChange({ 0, 0, 0 });
+				world.process();
 				Assert::AreEqual(3u, counter);
 			}
 		};

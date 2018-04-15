@@ -38,7 +38,7 @@ bool world::render::ChunkMesher::extract(ChunkMeshTask & task)
 void world::render::ChunkMesher::finish()
 {
 	while (m_tasks != 0u || !m_input.empty())
-		;
+		std::this_thread::sleep_for(std::chrono::milliseconds(10));
 }
 
 void world::render::ChunkMesher::work()
