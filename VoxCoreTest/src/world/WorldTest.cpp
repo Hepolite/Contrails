@@ -78,22 +78,50 @@ namespace world
 			Assert::IsTrue(world.getChunkAt({ 0, 0, 10 }) == world.getChunkBelow({ 0, 0, 161 }));
 			Assert::IsNull(world.getChunkBelow({ 0, 0, -5 }));
 		}
-
-		TEST_METHOD(World_getBottommostChunk)
+		TEST_METHOD(World_getChunkPosAbove)
 		{
 			World world;
 			world.createChunk({ 0, 0, -4 });
+			world.createChunk({ 0, 0, 1 });
+			world.createChunk({ 0, 0, 9 });
+
+			Assert::AreEqual({ 0, 0, -4 }, world.getChunkPosAbove({ 0, 0, -5 }));
+			Assert::AreEqual({ 0, 0, 0 }, world.getChunkPosAbove({ 0, 0, -3 }));
+			Assert::AreEqual({ 0, 0, 8 }, world.getChunkPosAbove({ 0, 0, 3 }));
+			Assert::AreEqual({ 0, 0, std::numeric_limits<int>::max() }, world.getChunkPosAbove({ 0, 0, 10 }));
+		}
+		TEST_METHOD(World_getChunkPosBelow)
+		{
+			World world;
+			world.createChunk({ 0, 0, -4 });
+			world.createChunk({ 0, 0, 1 });
+			world.createChunk({ 0, 0, 9 });
+
+			Assert::AreEqual({ 0, 0, -4 }, world.getChunkPosBelow({ 0, 0, -3 }));
+			Assert::AreEqual({ 0, 0, 2 }, world.getChunkPosBelow({ 0, 0, 8 }));
+			Assert::AreEqual({ 0, 0, 10 }, world.getChunkPosBelow({ 0, 0, 161 }));
+			Assert::AreEqual({ 0, 0, std::numeric_limits<int>::min() }, world.getChunkPosBelow({ 0, 0, -5 }));
+		}
+
+		TEST_METHOD(World_getOutermostChunks)
+		{
+			World world;
+			world.createChunk({ 0, 0, -4 });
+			world.createChunk({ 0, 0, 1 });
 			world.createChunk({ 0, 0, 9 });
 
 			Assert::IsTrue(world.getChunkAt({ 0, 0, -5 }) == world.getBottommostChunk({ 0, 0 }));
+			Assert::IsTrue(world.getChunkAt({ 0, 0, 10 }) == world.getTopmostChunk({ 0, 0 }));
 		}
-		TEST_METHOD(World_getTopmostChunk)
+		TEST_METHOD(World_getOutermostChunkPos)
 		{
 			World world;
 			world.createChunk({ 0, 0, -4 });
+			world.createChunk({ 0, 0, 1 });
 			world.createChunk({ 0, 0, 9 });
 
-			Assert::IsTrue(world.getChunkAt({ 0, 0, 10 }) == world.getTopmostChunk({ 0, 0 }));
+			Assert::AreEqual({ 0, 0, -5 }, world.getBottommostChunkPos({ 0, 0 }));
+			Assert::AreEqual({ 0, 0, 10 }, world.getTopmostChunkPos({ 0, 0 }));
 		}
 
 		// ...

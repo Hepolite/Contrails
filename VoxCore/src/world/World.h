@@ -50,9 +50,13 @@ namespace world
 		Chunk * getChunkAt(const glm::ivec3 & cpos) const;
 		Chunk * getChunkAbove(const glm::ivec3 & cpos) const;
 		Chunk * getChunkBelow(const glm::ivec3 & cpos) const;
+		glm::ivec3 getChunkPosAbove(glm::ivec3 cpos) const;
+		glm::ivec3 getChunkPosBelow(glm::ivec3 cpos) const;
 
 		Chunk * getTopmostChunk(const glm::ivec2 & cpos) const;
 		Chunk * getBottommostChunk(const glm::ivec2 & cpos) const;
+		glm::ivec3 getTopmostChunkPos(const glm::ivec2 & cpos) const;
+		glm::ivec3 getBottommostChunkPos(const glm::ivec2 & cpos) const;
 
 		// ...
 

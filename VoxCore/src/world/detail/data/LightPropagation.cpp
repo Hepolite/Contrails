@@ -34,10 +34,10 @@ void world::data::LightSunPropagator::spreadFrom(Chunk & chunk, const glm::ivec3
 {
 	if (source.z == 0)
 	{
-		if (auto * neighbor = m_world->getChunkAt(m_pos + util::SIDE_BOTTOM.m_normal))
+		if (auto * neighbor = m_world->getChunkBelow(m_pos))
 		{
 			spreadDown(*neighbor, { source.x, source.y, CHUNK_SIZE_BITS<int> }, light);
-			m_world->markLightPropagation(m_pos + util::SIDE_BOTTOM.m_normal);
+			m_world->markLightPropagation(m_world->getChunkPosBelow(m_pos));
 		}
 	}
 	else
@@ -129,10 +129,10 @@ void world::data::LightSunRemover::spreadFrom(Chunk & chunk, const glm::ivec3 & 
 {
 	if (source.z == 0)
 	{
-		if (auto * neighbor = m_world->getChunkAt(m_pos + util::SIDE_BOTTOM.m_normal))
+		if (auto * neighbor = m_world->getChunkBelow(m_pos))
 		{
 			spreadDown(*neighbor, { source.x, source.y, CHUNK_SIZE_BITS<int> }, light);
-			m_world->markLightRemoval(m_pos + util::SIDE_BOTTOM.m_normal);
+			m_world->markLightRemoval(m_world->getChunkPosBelow(m_pos));
 		}
 	}
 	else

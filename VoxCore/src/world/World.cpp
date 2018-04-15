@@ -132,6 +132,14 @@ world::Chunk * world::World::getChunkBelow(const glm::ivec3 & cpos) const
 {
 	return m_impl->m_chunks.getChunkBelow(cpos);
 }
+glm::ivec3 world::World::getChunkPosAbove(glm::ivec3 cpos) const
+{
+	return m_impl->m_chunks.getChunkPosAbove(cpos);
+}
+glm::ivec3 world::World::getChunkPosBelow(glm::ivec3 cpos) const
+{
+	return m_impl->m_chunks.getChunkPosBelow(cpos);
+}
 
 world::Chunk * world::World::getTopmostChunk(const glm::ivec2 & cpos) const
 {
@@ -140,6 +148,14 @@ world::Chunk * world::World::getTopmostChunk(const glm::ivec2 & cpos) const
 world::Chunk * world::World::getBottommostChunk(const glm::ivec2 & cpos) const
 {
 	return m_impl->m_chunks.getBottommostChunk(cpos);
+}
+glm::ivec3 world::World::getTopmostChunkPos(const glm::ivec2 & cpos) const
+{
+	return m_impl->m_chunks.getTopmostChunkPos(cpos);
+}
+glm::ivec3 world::World::getBottommostChunkPos(const glm::ivec2 & cpos) const
+{
+	return m_impl->m_chunks.getBottommostChunkPos(cpos);
 }
 
 // ...
