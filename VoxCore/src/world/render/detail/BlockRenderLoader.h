@@ -34,6 +34,7 @@ namespace world
 		class BlockRenderVariantLoader
 		{
 		public:
+			inline void inject(const BlockRegistry & registry) { m_registry = &registry; }
 			inline void inject(BlockTextureAtlas & atlas) { m_atlas = &atlas; }
 
 			void loadVariant(const pugi::xml_node & variant);
@@ -44,6 +45,7 @@ namespace world
 			inline auto extractBlock() { return m_block; }
 
 		private:
+			const BlockRegistry * m_registry = nullptr;
 			BlockTextureAtlas * m_atlas = nullptr;
 
 			data::BlockRender m_block;

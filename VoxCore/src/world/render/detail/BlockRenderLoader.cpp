@@ -55,6 +55,7 @@ void world::render::BlockRenderLoader::loadBlock(const io::File & file) const
 			LOG_INFO << "Loading block render variant " << blockName << "...";
 
 			BlockRenderVariantLoader loader;
+			loader.inject(*m_registry);
 			loader.inject(*m_atlas);
 			loader.loadVariant(variant.child(NODE_VISUAL));
 			(*m_blocks)[(*m_registry)[blockName].m_id] = loader.extractBlock();
@@ -102,7 +103,8 @@ void world::render::BlockRenderVariantLoader::loadTexture(const pugi::xml_node &
 			continue;
 
 		BlockTextureLoader loader;
-		loader.injectTextureAtlas(*m_atlas);
+		loader.inject(*m_registry);
+		loader.inject(*m_atlas);
 		loader.loadTexture(file);
 		for (const auto & side : ::world::util::fromNameExt(attrSide))
 			m_block.m_texture[side.m_id] = loader.extractTexture();
