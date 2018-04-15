@@ -58,12 +58,12 @@ void logic::state::StateEditorWorld::initialize(core::Engine & engine)
 	auto & blocks = world->getBlockRegistry();
 
 	world::util::Query query;
-	world->write(query.writeRectangle(blocks["stone"], { -31, -31, 0 }, { 31, 31, 3 }));
-	world->write(query.writeRectangle(blocks["dirt"], { -31, -31, 4 }, { 31, 31, 5 }));
-	world->write(query.writeRectangle(blocks["grass"], { -31, -31, 6 }, { 31, 31, 6 }));
+	world->write(query.writeRectangle(blocks["stone"], { -310, -310, 0 }, { 310, 310, 3 }));
+	world->write(query.writeRectangle(blocks["dirt"], { -310, -310, 4 }, { 310, 310, 5 }));
+	world->write(query.writeRectangle(blocks["grass"], { -310, -310, 6 }, { 310, 310, 6 }));
 	world->write(query.writeRectangle(blocks["grass"], { 0, 0, 15 }, { 15, 15, 15 }));
 	world->write(query.writeBlock(blocks["glowstone"], { -15, -15, -3 }));
-	world->calculateLight();
+	world->process();
 
 	// Place camera in a suitable location
 	m_camera = &engine.getScene().getCamera(render::scene::CameraType::NORMAL);

@@ -31,6 +31,7 @@ namespace world
 		World & operator=(World &&) noexcept;
 
 		void load(const io::Folder & data);
+		void process();
 
 		// ...
 
@@ -76,10 +77,10 @@ namespace world
 
 		void markLightPropagation(const glm::ivec3 & cpos);
 		void markLightRemoval(const glm::ivec3 & cpos);
-		void calculateLight();
 
 	private:
 		void initializeLight(const glm::ivec3 & cpos);
+		void calculateLight();
 
 		struct Impl;
 		std::unique_ptr<Impl> m_impl = nullptr;

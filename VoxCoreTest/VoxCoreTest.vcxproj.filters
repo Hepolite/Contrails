@@ -99,6 +99,9 @@
     <ClCompile Include="src\world\render\detail\data\TextureDataTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\world\render\detail\meshing\ChunkMesherTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

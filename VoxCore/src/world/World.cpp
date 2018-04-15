@@ -39,6 +39,10 @@ void world::World::load(const io::Folder & data)
 	loader.inject(m_impl->m_registry);
 	loader.loadBlocks(data);
 }
+void world::World::process()
+{
+	calculateLight();
+}
 
 // ...
 
@@ -167,7 +171,7 @@ void world::World::write(data::WorldQuery & query)
 		createChunk(it.first, true).write(it.second);
 		markLightRemoval(it.first);
 		markLightPropagation(it.first);
-		markChunkChange(it.first);
+		markChunkChange(it.first, it.second.min(), it.second.max());
 	}
 }
 void world::World::write(const glm::ivec3 & pos, data::BlockData & block, data::ColorData & color)

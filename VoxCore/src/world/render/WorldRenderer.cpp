@@ -24,7 +24,7 @@ void world::render::WorldRenderer::inject(logic::event::EventBus & bus)
 	m_chunkChange = bus.add<logic::event::ChunkChange>([this](auto & event)
 	{
 		if (m_world == event.m_world)
-			m_mesher.scheduleTask({ event.m_cpos, m_world->extractRenderData(event.m_cpos), std::make_unique<ChunkMesh>() });
+			m_mesher.schedule({ event.m_cpos, m_world->extractRenderData(event.m_cpos), std::make_unique<ChunkMesh>() });
 	});
 }
 void world::render::WorldRenderer::inject(asset::AssetRegistry & assets)
@@ -75,7 +75,7 @@ void world::render::WorldRenderer::render(::render::RenderPass pass) const
 void world::render::WorldRenderer::handleChunkMeshes()
 {
 	ChunkMeshTask task;
-	while (m_mesher.extractTask(task))
+	while (m_mesher.extract(task))
 	{
 		if (m_chunks.find(task.m_cpos) == m_chunks.end())
 			continue;

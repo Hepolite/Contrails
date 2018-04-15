@@ -4,10 +4,14 @@
 #include "world/render/BlockRenderRegistry.h"
 #include "world/render/detail/meshing/ChunkMeshTask.h"
 
-#include <chrono>
-#include <queue>
+#define GLM_ENABLE_EXPERIMENTAL
+
+#include <glm/gtx/hash.hpp>
+#include <glm/vec3.hpp>
 #include <mutex>
 #include <thread>
+#include <vector>
+#include <unordered_map>
 
 namespace world
 {
@@ -26,28 +30,23 @@ namespace world
 
 			inline void inject(const BlockRenderRegistry & renders) { m_renders = &renders; }
 
-			void scheduleTask(ChunkMeshTask && task);
-			bool extractTask(ChunkMeshTask & task);
+			void schedule(ChunkMeshTask && task);
+			bool extract(ChunkMeshTask & task);
+			void finish();
 
 		private:
-			void pushTask(ChunkMeshTask && task, std::queue<ChunkMeshTask> & queue);
-			bool popTask(ChunkMeshTask & task, std::queue<ChunkMeshTask> & queue);
-
-			void startMeasuring();
-			void endMeasuring();
-			void performWorkInThread();
-			void performMeshTask(ChunkMeshTask & task);
+			void work();
+			bool performTask(ChunkMeshTask & task);
+			void completeTask(ChunkMeshTask && task);
 
 			const BlockRenderRegistry * m_renders;
 
-			std::queue<ChunkMeshTask> m_input, m_output;
-			std::thread m_worker;
+			std::vector<std::thread> m_workers;
+			std::unordered_map<glm::ivec3, ChunkMeshTask> m_input, m_output;
 			std::mutex m_mutex;
 
+			unsigned int m_tasks = 0u;
 			bool m_working = true;
-
-			std::chrono::steady_clock::time_point m_begin;
-			unsigned int m_tasksPerformed;
 		};
 	}
 }
