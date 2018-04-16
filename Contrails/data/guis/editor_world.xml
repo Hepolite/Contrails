@@ -14,4 +14,85 @@
       <size>128 32</size>
     </widget>
   </widget>
+  
+  
+  <widget type="panel" name="toolbox">
+    <assets> <sprites background="gui/generic/background" /> </assets>
+    <border inner="4" />
+    <link location="top_left" />
+    <widget type="radio" name="tool_brush">
+      <assets> <sprites icon="gui/editor_world/tools/brush" /> </assets>
+      <border outer="2" />
+      <size>32 32</size>
+    </widget>
+    <widget type="radio" name="tool_delete">
+      <assets> <sprites icon="gui/editor_world/tools/delete" /> </assets>
+      <border outer="2" />
+      <group leader="tool_brush" />
+      <link location="right_top" target="tool_brush" />
+      <size>32 32</size>
+    </widget>
+    <widget type="radio" name="tool_pull">
+      <assets> <sprites icon="gui/editor_world/tools/pull" /> </assets>
+      <border outer="2" />
+      <group leader="tool_brush" />
+      <link location="right_top" target="tool_delete" />
+      <size>32 32</size>
+    </widget>
+    <widget type="radio" name="tool_replace">
+      <assets> <sprites icon="gui/editor_world/tools/replace" /> </assets>
+      <border outer="2" />
+      <group leader="tool_brush" />
+      <link location="right_top" target="tool_pull" />
+      <size>32 32</size>
+    </widget>
+    <widget type="radio" name="tool_smooth">
+      <assets> <sprites icon="gui/editor_world/tools/smooth" /> </assets>
+      <border outer="2" />
+      <group leader="tool_brush" />
+      <link location="right_top" target="tool_replace" />
+      <size>32 32</size>
+    </widget>
+  </widget>
+  
+  <widget type="panel" name="shapes">
+    <assets> <sprites background="gui/generic/background" /> </assets>
+    <border inner="4" />
+    <link location="top_right" />
+    <widget type="radio" name="shape_box">
+      <assets> <sprites icon="gui/editor_world/shapes/box" /> </assets>
+      <border outer="2" />
+      <size>32 32</size>
+    </widget>
+    <widget type="radio" name="shape_cylinder">
+      <assets> <sprites icon="gui/editor_world/shapes/cylinder" /> </assets>
+      <border outer="2" />
+      <group leader="shape_box" />
+      <link location="right_top" target="shape_box" />
+      <size>32 32</size>
+    </widget>
+    <widget type="radio" name="shape_ellipse">
+      <assets> <sprites icon="gui/editor_world/shapes/ellipse" /> </assets>
+      <border outer="2" />
+      <group leader="shape_box" />
+      <link location="right_top" target="shape_cylinder" />
+      <size>32 32</size>
+    </widget>
+    <widget type="radio" name="shape_line">
+      <assets> <sprites icon="gui/editor_world/shapes/line" /> </assets>
+      <border outer="2" />
+      <group leader="shape_box" />
+      <link location="right_top" target="shape_ellipse" />
+      <size>32 32</size>
+    </widget>
+    <widget type="radio" name="shape_point">
+      <assets> <sprites icon="gui/editor_world/shapes/point" /> </assets>
+      <border outer="2" />
+      <group leader="shape_box" />
+      <link location="right_top" target="shape_line" />
+      <size>32 32</size>
+    </widget>
+  </widget>
+  
+  
 </layout>

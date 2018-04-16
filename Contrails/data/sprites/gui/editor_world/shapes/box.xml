@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<file>data/gfx/sprites/gui/editor_world/shapes/box.png</file>
+<frames>
+	<single name="inactive"         pos="0  0" size="32 32" />
+	<single name="inactive_hovered" pos="0  0" size="32 32" tint="0.8 0.8 0.8 1.0" />
+  <single name="inactive_clicked" pos="0  0" size="32 32" tint="0.6 0.6 0.6 1.0" />
+	<single name="inactive_locked"  pos="0  0" size="32 32" tint="0.5 0.5 0.5 0.5" />
+	<single name="active"           pos="32 0" size="32 32" />
+	<single name="active_hovered"   pos="32 0" size="32 32" tint="0.8 0.8 0.8 1.0" />
+  <single name="active_clicked"   pos="32 0" size="32 32" tint="0.6 0.6 0.6 1.0" />
+	<single name="active_locked"    pos="32 0" size="32 32" tint="0.5 0.5 0.5 0.5" />
+</frames>
