@@ -7,9 +7,6 @@
 #include "core/scene/Scene.h"
 #include "logic/event/EventBus.h"
 #include "util/Maths.h"
-#include "world/Universe.h"
-#include "world/util/Query.h"
-#include "world/World.h"
 
 namespace
 {

@@ -18,3 +18,12 @@ world.write(QUERY.writeBlock(blocks["glowstone"], ivec3(-15, -15, -3)));
 
 // Update the world and calculate lights
 world.process();
+
+
+
+def setBoxSize(element, name)
+{
+	var widget := GUI.getWidgets().get(name);
+	
+	LOG_INFO("Received value ${widget.state.float}");
+}

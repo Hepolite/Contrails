@@ -1,174 +1,177 @@
 <?xml version="1.0" ?>
 <script file="data/scripts/editor_world.chai" />
 <layout>
-  <widget type="panel" name="tmp_return_main_menu_panel">
-    <assets> <sprites background="gui/generic/background" /> </assets>
-    <border inner="4" />
-    <link location="bottom_left" />
-    <widget type="button" name="back_to_main_menu" >
-      <assets>
-        <sprites icon="gui/editor_world/back" />
-        <scripts action="STATE_MANAGER.set(StateMainMenu())" />
-      </assets>
-      <border outer="4" />
-      <size>128 32</size>
-    </widget>
-  </widget>
-  
-  
-  <widget type="panel" name="tools">
-    <assets> <sprites background="gui/generic/background" /> </assets>
-    <border inner="4" />
-    <link location="top_left" />
-    
-    <widget type="radio" name="tool_brush">
-      <assets> <sprites icon="gui/editor_world/tools/brush" /> </assets>
-      <border outer="2" />
-      <size>32 32</size>
-    </widget>
-    <widget type="radio" name="tool_delete">
-      <assets> <sprites icon="gui/editor_world/tools/delete" /> </assets>
-      <border outer="2" />
-      <group leader="tool_brush" />
-      <link location="right_top" target="tool_brush" />
-      <size>32 32</size>
-    </widget>
-    <widget type="radio" name="tool_pull">
-      <assets> <sprites icon="gui/editor_world/tools/pull" /> </assets>
-      <border outer="2" />
-      <group leader="tool_brush" />
-      <link location="right_top" target="tool_delete" />
-      <size>32 32</size>
-    </widget>
-    <widget type="radio" name="tool_replace">
-      <assets> <sprites icon="gui/editor_world/tools/replace" /> </assets>
-      <border outer="2" />
-      <group leader="tool_brush" />
-      <link location="right_top" target="tool_pull" />
-      <size>32 32</size>
-    </widget>
-    <widget type="radio" name="tool_smooth">
-      <assets> <sprites icon="gui/editor_world/tools/smooth" /> </assets>
-      <border outer="2" />
-      <group leader="tool_brush" />
-      <link location="right_top" target="tool_replace" />
-      <size>32 32</size>
-    </widget>
-  </widget> <!-- End tools -->
-  
-  
-  <widget type="panel" name="shapes">
-    <assets> <sprites background="gui/generic/background" /> </assets>
-    <border inner="4" />
-    <link location="top_right" />
-    
-    <widget type="radio" name="shape_box">
-      <assets> <sprites icon="gui/editor_world/shapes/box" /> </assets>
-      <border outer="2" />
-      <size>32 32</size>
-    </widget>
-    <widget type="radio" name="shape_cylinder">
-      <assets> <sprites icon="gui/editor_world/shapes/cylinder" /> </assets>
-      <border outer="2" />
-      <group leader="shape_box" />
-      <link location="right_top" target="shape_box" />
-      <size>32 32</size>
-    </widget>
-    <widget type="radio" name="shape_ellipse">
-      <assets> <sprites icon="gui/editor_world/shapes/ellipse" /> </assets>
-      <border outer="2" />
-      <group leader="shape_box" />
-      <link location="right_top" target="shape_cylinder" />
-      <size>32 32</size>
-    </widget>
-    <widget type="radio" name="shape_line">
-      <assets> <sprites icon="gui/editor_world/shapes/line" /> </assets>
-      <border outer="2" />
-      <group leader="shape_box" />
-      <link location="right_top" target="shape_ellipse" />
-      <size>32 32</size>
-    </widget>
-    <widget type="radio" name="shape_point">
-      <assets> <sprites icon="gui/editor_world/shapes/point" /> </assets>
-      <border outer="2" />
-      <group leader="shape_box" />
-      <link location="right_top" target="shape_line" />
-      <size>32 32</size>
-    </widget>
-  </widget> <!-- End shapes -->
-  
-  <widget type="panel" name="box_data">
-    <assets> <sprites background="gui/generic/background" /> </assets>
-    <border inner="4" outer="2" />
-    <link location="bottom_right" target="shapes" />
-    
-    <widget type="checkbox" name="box_dynamic">
-      <assets> <sprites icon="gui/generic/checkbox" /> </assets>
-      <border outer="2" />
-      <link location="left_top" />
-      <size>16 16</size>
-    </widget>
-    
-    <widget type="button" name="box_size_x_decrease">
-      <assets> <sprites icon="gui/generic/arrow_left" /> </assets>
-      <border outer="2" outer_right="0" />
-      <link location="bottom_left" target="box_dynamic" />
-      <size>16 16</size>
-    </widget>
-    <widget type="slider" name="box_size_x">
-      <assets> <sprites icon="gui/generic/slider" /> </assets>
-      <link location="right_top" target="box_size_x_decrease" />
-      <size>96 16</size>
-    </widget>
-    <widget type="button" name="box_size_x_increase">
-      <assets> <sprites icon="gui/generic/arrow_right" /> </assets>
-      <border outer="2" outer_left="0" />
-      <link location="right_top" target="box_size_x" />
-      <size>16 16</size>
-    </widget>
-    
-    <widget type="button" name="box_size_y_decrease">
-      <assets> <sprites icon="gui/generic/arrow_left" /> </assets>
-      <border outer="2" outer_right="0" />
-      <link location="bottom_left" target="box_size_x_decrease" />
-      <size>16 16</size>
-    </widget>
-    <widget type="slider" name="box_size_y">
-      <assets> <sprites icon="gui/generic/slider" /> </assets>
-      <link location="right_top" target="box_size_y_decrease" />
-      <size>96 16</size>
-    </widget>
-    <widget type="button" name="box_size_y_increase">
-      <assets> <sprites icon="gui/generic/arrow_right" /> </assets>
-      <border outer="2" outer_left="0" />
-      <link location="right_top" target="box_size_y" />
-      <size>16 16</size>
-    </widget>
-    
-    <widget type="button" name="box_size_z_decrease">
-      <assets> <sprites icon="gui/generic/arrow_left" /> </assets>
-      <border outer="2" outer_right="0" />
-      <link location="bottom_left" target="box_size_y_decrease" />
-      <size>16 16</size>
-    </widget>
-    <widget type="slider" name="box_size_z">
-      <assets> <sprites icon="gui/generic/slider" /> </assets>
-      <link location="right_top" target="box_size_z_decrease" />
-      <size>96 16</size>
-    </widget>
-    <widget type="button" name="box_size_z_increase">
-      <assets> <sprites icon="gui/generic/arrow_right" /> </assets>
-      <border outer="2" outer_left="0" />
-      <link location="right_top" target="box_size_z" />
-      <size>16 16</size>
-    </widget>
-    
-    <widget type="checkbox" name="box_centered">
-      <assets> <sprites icon="gui/generic/checkbox" /> </assets>
-      <border outer="2" />
-      <link location="bottom_left" target="box_size_z_decrease" />
-      <size>16 16</size>
-    </widget>
-  </widget> <!-- End box_data -->
-  
+	<widget type="panel" name="tmp_return_main_menu_panel">
+		<assets> <sprites background="gui/generic/background" /> </assets>
+		<border inner="4" />
+		<link location="bottom_left" />
+		<widget type="button" name="back_to_main_menu" >
+			<assets>
+				<sprites icon="gui/editor_world/back" />
+				<scripts action="STATE_MANAGER.set(StateMainMenu())" />
+			</assets>
+			<border outer="4" />
+			<size>128 32</size>
+		</widget>
+	</widget>
+	
+	
+	<widget type="panel" name="tools">
+		<assets> <sprites background="gui/generic/background" /> </assets>
+		<border inner="4" />
+		<link location="top_left" />
+		
+		<widget type="radio" name="tool_brush">
+			<assets> <sprites icon="gui/editor_world/tools/brush" /> </assets>
+			<border outer="2" />
+			<size>32 32</size>
+		</widget>
+		<widget type="radio" name="tool_delete">
+			<assets> <sprites icon="gui/editor_world/tools/delete" /> </assets>
+			<border outer="2" />
+			<group leader="tool_brush" />
+			<link location="right_top" target="tool_brush" />
+			<size>32 32</size>
+		</widget>
+		<widget type="radio" name="tool_pull">
+			<assets> <sprites icon="gui/editor_world/tools/pull" /> </assets>
+			<border outer="2" />
+			<group leader="tool_brush" />
+			<link location="right_top" target="tool_delete" />
+			<size>32 32</size>
+		</widget>
+		<widget type="radio" name="tool_replace">
+			<assets> <sprites icon="gui/editor_world/tools/replace" /> </assets>
+			<border outer="2" />
+			<group leader="tool_brush" />
+			<link location="right_top" target="tool_pull" />
+			<size>32 32</size>
+		</widget>
+		<widget type="radio" name="tool_smooth">
+			<assets> <sprites icon="gui/editor_world/tools/smooth" /> </assets>
+			<border outer="2" />
+			<group leader="tool_brush" />
+			<link location="right_top" target="tool_replace" />
+			<size>32 32</size>
+		</widget>
+	</widget> <!-- End tools -->
+	
+	
+	<widget type="panel" name="shapes">
+		<assets> <sprites background="gui/generic/background" /> </assets>
+		<border inner="4" />
+		<link location="top_right" />
+		
+		<widget type="radio" name="shape_box">
+			<assets> <sprites icon="gui/editor_world/shapes/box" /> </assets>
+			<border outer="2" />
+			<size>32 32</size>
+		</widget>
+		<widget type="radio" name="shape_cylinder">
+			<assets> <sprites icon="gui/editor_world/shapes/cylinder" /> </assets>
+			<border outer="2" />
+			<group leader="shape_box" />
+			<link location="right_top" target="shape_box" />
+			<size>32 32</size>
+		</widget>
+		<widget type="radio" name="shape_ellipse">
+			<assets> <sprites icon="gui/editor_world/shapes/ellipse" /> </assets>
+			<border outer="2" />
+			<group leader="shape_box" />
+			<link location="right_top" target="shape_cylinder" />
+			<size>32 32</size>
+		</widget>
+		<widget type="radio" name="shape_line">
+			<assets> <sprites icon="gui/editor_world/shapes/line" /> </assets>
+			<border outer="2" />
+			<group leader="shape_box" />
+			<link location="right_top" target="shape_ellipse" />
+			<size>32 32</size>
+		</widget>
+		<widget type="radio" name="shape_point">
+			<assets> <sprites icon="gui/editor_world/shapes/point" /> </assets>
+			<border outer="2" />
+			<group leader="shape_box" />
+			<link location="right_top" target="shape_line" />
+			<size>32 32</size>
+		</widget>
+	</widget> <!-- End shapes -->
+	
+	<widget type="panel" name="box_data">
+		<assets> <sprites background="gui/generic/background" /> </assets>
+		<border inner="4" outer="2" />
+		<link location="bottom_right" target="shapes" />
+		
+		<widget type="checkbox" name="box_dynamic">
+			<assets> <sprites icon="gui/generic/checkbox" /> </assets>
+			<border outer="2" />
+			<link location="left_top" />
+			<size>16 16</size>
+		</widget>
+		
+		<widget type="button" name="box_size_x_decrease">
+			<assets> <sprites icon="gui/generic/arrow_left" /> </assets>
+			<border outer="2" outer_right="0" />
+			<link location="bottom_left" target="box_dynamic" />
+			<size>16 16</size>
+		</widget>
+		<widget type="slider" name="box_size_x">
+			<assets>
+				<sprites icon="gui/generic/slider" />
+				<scripts action='setBoxSize(0, "box_size_x")' />
+			</assets>
+			<link location="right_top" target="box_size_x_decrease" />
+			<size>96 16</size>
+		</widget>
+		<widget type="button" name="box_size_x_increase">
+			<assets> <sprites icon="gui/generic/arrow_right" /> </assets>
+			<border outer="2" outer_left="0" />
+			<link location="right_top" target="box_size_x" />
+			<size>16 16</size>
+		</widget>
+		
+		<widget type="button" name="box_size_y_decrease">
+			<assets> <sprites icon="gui/generic/arrow_left" /> </assets>
+				<border outer="2" outer_right="0" />
+				<link location="bottom_left" target="box_size_x_decrease" />
+			<size>16 16</size>
+		</widget>
+		<widget type="slider" name="box_size_y">
+			<assets> <sprites icon="gui/generic/slider" /> </assets>
+			<link location="right_top" target="box_size_y_decrease" />
+			<size>96 16</size>
+		</widget>
+		<widget type="button" name="box_size_y_increase">
+			<assets> <sprites icon="gui/generic/arrow_right" /> </assets>
+			<border outer="2" outer_left="0" />
+			<link location="right_top" target="box_size_y" />
+			<size>16 16</size>
+		</widget>
+		
+		<widget type="button" name="box_size_z_decrease">
+			<assets> <sprites icon="gui/generic/arrow_left" /> </assets>
+			<border outer="2" outer_right="0" />
+			<link location="bottom_left" target="box_size_y_decrease" />
+			<size>16 16</size>
+		</widget>
+		<widget type="slider" name="box_size_z">
+			<assets> <sprites icon="gui/generic/slider" /> </assets>
+			<link location="right_top" target="box_size_z_decrease" />
+			<size>96 16</size>
+		</widget>
+		<widget type="button" name="box_size_z_increase">
+			<assets> <sprites icon="gui/generic/arrow_right" /> </assets>
+			<border outer="2" outer_left="0" />
+			<link location="right_top" target="box_size_z" />
+			<size>16 16</size>
+		</widget>
+		
+		<widget type="checkbox" name="box_centered">
+			<assets> <sprites icon="gui/generic/checkbox" /> </assets>
+			<border outer="2" />
+			<link location="bottom_left" target="box_size_z_decrease" />
+			<size>16 16</size>
+		</widget>
+	</widget> <!-- End box_data -->
+	
 </layout>

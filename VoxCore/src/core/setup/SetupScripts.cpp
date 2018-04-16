@@ -15,8 +15,16 @@
 #include "world/World.h"
 
 #include <glm/glm.hpp>
+#include <plog/Log.h>
 
 using namespace logic::script;
+
+namespace script
+{
+	inline void debug(const std::string & msg) { LOG_DEBUG << msg; }
+	inline void info(const std::string & msg) { LOG_INFO << msg; }
+	inline void warn(const std::string & msg) { LOG_WARNING << msg; }
+}
 
 namespace
 {
@@ -74,6 +82,7 @@ void core::setup::setupScripts(Engine & engine)
 	detail::setupEngine(engine);
 	detail::setupGui(engine);
 	detail::setupIO(engine);
+	detail::setupLogging(engine);
 	detail::setupMath(engine);
 	detail::setupStates(engine);
 	detail::setupUniverse(engine);
@@ -149,6 +158,15 @@ void core::setup::detail::setupIO(Engine & engine)
 		util::addFun(script, &Folder::getPath, "getPath");
 		util::addFun(script, &Folder::getFolder, "getFolder");
 		util::addFun(script, &Folder::getName, "getName");
+	});
+}
+void core::setup::detail::setupLogging(Engine & engine)
+{
+	util::registerScriptData([](Script & script)
+	{
+		util::addFun(script, &script::info, "LOG_INFO");
+		util::addFun(script, &script::warn, "LOG_WARN");
+		util::addFun(script, &script::debug, "LOG_DEBUG");
 	});
 }
 void core::setup::detail::setupMath(Engine & engine)

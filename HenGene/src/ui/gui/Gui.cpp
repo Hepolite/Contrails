@@ -100,7 +100,6 @@ void ui::gui::Gui::onEvent(const logic::event::MouseRelease & event, Widget & wi
 	for (const auto & name : widget.m_family.m_children)
 		onEvent(event, m_widgets.get(name));
 
-	if (widget.m_activation.m_hovered && !widget.m_activation.m_locked && widget.m_render.m_visible &&
-		widget.m_activation.m_button == event.m_button)
+	if (!widget.m_activation.m_locked && widget.m_render.m_visible && widget.m_activation.m_button == event.m_button)
 		widget.m_logic.m_action(m_script);
 }

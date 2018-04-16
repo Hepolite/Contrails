@@ -140,12 +140,15 @@ glm::vec2 ui::gui::Processor::calculateSize() const
 
 void ui::gui::ProcessorButtonCheckbox::onAction(const logic::script::Script & script)
 {
+	if (!m_widget->m_activation.m_hovered)
+		return;
+
 	m_widget->m_state.m_bool = !m_widget->m_state.m_bool;
 	Processor::onAction(script);
 }
 void ui::gui::ProcessorButtonRadio::onAction(const logic::script::Script & script)
 {
-	if (m_widget->m_state.m_bool)
+	if (!m_widget->m_activation.m_hovered || m_widget->m_state.m_bool)
 		return;
 
 	auto & leader = m_widgets->get(m_widget->m_group.m_leader);
@@ -177,4 +180,5 @@ void ui::gui::ProcessorSlider::onProcess(const glm::vec2 & pos)
 }
 void ui::gui::ProcessorSlider::onAction(const logic::script::Script & script)
 {
+	Processor::onAction(script);
 }
