@@ -222,7 +222,14 @@ void world::data::LightColorPropagator::spread(Chunk & chunk)
 {
 	LightPropagationNode node;
 	while (chunk.pollLightPropagation(node, LIGHT_PROPAGATION_CHANNEL_COLOR))
-		spreadFrom(chunk, toPos<int>(node.m_index), glm::uvec3{ node.m_light >> 16u, node.m_light >> 8u, node.m_light } & 0xFFu);
+	{
+		glm::uvec3 color;
+		if (node.m_light == USE_CHUNK_LIGHT)
+			color = chunk.readColor(node.m_index).getColor();
+		else
+			color = glm::uvec3{ node.m_light >> 16u, node.m_light >> 8u, node.m_light } &0xFFu;
+		spreadFrom(chunk, toPos<int>(node.m_index), color);
+	}
 }
 void world::data::LightColorPropagator::spreadFrom(Chunk & chunk, const glm::ivec3 & source, const glm::uvec3 & light)
 {
@@ -406,5 +413,5 @@ void world::data::LightColorRemover::spreadSide(Chunk & chunk, const glm::ivec3 
 	if (light.r + light.g + light.b != 0u)
 		chunk.pushLightRemoval({ index, (light.r << 16u) | (light.g << 8u) | light.b }, LIGHT_PROPAGATION_CHANNEL_COLOR);
 	if (current.r + current.g + current.b != 0u)
-		chunk.pushLightPropagation({ index, (current.r << 16u) | (current.g << 8u) | current.b }, LIGHT_PROPAGATION_CHANNEL_COLOR);
+		chunk.pushLightPropagation({ index, USE_CHUNK_LIGHT }, LIGHT_PROPAGATION_CHANNEL_COLOR);
 }

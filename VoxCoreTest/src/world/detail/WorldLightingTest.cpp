@@ -96,6 +96,21 @@ namespace world
 			Assert::AreEqual({ 0u, 14u, 29u, 31u }, readLight(world, { -2, 0, 0 }));
 			Assert::AreEqual({ 0u, 5u, 20u, 30u }, readLight(world, { 0, 0, -11 }));
 		}
+		TEST_METHOD(WorldLighting_writeLightBlockChunkBorder)
+		{
+			BlockRegistry registry;
+			registry.add("stone").m_lightAbsorbed = { 31u, 31u, 31u, 31u };
+			registry.add("glowblock").m_lightEmitted = { 0u, 16u, 31u, 0u };
+
+			World world;
+			world.inject(registry);
+			world.write(util::Query{}.writeBlock(registry["glowblock"], { 0, 15, 29 }));
+			world.process();
+			world.write(util::Query{}.writeRectangle(registry["stone"], { -5, 0, 30 }, { 5, 31, 30 }));
+			world.process();
+
+			Assert::AreEqual({ 0u, 2u, 17u, 31u }, readLight(world, { 0, 15, 31 }));
+		}
 
 	private:
 		glm::uvec4 readLight(const World & world, const glm::ivec3 & pos)
