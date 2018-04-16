@@ -21,7 +21,7 @@ bool render::MeshBase::build(unsigned int indices, unsigned int vertices, const 
 
 void render::MeshBase::render() const
 {
-	if (m_indiceCount != 0u)
+	if (!empty())
 	{
 		m_vao.bind();
 		glDrawElements(static_cast<GLenum>(m_mode), m_indiceCount, GL_UNSIGNED_INT, nullptr);

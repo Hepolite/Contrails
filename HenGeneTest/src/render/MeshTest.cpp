@@ -24,6 +24,19 @@ namespace render
 			Assert::IsTrue(meshB.build());
 		}
 
+		TEST_METHOD(Mesh_empty)
+		{
+			Mesh<glm::vec3> meshA;
+			Mesh<glm::vec3> meshB;
+			meshB.getIndiceData() = { 0, 1, 2 };
+			meshB.getVertexData() = { { 0, 0, 0 }, { 1, 0, 0 }, { 0, 1, 0 } };
+			meshA.build();
+			meshB.build();
+
+			Assert::IsTrue(meshA.empty());
+			Assert::IsFalse(meshB.empty());
+		}
+
 	private:
 		setup::Context m_context;
 	};

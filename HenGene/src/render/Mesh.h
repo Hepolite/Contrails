@@ -18,6 +18,8 @@ namespace render
 
 		void render() const;
 
+		inline bool empty() const { return m_indiceCount == 0u; }
+
 	protected:
 		MeshBase() = delete;
 		MeshBase(unsigned int size) : m_size(size) {}

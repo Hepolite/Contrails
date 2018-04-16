@@ -87,10 +87,13 @@ void world::render::WorldRenderer::render(::render::RenderPass pass) const
 	m_texture.bind();
 	for (const auto & it : m_chunks)
 	{
-		if (it.second != nullptr)
+		if (it.second == nullptr)
+			continue;
+		const auto & mesh = (*it.second)[static_cast<unsigned int>(pass)];
+		if (!mesh.empty())
 		{
 			m_model->set("transform", glm::translate(glm::mat4{ 1.0f }, glm::vec3{ it.first * world::data::CHUNK_SIZE<int> }));
-			(*it.second)[static_cast<unsigned int>(pass)].render();
+			mesh.render();
 		}
 	}
 }
