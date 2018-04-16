@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<file>data/gfx/sprites/gui/generic/button_checkbox.png</file>
+<file>data/gfx/sprites/gui/generic/checkbox.png</file>
 <frames>
 	<single name="inactive"         pos="0 0"  size="16 16" />
 	<single name="inactive_hovered" pos="0 0"  size="16 16" tint="0.8 0.8 0.8 1.0" />

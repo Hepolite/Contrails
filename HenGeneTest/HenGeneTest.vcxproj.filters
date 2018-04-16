@@ -147,9 +147,6 @@
     <ClCompile Include="src\ui\gui\GuiManagerTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\ui\gui\detail\WidgetRendererTest.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\ui\gui\detail\WidgetProcessorButtonTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -163,6 +160,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\render\scene\CameraStorageTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\gui\detail\WidgetRendererButtonTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\gui\detail\WidgetRendererSliderTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\gui\detail\WidgetRendererTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\gui\detail\WidgetProcessorSliderTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

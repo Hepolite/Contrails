@@ -66,7 +66,10 @@ bool ui::gui::Gui::onEvent(const logic::event::MouseMove & event)
 {
 	// Before deciding which widget is being hovered, force any currently hovered widgets to be reset
 	for (auto & it : m_widgets)
+	{
 		it.second.m_activation.m_hovered = false;
+		it.second.m_activation.m_mousePosition = event.m_pos;
+	}
 	return onEvent(event, m_widgets.get(), { 0.0f, 0.0f });
 }
 bool ui::gui::Gui::onEvent(const logic::event::MouseMove & event, Widget & widget, const glm::vec2 & offset)

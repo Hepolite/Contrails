@@ -162,3 +162,19 @@ void ui::gui::ProcessorButtonRadio::onAction(const logic::script::Script & scrip
 	m_widget->m_state.m_bool = true;
 	Processor::onAction(script);
 }
+
+// ...
+
+void ui::gui::ProcessorSlider::onProcess(const glm::vec2 & pos)
+{
+	Processor::onProcess(pos);
+
+	if (m_widget->m_activation.m_button != mouse::Button::NONE)
+	{
+		const auto bbox = (m_widget->m_activation.m_mousePosition - pos) / m_widget->m_size.m_size;
+		m_widget->m_state.m_float = math::max(0.0f, math::min(1.0f, bbox.x));
+	}
+}
+void ui::gui::ProcessorSlider::onAction(const logic::script::Script & script)
+{
+}

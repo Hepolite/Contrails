@@ -103,7 +103,7 @@ void world::render::WorldRenderer::scheduleChunkMeshes()
 }
 void world::render::WorldRenderer::extractChunkMeshes()
 {
-	ChunkMeshTask task;
+	static ChunkMeshTask task;
 	while (m_mesher.extract(task))
 	{
 		if (m_chunks.find(task.m_cpos) == m_chunks.end())

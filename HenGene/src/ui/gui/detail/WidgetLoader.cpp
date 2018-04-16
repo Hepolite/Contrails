@@ -52,6 +52,7 @@ namespace
 	constexpr const char * VALUE_HEADER_BUTTON_CHECKBOX = "checkbox";
 	constexpr const char * VALUE_HEADER_BUTTON_RADIO = "radio";
 	constexpr const char * VALUE_HEADER_PANEL = "panel";
+	constexpr const char * VALUE_HEADER_SLIDER = "slider";
 	constexpr const char * VALUE_LINK_PARENT = "parent";
 	constexpr const char * VALUE_LINK_TOP_LEFT = "top_left";
 	constexpr const char * VALUE_LINK_TOP = "top";
@@ -192,9 +193,14 @@ void ui::gui::WidgetLoader::loadHeader(const pugi::xml_node & node)
 	}
 	else if (attrType == VALUE_HEADER_PANEL)
 		m_widget->m_render.m_render = RendererPanel{ *m_widget };
+	else if (attrType == VALUE_HEADER_SLIDER)
+	{
+		m_widget->m_logic.m_process = ProcessorSlider{ *m_widgets, *m_widget };
+		m_widget->m_logic.m_action = ProcessorSlider{ *m_widgets, *m_widget };
+		m_widget->m_render.m_render = RendererSlider{ *m_widget };
+	}
 	else
 		LOG_WARNING << "Unknown widget type " << attrType;
-
 }
 void ui::gui::WidgetLoader::loadLink(const pugi::xml_node & node)
 {

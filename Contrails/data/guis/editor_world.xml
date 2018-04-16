@@ -1,11 +1,11 @@
 <?xml version="1.0" ?>
 <script file="data/scripts/editor_world.chai" />
 <layout>
-  <widget type="panel" name="toolbar">
+  <widget type="panel" name="tmp_return_main_menu_panel">
     <assets> <sprites background="gui/generic/background" /> </assets>
     <border inner="4" />
     <link location="bottom_left" />
-    <widget type="button" name="back" >
+    <widget type="button" name="back_to_main_menu" >
       <assets>
         <sprites icon="gui/editor_world/back" />
         <scripts action="STATE_MANAGER.set(StateMainMenu())" />
@@ -16,10 +16,11 @@
   </widget>
   
   
-  <widget type="panel" name="toolbox">
+  <widget type="panel" name="tools">
     <assets> <sprites background="gui/generic/background" /> </assets>
     <border inner="4" />
     <link location="top_left" />
+    
     <widget type="radio" name="tool_brush">
       <assets> <sprites icon="gui/editor_world/tools/brush" /> </assets>
       <border outer="2" />
@@ -53,12 +54,14 @@
       <link location="right_top" target="tool_replace" />
       <size>32 32</size>
     </widget>
-  </widget>
+  </widget> <!-- End tools -->
+  
   
   <widget type="panel" name="shapes">
     <assets> <sprites background="gui/generic/background" /> </assets>
     <border inner="4" />
     <link location="top_right" />
+    
     <widget type="radio" name="shape_box">
       <assets> <sprites icon="gui/editor_world/shapes/box" /> </assets>
       <border outer="2" />
@@ -92,7 +95,73 @@
       <link location="right_top" target="shape_line" />
       <size>32 32</size>
     </widget>
-  </widget>
+  </widget> <!-- End shapes -->
   
+  <widget type="panel" name="box_data">
+    <assets> <sprites background="gui/generic/background" /> </assets>
+    <border inner="4" outer="2" />
+    <link location="bottom_right" target="shapes" />
+    
+    <widget type="checkbox" name="box_dynamic">
+      <assets> <sprites icon="gui/generic/checkbox" /> </assets>
+      <border outer="2" />
+      <link location="left_top" />
+      <size>16 16</size>
+    </widget>
+    
+    <widget type="button" name="box_size_x_decrease">
+      <assets> <sprites icon="gui/generic/arrow_left" /> </assets>
+      <border outer="2" outer_right="0" />
+      <link location="bottom_left" target="box_dynamic" />
+      <size>16 16</size>
+    </widget>
+    <widget type="slider" name="box_size_x">
+      <assets> <sprites icon="gui/generic/slider" /> </assets>
+      <link location="right_top" target="box_size_x_decrease" />
+      <size>96 16</size>
+    </widget>
+    <widget type="button" name="box_size_x_increase">
+      <assets> <sprites icon="gui/generic/arrow_right" /> </assets>
+      <border outer="2" outer_left="0" />
+      <link location="right_top" target="box_size_x" />
+      <size>16 16</size>
+    </widget>
+    
+    <widget type="button" name="box_size_y_decrease">
+      <assets> <sprites icon="gui/generic/arrow_left" /> </assets>
+      <border outer="2" outer_right="0" />
+      <link location="bottom_left" target="box_size_x_decrease" />
+      <size>16 16</size>
+    </widget>
+    <widget type="slider" name="box_size_y">
+      <assets> <sprites icon="gui/generic/slider" /> </assets>
+      <link location="right_top" target="box_size_y_decrease" />
+      <size>96 16</size>
+    </widget>
+    <widget type="button" name="box_size_y_increase">
+      <assets> <sprites icon="gui/generic/arrow_right" /> </assets>
+      <border outer="2" outer_left="0" />
+      <link location="right_top" target="box_size_y" />
+      <size>16 16</size>
+    </widget>
+    
+    <widget type="button" name="box_size_z_decrease">
+      <assets> <sprites icon="gui/generic/arrow_left" /> </assets>
+      <border outer="2" outer_right="0" />
+      <link location="bottom_left" target="box_size_y_decrease" />
+      <size>16 16</size>
+    </widget>
+    <widget type="slider" name="box_size_z">
+      <assets> <sprites icon="gui/generic/slider" /> </assets>
+      <link location="right_top" target="box_size_z_decrease" />
+      <size>96 16</size>
+    </widget>
+    <widget type="button" name="box_size_z_increase">
+      <assets> <sprites icon="gui/generic/arrow_right" /> </assets>
+      <border outer="2" outer_left="0" />
+      <link location="right_top" target="box_size_z" />
+      <size>16 16</size>
+    </widget>
+  </widget> <!-- End box_data -->
   
 </layout>

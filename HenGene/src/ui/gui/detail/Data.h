@@ -110,7 +110,9 @@ namespace ui
 			bool m_hovered = false;	// If true, user hovers mouse over widget
 			int m_key = -1;			// The keyboard button required to activate widget (button id)
 			int m_mask = 0;			// The keyboard modifiers required to activate widget (bitfield)
+
 			mouse::Button m_button = mouse::Button::NONE;
+			glm::vec2 m_mousePosition{};
 		};
 	}
 }

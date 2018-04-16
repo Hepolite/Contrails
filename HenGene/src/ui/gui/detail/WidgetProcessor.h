@@ -39,6 +39,8 @@ namespace ui
 			Widget * m_widget = nullptr;
 		};
 
+		// ...
+
 		class ProcessorButtonCheckbox : public Processor
 		{
 		public:
@@ -51,6 +53,15 @@ namespace ui
 		public:
 			ProcessorButtonRadio(Widgets & widgets, Widget & widget) : Processor(widgets, widget) {}
 
+			virtual void onAction(const logic::script::Script & script) override final;
+		};
+
+		class ProcessorSlider : public Processor
+		{
+		public:
+			ProcessorSlider(Widgets & widgets, Widget & widget) : Processor(widgets, widget) {}
+
+			virtual void onProcess(const glm::vec2 & pos) override final;
 			virtual void onAction(const logic::script::Script & script) override final;
 		};
 	}
