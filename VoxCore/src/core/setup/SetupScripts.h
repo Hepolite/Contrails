@@ -14,6 +14,7 @@ namespace core
 			void setupEngine(Engine & engine);
 			void setupGui(Engine & engine);
 			void setupIO(Engine & engine);
+			void setupMath(Engine & engine);
 			void setupStates(Engine & engine);
 			void setupUniverse(Engine & engine);
 		}

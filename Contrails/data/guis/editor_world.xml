@@ -162,6 +162,13 @@
       <link location="right_top" target="box_size_z" />
       <size>16 16</size>
     </widget>
+    
+    <widget type="checkbox" name="box_centered">
+      <assets> <sprites icon="gui/generic/checkbox" /> </assets>
+      <border outer="2" />
+      <link location="bottom_left" target="box_size_z_decrease" />
+      <size>16 16</size>
+    </widget>
   </widget> <!-- End box_data -->
   
 </layout>

@@ -23,7 +23,6 @@ namespace
 void logic::state::StateEditorWorld::initialize(core::Engine & engine)
 {
 	engine.getGuiManager().open("data/guis/editor_world.xml");
-	engine.getUniverse().createWorld("world");
 
 	// Set up basic camera control
 	m_keyPress = engine.getEventBus().add<logic::event::KeyPress>([](auto & event)
@@ -53,18 +52,6 @@ void logic::state::StateEditorWorld::initialize(core::Engine & engine)
 		mouseDelta += event.m_posDelta;
 	});
 
-	// Set up a small test world
-	auto * world = engine.getUniverse().getWorld("world");
-	auto & blocks = world->getBlockRegistry();
-
-	world::util::Query query;
-	//world->write(query.writeRectangle(blocks["stone"], { -31, -31, 0 }, { 31, 31, 3 }));
-	//world->write(query.writeRectangle(blocks["dirt"], { -31, -31, 4 }, { 31, 31, 5 }));
-	//world->write(query.writeRectangle(blocks["grass"], { -31, -31, 6 }, { 31, 31, 6 }));
-	//world->write(query.writeRectangle(blocks["grass"], { 0, 0, 15 }, { 15, 15, 15 }));
-	//world->write(query.writeBlock(blocks["glowstone"], { -15, -15, -3 }));
-	world->process();
-
 	// Place camera in a suitable location
 	m_camera = &engine.getScene().getCamera(render::scene::CameraType::NORMAL);
 	m_camera->setPosition({ -32, -32, -32 });
@@ -73,7 +60,6 @@ void logic::state::StateEditorWorld::initialize(core::Engine & engine)
 void logic::state::StateEditorWorld::deinitialize(core::Engine & engine)
 {
 	engine.getGuiManager().close("data/guis/editor_world.xml");
-	engine.getUniverse().destroyWorld("world");
 }
 
 void logic::state::StateEditorWorld::process(const Time & t, const Time & dt)

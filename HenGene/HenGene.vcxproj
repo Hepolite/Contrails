@@ -169,6 +169,7 @@
       <LanguageStandard>stdcpp14</LanguageStandard>
       <PrecompiledHeaderFile />
       <AdditionalIncludeDirectories>src;dependencies;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -194,6 +195,7 @@
       <LanguageStandard>stdcpp14</LanguageStandard>
       <PrecompiledHeaderFile />
       <AdditionalIncludeDirectories>src;dependencies;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
