@@ -162,4 +162,23 @@ namespace math
 	{
 		return { ceil(v.x), ceil(v.y), ceil(v.z), ceil(v.w) };
 	}
+
+	// ...
+
+	template<typename T> constexpr float intbound(const T & s, const T & ds)
+	{
+		return static_cast<float>((ds > T{ 0 } ? ceil(s) - s : s - floor(s)) / abs(ds));
+	}
+	template<typename T> constexpr glm::vec2 intbound(const glm::tvec2<T>& s, const glm::tvec2<T>& ds)
+	{
+		return { intbound(s.x, ds.x), intbound(s.y, ds.y) };
+	}
+	template<typename T> constexpr glm::vec3 intbound(const glm::tvec3<T>& s, const glm::tvec3<T>& ds)
+	{
+		return { intbound(s.x, ds.x), intbound(s.y, ds.y), intbound(s.z, ds.z) };
+	}
+	template<typename T> constexpr glm::vec4 intbound(const glm::tvec4<T>& s, const glm::tvec4<T>& ds)
+	{
+		return { intbound(s.x, ds.x), intbound(s.y, ds.y), intbound(s.z, ds.z), intbound(s.w, ds.w) };
+	}
 }

@@ -224,6 +224,7 @@
     <ClCompile Include="src\world\render\WorldRendererTest.cpp" />
     <ClCompile Include="src\world\UniverseTest.cpp" />
     <ClCompile Include="src\world\util\QueryTest.cpp" />
+    <ClCompile Include="src\world\util\RaytraceTest.cpp" />
     <ClCompile Include="src\world\util\SideTest.cpp" />
     <ClCompile Include="src\world\WorldTest.cpp" />
   </ItemGroup>

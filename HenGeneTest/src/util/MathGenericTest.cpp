@@ -75,5 +75,18 @@ namespace math
 			Assert::AreEqual(3, ceil(2.1f));
 			Assert::AreEqual(-4, ceil(-4.9f));
 		}
+
+		TEST_METHOD(MathGeneric_intbound)
+		{
+			Assert::IsTrue(equal(0.0f, intbound(5, 1)));
+			Assert::IsTrue(equal(3.0f, intbound(2.1f, 0.3f)));
+			Assert::IsTrue(equal(2.5f, intbound(0.5, 0.2)));
+		}
+
+	private:
+		template<typename T> bool equal(const T & v1, const T & v2)
+		{
+			return abs(v1 - v2) <= static_cast<T>(0.0001);
+		}
 	};
 }

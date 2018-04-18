@@ -244,6 +244,7 @@
     <ClInclude Include="src\world\render\WorldRenderer.h" />
     <ClInclude Include="src\world\Universe.h" />
     <ClInclude Include="src\world\util\Query.h" />
+    <ClInclude Include="src\world\util\Raytrace.h" />
     <ClInclude Include="src\world\util\Side.h" />
     <ClInclude Include="src\world\World.h" />
   </ItemGroup>
@@ -282,6 +283,7 @@
     <ClCompile Include="src\world\render\WorldRenderer.cpp" />
     <ClCompile Include="src\world\Universe.cpp" />
     <ClCompile Include="src\world\util\Query.cpp" />
+    <ClCompile Include="src\world\util\Raytrace.cpp" />
     <ClCompile Include="src\world\util\Side.cpp" />
     <ClCompile Include="src\world\World.cpp" />
   </ItemGroup>
