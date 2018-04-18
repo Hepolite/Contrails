@@ -10,6 +10,8 @@
 
 namespace
 {
+	constexpr char * GUI_PATH = "data/guis/editor_world.xml";
+
 	bool keyLeft = false;
 	bool keyRight = false;
 	bool keyUp = false;
@@ -19,7 +21,7 @@ namespace
 
 void logic::state::StateEditorWorld::initialize(core::Engine & engine)
 {
-	engine.getGuiManager().open("data/guis/editor_world.xml");
+	engine.getGuiManager().open(GUI_PATH);
 
 	// Set up basic camera control
 	m_keyPress = engine.getEventBus().add<logic::event::KeyPress>([](auto & event)
@@ -56,7 +58,7 @@ void logic::state::StateEditorWorld::initialize(core::Engine & engine)
 }
 void logic::state::StateEditorWorld::deinitialize(core::Engine & engine)
 {
-	engine.getGuiManager().close("data/guis/editor_world.xml");
+	engine.getGuiManager().close(GUI_PATH);
 }
 
 void logic::state::StateEditorWorld::process(const Time & t, const Time & dt)

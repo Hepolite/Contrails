@@ -156,6 +156,21 @@
     <ClInclude Include="src\world\render\UniverseRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\editor\util\Shape.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\editor\Editor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render\scene\components\ComponentMesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render\scene\renderers\RendererMesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\editor\EditorWorld.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\core\Engine.cpp">

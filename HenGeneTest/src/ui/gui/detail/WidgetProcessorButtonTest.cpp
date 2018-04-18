@@ -16,6 +16,7 @@ namespace ui
 			TEST_METHOD(ProcessorButtonCheckbox_activate)
 			{
 				auto & widget = m_gui.getWidgets().create("widget");
+				widget.m_activation.m_hovered = true;
 				ProcessorButtonCheckbox processor{ m_gui.getWidgets(), widget };
 
 				Assert::IsFalse(widget.m_state.m_bool);
@@ -29,6 +30,8 @@ namespace ui
 			{
 				auto & widgetA = m_gui.getWidgets().create("widgetA");
 				auto & widgetB = m_gui.getWidgets().create("widgetB");
+				widgetA.m_activation.m_hovered = true;
+				widgetB.m_activation.m_hovered = true;
 				widgetA.m_group.m_leader = widgetB.m_group.m_leader = "widgetA";
 				widgetA.m_group.m_members = { "widgetA", "widgetB" };
 				ProcessorButtonRadio processorA{ m_gui.getWidgets(), widgetA };

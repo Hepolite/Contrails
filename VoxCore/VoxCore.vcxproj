@@ -199,10 +199,15 @@
     <ClInclude Include="src\core\setup\SetupScene.h" />
     <ClInclude Include="src\core\setup\SetupScripts.h" />
     <ClInclude Include="src\core\setup\SetupUbos.h" />
+    <ClInclude Include="src\editor\Editor.h" />
+    <ClInclude Include="src\editor\EditorWorld.h" />
+    <ClInclude Include="src\editor\util\Shape.h" />
     <ClInclude Include="src\logic\ecs\components\ComponentPhysical.h" />
     <ClInclude Include="src\logic\ecs\systems\SystemPhysical.h" />
     <ClInclude Include="src\logic\event\ChunkEvents.h" />
     <ClInclude Include="src\logic\event\WorldEvents.h" />
+    <ClInclude Include="src\render\scene\components\ComponentMesh.h" />
+    <ClInclude Include="src\render\scene\renderers\RendererMesh.h" />
     <ClInclude Include="src\render\scene\renderers\RendererWorld.h" />
     <ClInclude Include="src\logic\state\StateEditorWorld.h" />
     <ClInclude Include="src\logic\state\StateMainMenu.h" />
