@@ -26,7 +26,6 @@ namespace world
 				Assert::AreEqual({ 0.5f, 1.25f, 0.25f }, rayB.getPos());
 				Assert::AreEqual({ -0.5f, 5.31f, -1.05f }, rayC.getPos());
 			}
-
 			TEST_METHOD(Raytrace_isValid)
 			{
 				World world;
@@ -108,7 +107,6 @@ namespace world
 				Assert::AreEqual({ 0, 1, 0 }, rayB.getPos());
 				Assert::AreEqual({ -1, 5, -2 }, rayC.getPos());
 			}
-
 			TEST_METHOD(RaytraceBresenham_isValid)
 			{
 				World world;

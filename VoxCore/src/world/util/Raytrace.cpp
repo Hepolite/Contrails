@@ -25,7 +25,6 @@ bool world::util::Raytrace::isValid() const
 {
 	return m_tMax.x < 1.0f || m_tMax.y < 1.0f || m_tMax.z < 1.0f;
 }
-
 void world::util::Raytrace::next()
 {
 	m_oldPos = m_pos;
@@ -73,7 +72,6 @@ glm::ivec3 world::util::Raytrace::getOldBlockPos() const
 
 // ...
 
-
 world::util::RaytraceBresenham::RaytraceBresenham(const World & world, const glm::ivec3 & start, const glm::ivec3 & end)
 	: m_world(world), m_pos(start), m_oldPos(start)
 {
@@ -92,7 +90,6 @@ bool world::util::RaytraceBresenham::isValid() const
 {
 	return m_currentStep < m_totalSteps;
 }
-
 void world::util::RaytraceBresenham::next()
 {
 	m_oldPos = m_pos;

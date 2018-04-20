@@ -12,6 +12,7 @@ namespace
 {
 	constexpr char * GUI_PATH = "data/guis/editor_world.xml";
 
+	bool keyBoost = false;
 	bool keyLeft = false;
 	bool keyRight = false;
 	bool keyUp = false;
@@ -28,6 +29,7 @@ void logic::state::StateEditorWorld::initialize(core::Engine & engine)
 	{
 		switch (event.m_key)
 		{
+		case ALLEGRO_KEY_LSHIFT: keyBoost = true; break;
 		case ALLEGRO_KEY_A: keyLeft = true;		break;
 		case ALLEGRO_KEY_D: keyRight = true;	break;
 		case ALLEGRO_KEY_W: keyUp = true;		break;
@@ -39,6 +41,7 @@ void logic::state::StateEditorWorld::initialize(core::Engine & engine)
 	{
 		switch (event.m_key)
 		{
+		case ALLEGRO_KEY_LSHIFT: keyBoost = false; break;
 		case ALLEGRO_KEY_A: keyLeft = false;	break;
 		case ALLEGRO_KEY_D: keyRight = false;	break;
 		case ALLEGRO_KEY_W: keyUp = false;		break;
@@ -53,8 +56,8 @@ void logic::state::StateEditorWorld::initialize(core::Engine & engine)
 
 	// Place camera in a suitable location
 	m_camera = &engine.getScene().getCamera(render::scene::CameraType::NORMAL);
-	m_camera->setPosition({ -32, -32, -32 });
-	m_camera->lookTowards({ 0, 0, 0 });
+	m_camera->setPosition({ 10, 10, 10 });
+	m_camera->lookTowards({ 0, 0, 5 });
 }
 void logic::state::StateEditorWorld::deinitialize(core::Engine & engine)
 {
@@ -63,7 +66,7 @@ void logic::state::StateEditorWorld::deinitialize(core::Engine & engine)
 
 void logic::state::StateEditorWorld::process(const Time & t, const Time & dt)
 {
-	float speed = 15.0f * static_cast<float>(dt());
+	float speed = (keyBoost ? 350.0f : 1.0f) * static_cast<float>(dt());
 	float sensitivity = 25.f * static_cast<float>(dt());
 
 	glm::vec3 pos = m_camera->getPosition();
