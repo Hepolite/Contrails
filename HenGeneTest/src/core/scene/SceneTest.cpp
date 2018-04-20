@@ -100,6 +100,17 @@ namespace core
 
 				Assert::AreEqual(1, processedA);
 			}
+			TEST_METHOD(Scene_hasEntity)
+			{
+				Scene scene;
+				scene.registerSystems<SystemMockA>();
+				const auto entityA = scene.createEntity<int>();
+				const auto entityB = scene.createEntity<int>();
+				scene.deleteEntity(entityA);
+
+				Assert::IsFalse(scene.hasEntity(entityA));
+				Assert::IsTrue(scene.hasEntity(entityB));
+			}
 			TEST_METHOD(Scene_deleteEntity)
 			{
 				Scene scene;

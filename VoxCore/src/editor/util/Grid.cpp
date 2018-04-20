@@ -33,10 +33,10 @@ void editor::util::Grid::updateMesh()
 	auto & indices = m_mesh->getIndiceData();
 	for (float i = -0.5f * m_size; i <= 0.5f * m_size; i += m_resolution)
 	{
-		vertices.emplace_back(i, -0.5f * m_size, m_pos.z);
-		vertices.emplace_back(i, 0.5f * m_size, m_pos.z);
-		vertices.emplace_back(-0.5f * m_size, i, m_pos.z);
-		vertices.emplace_back(0.5f * m_size, i, m_pos.z);
+		vertices.emplace_back(i, -0.5f * m_size, 0.0f);
+		vertices.emplace_back(i, 0.5f * m_size, 0.0f);
+		vertices.emplace_back(-0.5f * m_size, i, 0.0f);
+		vertices.emplace_back(0.5f * m_size, i, 0.0f);
 
 		indices.emplace_back(indices.size());
 		indices.emplace_back(indices.size());
@@ -44,20 +44,21 @@ void editor::util::Grid::updateMesh()
 		indices.emplace_back(indices.size());
 	}
 
-	for (float i = 0.0f; i <= math::abs(m_pos.z); i += m_resolution)
+	const auto sign = -math::sign(m_pos.z);
+	for (float i = m_resolution; i <= math::abs(m_pos.z); i += m_resolution)
 	{
-		vertices.emplace_back(m_pos.x - 0.5f * m_resolution, m_pos.y, i);
-		vertices.emplace_back(m_pos.x + 0.5f * m_resolution, m_pos.y, i);
-		vertices.emplace_back(m_pos.x, m_pos.y - 0.5f * m_resolution, i);
-		vertices.emplace_back(m_pos.x, m_pos.y + 0.5f * m_resolution, i);
+		vertices.emplace_back(-0.25f * m_resolution, 0.0f, i * sign);
+		vertices.emplace_back(0.25f * m_resolution, 0.0f, i * sign);
+		vertices.emplace_back(0.0f, -0.25f * m_resolution, i * sign);
+		vertices.emplace_back(0.0f, 0.25f * m_resolution, i * sign);
 
 		indices.emplace_back(indices.size());
 		indices.emplace_back(indices.size());
 		indices.emplace_back(indices.size());
 		indices.emplace_back(indices.size());
 	}
-	vertices.emplace_back(m_pos.x, m_pos.y, 0.0f);
-	vertices.emplace_back(m_pos.x, m_pos.y, m_pos.z);
+	vertices.emplace_back(0.0f, 0.0f, -m_pos.z);
+	vertices.emplace_back(0.0f, 0.0f, 0.0f);
 	indices.emplace_back(indices.size());
 	indices.emplace_back(indices.size());
 

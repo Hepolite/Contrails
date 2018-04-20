@@ -24,6 +24,10 @@ void logic::state::StateEditorWorld::initialize(core::Engine & engine)
 {
 	engine.getGuiManager().open(GUI_PATH);
 
+	m_editor.inject(engine.getAssets());
+	m_editor.inject(engine.getScene());
+	m_editor.inject(engine.getUboRegistry());
+
 	// Set up basic camera control
 	m_keyPress = engine.getEventBus().add<logic::event::KeyPress>([](auto & event)
 	{

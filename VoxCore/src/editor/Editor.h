@@ -3,6 +3,12 @@
 
 #include "asset/AssetRegistry.h"
 #include "core/scene/Scene.h"
+#include "render/RenderContext.h"
+#include "render/uboRegistry.h"
+#include "util/Physics.h"
+
+#include <memory>
+#include <glm/mat4x4.hpp>
 
 namespace editor
 {
@@ -18,11 +24,17 @@ namespace editor
 		Editor & operator=(Editor &&) = delete;
 
 		void inject(const asset::AssetRegistry & assets);
+		void inject(const render::uboRegistry & ubos);
 		void inject(core::scene::Scene & scene);
 
-		virtual void process();
+	protected:
+		virtual void process(const Time & t, const Time & dt) {}
+		virtual void render(const render::RenderContext & context, const Time & t, const Time & dt) const {}
+
+		void setTransform(const glm::mat4 & transform) const;
 
 	private:
-
+		class Impl;
+		std::unique_ptr<Impl> m_impl;
 	};
 }

@@ -29,7 +29,7 @@ void asset::factory::LoaderShaderProgram::load(render::opengl::Program & asset, 
 		std::string attrType = node.attribute(ATTR_TYPE).as_string();
 		io::File attrFile = node.attribute(ATTR_FILE).as_string();
 
-		LOG_INFO << "Compiling " << attrType << " shader from " << (attrFile.exists() ? attrFile.getPath() : "internal data");
+		LOG_INFO << "Compiling " << attrType << " shader from " << (attrFile.exists() ? attrFile.getPath() : file.getPath());
 		render::opengl::ShaderType type = render::opengl::ShaderType::VERTEX;
 		if (attrType == TYPE_FRAGMENT)
 			type = render::opengl::ShaderType::FRAGMENT;

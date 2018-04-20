@@ -1,6 +1,9 @@
 
 #pragma once
 
+#undef SOLID
+#undef TRANSPARENT
+
 namespace render
 {
 	enum class RenderPass

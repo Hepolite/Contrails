@@ -48,6 +48,7 @@ namespace core
 			template<typename ...Components> void attachEntityComponent(logic::ecs::EntityID entity);
 			template<typename ...Components> void detachEntityComponent(logic::ecs::EntityID entity);
 			template<typename Component> Component & getEntityData(logic::ecs::EntityID entity);
+			bool hasEntity(logic::ecs::EntityID entity) const;
 			void deleteEntity(logic::ecs::EntityID entity);
 			void clearEntities();
 
