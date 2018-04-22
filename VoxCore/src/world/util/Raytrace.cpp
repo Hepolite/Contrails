@@ -1,19 +1,18 @@
 
 #include "Raytrace.h"
 
-#include "world/World.h"
 #include "util/MathGeneric.h"
 
 #include <glm/geometric.hpp>
 
-world::util::Raytrace::Raytrace(const World & world, const glm::ivec3 & start, const glm::ivec3 & end)
-	: Raytrace(world, glm::vec3{ start } + 0.5f, glm::vec3{ end } + 0.5f)
+world::util::Raytrace::Raytrace(const glm::ivec3 & start, const glm::ivec3 & end)
+	: Raytrace(glm::vec3{ start } + 0.5f, glm::vec3{ end } + 0.5f)
 {}
-world::util::Raytrace::Raytrace(const World & world, const glm::vec3 & start, const glm::vec3 & end)
-	: Raytrace(world, start, end - start, glm::length(end - start))
+world::util::Raytrace::Raytrace(const glm::vec3 & start, const glm::vec3 & end)
+	: Raytrace(start, end - start, glm::length(end - start))
 {}
-world::util::Raytrace::Raytrace(const World & world, const glm::vec3 & start, const glm::vec3 & dir, float length)
-	: m_world(world), m_pos(start), m_oldPos(start)
+world::util::Raytrace::Raytrace(const glm::vec3 & start, const glm::vec3 & dir, float length)
+	: m_pos(start), m_oldPos(start)
 {
 	m_dir = length * glm::normalize(dir);
 	m_step = math::sign(m_dir);
@@ -45,14 +44,6 @@ void world::util::Raytrace::next()
 	}
 }
 
-unsigned int world::util::Raytrace::getBlock() const
-{
-	return m_world.readBlock(getBlockPos()).getId();
-}
-unsigned int world::util::Raytrace::getOldBlock() const
-{
-	return m_world.readBlock(getOldBlockPos()).getId();
-}
 glm::vec3 world::util::Raytrace::getPos() const
 {
 	return m_pos;
@@ -72,23 +63,23 @@ glm::ivec3 world::util::Raytrace::getOldBlockPos() const
 
 // ...
 
-world::util::RaytraceBresenham::RaytraceBresenham(const World & world, const glm::ivec3 & start, const glm::ivec3 & end)
-	: m_world(world), m_pos(start), m_oldPos(start)
+world::util::RaytraceBresenham::RaytraceBresenham(const glm::ivec3 & start, const glm::ivec3 & end)
+	: m_pos(start), m_oldPos(start)
 {
 	m_step = math::sign(end - start);
 	m_delta = math::abs(end - start);
 	m_totalSteps = (m_delta.x > m_delta.y && m_delta.x > m_delta.z) ? m_delta.x : (m_delta.y > m_delta.z) ? m_delta.y : m_delta.z;
 }
-world::util::RaytraceBresenham::RaytraceBresenham(const World & world, const glm::vec3 & start, const glm::vec3 & end)
-	: RaytraceBresenham(world, math::floor(start), math::floor(start))
+world::util::RaytraceBresenham::RaytraceBresenham(const glm::vec3 & start, const glm::vec3 & end)
+	: RaytraceBresenham(math::floor(start), math::floor(start))
 {}
-world::util::RaytraceBresenham::RaytraceBresenham(const World & world, const glm::vec3 & start, const glm::vec3 & dir, float length)
-	: RaytraceBresenham(world, start, start + dir * length)
+world::util::RaytraceBresenham::RaytraceBresenham(const glm::vec3 & start, const glm::vec3 & dir, float length)
+	: RaytraceBresenham(start, start + dir * length)
 {}
 
 bool world::util::RaytraceBresenham::isValid() const
 {
-	return m_currentStep < m_totalSteps;
+	return m_currentStep <= m_totalSteps;
 }
 void world::util::RaytraceBresenham::next()
 {
@@ -105,19 +96,11 @@ void world::util::RaytraceBresenham::next()
 	}
 }
 
-unsigned int world::util::RaytraceBresenham::getBlock() const
-{
-	return m_world.readBlock(getPos()).getId();
-}
-unsigned int world::util::RaytraceBresenham::getOldBlock() const
-{
-	return m_world.readBlock(getOldPos()).getId();
-}
-glm::vec3 world::util::RaytraceBresenham::getPos() const
+glm::ivec3 world::util::RaytraceBresenham::getPos() const
 {
 	return m_pos;
 }
-glm::vec3 world::util::RaytraceBresenham::getOldPos() const
+glm::ivec3 world::util::RaytraceBresenham::getOldPos() const
 {
 	return m_oldPos;
 }

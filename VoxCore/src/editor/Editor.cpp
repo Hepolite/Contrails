@@ -4,6 +4,7 @@
 #include "asset/AssetRef.h"
 #include "editor/util/Grid.h"
 #include "editor/util/ShapeBox.h"
+#include "editor/util/ShapeLine.h"
 #include "logic/ecs/detail/Entity.h"
 #include "render/opengl/Program.h"
 #include "render/scene/components/ComponentGeneric.h"
@@ -30,6 +31,7 @@ public:
 private:
 	util::Grid m_grid;
 	util::ShapeBox m_shapeBox;
+	util::ShapeLine m_shapeLine;
 
 	const asset::AssetRegistry * m_assets = nullptr;
 	const render::uboRegistry * m_ubos = nullptr;
@@ -63,7 +65,8 @@ void editor::Editor::Impl::inject(core::scene::Scene & scene)
 
 void editor::Editor::Impl::process()
 {
-	m_shapeBox.setSize({ 1, 2, 3 });
+	m_shapeBox.stretch({ 0, 0, 10 }, { 0, 1, 12 });
+	m_shapeLine.stretch({ 3, 7, 11 }, { 5, 0, 10 });
 }
 void editor::Editor::Impl::render() const
 {
@@ -76,8 +79,10 @@ void editor::Editor::Impl::render() const
 	if (m_programShape != nullptr)
 	{
 		m_programShape->bind();
-		setTransform(glm::translate(glm::mat4{ 1.0f }, { 0, 0, 10 }));
+		setTransform(glm::translate(glm::mat4{ 1.0f }, { m_shapeBox.getPos() }));
 		m_shapeBox.getMesh()->render();
+		setTransform(glm::translate(glm::mat4{ 1.0f }, { m_shapeLine.getPos() }));
+		m_shapeLine.getMesh()->render();
 	}
 }
 

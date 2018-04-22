@@ -205,6 +205,7 @@
     <ClInclude Include="src\editor\util\Grid.h" />
     <ClInclude Include="src\editor\util\Shape.h" />
     <ClInclude Include="src\editor\util\ShapeBox.h" />
+    <ClInclude Include="src\editor\util\ShapeLine.h" />
     <ClInclude Include="src\logic\ecs\components\ComponentPhysical.h" />
     <ClInclude Include="src\logic\ecs\systems\SystemPhysical.h" />
     <ClInclude Include="src\logic\event\ChunkEvents.h" />
@@ -261,6 +262,7 @@
     <ClCompile Include="src\editor\util\Grid.cpp" />
     <ClCompile Include="src\editor\util\Shape.cpp" />
     <ClCompile Include="src\editor\util\ShapeBox.cpp" />
+    <ClCompile Include="src\editor\util\ShapeLine.cpp" />
     <ClCompile Include="src\logic\ecs\systems\SystemPhysical.cpp" />
     <ClCompile Include="src\logic\state\StateEditorWorld.cpp" />
     <ClCompile Include="src\logic\state\StateMainMenu.cpp" />

@@ -2,6 +2,7 @@
 #include "Query.h"
 
 #include "world/detail/Limits.h"
+#include "world/util/Raytrace.h"
 #include "util/MathGeneric.h"
 
 world::data::BlockData world::util::Query::getBlockData(const Block & block) const
@@ -20,6 +21,10 @@ world::data::WorldQuery world::util::Query::readBlock(const glm::ivec3 & pos) co
 world::data::WorldQuery world::util::Query::readRectangle(const glm::ivec3 & start, const glm::ivec3 & end) const
 {
 	return writeRectangle({}, start, end);
+}
+world::data::WorldQuery world::util::Query::readLine(const glm::ivec3 & start, const glm::ivec3 & end) const
+{
+	return writeLine({}, start, end);
 }
 
 world::data::WorldQuery world::util::Query::writeBlock(const Block & block, const glm::ivec3 & pos) const
@@ -51,5 +56,15 @@ world::data::WorldQuery world::util::Query::writeRectangle(const Block & block, 
 		chunkQuery.add(lower, upper, blockData, colorData);
 		query.add(cpos, std::move(chunkQuery));
 	}
+	return query;
+}
+world::data::WorldQuery world::util::Query::writeLine(const Block & block, const glm::ivec3 & start, const glm::ivec3 & end) const
+{
+	const auto blockData = getBlockData(block);
+	const auto colorData = getColorData(block);
+
+	data::WorldQuery query;
+	for (util::RaytraceBresenham ray{ start, end }; ray.isValid(); ray.next())
+		query.add(ray.getPos(), blockData, colorData);
 	return query;
 }

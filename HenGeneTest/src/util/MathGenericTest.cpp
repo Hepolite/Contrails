@@ -61,6 +61,16 @@ namespace math
 			Assert::AreEqual({ 0, -1, 1 }, sign<float>({ 0.0f, -2.1f, 1.5f}));
 			Assert::AreEqual({ 0, 1, 1, -1 }, sign<float>({ 0.0f, 0.1f, 3.5f, -42.0f }));
 		}
+		TEST_METHOD(MathGeneric_signp)
+		{
+			Assert::AreEqual(1, signp(3));
+			Assert::AreEqual(1, signp(0));
+			Assert::AreEqual(-1, signp(-1));
+
+			Assert::AreEqual({ 1, -1 }, signp<float>({ 5.44f, -5.44f }));
+			Assert::AreEqual({ 1, -1, 1 }, signp<float>({ 0.0f, -2.1f, 1.5f }));
+			Assert::AreEqual({ 1, 1, 1, -1 }, signp<float>({ 0.0f, 0.1f, 3.5f, -42.0f }));
+		}
 
 		TEST_METHOD(MathGeneric_rouding)
 		{

@@ -7,7 +7,7 @@ namespace editor
 {
 	namespace util
 	{
-		class ShapeBox : public Shape
+		class ShapeLine : public Shape
 		{
 		private:
 			virtual world::data::WorldQuery query(const world::Block & block) const override final;

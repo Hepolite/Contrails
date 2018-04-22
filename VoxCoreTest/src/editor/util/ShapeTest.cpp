@@ -20,7 +20,7 @@ namespace editor
 				m_queried = true;
 				return {};
 			}
-			virtual void mesh(std::vector<glm::vec3> & vertices, std::vector<unsigned int> & indices) const override final
+			virtual void mesh(Vertices & vertices, Indices & indices) const override final
 			{
 				m_meshed = true;
 			}
@@ -49,15 +49,15 @@ namespace editor
 			TEST_METHOD(Shape_setSize)
 			{
 				ShapeMock shapeA, shapeB, shapeC, shapeD;
-				shapeA.setSize({ 5, 3, 7 });
+				shapeA.setSize({ 5, -3, 7 });
 				shapeB.setSizeX(4);
 				shapeC.setSizeY(6);
-				shapeD.setSizeZ(8);
+				shapeD.setSizeZ(-8);
 
-				Assert::AreEqual({ 5, 3, 7 }, shapeA.getSize());
+				Assert::AreEqual({ 5, -3, 7 }, shapeA.getSize());
 				Assert::AreEqual({ 4, 1, 1 }, shapeB.getSize());
 				Assert::AreEqual({ 1, 6, 1 }, shapeC.getSize());
-				Assert::AreEqual({ 1, 1, 8 }, shapeD.getSize());
+				Assert::AreEqual({ 1, 1, -8 }, shapeD.getSize());
 				Assert::ExpectException<std::invalid_argument>([&shapeA]() { shapeA.setSizeX(0); });
 				Assert::ExpectException<std::invalid_argument>([&shapeA]() { shapeA.setSizeY(0); });
 				Assert::ExpectException<std::invalid_argument>([&shapeA]() { shapeA.setSizeZ(0); });
@@ -66,14 +66,42 @@ namespace editor
 				Assert::IsTrue(shapeC.isMeshed());
 				Assert::IsTrue(shapeD.isMeshed());
 			}
+			TEST_METHOD(Shape_stretch)
+			{
+				ShapeMock shapeA, shapeB, shapeC, shapeD, shapeE;
+				shapeA.stretch({ 0, 0, 0 }, { 1, 2, 3 });
+				shapeB.stretch({ 3, 1, 4 }, { 6, 5, 10 });
+				shapeC.stretch({ 2, -3, 0 }, { 5, 0, -3 });
+				shapeD.stretch({ -3, 0, 4 }, { -10, -1, -2 });
+				shapeE.stretch({ 0, 3, -2 }, { 0, 3, -2});
+
+				Assert::AreEqual({ 0, 1, 1 }, shapeA.getPos());
+				Assert::AreEqual({ 2, 3, 4 }, shapeA.getSize());
+				Assert::AreEqual({ 4, 3, 7 }, shapeB.getPos());
+				Assert::AreEqual({ 4, 5, 7 }, shapeB.getSize());
+				Assert::AreEqual({ 3, -2, -2 }, shapeC.getPos());
+				Assert::AreEqual({ 4, 4, -4 }, shapeC.getSize());
+				Assert::AreEqual({ -7, -1, 1 }, shapeD.getPos());
+				Assert::AreEqual({ -8, -2, -7 }, shapeD.getSize());
+				Assert::AreEqual({ 0, 3, -2 }, shapeE.getPos());
+				Assert::AreEqual({ 1, 1, 1 }, shapeE.getSize());
+			}
 			TEST_METHOD(Shape_getStartAndEnd)
 			{
-				ShapeMock shape;
-				shape.setPos({ 3, 1, -4 });
-				shape.setSize({ 4, 7, 10 });
+				ShapeMock shapeA, shapeB, shapeC;
+				shapeA.setPos({ 3, 1, -4 });
+				shapeA.setSize({ 4, 7, 10 });
+				shapeB.setPos({ 0, 0, 0 });
+				shapeB.setSize({ 5, -7, -4 });
+				shapeC.setPos({ -2, 1, 3 });
+				shapeC.setSize({ -4, -2, 1 });
 
-				Assert::AreEqual({ 1, -2, -9 }, shape.getStart());
-				Assert::AreEqual({ 4, 4, 0 }, shape.getEnd());
+				Assert::AreEqual({ 2, -2, -8 }, shapeA.getStart());
+				Assert::AreEqual({ 5, 4, 1 }, shapeA.getEnd());
+				Assert::AreEqual({ -2, 3, 2 }, shapeB.getStart());
+				Assert::AreEqual({ 2, -3, -1 }, shapeB.getEnd());
+				Assert::AreEqual({ 0, 2, 3 }, shapeC.getStart());
+				Assert::AreEqual({ -3, 1, 3 }, shapeC.getEnd());
 			}
 
 			TEST_METHOD(Shape_setDynamic)

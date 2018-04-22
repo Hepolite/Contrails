@@ -183,6 +183,9 @@
     <ClInclude Include="src\editor\util\ShapeBox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\editor\util\ShapeLine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\core\Engine.cpp">
@@ -309,6 +312,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\editor\util\ShapeBox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\editor\util\ShapeLine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

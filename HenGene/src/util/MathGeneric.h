@@ -109,6 +109,23 @@ namespace math
 	{
 		return { sign(v.x), sign(v.y), sign(v.z), sign(v.w) };
 	}
+	template<typename T> constexpr int signp(const T & v)
+	{
+		return v < T{ 0 } ? -1 : 1;
+	}
+	template<typename T> constexpr glm::tvec2<T> signp(const glm::tvec2<T> & v)
+	{
+		return { signp(v.x), signp(v.y) };
+	}
+	template<typename T> constexpr glm::tvec3<T> signp(const glm::tvec3<T> & v)
+	{
+		return { signp(v.x), signp(v.y), signp(v.z) };
+	}
+	template<typename T> constexpr glm::tvec4<T> signp(const glm::tvec4<T> & v)
+	{
+		return { signp(v.x), signp(v.y), signp(v.z), signp(v.w) };
+	}
+
 
 	// ...
 

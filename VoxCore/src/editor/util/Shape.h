@@ -13,6 +13,9 @@ namespace editor
 {
 	namespace util
 	{
+		using Vertices = std::vector<glm::vec3>;
+		using Indices = std::vector<unsigned int>;
+
 		class Shape
 		{
 		public:
@@ -24,6 +27,7 @@ namespace editor
 			Shape & operator=(const Shape &) = delete;
 			Shape & operator=(Shape &&) = delete;
 
+			void stretch(const glm::ivec3 & start, const glm::ivec3 & end);
 			void setPos(const glm::ivec3 & pos);
 			void setSize(const glm::ivec3 & size);
 			inline void setSizeX(int x) { setSize({ x, m_size.y, m_size.z }); }
@@ -41,13 +45,13 @@ namespace editor
 			inline auto write(const world::Block & block) const { return query(block); }
 
 		protected:
-			inline auto getStart() const { return getPos() - getSize() / 2; }
-			inline auto getEnd() const { return getStart() + getSize() - 1; }
+			glm::ivec3 getStart() const;
+			glm::ivec3 getEnd() const;
 
 			void updateMesh();
 
 			virtual world::data::WorldQuery query(const world::Block & block) const = 0;
-			virtual void mesh(std::vector<glm::vec3> & vertices, std::vector<unsigned int> & indices) const = 0;
+			virtual void mesh(Vertices & vertices, Indices & indices) const = 0;
 
 		private:
 			std::unique_ptr<render::Mesh<glm::vec3>> m_mesh;
@@ -56,5 +60,13 @@ namespace editor
 			glm::ivec3 m_size{ 1 };
 			bool m_dynamic = false;
 		};
+
+		// ...
+
+		namespace detail
+		{
+			void meshLine(const glm::vec3 & start, const glm::vec3 & end, Vertices & vertices, Indices & indices);
+			void meshRectangle(const glm::vec3 & start, const glm::vec3 & end, Vertices & vertices, Indices & indices);
+		}
 	}
 }
