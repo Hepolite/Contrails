@@ -50,6 +50,14 @@ namespace editor
 			Assert::IsFalse(scene.hasEntity(0u));
 		}
 
+		TEST_METHOD(Editor_injectGui)
+		{
+			ui::gui::Gui gui;
+			EditorMock editor;
+			editor.inject(gui);
+			Assert::IsTrue(gui.getScript().execute("EDITOR.getShape()"));
+		}
+
 	private:
 		setup::Context m_context;
 	};

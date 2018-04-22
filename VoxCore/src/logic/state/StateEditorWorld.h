@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "editor/Editor.h"
+#include "editor/EditorWorld.h"
 #include "logic/event/EventListener.h"
 #include "logic/state/State.h"
 #include "render/scene/Camera.h"
@@ -18,7 +18,7 @@ namespace logic
 			virtual void process(const Time & t, const Time & dt) override final;
 
 		private:
-			editor::Editor m_editor;
+			editor::EditorWorld m_editor;
 
 			logic::event::Listener m_keyPress, m_keyRelease;
 			logic::event::Listener m_mouseMove;

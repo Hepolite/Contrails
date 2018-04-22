@@ -217,6 +217,7 @@ void core::setup::detail::setupUniverse(Engine & engine)
 		using namespace world::data;
 		using namespace world::util;
 		util::addVarGlobal(script, &universe, "UNIVERSE");
+		util::addType<world::World>(script, "World");
 		util::addFun(script, &world::Universe::createWorld, "createWorld");
 		util::addFun(script, &world::Universe::destroyWorld, "destroyWorld");
 		util::addFun(script, &world::Universe::hasWorld, "hasWorld");

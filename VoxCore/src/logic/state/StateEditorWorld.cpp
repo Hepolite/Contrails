@@ -71,6 +71,7 @@ void logic::state::StateEditorWorld::deinitialize(core::Engine & engine)
 
 void logic::state::StateEditorWorld::process(const Time & t, const Time & dt)
 {
+	// Basic camera control
 	float speed = (keyBoost ? 350.0f : 1.0f) * static_cast<float>(dt());
 	float sensitivity = 25.f * static_cast<float>(dt());
 

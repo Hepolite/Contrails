@@ -40,6 +40,14 @@ namespace editor
 				Assert::AreEqual({ 5.0f, 42.0f }, cursor.getMousePos());
 			}
 
+			TEST_METHOD(Cursor_setValidPos)
+			{
+				Cursor cursor;
+				cursor.setValidPos(true);
+
+				Assert::IsTrue(cursor.hasValidPos());
+			}
+
 			TEST_METHOD(Cursor_lockAxis)
 			{
 				Cursor cursor;

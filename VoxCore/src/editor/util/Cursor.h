@@ -31,6 +31,9 @@ namespace editor
 			glm::vec3 getClickedPos() const;
 			glm::vec2 getMousePos() const;
 
+			inline void setValidPos(bool valid) { m_hasValidPos = valid; }
+			inline bool hasValidPos() const { return m_hasValidPos; }
+
 			inline void lockAxisX(bool locked) { m_lockAxisX = locked; }
 			inline void lockAxisY(bool locked) { m_lockAxisY = locked; }
 			inline void lockAxisZ(bool locked) { m_lockAxisZ = locked; }
@@ -45,6 +48,7 @@ namespace editor
 
 			ui::mouse::Button m_button = ui::mouse::Button::NONE;
 
+			bool m_hasValidPos = false;
 			glm::vec3 m_pos{};
 			glm::vec3 m_clickedPos{};
 			glm::vec2 m_mousePos{};

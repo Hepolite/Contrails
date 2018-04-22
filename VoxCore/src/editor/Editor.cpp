@@ -2,7 +2,6 @@
 #include "Editor.h"
 
 #include "asset/AssetRef.h"
-#include "editor/util/Cursor.h"
 #include "editor/util/Grid.h"
 #include "editor/util/ShapeBox.h"
 #include "editor/util/ShapeLine.h"
@@ -33,6 +32,8 @@ public:
 
 	// ...
 
+	inline auto & getCursor() { return m_cursor; }
+
 	void setTransform(const glm::mat4 & transform) const;
 
 	// ...
@@ -49,6 +50,7 @@ private:
 
 	const asset::AssetRegistry * m_assets = nullptr;
 	const render::uboRegistry * m_ubos = nullptr;
+	ui::gui::Gui * m_gui = nullptr;
 	core::scene::Scene * m_scene = nullptr;
 
 	asset::Ref<render::opengl::Program> m_programGrid, m_programShape;
@@ -114,8 +116,6 @@ void editor::Editor::Impl::inject(ui::gui::Gui & gui)
 	logic::script::util::addFun(script, &util::Shape::getSize, "getSize");
 	logic::script::util::addFun(script, &util::Shape::read, "read");
 	logic::script::util::addFun(script, &util::Shape::write, "write");
-
-	script.execute("main()");
 }
 void editor::Editor::Impl::inject(core::scene::Scene & scene)
 {
@@ -125,6 +125,11 @@ void editor::Editor::Impl::inject(core::scene::Scene & scene)
 
 void editor::Editor::Impl::process()
 {
+	if (!m_cursor.hasValidPos())
+		return;
+
+	if (m_shape != nullptr)
+		m_shape->stretch(m_cursor.getClickedPos(), m_cursor.getPos());
 }
 void editor::Editor::Impl::render() const
 {
@@ -134,7 +139,7 @@ void editor::Editor::Impl::render() const
 		setTransform(glm::translate(glm::mat4{ 1.0f }, m_grid.getPos()));
 		m_grid.getMesh()->render();
 	}
-	if (m_programShape && m_shape)
+	if (m_programShape && m_shape && m_cursor.hasValidPos())
 	{
 		m_programShape->bind();
 		setTransform(glm::translate(glm::mat4{ 1.0f }, { m_shape->getPos() }));
@@ -167,6 +172,8 @@ void editor::Editor::inject(const render::uboRegistry & ubos)
 void editor::Editor::inject(ui::gui::Gui & gui)
 {
 	m_impl->inject(gui);
+	init(gui.getScript());
+	gui.getScript().execute("main()");
 }
 void editor::Editor::inject(core::scene::Scene & scene)
 {
@@ -184,6 +191,11 @@ void editor::Editor::inject(core::scene::Scene & scene)
 			m_impl->render();
 		render(context, t, dt);
 	};
+}
+
+editor::util::Cursor & editor::Editor::getCursor()
+{
+	return m_impl->getCursor();
 }
 
 void editor::Editor::setTransform(const glm::mat4 & transform) const

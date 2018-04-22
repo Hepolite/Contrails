@@ -3,6 +3,8 @@
 
 #include "asset/AssetRegistry.h"
 #include "core/scene/Scene.h"
+#include "editor/util/Cursor.h"
+#include "logic/script/Script.h"
 #include "render/RenderContext.h"
 #include "render/uboRegistry.h"
 #include "ui/gui/Gui.h"
@@ -30,8 +32,11 @@ namespace editor
 		void inject(core::scene::Scene & scene);
 
 	protected:
+		virtual void init(logic::script::Script & script) {}
 		virtual void process(const Time & t, const Time & dt) {}
 		virtual void render(const render::RenderContext & context, const Time & t, const Time & dt) const {}
+
+		util::Cursor & getCursor();
 
 		void setTransform(const glm::mat4 & transform) const;
 

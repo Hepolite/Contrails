@@ -47,6 +47,8 @@ namespace logic
 			void addFun(Script & script, Ret(Class::* fun)(Params...) const, const std::string & name);
 			template<typename Ret, typename ...Params>
 			void addFun(Script & script, Ret(*fun)(Params...), const std::string & name);
+			template<typename T>
+			void addFun(Script & script, const T & fun, const std::string & name);
 
 			// ...
 
@@ -124,6 +126,11 @@ inline void logic::script::util::addFun(Script & script, Ret(Class::* fun)(Param
 }
 template<typename Ret, typename ...Params>
 inline void logic::script::util::addFun(Script & script, Ret(* fun)(Params...), const std::string & name)
+{
+	script.getHandle().add(chaiscript::fun(fun), name);
+}
+template<typename T>
+inline void logic::script::util::addFun(Script & script, const T & fun, const std::string & name)
 {
 	script.getHandle().add(chaiscript::fun(fun), name);
 }

@@ -1,6 +1,6 @@
 
 // Generate a new world to edit
-global WORLD_NAME = "world";
+global WORLD_NAME = "world"; // TODO: Replace with startup world name
 if (!UNIVERSE.hasWorld(WORLD_NAME))
 {
 	UNIVERSE.createWorld(WORLD_NAME);
@@ -10,11 +10,9 @@ if (!UNIVERSE.hasWorld(WORLD_NAME))
 var world = UNIVERSE.getWorld(WORLD_NAME);
 var blocks = world.getBlockRegistry();
 
-world.write(QUERY.writeRectangle(blocks["stone"], ivec3(-31, -31, 0), ivec3(31, 31, 3)));
-world.write(QUERY.writeRectangle(blocks["dirt"], ivec3(-31, -31, 4), ivec3(31, 31, 5)));
-world.write(QUERY.writeRectangle(blocks["grass"], ivec3(-31, -31, 6), ivec3(31, 31, 6)));
-world.write(QUERY.writeRectangle(blocks["grass"], ivec3(0, 0, 15), ivec3(15, 15, 15)));
-world.write(QUERY.writeBlock(blocks["glowstone"], ivec3(-15, -15, -3)));
+world.write(QUERY.writeRectangle(blocks["stone"], ivec3(-32, -32, 0), ivec3(31, 31, 3)));
+world.write(QUERY.writeRectangle(blocks["dirt"], ivec3(-32, -32, 4), ivec3(31, 31, 5)));
+world.write(QUERY.writeRectangle(blocks["grass"], ivec3(-32, -32, 6), ivec3(31, 31, 6)));
 
 // Update the world and calculate lights
 world.process();
@@ -23,7 +21,7 @@ world.process();
 
 def main()
 {
-	EDITOR.setShape(EDITOR.shapeLine);
+	SET_EDITOR_WORLD(UNIVERSE.getWorld(WORLD_NAME));
 }
 
 def setBoxSize(element, name)

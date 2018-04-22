@@ -258,6 +258,7 @@
     <ClCompile Include="src\core\setup\SetupScripts.cpp" />
     <ClCompile Include="src\core\setup\SetupUbos.cpp" />
     <ClCompile Include="src\editor\Editor.cpp" />
+    <ClCompile Include="src\editor\EditorWorld.cpp" />
     <ClCompile Include="src\editor\util\Cursor.cpp" />
     <ClCompile Include="src\editor\util\Grid.cpp" />
     <ClCompile Include="src\editor\util\Shape.cpp" />
