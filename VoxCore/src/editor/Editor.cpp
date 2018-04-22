@@ -3,6 +3,7 @@
 
 #include "asset/AssetRef.h"
 #include "editor/util/Grid.h"
+#include "editor/util/ShapeBox.h"
 #include "logic/ecs/detail/Entity.h"
 #include "render/opengl/Program.h"
 #include "render/scene/components/ComponentGeneric.h"
@@ -28,12 +29,13 @@ public:
 
 private:
 	util::Grid m_grid;
+	util::ShapeBox m_shapeBox;
 
 	const asset::AssetRegistry * m_assets = nullptr;
 	const render::uboRegistry * m_ubos = nullptr;
 	core::scene::Scene * m_scene = nullptr;
 
-	asset::Ref<render::opengl::Program> m_program;
+	asset::Ref<render::opengl::Program> m_programGrid, m_programShape;
 	logic::ecs::EntityID m_entity;
 };
 
@@ -46,7 +48,8 @@ editor::Editor::Impl::~Impl()
 void editor::Editor::Impl::inject(const asset::AssetRegistry & assets)
 {
 	m_assets = &assets;
-	m_program = assets.get<render::opengl::Program>("editor");
+	m_programGrid = assets.get<render::opengl::Program>("editor_grid");
+	m_programShape = assets.get<render::opengl::Program>("editor_shape");
 }
 void editor::Editor::Impl::inject(const render::uboRegistry & ubos)
 {
@@ -60,15 +63,22 @@ void editor::Editor::Impl::inject(core::scene::Scene & scene)
 
 void editor::Editor::Impl::process()
 {
+	m_shapeBox.setSize({ 1, 2, 3 });
 }
 void editor::Editor::Impl::render() const
 {
-	if (m_program == nullptr)
-		return;
-	m_program->bind();
-
-	setTransform(glm::translate(glm::mat4{ 1.0f }, m_grid.getPos()));
-	m_grid.getMesh()->render();
+	if (m_programGrid != nullptr)
+	{
+		m_programGrid->bind();
+		setTransform(glm::translate(glm::mat4{ 1.0f }, m_grid.getPos()));
+		m_grid.getMesh()->render();
+	}
+	if (m_programShape != nullptr)
+	{
+		m_programShape->bind();
+		setTransform(glm::translate(glm::mat4{ 1.0f }, { 0, 0, 10 }));
+		m_shapeBox.getMesh()->render();
+	}
 }
 
 void editor::Editor::Impl::setTransform(const glm::mat4 & transform) const

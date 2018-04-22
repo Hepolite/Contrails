@@ -199,6 +199,8 @@
     <ClCompile Include="src\editor\EditorTest.cpp" />
     <ClCompile Include="src\editor\util\CursorTest.cpp" />
     <ClCompile Include="src\editor\util\GridTest.cpp" />
+    <ClCompile Include="src\editor\util\ShapeBoxTest.cpp" />
+    <ClCompile Include="src\editor\util\ShapeTest.cpp" />
     <ClCompile Include="src\world\render\BlockRenderRegistryTest.cpp" />
     <ClCompile Include="src\world\render\BlockTextureAtlasTest.cpp" />
     <ClCompile Include="src\world\render\detail\BlockModelLoaderTest.cpp" />

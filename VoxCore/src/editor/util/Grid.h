@@ -38,7 +38,7 @@ namespace editor
 			std::unique_ptr<render::Mesh<glm::vec3>> m_mesh;
 
 			glm::vec3 m_pos{};
-			float m_size = 32.0f;
+			float m_size = 100.0f;
 			float m_resolution = 1.0f;
 		};
 	}
