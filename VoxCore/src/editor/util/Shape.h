@@ -39,7 +39,7 @@ namespace editor
 			inline auto getSize() const { return m_size; }
 			inline auto isDynamic() const { return m_dynamic; }
 
-			inline auto getMesh() const { return m_mesh.get(); }
+			render::Mesh<glm::vec3> * getMesh() const;
 
 			inline auto read() const { return query({}); }
 			inline auto write(const world::Block & block) const { return query(block); }
@@ -48,13 +48,13 @@ namespace editor
 			glm::ivec3 getStart() const;
 			glm::ivec3 getEnd() const;
 
-			void updateMesh();
+			void updateMesh() const;
 
 			virtual world::data::WorldQuery query(const world::Block & block) const = 0;
 			virtual void mesh(Vertices & vertices, Indices & indices) const = 0;
 
 		private:
-			std::unique_ptr<render::Mesh<glm::vec3>> m_mesh;
+			mutable std::unique_ptr<render::Mesh<glm::vec3>> m_mesh;
 
 			glm::ivec3 m_pos{ 0 };
 			glm::ivec3 m_size{ 1 };

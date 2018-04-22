@@ -5,6 +5,7 @@
 #include "core/scene/Scene.h"
 #include "render/RenderContext.h"
 #include "render/uboRegistry.h"
+#include "ui/gui/Gui.h"
 #include "util/Physics.h"
 
 #include <memory>
@@ -25,6 +26,7 @@ namespace editor
 
 		void inject(const asset::AssetRegistry & assets);
 		void inject(const render::uboRegistry & ubos);
+		void inject(ui::gui::Gui & gui);
 		void inject(core::scene::Scene & scene);
 
 	protected:

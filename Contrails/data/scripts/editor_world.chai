@@ -19,7 +19,12 @@ world.write(QUERY.writeBlock(blocks["glowstone"], ivec3(-15, -15, -3)));
 // Update the world and calculate lights
 world.process();
 
+// ...
 
+def main()
+{
+	EDITOR.setShape(EDITOR.shapeLine);
+}
 
 def setBoxSize(element, name)
 {

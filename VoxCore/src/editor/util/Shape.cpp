@@ -30,7 +30,13 @@ glm::ivec3 editor::util::Shape::getEnd() const
 	return getStart() + m_size - math::sign(m_size);
 }
 
-void editor::util::Shape::updateMesh()
+render::Mesh<glm::vec3>* editor::util::Shape::getMesh() const
+{
+	if (m_mesh == nullptr)
+		updateMesh();
+	return m_mesh.get();
+}
+void editor::util::Shape::updateMesh() const
 {
 	m_mesh = std::make_unique<render::Mesh<glm::vec3>>();
 	m_mesh->setRenderMode(render::opengl::RenderMode::LINES);

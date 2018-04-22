@@ -2,14 +2,18 @@
 #include "Editor.h"
 
 #include "asset/AssetRef.h"
+#include "editor/util/Cursor.h"
 #include "editor/util/Grid.h"
 #include "editor/util/ShapeBox.h"
 #include "editor/util/ShapeLine.h"
 #include "logic/ecs/detail/Entity.h"
+#include "logic/script/ScriptUtil.h"
 #include "render/opengl/Program.h"
 #include "render/scene/components/ComponentGeneric.h"
 
 #include <glm/gtc/matrix_transform.hpp>
+
+#undef TRANSPARENT
 
 class editor::Editor::Impl
 {
@@ -19,6 +23,7 @@ public:
 
 	void inject(const asset::AssetRegistry & assets);
 	void inject(const render::uboRegistry & ubos);
+	void inject(ui::gui::Gui & gui);
 	void inject(core::scene::Scene & scene);
 
 	void process();
@@ -26,10 +31,19 @@ public:
 
 	inline auto & getEntityData() { return m_scene->getEntityData<render::scene::ComponentGeneric>(m_entity); }
 
+	// ...
+
 	void setTransform(const glm::mat4 & transform) const;
 
+	// ...
+
+	inline void setShape(util::Shape * shape) { m_shape = shape; }
+	inline auto getShape() const { return m_shape; }
+
 private:
+	util::Cursor m_cursor;
 	util::Grid m_grid;
+	util::Shape * m_shape = &m_shapeBox;
 	util::ShapeBox m_shapeBox;
 	util::ShapeLine m_shapeLine;
 
@@ -57,6 +71,52 @@ void editor::Editor::Impl::inject(const render::uboRegistry & ubos)
 {
 	m_ubos = &ubos;
 }
+void editor::Editor::Impl::inject(ui::gui::Gui & gui)
+{
+	auto & script = gui.getScript();
+	logic::script::util::addVarGlobal(script, this, "EDITOR");
+	logic::script::util::addFun(script, &Impl::getShape, "getShape");
+	logic::script::util::addFun(script, &Impl::setShape, "setShape");
+	logic::script::util::addAttribute(script, &Impl::m_shapeBox, "shapeBox");
+	logic::script::util::addAttribute(script, &Impl::m_shapeLine, "shapeLine");
+
+	logic::script::util::addAttribute(script, &Impl::m_cursor, "cursor");
+	logic::script::util::addFun(script, &util::Cursor::setPos, "setPos");
+	logic::script::util::addFun(script, &util::Cursor::getPos, "getPos");
+	logic::script::util::addFun(script, &util::Cursor::getActualPos, "getActualPos");
+	logic::script::util::addFun(script, &util::Cursor::getClickedPos, "getClickedPos");
+	logic::script::util::addFun(script, &util::Cursor::isAxisXLocked, "isAxisXLocked");
+	logic::script::util::addFun(script, &util::Cursor::isAxisYLocked, "isAxisYLocked");
+	logic::script::util::addFun(script, &util::Cursor::isAxisZLocked, "isAxisZLocked");
+	logic::script::util::addFun(script, &util::Cursor::lockAxisX, "lockAxisX");
+	logic::script::util::addFun(script, &util::Cursor::lockAxisY, "lockAxisY");
+	logic::script::util::addFun(script, &util::Cursor::lockAxisZ, "lockAxisZ");
+
+	logic::script::util::addAttribute(script, &Impl::m_grid, "grid");
+	logic::script::util::addFun(script, &util::Grid::setPos, "setPos");
+	logic::script::util::addFun(script, &util::Grid::setSize, "setSize");
+	logic::script::util::addFun(script, &util::Grid::setResolution, "setResolution");
+	logic::script::util::addFun(script, &util::Grid::getPos, "getPos");
+	logic::script::util::addFun(script, &util::Grid::getSize, "getSize");
+	logic::script::util::addFun(script, &util::Grid::getResolution, "getResolution");
+
+	logic::script::util::addType<util::Shape>(script, "Shape");
+	logic::script::util::addRelation<util::Shape, util::ShapeBox>(script);
+	logic::script::util::addRelation<util::Shape, util::ShapeLine>(script);
+	logic::script::util::addFun(script, &util::Shape::setDynamic, "setDynamic");
+	logic::script::util::addFun(script, &util::Shape::isDynamic, "isDynamic");
+	logic::script::util::addFun(script, &util::Shape::stretch, "stretch");
+	logic::script::util::addFun(script, &util::Shape::setPos, "setPos");
+	logic::script::util::addFun(script, &util::Shape::setSize, "setSize");
+	logic::script::util::addFun(script, &util::Shape::setSizeX, "setSizeX");
+	logic::script::util::addFun(script, &util::Shape::setSizeY, "setSizeY");
+	logic::script::util::addFun(script, &util::Shape::setSizeZ, "setSizeZ");
+	logic::script::util::addFun(script, &util::Shape::getSize, "getSize");
+	logic::script::util::addFun(script, &util::Shape::read, "read");
+	logic::script::util::addFun(script, &util::Shape::write, "write");
+
+	script.execute("main()");
+}
 void editor::Editor::Impl::inject(core::scene::Scene & scene)
 {
 	m_scene = &scene;
@@ -65,24 +125,20 @@ void editor::Editor::Impl::inject(core::scene::Scene & scene)
 
 void editor::Editor::Impl::process()
 {
-	m_shapeBox.stretch({ 0, 0, 10 }, { 0, 1, 12 });
-	m_shapeLine.stretch({ 3, 7, 11 }, { 5, 0, 10 });
 }
 void editor::Editor::Impl::render() const
 {
-	if (m_programGrid != nullptr)
+	if (m_programGrid)
 	{
 		m_programGrid->bind();
 		setTransform(glm::translate(glm::mat4{ 1.0f }, m_grid.getPos()));
 		m_grid.getMesh()->render();
 	}
-	if (m_programShape != nullptr)
+	if (m_programShape && m_shape)
 	{
 		m_programShape->bind();
-		setTransform(glm::translate(glm::mat4{ 1.0f }, { m_shapeBox.getPos() }));
-		m_shapeBox.getMesh()->render();
-		setTransform(glm::translate(glm::mat4{ 1.0f }, { m_shapeLine.getPos() }));
-		m_shapeLine.getMesh()->render();
+		setTransform(glm::translate(glm::mat4{ 1.0f }, { m_shape->getPos() }));
+		m_shape->getMesh()->render();
 	}
 }
 
@@ -107,6 +163,10 @@ void editor::Editor::inject(const asset::AssetRegistry & assets)
 void editor::Editor::inject(const render::uboRegistry & ubos)
 {
 	m_impl->inject(ubos);
+}
+void editor::Editor::inject(ui::gui::Gui & gui)
+{
+	m_impl->inject(gui);
 }
 void editor::Editor::inject(core::scene::Scene & scene)
 {
