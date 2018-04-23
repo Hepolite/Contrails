@@ -64,8 +64,7 @@ void world::data::ChunkDataBloated::write(Index index, BlockData & block)
 	const auto oldLight = readBlock(index).getLight();
 	const auto newLight = block.getLight();
 
-	//if (oldLight > newLight)
-		pushLightRemoval({ index, oldLight }, LIGHT_PROPAGATION_CHANNEL_SUN);
+	pushLightRemoval({ index, oldLight }, LIGHT_PROPAGATION_CHANNEL_SUN);
 	if (newLight != 0u)
 		pushLightPropagation({ index, newLight }, LIGHT_PROPAGATION_CHANNEL_SUN);
 
