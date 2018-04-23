@@ -153,14 +153,7 @@ void ui::gui::ProcessorButtonRadio::onAction(const logic::script::Script & scrip
 
 	auto & leader = m_widgets->get(m_widget->m_group.m_leader);
 	for (const auto name : leader.m_group.m_members)
-	{
-		auto & member = m_widgets->get(name);
-		if (member.m_state.m_bool)
-		{
-			member.m_state.m_bool = false;
-			Processor{ *m_widgets, member }.onAction(script);
-		}
-	}
+		m_widgets->get(name).m_state.m_bool = false;
 
 	m_widget->m_state.m_bool = true;
 	Processor::onAction(script);

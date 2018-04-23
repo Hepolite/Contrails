@@ -25,6 +25,13 @@ namespace asset
 			const std::string & trimmed,
 			const Args & ...args
 		);
+
+		namespace detail
+		{
+			void logSearchFolder(const io::Folder & folder);
+			void logFoundAsset(const io::File & file, const std::string & name);
+			void logCreatedFactory(const std::string & name);
+		}
 	}
 }
 
@@ -40,6 +47,7 @@ void asset::util::setupBuilderFactory(
 		Builder{}.build(*asset, args...);
 		return asset;
 	};
+	detail::logCreatedFactory(name);
 }
 template<typename Type, class Loader, typename ...Args>
 void asset::util::setupLoaderFactory(
@@ -49,6 +57,7 @@ void asset::util::setupLoaderFactory(
 	const std::string & trimmed,
 	const Args & ...args
 ){
+	detail::logSearchFolder(root);
 	for (const auto file : root.getFiles())
 	{
 		if (file.getExtension() != extension)
@@ -61,6 +70,7 @@ void asset::util::setupLoaderFactory(
 			Loader{}.load(*asset, file, args...);
 			return asset;
 		};
+		detail::logFoundAsset(file, name);
 	}
 	for (const auto folder : root.getFolders())
 		setupLoaderFactory<Type, Loader, Args...>(registry, folder, extension, trimmed, args...);

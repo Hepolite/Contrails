@@ -7,6 +7,7 @@
 
 #include <glm/vec3.hpp>
 #include <memory>
+#include <string>
 #include <vector>
 
 namespace editor
@@ -39,12 +40,15 @@ namespace editor
 			inline auto getSize() const { return m_size; }
 			inline auto isDynamic() const { return m_dynamic; }
 
-			render::Mesh<glm::vec3> * getMesh() const;
+			inline auto getName() const { return m_name; }
+			inline auto getMesh() const { updateMesh(); return m_mesh.get(); }
 
 			inline auto getReadQuery() const { return query({}); }
 			inline auto getWriteQuery(const world::Block & block) const { return query(block); }
 
 		protected:
+			inline void setName(const std::string & name) { m_name = name; }
+
 			glm::ivec3 getStart() const;
 			glm::ivec3 getEnd() const;
 
@@ -55,6 +59,9 @@ namespace editor
 
 		private:
 			mutable std::unique_ptr<render::Mesh<glm::vec3>> m_mesh;
+			mutable bool m_updateMesh = false;
+
+			std::string m_name;
 
 			glm::ivec3 m_pos{ 0 };
 			glm::ivec3 m_size{ 1 };

@@ -1,0 +1,32 @@
+
+/**
+ * Assigns the shape to use for the next operations
+ * @param shape The shape that is chosen
+ */
+def selectShape(shape)
+{
+	if (!EDITOR.getShape().is_var_null())
+	{
+		setShapeDataVisibility(EDITOR.getShape(), false);
+	}
+	if (!shape.is_var_null())
+	{
+		setShapeDataVisibility(shape, true);
+	}
+	
+	EDITOR.setShape(shape);
+}
+
+/**
+ * Sets whether the widget displaying data to the user for the
+ * provided shape should be visible or not
+ * @param shape The shape that is to have its data hidden
+ */
+def setShapeDataVisibility(shape, visible)
+{
+	auto name = shape.getName() + "_data";
+	if (GUI.getWidgets().has(name))
+	{
+		GUI.getWidgets().get(name).render.visible = visible;
+	}
+}

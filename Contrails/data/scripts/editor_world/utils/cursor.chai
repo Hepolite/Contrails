@@ -1,0 +1,22 @@
+
+/**
+ * Toggles the lock on the x-axis
+ */
+def toggleLockXAxis()
+{
+	EDITOR.cursor.lockAxisX(!EDITOR.cursor.isAxisXLocked())
+}
+/**
+ * Toggles the lock on the y-axis
+ */
+def toggleLockYAxis()
+{
+	EDITOR.cursor.lockAxisY(!EDITOR.cursor.isAxisYLocked())
+}
+/**
+ * Toggles the lock on the z-axis
+ */
+def toggleLockZAxis()
+{
+	EDITOR.cursor.lockAxisZ(!EDITOR.cursor.isAxisZLocked())
+}

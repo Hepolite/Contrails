@@ -1,0 +1,8 @@
+
+/**
+ * Toggles the visibility of the grid
+ */
+def toggleGridVisibility()
+{
+	EDITOR.grid.setVisible(!EDITOR.grid.isVisible())
+}

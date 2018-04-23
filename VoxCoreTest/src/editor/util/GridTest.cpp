@@ -40,6 +40,21 @@ namespace editor
 				Assert::ExpectException<std::invalid_argument>([&grid]() { grid.setResolution(0.0f); });
 				Assert::ExpectException<std::invalid_argument>([&grid]() { grid.setResolution(-1.0f); });
 			}
+			
+			TEST_METHOD(Grid_setVisible)
+			{
+				Grid gridA, gridB;
+				gridA.setVisible(false);
+				gridB.setVisible(true);
+
+				Assert::IsFalse(gridA.isVisible());
+				Assert::IsTrue(gridB.isVisible());
+			}
+			TEST_METHOD(Grid_getMesh)
+			{
+				Grid grid;
+				Assert::IsNotNull(grid.getMesh());
+			}
 
 		private:
 			setup::Context m_context;

@@ -17,10 +17,8 @@ void editor::util::Shape::setSize(const glm::ivec3 & size)
 {
 	if (size.x == 0 || size.y == 0 || size.z == 0)
 		throw std::invalid_argument("Shape size cannot be zero");
-	const bool remesh = m_size != size;
+	m_updateMesh |= m_size != size;
 	m_size = size;
-	if (remesh)
-		updateMesh();
 }
 
 glm::ivec3 editor::util::Shape::getStart() const
@@ -32,19 +30,16 @@ glm::ivec3 editor::util::Shape::getEnd() const
 	return getStart() + m_size - math::sign(m_size);
 }
 
-render::Mesh<glm::vec3>* editor::util::Shape::getMesh() const
-{
-	if (m_mesh == nullptr)
-		updateMesh();
-	return m_mesh.get();
-}
 void editor::util::Shape::updateMesh() const
 {
+	if (m_mesh != nullptr && !m_updateMesh)
+		return;
 	m_mesh = std::make_unique<render::Mesh<glm::vec3>>();
 	m_mesh->setRenderMode(render::opengl::RenderMode::LINES);
 	m_mesh->addAttribute({ 0u, render::opengl::DataFormat::FLOAT, 3, 0u });
 	mesh(m_mesh->getVertexData(), m_mesh->getIndiceData());
 	m_mesh->build();
+	m_updateMesh = false;
 }
 
 // ...

@@ -1,13 +1,13 @@
 <?xml version="1.0" ?>
 <file>data/gfx/sprites/gui/generic/background.png</file>
 <frames>
-	<single name="top_left"     pos="0 0"   size="8 8" />
-	<single name="top"          pos="8 0"   size="16 8" />
-	<single name="top_right"    pos="24 0"  size="8 8" />
-	<single name="left"         pos="0 8"   size="8 16" />
-	<single name="center"       pos="8 8"   size="16 16" />
-	<single name="right"        pos="24 8"  size="8 16" />
-	<single name="bottom_left"  pos="0 24"  size="8 8" />
-	<single name="bottom"       pos="8 24"  size="16 8" />
-	<single name="bottom_right" pos="24 24" size="8 8" />
+	<single name="top_left"		pos="0 0"	size="8 8" />
+	<single name="top"			pos="8 0"	size="16 8" />
+	<single name="top_right"	pos="24 0"	size="8 8" />
+	<single name="left"			pos="0 8"	size="8 16" />
+	<single name="center"		pos="8 8"	size="16 16" />
+	<single name="right"		pos="24 8"	size="8 16" />
+	<single name="bottom_left"	pos="0 24"	size="8 8" />
+	<single name="bottom"		pos="8 24"	size="16 8" />
+	<single name="bottom_right"	pos="24 24"	size="8 8" />
 </frames>

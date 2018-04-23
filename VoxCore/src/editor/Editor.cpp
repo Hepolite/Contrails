@@ -55,7 +55,7 @@ public:
 private:
 	util::Cursor m_cursor;
 	util::Grid m_grid;
-	util::Shape * m_shape = &m_shapeBox;
+	util::Shape * m_shape = nullptr;
 	util::ShapeBox m_shapeBox;
 	util::ShapeLine m_shapeLine;
 
@@ -115,13 +115,16 @@ void editor::Editor::Impl::inject(ui::gui::Gui & gui)
 	logic::script::util::addFun(script, &util::Grid::setPos, "setPos");
 	logic::script::util::addFun(script, &util::Grid::setSize, "setSize");
 	logic::script::util::addFun(script, &util::Grid::setResolution, "setResolution");
+	logic::script::util::addFun(script, &util::Grid::setVisible, "setVisible");
 	logic::script::util::addFun(script, &util::Grid::getPos, "getPos");
 	logic::script::util::addFun(script, &util::Grid::getSize, "getSize");
 	logic::script::util::addFun(script, &util::Grid::getResolution, "getResolution");
+	logic::script::util::addFun(script, &util::Grid::isVisible, "isVisible");
 
 	logic::script::util::addType<util::Shape>(script, "Shape");
 	logic::script::util::addRelation<util::Shape, util::ShapeBox>(script);
 	logic::script::util::addRelation<util::Shape, util::ShapeLine>(script);
+	logic::script::util::addFun(script, &util::Shape::getName, "getName");
 	logic::script::util::addFun(script, &util::Shape::setDynamic, "setDynamic");
 	logic::script::util::addFun(script, &util::Shape::isDynamic, "isDynamic");
 	logic::script::util::addFun(script, &util::Shape::stretch, "stretch");
@@ -171,7 +174,7 @@ void editor::Editor::Impl::process()
 		if (m_shape->isDynamic())
 		{
 			if (m_cursor.getClickedButton() == ui::mouse::Button::NONE)
-				m_shape->stretch(m_cursor.getPos(), m_cursor.getPos());
+				m_shape->stretch(m_cursor.getActualPos(), m_cursor.getActualPos());
 			else
 				m_shape->stretch(m_cursor.getClickedPos(), m_cursor.getPos());
 		}
@@ -184,7 +187,7 @@ void editor::Editor::Impl::process()
 }
 void editor::Editor::Impl::render() const
 {
-	if (m_programGrid)
+	if (m_programGrid && m_grid.isVisible())
 	{
 		m_programGrid->bind();
 		setTransform(glm::translate(glm::mat4{ 1.0f }, m_grid.getPos()));

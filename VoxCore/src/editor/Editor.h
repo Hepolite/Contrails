@@ -22,7 +22,7 @@ namespace editor
 		Editor();
 		Editor(const Editor &) = delete;
 		Editor(Editor &&) = delete;
-		~Editor();
+		virtual ~Editor();
 
 		Editor & operator=(const Editor &) = delete;
 		Editor & operator=(Editor &&) = delete;

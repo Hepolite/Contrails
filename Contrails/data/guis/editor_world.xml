@@ -15,40 +15,108 @@
 		</widget>
 	</widget>
 	
-	
+	<widget type="panel" name="core">
+		<assets> <sprites background="gui/generic/background" /> </assets>
+		<border inner="2" />
+		<link location="top" />
+		
+		<widget type="panel" name="toolbar">
+			<border inner="2" />
+			<widget type="panel" name="world_name" />
+			<widget type="button" name="load" />
+		</widget> <!-- End toolbar -->
+		
+		<widget type="panel" name="navigation">
+			<border inner="2" />
+			<link location="right_top" target="toolbar" />
+			
+			<widget type="checkbox" name="grid_visible">
+				<assets>
+					<sprites icon="gui/editor_world/utils/grid" />
+					<scripts action="toggleGridVisibility()" />
+				</assets>
+				<border outer="2" />
+				<size>16 16</size>
+			</widget>
+			<widget type="checkbox" name="lock_axis_x">
+				<assets>
+					<sprites icon="gui/editor_world/utils/lock_x" />
+					<scripts action="toggleLockXAxis()" />
+				</assets>
+				<border outer="2" />
+				<link location="right_top" target="grid_visible" />
+				<size>16 16</size>
+			</widget>
+			<widget type="checkbox" name="lock_axis_y">
+				<assets>
+					<sprites icon="gui/editor_world/utils/lock_y" />
+					<scripts action="toggleLockYAxis()" />
+				</assets>
+				<border outer="2" />
+				<link location="right_top" target="lock_axis_x" />
+				<size>16 16</size>
+			</widget>
+			<widget type="checkbox" name="lock_axis_z">
+				<assets>
+					<sprites icon="gui/editor_world/utils/lock_z" />
+					<scripts action="toggleLockZAxis()" />
+				</assets>
+				<border outer="2" />
+				<link location="right_top" target="lock_axis_y" />
+				<size>16 16</size>
+			</widget>
+		</widget> <!-- End navigation -->
+		
+	</widget> <!-- End core -->
+		
 	<widget type="panel" name="tools">
 		<assets> <sprites background="gui/generic/background" /> </assets>
 		<border inner="4" />
 		<link location="top_left" />
 		
 		<widget type="radio" name="tool_brush">
-			<assets> <sprites icon="gui/editor_world/tools/brush" /> </assets>
+			<assets>
+				<sprites icon="gui/editor_world/tools/brush" />
+				<scripts action="selectTool(TOOL_BRUSH)" />
+			</assets>
 			<border outer="2" />
 			<size>32 32</size>
 		</widget>
 		<widget type="radio" name="tool_delete">
-			<assets> <sprites icon="gui/editor_world/tools/delete" /> </assets>
+			<assets>
+				<sprites icon="gui/editor_world/tools/delete" />
+				<scripts action="selectTool(TOOL_DELETE)" />
+			</assets>
 			<border outer="2" />
 			<group leader="tool_brush" />
 			<link location="right_top" target="tool_brush" />
 			<size>32 32</size>
 		</widget>
 		<widget type="radio" name="tool_pull">
-			<assets> <sprites icon="gui/editor_world/tools/pull" /> </assets>
+			<assets>
+				<sprites icon="gui/editor_world/tools/pull" />
+				<scripts action="selectTool(TOOL_PULL)" />
+			</assets>
 			<border outer="2" />
 			<group leader="tool_brush" />
 			<link location="right_top" target="tool_delete" />
 			<size>32 32</size>
 		</widget>
 		<widget type="radio" name="tool_replace">
-			<assets> <sprites icon="gui/editor_world/tools/replace" /> </assets>
+			<assets>
+				<sprites icon="gui/editor_world/tools/replace" />
+				<scripts action="selectTool(TOOL_REPLACE)" />
+			</assets>
 			<border outer="2" />
 			<group leader="tool_brush" />
 			<link location="right_top" target="tool_pull" />
 			<size>32 32</size>
 		</widget>
 		<widget type="radio" name="tool_smooth">
-			<assets> <sprites icon="gui/editor_world/tools/smooth" /> </assets>
+			<assets>
+				<sprites icon="gui/editor_world/tools/smooth" />
+				<scripts action="selectTool(TOOL_SMOOTH)" />
+			</assets>
 			<border outer="2" />
 			<group leader="tool_brush" />
 			<link location="right_top" target="tool_replace" />
@@ -63,33 +131,48 @@
 		<link location="top_right" />
 		
 		<widget type="radio" name="shape_box">
-			<assets> <sprites icon="gui/editor_world/shapes/box" /> </assets>
+			<assets>
+				<sprites icon="gui/editor_world/shapes/box" />
+				<scripts action="selectShape(EDITOR.shapeBox)" />
+			</assets>
 			<border outer="2" />
 			<size>32 32</size>
 		</widget>
 		<widget type="radio" name="shape_cylinder">
-			<assets> <sprites icon="gui/editor_world/shapes/cylinder" /> </assets>
+			<assets>
+				<sprites icon="gui/editor_world/shapes/cylinder" />
+				<scripts action="selectShape(EDITOR.shapeCylinder)" />
+			</assets>
 			<border outer="2" />
 			<group leader="shape_box" />
 			<link location="right_top" target="shape_box" />
 			<size>32 32</size>
 		</widget>
 		<widget type="radio" name="shape_ellipse">
-			<assets> <sprites icon="gui/editor_world/shapes/ellipse" /> </assets>
+			<assets>
+				<sprites icon="gui/editor_world/shapes/ellipse" />
+				<scripts action="selectShape(EDITOR.shapeEllipse)" />
+			</assets>
 			<border outer="2" />
 			<group leader="shape_box" />
 			<link location="right_top" target="shape_cylinder" />
 			<size>32 32</size>
 		</widget>
 		<widget type="radio" name="shape_line">
-			<assets> <sprites icon="gui/editor_world/shapes/line" /> </assets>
+			<assets>
+				<sprites icon="gui/editor_world/shapes/line" />
+				<scripts action="selectShape(EDITOR.shapeLine)" />
+			</assets>
 			<border outer="2" />
 			<group leader="shape_box" />
 			<link location="right_top" target="shape_ellipse" />
 			<size>32 32</size>
 		</widget>
 		<widget type="radio" name="shape_point">
-			<assets> <sprites icon="gui/editor_world/shapes/point" /> </assets>
+			<assets>
+				<sprites icon="gui/editor_world/shapes/point" />
+				<scripts action="selectShape(EDITOR.shapePoint)" />
+			</assets>
 			<border outer="2" />
 			<group leader="shape_box" />
 			<link location="right_top" target="shape_line" />
@@ -97,7 +180,7 @@
 		</widget>
 	</widget> <!-- End shapes -->
 	
-	<widget type="panel" name="box_data">
+	<widget type="panel" name="box_data" visible="false" >
 		<assets> <sprites background="gui/generic/background" /> </assets>
 		<border inner="4" outer="2" />
 		<link location="bottom_right" target="shapes" />
@@ -118,10 +201,7 @@
 			<size>16 16</size>
 		</widget>
 		<widget type="slider" name="box_size_x">
-			<assets>
-				<sprites icon="gui/generic/slider" />
-				<scripts action='setBoxSize(0, "box_size_x")' />
-			</assets>
+			<assets> <sprites icon="gui/generic/slider" /> </assets>
 			<link location="right_top" target="box_size_x_decrease" />
 			<size>96 16</size>
 		</widget>

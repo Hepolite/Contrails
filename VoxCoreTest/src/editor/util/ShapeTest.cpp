@@ -15,6 +15,9 @@ namespace editor
 		class ShapeMock : public Shape
 		{
 		public:
+			ShapeMock() { setName("mock"); }
+			~ShapeMock() = default;
+
 			virtual world::data::WorldQuery query(const world::Block & block) const override final
 			{
 				m_queried = true;
@@ -61,10 +64,6 @@ namespace editor
 				Assert::ExpectException<std::invalid_argument>([&shapeA]() { shapeA.setSizeX(0); });
 				Assert::ExpectException<std::invalid_argument>([&shapeA]() { shapeA.setSizeY(0); });
 				Assert::ExpectException<std::invalid_argument>([&shapeA]() { shapeA.setSizeZ(0); });
-				Assert::IsTrue(shapeA.isMeshed());
-				Assert::IsTrue(shapeB.isMeshed());
-				Assert::IsTrue(shapeC.isMeshed());
-				Assert::IsTrue(shapeD.isMeshed());
 			}
 			TEST_METHOD(Shape_stretch)
 			{
@@ -125,6 +124,13 @@ namespace editor
 				shape.getWriteQuery({ 1u, "stone" });
 
 				Assert::IsTrue(shape.isQueried());
+			}
+
+			TEST_METHOD(Shape_getMesh)
+			{
+				ShapeMock shape;
+				Assert::IsNotNull(shape.getMesh());
+				Assert::IsTrue(shape.isMeshed());
 			}
 
 		private:

@@ -5,32 +5,28 @@
 
 void editor::util::Grid::setPos(const glm::vec3 & pos)
 {
+	m_updateMesh |= m_pos.z != pos.z;
 	m_pos = pos;
-	updateMesh();
 }
 void editor::util::Grid::setSize(float size)
 {
 	if (size <= 0.0f)
 		throw std::invalid_argument("Size cannot be null or negative");
+	m_updateMesh |= m_size != size;
 	m_size = size;
-	updateMesh();
 }
 void editor::util::Grid::setResolution(float resolution)
 {
 	if (resolution <= 0.0f)
 		throw std::invalid_argument("Resolution cannot be null or negative");
+	m_updateMesh |= m_resolution != resolution;
 	m_resolution = resolution;
-	updateMesh();
 }
 
-render::Mesh<glm::vec3> * editor::util::Grid::getMesh() const
-{
-	if (m_mesh == nullptr)
-		updateMesh();
-	return m_mesh.get();
-}
 void editor::util::Grid::updateMesh() const
 {
+	if (m_mesh != nullptr && !m_updateMesh)
+		return;
 	m_mesh = std::make_unique<render::Mesh<glm::vec3>>();
 	m_mesh->setRenderMode(render::opengl::RenderMode::LINES);
 	m_mesh->addAttribute({ 0u, render::opengl::DataFormat::FLOAT, 3, 0u });
@@ -69,4 +65,5 @@ void editor::util::Grid::updateMesh() const
 	indices.emplace_back(indices.size());
 
 	m_mesh->build();
+	m_updateMesh = false;
 }

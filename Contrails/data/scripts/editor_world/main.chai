@@ -1,7 +1,8 @@
 
 #include "data/scripts/editor_world/toolbox.chai"
-
-// ...
+#include "data/scripts/editor_world/shapes.chai"
+#include "data/scripts/editor_world/utils/grid.chai"
+#include "data/scripts/editor_world/utils/cursor.chai"
 
 /**
  * The name of the world currently being edited by the user
@@ -17,9 +18,6 @@ global WORLD_NAME = "world"; // TODO: Replace with startup world name
 def init()
 {
 	SET_EDITOR_WORLD(prepareEditorWorld(WORLD_NAME));
-	
-	EDITOR.getShape().setDynamic(true);
-	TOOL := TOOLBOX.get("brush");
 }
 /**
  * Workload is mostly performed here, is invoked once every tick for as
@@ -36,7 +34,7 @@ def process()
  */
 def action(event)
 {
-	if (TOOL.accept(event))
+	if (TOOL.accept(event) && !EDITOR.getShape().is_var_null())
 	{
 		TOOL.perform(event);
 	}
@@ -65,13 +63,4 @@ def prepareEditorWorld(worldName)
 		world.write(QUERY.writeRectangle(blocks["grass"], ivec3(-32, -32, 6), ivec3(31, 31, 6)));
 	}
 	return UNIVERSE.getWorld(worldName);
-}
-
-// ...
-
-def setBoxSize(element, name)
-{
-	auto & widget = GUI.getWidgets().get(name);
-	
-	LOG_INFO("Received value ${widget.state.float}");
 }

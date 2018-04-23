@@ -58,4 +58,39 @@ global TOOL := TOOLBOX.get("");
 
 // ...
 
+/**
+ * Assigns the tool to use for the next operations
+ * @param tool The tool that is chosen
+ */
+def selectTool(tool)
+{
+	if (!TOOL.is_var_null())
+	{
+		setShapeDataVisibility(TOOL, false);
+	}
+	if (!tool.is_var_null())
+	{
+		setShapeDataVisibility(tool, true);
+	}
+	
+	TOOL := tool;
+}
+
+/**
+ * Sets whether the widget displaying data to the user for the
+ * provided tool should be visible or not
+ * @param tool The tool that is being worked with
+ * @param visible Whether the data should be visible or not
+ */
+def setToolDataVisibility(tool, visible)
+{
+	auto name = tool.name() + "_data";
+	if (GUI.getWidgets().has(name))
+	{
+		GUI.getWidgets().get(name).render.visible = visible;
+	}
+}
+
+// ...
+
 #include "data/scripts/editor_world/tools/brush.chai"
