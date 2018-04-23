@@ -53,7 +53,7 @@ namespace
 
 		util::addAttribute(script, &glm::tvec3<T>::x, "x");
 		util::addAttribute(script, &glm::tvec3<T>::y, "y");
-		util::addAttribute(script, &glm::tvec3<T>::y, "z");
+		util::addAttribute(script, &glm::tvec3<T>::z, "z");
 		util::addFun<glm::tvec3<T>, T &, int>(script, &glm::tvec3<T>::operator[], "[]");
 		util::addFun<glm::tvec3<T>, const T &, int>(script, &glm::tvec3<T>::operator[], "[]");
 	}
@@ -68,8 +68,8 @@ namespace
 
 		util::addAttribute(script, &glm::tvec4<T>::x, "x");
 		util::addAttribute(script, &glm::tvec4<T>::y, "y");
-		util::addAttribute(script, &glm::tvec4<T>::x, "z");
-		util::addAttribute(script, &glm::tvec4<T>::y, "w");
+		util::addAttribute(script, &glm::tvec4<T>::z, "z");
+		util::addAttribute(script, &glm::tvec4<T>::w, "w");
 		util::addFun<glm::tvec4<T>, T &, int>(script, &glm::tvec4<T>::operator[], "[]");
 		util::addFun<glm::tvec4<T>, const T &, int>(script, &glm::tvec4<T>::operator[], "[]");
 	}
@@ -85,6 +85,7 @@ void core::setup::setupScripts(Engine & engine)
 	detail::setupLogging(engine);
 	detail::setupMath(engine);
 	detail::setupStates(engine);
+	detail::setupUI();
 	detail::setupUniverse(engine);
 }
 
@@ -208,6 +209,19 @@ void core::setup::detail::setupStates(Engine & engine)
 		util::addRelation<StateBase, StateMainMenu>(script);
 		util::addCtor<StateEditorWorld()>(script, "StateEditorWorld");
 		util::addCtor<StateMainMenu()>(script, "StateMainMenu");
+	});
+}
+void core::setup::detail::setupUI()
+{
+	util::registerScriptData([](Script & script)
+	{
+		using namespace ui::mouse;
+		util::addEnum<Button>(script, "MouseButton", {
+			{ Button::LEFT, "MOUSE_BUTTON_LEFT" },
+			{ Button::MIDDLE, "MOUSE_BUTTON_MIDDLE" },
+			{ Button::NONE, "MOUSE_BUTTON_NONE" },
+			{ Button::RIGHT, "MOUSE_BUTTON_RIGHT" },
+		});
 	});
 }
 void core::setup::detail::setupUniverse(Engine & engine)

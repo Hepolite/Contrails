@@ -171,6 +171,7 @@ void world::World::write(data::WorldQuery & query)
 	for (auto & it : query)
 	{
 		createChunk(it.first, true).write(it.second);
+		markLightPropagation(it.first);
 		markLightRemoval(it.first);
 		markLightPropagation(it.first);
 		markChunkChange(it.first, it.second.min(), it.second.max());
@@ -181,6 +182,7 @@ void world::World::write(const glm::ivec3 & pos, data::BlockData & block, data::
 	const auto cpos = pos >> data::CHUNK_SIZE_LG<int>;
 	auto & chunk = createChunk(cpos);
 	chunk.write(data::toIndex(pos & data::CHUNK_SIZE_BITS<int>), block, color);
+	markLightPropagation(cpos);
 	markLightRemoval(cpos);
 	markLightPropagation(cpos);
 	markChunkChange(cpos);
@@ -190,6 +192,7 @@ void world::World::write(const glm::ivec3 & pos, data::BlockData & block)
 	const auto cpos = pos >> data::CHUNK_SIZE_LG<int>;
 	auto & chunk = createChunk(cpos);
 	chunk.write(data::toIndex(pos & data::CHUNK_SIZE_BITS<int>), block);
+	markLightPropagation(cpos);
 	markLightRemoval(cpos);
 	markLightPropagation(cpos);
 	markChunkChange(cpos);
@@ -199,6 +202,7 @@ void world::World::write(const glm::ivec3 & pos, data::ColorData & color)
 	const auto cpos = pos >> data::CHUNK_SIZE_LG<int>;
 	auto & chunk = createChunk(cpos);
 	chunk.write(data::toIndex(pos & data::CHUNK_SIZE_BITS<int>), color);
+	markLightPropagation(cpos);
 	markLightRemoval(cpos);
 	markLightPropagation(cpos);
 	markChunkChange(cpos);

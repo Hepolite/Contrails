@@ -112,6 +112,27 @@ namespace world
 			Assert::AreEqual({ 0u, 2u, 17u, 31u }, readLight(world, { 0, 15, 31 }));
 		}
 
+		TEST_METHOD(WorldLighting_repropagateSkylight)
+		{
+			BlockRegistry registry;
+			registry.add("stone").m_lightAbsorbed = { 31u, 31u, 31u, 31u };
+
+			World world;
+			world.inject(registry);
+			world.createChunk({ 0, 0, 0 }, true);
+			world.write(util::Query{}.writeRectangle(registry["stone"], { 12, 6, 2 }, { 16, 10, 5 }));
+			world.process();
+
+			Assert::AreEqual({ 0u, 0u, 0u, 0u }, readLight(world, { 14, 7, 5 }));
+			Assert::AreEqual({ 0u, 0u, 0u, 0u }, readLight(world, { 14, 8, 4 }));
+
+			world.write(util::Query{}.writeRectangle(registry["air"], { 14, 7, 5 }, { 14, 8, 4 }));
+			world.process();
+
+			Assert::AreEqual({ 0u, 0u, 0u, 31u }, readLight(world, { 14, 7, 5 }));
+			Assert::AreEqual({ 0u, 0u, 0u, 31u }, readLight(world, { 14, 8, 4 }));
+		}
+
 	private:
 		glm::uvec4 readLight(const World & world, const glm::ivec3 & pos)
 		{

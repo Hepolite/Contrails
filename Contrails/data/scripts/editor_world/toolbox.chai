@@ -1,0 +1,61 @@
+
+/**
+ * The basic tool layout.
+ */
+class Tool
+{
+	def Tool() {}
+	
+	/**
+	 * Retrieves the name of the tool
+	 * @return The name of the tool
+	 */
+	def name() { return ""; }
+	/**
+	 * Checks if the tool should process the provided event or not
+	 * @param event The event to process or not
+	 * @return True iff the event should be processed by this tool
+	 */
+	def accept(event) { return false; }
+	/**
+	 * Performs some work defined by the tool
+	 */
+	def perform(event) {}
+}
+
+/**
+ * The toolbox stores and provides easy access to every tool that
+ * has been added to the editor.
+ */
+class Toolbox
+{
+	def Toolbox() { this.tools = ["":Tool()]; }
+	
+	attr tools;
+	
+	/**
+	 * Adds the given tool to the toolbox
+	 * @param tool The tool to add
+	 */
+	def add(tool)
+	{
+		LOG_INFO("Adding " + tool.name() + " to toolbox");
+		this.tools[tool.name()] = tool;
+		return tool;
+	}
+	/**
+	 * Attempts to retrieve a tool from the toolbox
+	 * @param tool The name of the tool to grab
+	 */
+	def get(name)
+	{
+		return this.tools[name];
+	}
+}
+
+global TOOLBOX = Toolbox();
+global TOOL := TOOLBOX.get("");
+
+// ...
+
+#include "data/scripts/editor_world/tools/brush.chai"

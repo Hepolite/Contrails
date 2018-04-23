@@ -1,0 +1,37 @@
+
+/**
+ * The brush tool allow the user to paint blocks into the world.
+ */
+class ToolBrush
+{
+	def ToolBrush()
+	{
+		this.leftBlock = "stone";
+		this.rightBlock = "air";
+	}
+	
+	attr leftBlock;
+	attr rightBlock;
+	
+	def name() { return "brush"; }
+	def accept(event) { return event != MOUSE_BUTTON_MIDDLE }
+	
+	def setLeftBlock(block) { this.leftBlock = block; }
+	def setRightBlock(block) { this.rightBlock = block; }
+	def getBlockName(event)
+	{
+		if (event == MOUSE_BUTTON_LEFT) { return this.leftBlock; }
+		return this.rightBlock;
+	}
+	
+	def perform(event)
+	{
+		auto world := GET_EDITOR_WORLD();
+		auto registry := world.getBlockRegistry();
+		auto block := registry[this.getBlockName(event)];
+		
+		world.write(EDITOR.getShape().getWriteQuery(block));
+	}
+}
+
+global TOOL_BRUSH := TOOLBOX.add(ToolBrush());

@@ -11,8 +11,8 @@ namespace
 	auto convert(unsigned int mouseButton)
 	{
 		using ui::mouse::Button;
-		static const Button AL_TO_HEN[] = { Button::LEFT, Button::RIGHT, Button::MIDDLE, Button::MIDDLE };
-		return mouseButton < 4u ? AL_TO_HEN[mouseButton] : Button::NONE;
+		static const Button AL_TO_HEN[] = { Button::NONE, Button::LEFT, Button::RIGHT, Button::MIDDLE, Button::MIDDLE };
+		return mouseButton < 5u ? AL_TO_HEN[mouseButton] : Button::NONE;
 	}
 }
 

@@ -17,6 +17,7 @@ namespace core
 			void setupLogging(Engine & engine);
 			void setupMath(Engine & engine);
 			void setupStates(Engine & engine);
+			void setupUI();
 			void setupUniverse(Engine & engine);
 		}
 	}

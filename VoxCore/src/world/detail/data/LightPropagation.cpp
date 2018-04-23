@@ -108,7 +108,7 @@ void world::data::LightSunPropagator::spreadSide(Chunk & chunk, const glm::ivec3
 	auto data = chunk.readBlock(index);
 	auto & block = m_world->getBlockRegistry()[data.getId()];
 
-	light = reduce(light, block.m_lightAbsorbed.a, block.m_lightFiltered.a);
+	light = reduce(light, block.m_lightAbsorbed.a + 1u, block.m_lightFiltered.a);
 	if (light <= data.getLight())
 		return;
 
@@ -203,17 +203,14 @@ void world::data::LightSunRemover::spreadSide(Chunk & chunk, const glm::ivec3 & 
 	auto data = chunk.readBlock(index);
 
 	const auto oldLight = data.getLight();
-	if (oldLight == 0u)
-		return;
-
-	if (oldLight < light)
+	if (oldLight >= light)
+		chunk.pushLightPropagation({ index, USE_CHUNK_LIGHT }, LIGHT_PROPAGATION_CHANNEL_SUN);
+	else if (oldLight != 0u)
 	{
 		data.setLight(0u);
 		chunk.setFastUnsafe(index, data);
 		chunk.pushLightRemoval({ index, oldLight }, LIGHT_PROPAGATION_CHANNEL_SUN);
 	}
-	else
-		chunk.pushLightPropagation({ index, USE_CHUNK_LIGHT }, LIGHT_PROPAGATION_CHANNEL_SUN);
 }
 
 // ...
@@ -306,7 +303,7 @@ void world::data::LightColorPropagator::spreadSide(Chunk & chunk, const glm::ive
 	auto & block = m_world->getBlockRegistry()[chunk.readBlock(index).getId()];
 
 	const auto oldLight = color.getColor();
-	light = math::max(oldLight, reduce(light, block.m_lightAbsorbed, block.m_lightFiltered));
+	light = math::max(oldLight, reduce(light, block.m_lightAbsorbed + 1u, block.m_lightFiltered));
 	if (light.r > oldLight.r || light.g > oldLight.g || light.b > oldLight.b)
 	{
 		color.setColor(light);

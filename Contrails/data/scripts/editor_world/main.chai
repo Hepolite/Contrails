@@ -1,5 +1,14 @@
 
+#include "data/scripts/editor_world/toolbox.chai"
+
+// ...
+
+/**
+ * The name of the world currently being edited by the user
+ */
 global WORLD_NAME = "world"; // TODO: Replace with startup world name
+
+// ...
 
 /**
  * Main entry point for the editor script, set up all necessary data
@@ -8,6 +17,9 @@ global WORLD_NAME = "world"; // TODO: Replace with startup world name
 def init()
 {
 	SET_EDITOR_WORLD(prepareEditorWorld(WORLD_NAME));
+	
+	EDITOR.getShape().setDynamic(true);
+	TOOL := TOOLBOX.get("brush");
 }
 /**
  * Workload is mostly performed here, is invoked once every tick for as
@@ -16,6 +28,18 @@ def init()
 def process()
 {
 	GET_EDITOR_WORLD().process();
+}
+/**
+ * User input will be mainly processed here, whenever the user provides
+ * an action such as mouse click, this function is invoked
+ * @param event The input event that is to be handled
+ */
+def action(event)
+{
+	if (TOOL.accept(event))
+	{
+		TOOL.perform(event);
+	}
 }
 
 // ...

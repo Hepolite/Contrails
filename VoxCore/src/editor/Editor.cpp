@@ -16,8 +16,11 @@
 
 namespace
 {
-	const std::string SCRIPT_INIT = "init()";
-	const std::string SCRIPT_PROCESS = "process()";
+	const std::string SCRIPT_INIT = "init();";
+	const std::string SCRIPT_PROCESS = "process();";
+	const std::string SCRIPT_ACTION_LEFTCLICK = "action(MOUSE_BUTTON_LEFT);";
+	const std::string SCRIPT_ACTION_MIDDLECLICK = "action(MOUSE_BUTTON_MIDDLE);";
+	const std::string SCRIPT_ACTION_RIGHTCLICK = "action(MOUSE_BUTTON_RIGHT);";
 }
 
 class editor::Editor::Impl
@@ -55,6 +58,10 @@ private:
 	util::Shape * m_shape = &m_shapeBox;
 	util::ShapeBox m_shapeBox;
 	util::ShapeLine m_shapeLine;
+
+	logic::event::Listener m_mouseRelease;
+
+	// ...
 
 	const asset::AssetRegistry * m_assets = nullptr;
 	const render::uboRegistry * m_ubos = nullptr;
@@ -130,6 +137,26 @@ void editor::Editor::Impl::inject(ui::gui::Gui & gui)
 void editor::Editor::Impl::inject(logic::event::EventBus & bus)
 {
 	m_cursor.inject(bus);
+
+	m_mouseRelease = bus.add<logic::event::MouseRelease>([this](auto & event)
+	{
+		if (m_gui == nullptr || !m_cursor.hasValidPos())
+			return;
+		switch (event.m_button)
+		{
+		case ui::mouse::Button::LEFT:
+			m_gui->getScript().execute(SCRIPT_ACTION_LEFTCLICK);
+			break;
+		case ui::mouse::Button::MIDDLE:
+			m_gui->getScript().execute(SCRIPT_ACTION_MIDDLECLICK);
+			break;
+		case ui::mouse::Button::RIGHT:
+			m_gui->getScript().execute(SCRIPT_ACTION_RIGHTCLICK);
+			break;
+		default:
+			break;
+		}
+	});
 }
 void editor::Editor::Impl::inject(core::scene::Scene & scene)
 {
@@ -139,7 +166,7 @@ void editor::Editor::Impl::inject(core::scene::Scene & scene)
 
 void editor::Editor::Impl::process()
 {
-	if (m_shape != nullptr && m_cursor.hasValidPos())
+	if (m_cursor.hasValidPos() && m_shape != nullptr)
 	{
 		if (m_shape->isDynamic())
 		{
