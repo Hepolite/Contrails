@@ -14,6 +14,12 @@
 
 #undef TRANSPARENT
 
+namespace
+{
+	const std::string SCRIPT_INIT = "init()";
+	const std::string SCRIPT_PROCESS = "process()";
+}
+
 class editor::Editor::Impl
 {
 public:
@@ -77,6 +83,8 @@ void editor::Editor::Impl::inject(const render::uboRegistry & ubos)
 }
 void editor::Editor::Impl::inject(ui::gui::Gui & gui)
 {
+	m_gui = &gui;
+
 	auto & script = gui.getScript();
 	logic::script::util::addVarGlobal(script, this, "EDITOR");
 	logic::script::util::addFun(script, &Impl::getShape, "getShape");
@@ -116,8 +124,8 @@ void editor::Editor::Impl::inject(ui::gui::Gui & gui)
 	logic::script::util::addFun(script, &util::Shape::setSizeY, "setSizeY");
 	logic::script::util::addFun(script, &util::Shape::setSizeZ, "setSizeZ");
 	logic::script::util::addFun(script, &util::Shape::getSize, "getSize");
-	logic::script::util::addFun(script, &util::Shape::read, "read");
-	logic::script::util::addFun(script, &util::Shape::write, "write");
+	logic::script::util::addFun(script, &util::Shape::getReadQuery, "getReadQuery");
+	logic::script::util::addFun(script, &util::Shape::getWriteQuery, "getWriteQuery");
 }
 void editor::Editor::Impl::inject(logic::event::EventBus & bus)
 {
@@ -143,6 +151,9 @@ void editor::Editor::Impl::process()
 		else
 			m_shape->setPos(m_cursor.getPos());
 	}
+
+	if (m_gui != nullptr)
+		m_gui->getScript().execute(SCRIPT_PROCESS);
 }
 void editor::Editor::Impl::render() const
 {
@@ -181,7 +192,7 @@ void editor::Editor::inject(ui::gui::Gui & gui)
 {
 	m_impl->inject(gui);
 	init(gui.getScript());
-	gui.getScript().execute("main()");
+	gui.getScript().execute(SCRIPT_INIT);
 }
 void editor::Editor::inject(core::scene::Scene & scene)
 {

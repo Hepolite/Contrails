@@ -112,17 +112,17 @@ namespace editor
 				Assert::IsTrue(shape.isDynamic());
 			}
 
-			TEST_METHOD(Shape_read)
+			TEST_METHOD(Shape_getReadQuery)
 			{
 				ShapeMock shape;
-				shape.read();
+				shape.getReadQuery();
 
 				Assert::IsTrue(shape.isQueried());
 			}
-			TEST_METHOD(Shape_write)
+			TEST_METHOD(Shape_getWriteQuery)
 			{
 				ShapeMock shape;
-				shape.write({ 1u, "stone" });
+				shape.getWriteQuery({ 1u, "stone" });
 
 				Assert::IsTrue(shape.isQueried());
 			}

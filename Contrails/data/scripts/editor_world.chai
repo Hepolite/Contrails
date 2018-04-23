@@ -1,31 +1,49 @@
 
-// Generate a new world to edit
 global WORLD_NAME = "world"; // TODO: Replace with startup world name
-if (!UNIVERSE.hasWorld(WORLD_NAME))
+
+/**
+ * Main entry point for the editor script, set up all necessary data
+ * here
+ */
+def init()
 {
-	UNIVERSE.createWorld(WORLD_NAME);
+	SET_EDITOR_WORLD(prepareEditorWorld(WORLD_NAME));
 }
-
-// Add in some initial blocks
-var world = UNIVERSE.getWorld(WORLD_NAME);
-var blocks = world.getBlockRegistry();
-
-world.write(QUERY.writeRectangle(blocks["stone"], ivec3(-32, -32, 0), ivec3(31, 31, 3)));
-world.write(QUERY.writeRectangle(blocks["dirt"], ivec3(-32, -32, 4), ivec3(31, 31, 5)));
-world.write(QUERY.writeRectangle(blocks["grass"], ivec3(-32, -32, 6), ivec3(31, 31, 6)));
-
-// Update the world and calculate lights
-world.process();
+/**
+ * Workload is mostly performed here, is invoked once every tick for as
+ * long as the editor is active
+ */
+def process()
+{
+	GET_EDITOR_WORLD().process();
+}
 
 // ...
 
-def main()
+/**
+ * Prepares the editor world for usage within the editor. If the world
+ * does not exist, it is created and a starting area is added to it
+ * @param worldName The name of the world to prepare
+ * @return The world that was prepared
+ */
+def prepareEditorWorld(worldName)
 {
-	SET_EDITOR_WORLD(UNIVERSE.getWorld(WORLD_NAME));
-	
-	EDITOR.setShape(EDITOR.shapeLine);
-	EDITOR.shapeLine.setDynamic(true);
+	if (!UNIVERSE.hasWorld(worldName))
+	{
+		UNIVERSE.createWorld(worldName);
+		
+		// Generate a small initial platform to work from
+		auto world = UNIVERSE.getWorld(worldName);
+		auto blocks := world.getBlockRegistry();
+		
+		world.write(QUERY.writeRectangle(blocks["stone"], ivec3(-32, -32, 0), ivec3(31, 31, 3)));
+		world.write(QUERY.writeRectangle(blocks["dirt"], ivec3(-32, -32, 4), ivec3(31, 31, 5)));
+		world.write(QUERY.writeRectangle(blocks["grass"], ivec3(-32, -32, 6), ivec3(31, 31, 6)));
+	}
+	return UNIVERSE.getWorld(worldName);
 }
+
+// ...
 
 def setBoxSize(element, name)
 {

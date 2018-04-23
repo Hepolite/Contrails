@@ -7,8 +7,8 @@
 
 void editor::EditorWorld::init(logic::script::Script & script)
 {
-	logic::script::util::addVarGlobal(script, &m_world, "EDITOR_WORLD");
 	logic::script::util::addFun(script, [this](world::World * world) { m_world = world; }, "SET_EDITOR_WORLD");
+	logic::script::util::addFun(script, [this]() { return m_world; }, "GET_EDITOR_WORLD");
 }
 
 void editor::EditorWorld::process(const Time & t, const Time & dt)

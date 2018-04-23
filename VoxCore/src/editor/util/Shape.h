@@ -41,8 +41,8 @@ namespace editor
 
 			render::Mesh<glm::vec3> * getMesh() const;
 
-			inline auto read() const { return query({}); }
-			inline auto write(const world::Block & block) const { return query(block); }
+			inline auto getReadQuery() const { return query({}); }
+			inline auto getWriteQuery(const world::Block & block) const { return query(block); }
 
 		protected:
 			glm::ivec3 getStart() const;

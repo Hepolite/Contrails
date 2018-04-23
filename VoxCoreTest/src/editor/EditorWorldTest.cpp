@@ -17,7 +17,7 @@ namespace editor
 			ui::gui::Gui gui;
 			EditorWorld editor;
 			editor.inject(gui);
-			Assert::IsTrue(gui.getScript().execute("EDITOR_WORLD"));
+			Assert::IsTrue(gui.getScript().execute("GET_EDITOR_WORLD()"));
 		}
 
 	private:

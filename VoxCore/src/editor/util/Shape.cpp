@@ -17,8 +17,10 @@ void editor::util::Shape::setSize(const glm::ivec3 & size)
 {
 	if (size.x == 0 || size.y == 0 || size.z == 0)
 		throw std::invalid_argument("Shape size cannot be zero");
+	const bool remesh = m_size != size;
 	m_size = size;
-	updateMesh();
+	if (remesh)
+		updateMesh();
 }
 
 glm::ivec3 editor::util::Shape::getStart() const

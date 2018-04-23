@@ -15,15 +15,15 @@ namespace editor
 		TEST_CLASS(ShapeLineTest)
 		{
 		public:
-			TEST_METHOD(ShapeLine_read)
+			TEST_METHOD(ShapeLine_getReadQuery)
 			{
 				ShapeLine shapeA, shapeB, shapeC;
 				shapeB.stretch({ 3, 1, 4 }, { 6, 1, 5 });
 				shapeC.stretch({ 2, -1, 4 }, { -3, -3, 6 });
 
-				Assert::AreEqual(1u, shapeA.read().count());
-				Assert::AreEqual(4u, shapeB.read().count());
-				Assert::AreEqual(6u, shapeC.read().count());
+				Assert::AreEqual(1u, shapeA.getReadQuery().count());
+				Assert::AreEqual(4u, shapeB.getReadQuery().count());
+				Assert::AreEqual(6u, shapeC.getReadQuery().count());
 			}
 
 		private:
