@@ -23,7 +23,13 @@ void editor::util::Grid::setResolution(float resolution)
 	updateMesh();
 }
 
-void editor::util::Grid::updateMesh()
+render::Mesh<glm::vec3> * editor::util::Grid::getMesh() const
+{
+	if (m_mesh == nullptr)
+		updateMesh();
+	return m_mesh.get();
+}
+void editor::util::Grid::updateMesh() const
 {
 	m_mesh = std::make_unique<render::Mesh<glm::vec3>>();
 	m_mesh->setRenderMode(render::opengl::RenderMode::LINES);

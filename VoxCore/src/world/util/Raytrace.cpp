@@ -18,6 +18,12 @@ world::util::Raytrace::Raytrace(const glm::vec3 & start, const glm::vec3 & dir, 
 	m_step = math::sign(m_dir);
 	m_tMax = math::intbound(start, m_dir);
 	m_tDelta = m_step / m_dir;
+
+	for (unsigned int i = 0u; i < 3u; ++i)
+	{
+		if (!std::isfinite(m_tMax[i])) m_tMax[i] = 1.0f;
+		if (!std::isfinite(m_tDelta[i])) m_tDelta[i] = 0.0f;
+	}
 }
 
 bool world::util::Raytrace::isValid() const

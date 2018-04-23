@@ -55,9 +55,14 @@ void render::scene::Camera::lookTowards(const glm::vec3 & target, bool snap)
 }
 glm::vec3 render::scene::Camera::getLookVector(const glm::vec2 & mouseVector) const
 {
-	const auto far = m_projviewInv * glm::vec4{ mouseVector.x, -mouseVector.y, 0.5f, 1.0f };
-	const auto near = m_projviewInv * glm::vec4{ mouseVector.x, -mouseVector.y, -0.5f, 1.0f };
+	const auto far = m_projviewInv * glm::vec4{ mouseVector.x, mouseVector.y, 0.5f, 1.0f };
+	const auto near = m_projviewInv * glm::vec4{ mouseVector.x, mouseVector.y, -0.5f, 1.0f };
 	return glm::normalize(glm::vec3{ far / far.w } - glm::vec3{ near / near.w });
+}
+glm::vec2 render::scene::Camera::getMouseVector(const glm::vec2 mousePos) const
+{
+	const glm::vec2 size = m_display == nullptr ? glm::vec2{ 1.0f, 1.0f } : m_display->getSize();
+	return 2.0f * glm::vec2{ mousePos.x, size.y - mousePos.y } / size - 1.0f;
 }
 
 void render::scene::Camera::setPosition(const glm::vec3 & pos, bool snap)

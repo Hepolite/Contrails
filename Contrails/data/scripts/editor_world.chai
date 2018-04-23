@@ -22,6 +22,9 @@ world.process();
 def main()
 {
 	SET_EDITOR_WORLD(UNIVERSE.getWorld(WORLD_NAME));
+	
+	EDITOR.setShape(EDITOR.shapeLine);
+	EDITOR.shapeLine.setDynamic(true);
 }
 
 def setBoxSize(element, name)

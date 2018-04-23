@@ -23,6 +23,7 @@ public:
 	void inject(const asset::AssetRegistry & assets);
 	void inject(const render::uboRegistry & ubos);
 	void inject(ui::gui::Gui & gui);
+	void inject(logic::event::EventBus & bus);
 	void inject(core::scene::Scene & scene);
 
 	void process();
@@ -33,6 +34,7 @@ public:
 	// ...
 
 	inline auto & getCursor() { return m_cursor; }
+	inline auto & getScene() { return *m_scene; }
 
 	void setTransform(const glm::mat4 & transform) const;
 
@@ -117,6 +119,10 @@ void editor::Editor::Impl::inject(ui::gui::Gui & gui)
 	logic::script::util::addFun(script, &util::Shape::read, "read");
 	logic::script::util::addFun(script, &util::Shape::write, "write");
 }
+void editor::Editor::Impl::inject(logic::event::EventBus & bus)
+{
+	m_cursor.inject(bus);
+}
 void editor::Editor::Impl::inject(core::scene::Scene & scene)
 {
 	m_scene = &scene;
@@ -125,11 +131,18 @@ void editor::Editor::Impl::inject(core::scene::Scene & scene)
 
 void editor::Editor::Impl::process()
 {
-	if (!m_cursor.hasValidPos())
-		return;
-
-	if (m_shape != nullptr)
-		m_shape->stretch(m_cursor.getClickedPos(), m_cursor.getPos());
+	if (m_shape != nullptr && m_cursor.hasValidPos())
+	{
+		if (m_shape->isDynamic())
+		{
+			if (m_cursor.getClickedButton() == ui::mouse::Button::NONE)
+				m_shape->stretch(m_cursor.getPos(), m_cursor.getPos());
+			else
+				m_shape->stretch(m_cursor.getClickedPos(), m_cursor.getPos());
+		}
+		else
+			m_shape->setPos(m_cursor.getPos());
+	}
 }
 void editor::Editor::Impl::render() const
 {
@@ -161,14 +174,9 @@ editor::Editor::Editor()
 }
 editor::Editor::~Editor() = default;
 
-void editor::Editor::inject(const asset::AssetRegistry & assets)
-{
-	m_impl->inject(assets);
-}
-void editor::Editor::inject(const render::uboRegistry & ubos)
-{
-	m_impl->inject(ubos);
-}
+void editor::Editor::inject(const asset::AssetRegistry & assets) { m_impl->inject(assets); }
+void editor::Editor::inject(const render::uboRegistry & ubos) {	m_impl->inject(ubos); }
+void editor::Editor::inject(logic::event::EventBus & bus) { m_impl->inject(bus); }
 void editor::Editor::inject(ui::gui::Gui & gui)
 {
 	m_impl->inject(gui);
@@ -193,10 +201,8 @@ void editor::Editor::inject(core::scene::Scene & scene)
 	};
 }
 
-editor::util::Cursor & editor::Editor::getCursor()
-{
-	return m_impl->getCursor();
-}
+editor::util::Cursor & editor::Editor::getCursor() { return m_impl->getCursor(); }
+core::scene::Scene & editor::Editor::getScene() { return m_impl->getScene(); }
 
 void editor::Editor::setTransform(const glm::mat4 & transform) const
 {

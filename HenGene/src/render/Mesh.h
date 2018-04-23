@@ -18,6 +18,7 @@ namespace render
 
 		void render() const;
 
+		inline bool built() const { return m_built; }
 		inline bool empty() const { return m_indiceCount == 0u; }
 
 	protected:
@@ -39,6 +40,7 @@ namespace render
 		opengl::RenderMode m_mode = opengl::RenderMode::TRIANGLES;
 		std::vector<opengl::Attribute> m_attributes;
 
+		bool m_built = false;
 		unsigned int m_size = 0;
 		unsigned int m_indiceCount = 0u;
 	};

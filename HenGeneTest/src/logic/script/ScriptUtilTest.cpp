@@ -71,6 +71,7 @@ namespace logic
 				util::addFun<Mock, bool>(script, &Mock::bar, "bar");
 				util::addFun<Mock, bool, int>(script, &Mock::bar, "bar");
 				util::addFun(script, &baz, "baz");
+				util::addFun(script, []() {}, "dark_magic");
 			}
 
 			TEST_METHOD(ScriptUtil_execute)

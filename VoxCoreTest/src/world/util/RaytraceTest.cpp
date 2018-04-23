@@ -73,6 +73,14 @@ namespace world
 				Assert::AreEqual({ -2, 2, 0 }, ray.nextBlockPos());
 				Assert::AreEqual({ -3, 2, 0 }, ray.nextBlockPos());
 			}
+		
+			TEST_METHOD(Raytrace_iterating)
+			{
+				Raytrace ray{ { 10.0f, 10.0f, 10.0f }, { 1.0f, 0.0f, 0.0f }, 15.0f };
+
+				for (unsigned int i = 0u; ray.isValid(); ray.next(), ++i)
+					Assert::IsTrue(i < 15u);
+			}
 		};
 
 		TEST_CLASS(RaytraceBresenhamTest)

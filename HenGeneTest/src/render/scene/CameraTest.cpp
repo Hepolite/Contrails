@@ -66,6 +66,16 @@ namespace render
 				camera.process();
 
 				Assert::AreEqual({ 58, 58, -58 }, math::round(100.0f * camera.getLookVector()));
+				Assert::AreEqual({ 7, 88, -47 }, math::round(100.0f * camera.getLookVector({ -1.0f, 0.0f })));
+				Assert::AreEqual({ 71, 71, 0 }, math::round(100.0f * camera.getLookVector({ 0.0f, 1.0f })));
+			}
+			TEST_METHOD(Camera_getMouseVector)
+			{
+				Camera camera;
+				Assert::AreEqual({ 0.0f, 0.0f }, camera.getMouseVector({ 0.5f, 0.5f }));
+				Assert::AreEqual({ -1.0f, 1.0f }, camera.getMouseVector({ 0.0f, 0.0f }));
+				Assert::AreEqual({ 1.0f, -1.0f }, camera.getMouseVector({ 1.0f, 1.0f }));
+				Assert::AreEqual({ -0.5f, 0.0f }, camera.getMouseVector({ 0.25f, 0.5f }));
 			}
 		};
 	}

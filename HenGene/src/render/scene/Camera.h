@@ -42,6 +42,8 @@ namespace render
 			inline auto getUpVector() const { return m_up; }
 			inline auto getFOV() const { return m_fov; }
 
+			glm::vec2 getMouseVector(const glm::vec2 mousePos) const;
+
 		private:
 			glm::mat4 calculateProjectionMatrix(float pt = 0.0f) const;
 			glm::mat4 calculateViewMatrix(float pt = 0.0f) const;

@@ -14,12 +14,12 @@ namespace render
 			/*
 			Specifies an attribute of the vertex in a shader
 			@param index The index of the attribute in a shader
-			@param count The number of of values associated with the attribute (3 for vec3, 1 for float, etc)
 			@param format The format of the internal data (BYTE, UNSIGNED_BYTE, SHORT, UNSIGNED_SHORT, INT, UNSIGNED_INT, and FLOAT are accepted)
+			@param count The number of of values associated with the attribute (3 for vec3, 1 for float, etc)
 			@param offset The offset of the data given in bytes
 			*/
 			Attribute(unsigned int index, DataFormat format, int count, unsigned int offset)
-				: m_index(index), m_format(format), m_count(count), m_offset(offset)
+				: m_index(index), m_offset(offset), m_format(format), m_count(count)
 			{}
 			~Attribute() = default;
 

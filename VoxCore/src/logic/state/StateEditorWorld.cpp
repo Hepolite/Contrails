@@ -26,6 +26,7 @@ void logic::state::StateEditorWorld::initialize(core::Engine & engine)
 
 	m_editor.inject(engine.getAssets());
 	m_editor.inject(engine.getScene());
+	m_editor.inject(engine.getEventBus());
 	m_editor.inject(engine.getUboRegistry());
 	m_editor.inject(*engine.getGuiManager().get(GUI_PATH));
 
@@ -61,8 +62,8 @@ void logic::state::StateEditorWorld::initialize(core::Engine & engine)
 
 	// Place camera in a suitable location
 	m_camera = &engine.getScene().getCamera(render::scene::CameraType::NORMAL);
-	m_camera->setPosition({ 10, 10, 10 });
-	m_camera->lookTowards({ 0, 0, 5 });
+	m_camera->setPosition({ -42.5f, 0.5f, 0.5f });
+	m_camera->lookTowards({ 0.5f, 0.5f, 0.5f });
 }
 void logic::state::StateEditorWorld::deinitialize(core::Engine & engine)
 {

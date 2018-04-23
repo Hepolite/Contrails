@@ -21,7 +21,10 @@ namespace render
 			meshB.getVertexData() = { { 0, 0, 0 }, { 1, 0, 0 }, { 0, 1, 0 } };
 
 			Assert::IsFalse(meshA.build());
+
+			Assert::IsFalse(meshB.built());
 			Assert::IsTrue(meshB.build());
+			Assert::IsTrue(meshB.built());
 		}
 
 		TEST_METHOD(Mesh_empty)

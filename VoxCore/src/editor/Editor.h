@@ -4,6 +4,7 @@
 #include "asset/AssetRegistry.h"
 #include "core/scene/Scene.h"
 #include "editor/util/Cursor.h"
+#include "logic/event/EventBus.h"
 #include "logic/script/Script.h"
 #include "render/RenderContext.h"
 #include "render/uboRegistry.h"
@@ -28,6 +29,7 @@ namespace editor
 
 		void inject(const asset::AssetRegistry & assets);
 		void inject(const render::uboRegistry & ubos);
+		void inject(logic::event::EventBus & bus);
 		void inject(ui::gui::Gui & gui);
 		void inject(core::scene::Scene & scene);
 
@@ -37,6 +39,7 @@ namespace editor
 		virtual void render(const render::RenderContext & context, const Time & t, const Time & dt) const {}
 
 		util::Cursor & getCursor();
+		core::scene::Scene & getScene();
 
 		void setTransform(const glm::mat4 & transform) const;
 

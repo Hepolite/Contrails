@@ -12,16 +12,17 @@ bool render::MeshBase::build(unsigned int indices, unsigned int vertices, const 
 	m_vertex.reserve(vertices * m_size, vertexData);
 	m_indice.bind();
 	m_indice.reserve(indices * sizeof(unsigned int), indiceData);
-	for (const auto& attribute : m_attributes)
+	for (const auto & attribute : m_attributes)
 		attribute.enable(m_size);
 
 	m_vao.unbind();
+	m_built = true;
 	return true;
 }
 
 void render::MeshBase::render() const
 {
-	if (!empty())
+	if (built() && !empty())
 	{
 		m_vao.bind();
 		glDrawElements(static_cast<GLenum>(m_mode), m_indiceCount, GL_UNSIGNED_INT, nullptr);

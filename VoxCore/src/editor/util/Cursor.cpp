@@ -7,7 +7,7 @@ void editor::util::Cursor::inject(logic::event::EventBus & bus)
 {
 	m_mouseClick = bus.add<logic::event::MousePress>([this](auto & event)
 	{
-		if (m_button != ui::mouse::Button::NONE)
+		if (m_button != ui::mouse::Button::NONE || !m_hasValidPos)
 			return;
 		m_button = event.m_button;
 		m_clickedPos = m_pos;

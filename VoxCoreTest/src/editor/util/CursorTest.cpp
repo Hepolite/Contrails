@@ -27,6 +27,7 @@ namespace editor
 				logic::event::EventBus bus;
 				Cursor cursor;
 				cursor.inject(bus);
+				cursor.setValidPos(true);
 
 				cursor.lockAxisX(true);
 				cursor.setPos({ 1.0f, 0.5f, 3.0f });
@@ -38,6 +39,20 @@ namespace editor
 				Assert::AreEqual({ 2.0f, 3.0f, 4.0f }, cursor.getActualPos());
 				Assert::AreEqual({ 1.0f, 0.5f, 3.0f }, cursor.getClickedPos());
 				Assert::AreEqual({ 5.0f, 42.0f }, cursor.getMousePos());
+			}
+
+			TEST_METHOD(Cursor_getClickedButton)
+			{
+				logic::event::EventBus bus;
+				Cursor cursor;
+				cursor.inject(bus);
+				cursor.setValidPos(true);
+
+				Assert::IsTrue(ui::mouse::Button::NONE == cursor.getClickedButton());
+				bus.post<logic::event::MousePress>({ ui::mouse::Button::LEFT, 0.0f, {}, {} });
+				Assert::IsTrue(ui::mouse::Button::LEFT == cursor.getClickedButton());
+				bus.post<logic::event::MouseRelease>({ ui::mouse::Button::LEFT, 0.0f, {}, {} });
+				Assert::IsTrue(ui::mouse::Button::NONE == cursor.getClickedButton());
 			}
 
 			TEST_METHOD(Cursor_setValidPos)

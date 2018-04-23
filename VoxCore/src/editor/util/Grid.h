@@ -14,7 +14,7 @@ namespace editor
 		class Grid
 		{
 		public:
-			Grid() { updateMesh(); }
+			Grid() = default;
 			Grid(const Grid &) = delete;
 			Grid(Grid &&) = delete;
 			~Grid() = default;
@@ -30,12 +30,12 @@ namespace editor
 			inline auto getSize() const { return m_size; }
 			inline auto getResolution() const { return m_resolution; }
 
-			inline auto getMesh() const { return m_mesh.get(); }
+			render::Mesh<glm::vec3> * getMesh() const;
 
 		private:
-			void updateMesh();
+			void updateMesh() const;
 
-			std::unique_ptr<render::Mesh<glm::vec3>> m_mesh;
+			mutable std::unique_ptr<render::Mesh<glm::vec3>> m_mesh;
 
 			glm::vec3 m_pos{};
 			float m_size = 100.0f;

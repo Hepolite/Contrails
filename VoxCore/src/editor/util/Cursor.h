@@ -31,6 +31,8 @@ namespace editor
 			glm::vec3 getClickedPos() const;
 			glm::vec2 getMousePos() const;
 
+			inline auto getClickedButton() const { return m_button; }
+
 			inline void setValidPos(bool valid) { m_hasValidPos = valid; }
 			inline bool hasValidPos() const { return m_hasValidPos; }
 
