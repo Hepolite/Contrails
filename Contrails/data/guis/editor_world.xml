@@ -391,6 +391,85 @@
 			<size>16 16</size>
 		</widget>
 	</widget>
+	<widget type="panel" name="ellipse_data" visible="false" >
+		<assets> <sprites background="gui/generic/background" /> </assets>
+		<border inner="4" outer="2" />
+		<link location="bottom_right" target="shapes" />
+		
+		<!-- Checkbox dynamic size -->
+		<widget type="checkbox" name="ellipse_dynamic">
+			<assets>
+				<sprites icon="gui/generic/checkbox" />
+				<scripts action="toggleDynamicShapeSize(EDITOR.shapeEllipse)" />
+			</assets>
+			<border outer="2" />
+			<link location="left_top" />
+			<size>16 16</size>
+		</widget>
+		<!-- Slider size x -->
+		<widget type="button" name="ellipse_size_x_decrease">
+			<assets> <sprites icon="gui/generic/arrow_left" /> </assets>
+			<border outer="2" outer_right="0" />
+			<link location="bottom_left" target="ellipse_dynamic" />
+			<size>16 16</size>
+		</widget>
+		<widget type="slider" name="ellipse_size_x">
+			<assets>
+				<sprites icon="gui/generic/slider" />
+				<scripts action="updateEllipseShapeSize()" />
+			</assets>
+			<link location="right_top" target="ellipse_size_x_decrease" />
+			<size>128 16</size>
+		</widget>
+		<widget type="button" name="ellipse_size_x_increase">
+			<assets> <sprites icon="gui/generic/arrow_right" /> </assets>
+			<border outer="2" outer_left="0" />
+			<link location="right_top" target="ellipse_size_x" />
+			<size>16 16</size>
+		</widget>
+		<!-- Slider size y -->
+		<widget type="button" name="ellipse_size_y_decrease">
+			<assets> <sprites icon="gui/generic/arrow_left" /> </assets>
+				<border outer="2" outer_right="0" />
+				<link location="bottom_left" target="ellipse_size_x_decrease" />
+			<size>16 16</size>
+		</widget>
+		<widget type="slider" name="ellipse_size_y">
+			<assets>
+				<sprites icon="gui/generic/slider" />
+				<scripts action="updateEllipseShapeSize()" />
+			</assets>
+			<link location="right_top" target="ellipse_size_y_decrease" />
+			<size>128 16</size>
+		</widget>
+		<widget type="button" name="ellipse_size_y_increase">
+			<assets> <sprites icon="gui/generic/arrow_right" /> </assets>
+			<border outer="2" outer_left="0" />
+			<link location="right_top" target="ellipse_size_y" />
+			<size>16 16</size>
+		</widget>
+		<!-- Slider size z -->
+		<widget type="button" name="ellipse_size_z_decrease">
+			<assets> <sprites icon="gui/generic/arrow_left" /> </assets>
+			<border outer="2" outer_right="0" />
+			<link location="bottom_left" target="ellipse_size_y_decrease" />
+			<size>16 16</size>
+		</widget>
+		<widget type="slider" name="ellipse_size_z">
+			<assets>
+				<sprites icon="gui/generic/slider" />
+				<scripts action="updateEllipseShapeSize()" />
+			</assets>
+			<link location="right_top" target="ellipse_size_z_decrease" />
+			<size>128 16</size>
+		</widget>
+		<widget type="button" name="ellipse_size_z_increase">
+			<assets> <sprites icon="gui/generic/arrow_right" /> </assets>
+			<border outer="2" outer_left="0" />
+			<link location="right_top" target="ellipse_size_z" />
+			<size>16 16</size>
+		</widget>
+	</widget>
 	<widget type="panel" name="line_data" visible="false" >
 		<assets> <sprites background="gui/generic/background" /> </assets>
 		<border inner="4" outer="2" />

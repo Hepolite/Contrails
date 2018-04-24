@@ -14,13 +14,17 @@ namespace world
 		public:
 			data::WorldQuery readBlock(const glm::ivec3 & pos) const;
 			data::WorldQuery readCylinder(const glm::ivec3 & start, const glm::ivec3 & end, math::Axis axis) const;
+			data::WorldQuery readEllipse(const glm::ivec3 & start, const glm::ivec3 & end) const;
 			data::WorldQuery readRectangle(const glm::ivec3 & start, const glm::ivec3 & end) const;
 			data::WorldQuery readLine(const glm::ivec3 & start, const glm::ivec3 & end) const;
+			data::WorldQuery readSphere(const glm::ivec3 & center, unsigned int diameter) const;
 
 			data::WorldQuery writeBlock(const Block & block, const glm::ivec3 & pos) const;
 			data::WorldQuery writeCylinder(const Block & block, const glm::ivec3 & start, const glm::ivec3 & end, math::Axis axis) const;
+			data::WorldQuery writeEllipse(const Block & block, const glm::ivec3 & start, const glm::ivec3 & end) const;
 			data::WorldQuery writeRectangle(const Block & block, const glm::ivec3 & start, const glm::ivec3 & end) const;
 			data::WorldQuery writeLine(const Block & block, const glm::ivec3 & start, const glm::ivec3 & end) const;
+			data::WorldQuery writeSphere(const Block & block, const glm::ivec3 & center, unsigned int diameter) const;
 		
 		private:
 			data::BlockData getBlockData(const Block & block) const;

@@ -206,6 +206,7 @@
     <ClInclude Include="src\editor\util\Shape.h" />
     <ClInclude Include="src\editor\util\ShapeBox.h" />
     <ClInclude Include="src\editor\util\ShapeCylinder.h" />
+    <ClInclude Include="src\editor\util\ShapeEllipse.h" />
     <ClInclude Include="src\editor\util\ShapeLine.h" />
     <ClInclude Include="src\editor\util\ShapePoint.h" />
     <ClInclude Include="src\logic\ecs\components\ComponentPhysical.h" />
@@ -266,6 +267,7 @@
     <ClCompile Include="src\editor\util\Shape.cpp" />
     <ClCompile Include="src\editor\util\ShapeBox.cpp" />
     <ClCompile Include="src\editor\util\ShapeCylinder.cpp" />
+    <ClCompile Include="src\editor\util\ShapeEllipse.cpp" />
     <ClCompile Include="src\editor\util\ShapeLine.cpp" />
     <ClCompile Include="src\editor\util\ShapePoint.cpp" />
     <ClCompile Include="src\logic\ecs\systems\SystemPhysical.cpp" />

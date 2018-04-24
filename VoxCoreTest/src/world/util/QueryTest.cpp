@@ -42,6 +42,16 @@ namespace world
 
 				Assert::AreEqual(21u, queryC.count());
 			}
+			TEST_METHOD(Query_readEllipse)
+			{
+				const auto queryA = Query{}.readEllipse({ -1, -1, -2 }, { 1, 1, 2 });
+				const auto queryB = Query{}.readEllipse({ 0, 0, 0 }, { 2, 1, 1 });
+				const auto queryC = Query{}.readEllipse({ 5, 2, -7 }, { 8, 5, -7 });
+
+				Assert::AreEqual(21u, queryA.count());
+				Assert::AreEqual(12u, queryB.count());
+				Assert::AreEqual(12u, queryC.count());
+			}
 			TEST_METHOD(Query_readRectangle)
 			{
 				const auto query = Query{}.readRectangle({ 1, 3, 4 }, { -1, 3, 3 });
@@ -67,6 +77,18 @@ namespace world
 				Assert::IsTrue(query.has({ 3, 0, 0 }));
 				Assert::IsTrue(query.has({ 4, -1, 0 }));
 				Assert::IsTrue(query.has({ 5, -1, 0 }));
+			}
+			TEST_METHOD(Query_readSphere)
+			{
+				const auto queryA = Query{}.readSphere({ 3, -1, 4 }, 2);
+				const auto queryB = Query{}.readSphere({ -1, 0, 3 }, 3);
+				const auto queryC = Query{}.readSphere({ 4, -7, 2 }, 5);
+				const auto queryD = Query{}.readSphere({ 2, -1, 3 }, 0);
+
+				Assert::AreEqual(8u, queryA.count());
+				Assert::AreEqual(19u, queryB.count());
+				Assert::AreEqual(81u, queryC.count());
+				Assert::AreEqual(1u, queryD.count());
 			}
 		};
 	}

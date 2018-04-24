@@ -70,6 +70,14 @@ def updateCylinderShapeSize()
 		getSliderValue("cylinder_size_z", 1, 100, 15)
 	));
 }
+def updateEllipseShapeSize()
+{
+	EDITOR.shapeEllipse.setSize(ivec3(
+		getSliderValue("ellipse_size_x", 1, 100, 15),
+		getSliderValue("ellipse_size_y", 1, 100, 15),
+		getSliderValue("ellipse_size_z", 1, 100, 15)
+	));
+}
 def updateLineShapeSize()
 {
 	EDITOR.shapeLine.setSize(ivec3(
