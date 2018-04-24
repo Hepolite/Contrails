@@ -12,6 +12,10 @@
 
 namespace math
 {
+	enum class Axis { X, Y, Z };
+
+	// ...
+
 	template<typename T> constexpr T cos(const T & v)
 	{
 		return static_cast<T>(std::cos(v * DEG_TO_RAD<T>));

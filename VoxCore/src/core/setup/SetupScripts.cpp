@@ -176,6 +176,12 @@ void core::setup::detail::setupMath(Engine & engine)
 {
 	util::registerScriptData([](Script & script)
 	{
+		util::addEnum<math::Axis>(script, "Axis", {
+			{ math::Axis::X, "AXIS_X" },
+			{ math::Axis::Y, "AXIS_Y" },
+			{ math::Axis::Z, "AXIS_Z" }
+		});
+
 		addGlmVec2<bool>(script, "bvec2");
 		addGlmVec2<double>(script, "dvec2");
 		addGlmVec2<float>(script, "vec2");

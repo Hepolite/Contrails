@@ -201,6 +201,7 @@
     <ClCompile Include="src\editor\util\CursorTest.cpp" />
     <ClCompile Include="src\editor\util\GridTest.cpp" />
     <ClCompile Include="src\editor\util\ShapeBoxTest.cpp" />
+    <ClCompile Include="src\editor\util\ShapeCylinderTest.cpp" />
     <ClCompile Include="src\editor\util\ShapeLineTest.cpp" />
     <ClCompile Include="src\editor\util\ShapePointTest.cpp" />
     <ClCompile Include="src\editor\util\ShapeTest.cpp" />

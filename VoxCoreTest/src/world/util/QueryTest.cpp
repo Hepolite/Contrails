@@ -19,6 +19,29 @@ namespace world
 				Assert::AreEqual(1u, query.count());
 				Assert::IsTrue(query.has({ 1, 3, 4 }));
 			}
+			TEST_METHOD(Query_testCylinder)
+			{
+				const auto queryA = Query{}.readCylinder({ 1, 3, 5 }, { -1, 4, 5 }, math::Axis::Z);
+				const auto queryB = Query{}.readCylinder({ 1, 3, 5 }, { -1, 3, 3 }, math::Axis::Y);
+				const auto queryC = Query{}.readCylinder({ 1, -1, 5 }, { 1, 3, 1 }, math::Axis::X);
+
+				Assert::AreEqual(6u, queryA.count());
+				Assert::IsTrue(queryA.has({ -1, 3, 5 }));
+				Assert::IsTrue(queryA.has({ -1, 4, 5 }));
+				Assert::IsTrue(queryA.has({ 0, 3, 5 }));
+				Assert::IsTrue(queryA.has({ 0, 4, 5 }));
+				Assert::IsTrue(queryA.has({ 1, 3, 5 }));
+				Assert::IsTrue(queryA.has({ 1, 4, 5 }));
+
+				Assert::AreEqual(9u, queryB.count());
+				Assert::IsTrue(queryB.has({ -1, 3, 4 }));
+				Assert::IsTrue(queryB.has({ 0, 3, 3 }));
+				Assert::IsTrue(queryB.has({ 0, 3, 4 }));
+				Assert::IsTrue(queryB.has({ 0, 3, 5 }));
+				Assert::IsTrue(queryB.has({ 1, 3, 4 }));
+
+				Assert::AreEqual(21u, queryC.count());
+			}
 			TEST_METHOD(Query_readRectangle)
 			{
 				const auto query = Query{}.readRectangle({ 1, 3, 4 }, { -1, 3, 3 });

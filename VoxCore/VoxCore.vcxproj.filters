@@ -189,6 +189,9 @@
     <ClInclude Include="src\editor\util\ShapePoint.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\editor\util\ShapeCylinder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\core\Engine.cpp">
@@ -324,6 +327,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\editor\util\ShapePoint.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\editor\util\ShapeCylinder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

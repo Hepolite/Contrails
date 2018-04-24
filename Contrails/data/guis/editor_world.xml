@@ -282,6 +282,115 @@
 			<size>16 16</size>
 		</widget>
 	</widget>
+	<widget type="panel" name="cylinder_data" visible="false" >
+		<assets> <sprites background="gui/generic/background" /> </assets>
+		<border inner="4" outer="2" />
+		<link location="bottom_right" target="shapes" />
+		
+		<!-- Alignment -->
+		<widget type="radio" name="cylinder_axis_x">
+			<assets>
+				<sprites icon="gui/generic/checkbox" />
+				<scripts action="EDITOR.shapeCylinder.setAxis(AXIS_X)" />
+			</assets>
+			<border outer="2" />
+			<link location="left_top" />
+			<size>16 16</size>
+		</widget>
+		<widget type="radio" name="cylinder_axis_y">
+			<assets>
+				<sprites icon="gui/generic/checkbox" />
+				<scripts action="EDITOR.shapeCylinder.setAxis(AXIS_Y)" />
+			</assets>
+			<border outer="2" />
+			<group leader="cylinder_axis_x" />
+			<link location="right_top" target="cylinder_axis_x" />
+			<size>16 16</size>
+		</widget>
+		<widget type="radio" name="cylinder_axis_z">
+			<assets>
+				<sprites icon="gui/generic/checkbox" />
+				<scripts action="EDITOR.shapeCylinder.setAxis(AXIS_Z)" />
+			</assets>
+			<border outer="2" />
+			<group leader="cylinder_axis_x" />
+			<link location="right_top" target="cylinder_axis_y" />
+			<size>16 16</size>
+		</widget>
+		<!-- Checkbox dynamic size -->
+		<widget type="checkbox" name="cylinder_dynamic">
+			<assets>
+				<sprites icon="gui/generic/checkbox" />
+				<scripts action="toggleDynamicShapeSize(EDITOR.shapeCylinder)" />
+			</assets>
+			<border outer="2" />
+			<link location="bottom_left" target="cylinder_axis_x" />
+			<size>16 16</size>
+		</widget>
+		<!-- Slider size x -->
+		<widget type="button" name="cylinder_size_x_decrease">
+			<assets> <sprites icon="gui/generic/arrow_left" /> </assets>
+			<border outer="2" outer_right="0" />
+			<link location="bottom_left" target="cylinder_dynamic" />
+			<size>16 16</size>
+		</widget>
+		<widget type="slider" name="cylinder_size_x">
+			<assets>
+				<sprites icon="gui/generic/slider" />
+				<scripts action="updateCylinderShapeSize()" />
+			</assets>
+			<link location="right_top" target="cylinder_size_x_decrease" />
+			<size>128 16</size>
+		</widget>
+		<widget type="button" name="cylinder_size_x_increase">
+			<assets> <sprites icon="gui/generic/arrow_right" /> </assets>
+			<border outer="2" outer_left="0" />
+			<link location="right_top" target="cylinder_size_x" />
+			<size>16 16</size>
+		</widget>
+		<!-- Slider size y -->
+		<widget type="button" name="cylinder_size_y_decrease">
+			<assets> <sprites icon="gui/generic/arrow_left" /> </assets>
+				<border outer="2" outer_right="0" />
+				<link location="bottom_left" target="cylinder_size_x_decrease" />
+			<size>16 16</size>
+		</widget>
+		<widget type="slider" name="cylinder_size_y">
+			<assets>
+				<sprites icon="gui/generic/slider" />
+				<scripts action="updateCylinderShapeSize()" />
+			</assets>
+			<link location="right_top" target="cylinder_size_y_decrease" />
+			<size>128 16</size>
+		</widget>
+		<widget type="button" name="cylinder_size_y_increase">
+			<assets> <sprites icon="gui/generic/arrow_right" /> </assets>
+			<border outer="2" outer_left="0" />
+			<link location="right_top" target="cylinder_size_y" />
+			<size>16 16</size>
+		</widget>
+		<!-- Slider size z -->
+		<widget type="button" name="cylinder_size_z_decrease">
+			<assets> <sprites icon="gui/generic/arrow_left" /> </assets>
+			<border outer="2" outer_right="0" />
+			<link location="bottom_left" target="cylinder_size_y_decrease" />
+			<size>16 16</size>
+		</widget>
+		<widget type="slider" name="cylinder_size_z">
+			<assets>
+				<sprites icon="gui/generic/slider" />
+				<scripts action="updateCylinderShapeSize()" />
+			</assets>
+			<link location="right_top" target="cylinder_size_z_decrease" />
+			<size>128 16</size>
+		</widget>
+		<widget type="button" name="cylinder_size_z_increase">
+			<assets> <sprites icon="gui/generic/arrow_right" /> </assets>
+			<border outer="2" outer_left="0" />
+			<link location="right_top" target="cylinder_size_z" />
+			<size>16 16</size>
+		</widget>
+	</widget>
 	<widget type="panel" name="line_data" visible="false" >
 		<assets> <sprites background="gui/generic/background" /> </assets>
 		<border inner="4" outer="2" />
