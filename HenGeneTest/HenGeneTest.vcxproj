@@ -243,6 +243,7 @@
     <ClCompile Include="src\ui\gui\detail\WidgetRendererTest.cpp" />
     <ClCompile Include="src\ui\gui\detail\WidgetsTest.cpp" />
     <ClCompile Include="src\ui\gui\GuiManagerTest.cpp" />
+    <ClCompile Include="src\ui\gui\GuiTest.cpp" />
     <ClCompile Include="src\util\MathGenericTest.cpp" />
     <ClCompile Include="src\util\MathGeometryTest.cpp" />
     <ClCompile Include="src\util\MathOperatorsTest.cpp" />

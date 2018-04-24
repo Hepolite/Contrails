@@ -26,6 +26,16 @@ namespace render
 			Assert::IsTrue(meshB.build());
 			Assert::IsTrue(meshB.built());
 		}
+		TEST_METHOD(Mesh_render)
+		{
+			Mesh<glm::vec3> mesh;
+			mesh.getIndiceData() = { 0, 1, 2 };
+			mesh.getVertexData() = { { 0, 0, 0 },{ 1, 0, 0 },{ 0, 1, 0 } };
+			mesh.build();
+			mesh.render();
+
+			Assert::AreEqual(0u, opengl::vao::getBoundHandle());
+		}
 
 		TEST_METHOD(Mesh_empty)
 		{

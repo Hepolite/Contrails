@@ -13,7 +13,7 @@ class ToolBrush
 	attr leftBlock;
 	attr rightBlock;
 	
-	def name() { return "brush"; }
+	def getName() { return "brush"; }
 	def accept(event) { return event != MOUSE_BUTTON_MIDDLE }
 	
 	def setLeftBlock(block) { this.leftBlock = block; }

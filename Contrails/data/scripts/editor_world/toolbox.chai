@@ -10,7 +10,7 @@ class Tool
 	 * Retrieves the name of the tool
 	 * @return The name of the tool
 	 */
-	def name() { return ""; }
+	def getName() { return ""; }
 	/**
 	 * Checks if the tool should process the provided event or not
 	 * @param event The event to process or not
@@ -39,8 +39,8 @@ class Toolbox
 	 */
 	def add(tool)
 	{
-		LOG_INFO("Adding " + tool.name() + " to toolbox");
-		this.tools[tool.name()] = tool;
+		LOG_INFO("Adding " + tool.getName() + " to toolbox");
+		this.tools[tool.getName()] = tool;
 		return tool;
 	}
 	/**
@@ -84,7 +84,7 @@ def selectTool(tool)
  */
 def setToolDataVisibility(tool, visible)
 {
-	auto name = tool.name() + "_data";
+	auto name = tool.getName() + "_data";
 	if (GUI.getWidgets().has(name))
 	{
 		GUI.getWidgets().get(name).render.visible = visible;

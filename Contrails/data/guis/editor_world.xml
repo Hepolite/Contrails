@@ -67,8 +67,8 @@
 			</widget>
 		</widget> <!-- End navigation -->
 		
-	</widget> <!-- End core -->
-		
+	</widget>
+	
 	<widget type="panel" name="tools">
 		<assets> <sprites background="gui/generic/background" /> </assets>
 		<border inner="4" />
@@ -122,8 +122,7 @@
 			<link location="right_top" target="tool_replace" />
 			<size>32 32</size>
 		</widget>
-	</widget> <!-- End tools -->
-	
+	</widget>
 	
 	<widget type="panel" name="shapes">
 		<assets> <sprites background="gui/generic/background" /> </assets>
@@ -178,8 +177,7 @@
 			<link location="right_top" target="shape_line" />
 			<size>32 32</size>
 		</widget>
-	</widget> <!-- End shapes -->
-	
+	</widget>
 	<widget type="panel" name="box_data" visible="false" >
 		<assets> <sprites background="gui/generic/background" /> </assets>
 		<border inner="4" outer="2" />
@@ -187,12 +185,14 @@
 		
 		<!-- Checkbox dynamic size -->
 		<widget type="checkbox" name="box_dynamic">
-			<assets> <sprites icon="gui/generic/checkbox" /> </assets>
+			<assets>
+				<sprites icon="gui/generic/checkbox" />
+				<scripts action="toggleDynamicShapeSize(EDITOR.shapeBox)" />
+			</assets>
 			<border outer="2" />
 			<link location="left_top" />
 			<size>16 16</size>
 		</widget>
-		
 		<!-- Slider size x -->
 		<widget type="button" name="box_size_x_decrease">
 			<assets> <sprites icon="gui/generic/arrow_left" /> </assets>
@@ -201,9 +201,12 @@
 			<size>16 16</size>
 		</widget>
 		<widget type="slider" name="box_size_x">
-			<assets> <sprites icon="gui/generic/slider" /> </assets>
+			<assets>
+				<sprites icon="gui/generic/slider" />
+				<scripts action="updateBoxShapeSize()" />
+			</assets>
 			<link location="right_top" target="box_size_x_decrease" />
-			<size>96 16</size>
+			<size>128 16</size>
 		</widget>
 		<widget type="button" name="box_size_x_increase">
 			<assets> <sprites icon="gui/generic/arrow_right" /> </assets>
@@ -211,7 +214,6 @@
 			<link location="right_top" target="box_size_x" />
 			<size>16 16</size>
 		</widget>
-		
 		<!-- Slider size y -->
 		<widget type="button" name="box_size_y_decrease">
 			<assets> <sprites icon="gui/generic/arrow_left" /> </assets>
@@ -220,9 +222,12 @@
 			<size>16 16</size>
 		</widget>
 		<widget type="slider" name="box_size_y">
-			<assets> <sprites icon="gui/generic/slider" /> </assets>
+			<assets>
+				<sprites icon="gui/generic/slider" />
+				<scripts action="updateBoxShapeSize()" />
+			</assets>
 			<link location="right_top" target="box_size_y_decrease" />
-			<size>96 16</size>
+			<size>128 16</size>
 		</widget>
 		<widget type="button" name="box_size_y_increase">
 			<assets> <sprites icon="gui/generic/arrow_right" /> </assets>
@@ -230,7 +235,6 @@
 			<link location="right_top" target="box_size_y" />
 			<size>16 16</size>
 		</widget>
-		
 		<!-- Slider size z -->
 		<widget type="button" name="box_size_z_decrease">
 			<assets> <sprites icon="gui/generic/arrow_left" /> </assets>
@@ -239,9 +243,12 @@
 			<size>16 16</size>
 		</widget>
 		<widget type="slider" name="box_size_z">
-			<assets> <sprites icon="gui/generic/slider" /> </assets>
+			<assets>
+				<sprites icon="gui/generic/slider" />
+				<scripts action="updateBoxShapeSize()" />
+			</assets>
 			<link location="right_top" target="box_size_z_decrease" />
-			<size>96 16</size>
+			<size>128 16</size>
 		</widget>
 		<widget type="button" name="box_size_z_increase">
 			<assets> <sprites icon="gui/generic/arrow_right" /> </assets>
@@ -249,14 +256,137 @@
 			<link location="right_top" target="box_size_z" />
 			<size>16 16</size>
 		</widget>
-		
-		<!-- Checkbox centered -->
-		<widget type="checkbox" name="box_centered">
+		<!-- Checkbox hollow -->
+		<widget type="checkbox" name="box_hollow">
 			<assets> <sprites icon="gui/generic/checkbox" /> </assets>
 			<border outer="2" />
 			<link location="bottom_left" target="box_size_z_decrease" />
 			<size>16 16</size>
 		</widget>
-	</widget> <!-- End box_data -->
+		<!-- Slider wall thickness -->
+		<widget type="button" name="box_thickness_decrease">
+			<assets> <sprites icon="gui/generic/arrow_left" /> </assets>
+			<border outer="2" outer_right="0" />
+			<link location="bottom_left" target="box_hollow" />
+			<size>16 16</size>
+		</widget>
+		<widget type="slider" name="box_thickness">
+			<assets> <sprites icon="gui/generic/slider" /> </assets>
+			<link location="right_top" target="box_thickness_decrease" />
+			<size>128 16</size>
+		</widget>
+		<widget type="button" name="box_thickness_increase">
+			<assets> <sprites icon="gui/generic/arrow_right" /> </assets>
+			<border outer="2" outer_left="0" />
+			<link location="right_top" target="box_thickness" />
+			<size>16 16</size>
+		</widget>
+	</widget>
+	<widget type="panel" name="line_data" visible="false" >
+		<assets> <sprites background="gui/generic/background" /> </assets>
+		<border inner="4" outer="2" />
+		<link location="bottom_right" target="shapes" />
+		
+		<!-- Checkbox dynamic size -->
+		<widget type="checkbox" name="line_dynamic">
+			<assets>
+				<sprites icon="gui/generic/checkbox" />
+				<scripts action="toggleDynamicShapeSize(EDITOR.shapeLine)" />
+			</assets>
+			<border outer="2" />
+			<link location="left_top" />
+			<size>16 16</size>
+		</widget>
+		<!-- Slider size x -->
+		<widget type="button" name="line_size_x_decrease">
+			<assets> <sprites icon="gui/generic/arrow_left" /> </assets>
+			<border outer="2" outer_right="0" />
+			<link location="bottom_left" target="line_dynamic" />
+			<size>16 16</size>
+		</widget>
+		<widget type="slider" name="line_size_x">
+			<assets>
+				<sprites icon="gui/generic/slider" />
+				<scripts action="updateLineShapeSize()" />
+			</assets>
+			<link location="right_top" target="line_size_x_decrease" />
+			<size>110 16</size>
+		</widget>
+		<widget type="button" name="line_size_x_increase">
+			<assets> <sprites icon="gui/generic/arrow_right" /> </assets>
+			<border outer="2" outer_left="0" />
+			<link location="right_top" target="line_size_x" />
+			<size>16 16</size>
+		</widget>
+		<widget type="checkbox" name="line_size_x_invert">
+			<assets>
+				<sprites icon="gui/generic/checkbox" />
+				<scripts action="updateLineShapeSize()" />
+			</assets>
+			<border outer="2" />
+			<link location="right_top" target="line_size_x_increase" />
+			<size>16 16</size>
+		</widget>
+		<!-- Slider size y -->
+		<widget type="button" name="line_size_y_decrease">
+			<assets> <sprites icon="gui/generic/arrow_left" /> </assets>
+				<border outer="2" outer_right="0" />
+				<link location="bottom_left" target="line_size_x_decrease" />
+			<size>16 16</size>
+		</widget>
+		<widget type="slider" name="line_size_y">
+			<assets>
+				<sprites icon="gui/generic/slider" />
+				<scripts action="updateLineShapeSize()" />
+			</assets>
+			<link location="right_top" target="line_size_y_decrease" />
+			<size>110 16</size>
+		</widget>
+		<widget type="button" name="line_size_y_increase">
+			<assets> <sprites icon="gui/generic/arrow_right" /> </assets>
+			<border outer="2" outer_left="0" />
+			<link location="right_top" target="line_size_y" />
+			<size>16 16</size>
+		</widget>
+		<widget type="checkbox" name="line_size_y_invert">
+			<assets>
+				<sprites icon="gui/generic/checkbox" />
+				<scripts action="updateLineShapeSize()" />
+			</assets>
+			<border outer="2" />
+			<link location="right_top" target="line_size_y_increase" />
+			<size>16 16</size>
+		</widget>
+		<!-- Slider size z -->
+		<widget type="button" name="line_size_z_decrease">
+			<assets> <sprites icon="gui/generic/arrow_left" /> </assets>
+			<border outer="2" outer_right="0" />
+			<link location="bottom_left" target="line_size_y_decrease" />
+			<size>16 16</size>
+		</widget>
+		<widget type="slider" name="line_size_z">
+			<assets>
+				<sprites icon="gui/generic/slider" />
+				<scripts action="updateLineShapeSize()" />
+			</assets>
+			<link location="right_top" target="line_size_z_decrease" />
+			<size>110 16</size>
+		</widget>
+		<widget type="button" name="line_size_z_increase">
+			<assets> <sprites icon="gui/generic/arrow_right" /> </assets>
+			<border outer="2" outer_left="0" />
+			<link location="right_top" target="line_size_z" />
+			<size>16 16</size>
+		</widget>
+		<widget type="checkbox" name="line_size_z_invert">
+			<assets>
+				<sprites icon="gui/generic/checkbox" />
+				<scripts action="updateLineShapeSize()" />
+			</assets>
+			<border outer="2" />
+			<link location="right_top" target="line_size_z_increase" />
+			<size>16 16</size>
+		</widget>
+	</widget>
 	
 </layout>

@@ -39,6 +39,14 @@ namespace render
 				Assert::IsFalse(vaoB.unbind());
 			}
 
+			TEST_METHOD(vao_getBoundHandle)
+			{
+				vao vao;
+				vao.bind();
+
+				Assert::AreEqual(vao.getHandle(), vao::getBoundHandle());
+			}
+
 		private:
 			setup::Context m_context;
 		};

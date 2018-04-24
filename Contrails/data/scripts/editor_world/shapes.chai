@@ -17,16 +17,58 @@ def selectShape(shape)
 	EDITOR.setShape(shape);
 }
 
+// ...
+
 /**
  * Sets whether the widget displaying data to the user for the
  * provided shape should be visible or not
  * @param shape The shape that is to have its data hidden
  */
-def setShapeDataVisibility(shape, visible)
+def setShapeDataVisibility(shape, bool visible)
 {
-	auto name = shape.getName() + "_data";
-	if (GUI.getWidgets().has(name))
-	{
-		GUI.getWidgets().get(name).render.visible = visible;
-	}
+	guiSetWidgetVisible(shape.getName() + "_data", visible);
 }
+
+/**
+ * Toggles the dynamic scaling for the given shape
+ * @param shape The shape that is being worked with
+ */
+def toggleDynamicShapeSize(shape)
+{
+	auto dynamic = !shape.isDynamic();
+	shape.setDynamic(dynamic);
+	
+	guiSetWidgetLocked(shape.getName() + "_size_x_decrease", dynamic);
+	guiSetWidgetLocked(shape.getName() + "_size_x", dynamic);
+	guiSetWidgetLocked(shape.getName() + "_size_x_increase", dynamic);
+	guiSetWidgetLocked(shape.getName() + "_size_x_invert", dynamic);
+	guiSetWidgetLocked(shape.getName() + "_size_y_decrease", dynamic);
+	guiSetWidgetLocked(shape.getName() + "_size_y", dynamic);
+	guiSetWidgetLocked(shape.getName() + "_size_y_increase", dynamic);
+	guiSetWidgetLocked(shape.getName() + "_size_y_invert", dynamic);
+	guiSetWidgetLocked(shape.getName() + "_size_z_decrease", dynamic);
+	guiSetWidgetLocked(shape.getName() + "_size_z", dynamic);
+	guiSetWidgetLocked(shape.getName() + "_size_z_increase", dynamic);
+	guiSetWidgetLocked(shape.getName() + "_size_z_invert", dynamic);
+}
+
+// ...
+
+def updateBoxShapeSize()
+{
+	EDITOR.shapeBox.setSize(ivec3(
+		getSliderValue("box_size_x", 1, 100, 15),
+		getSliderValue("box_size_y", 1, 100, 15),
+		getSliderValue("box_size_z", 1, 100, 15)
+	));
+}
+def updateLineShapeSize()
+{
+	EDITOR.shapeLine.setSize(ivec3(
+		getSliderValue("line_size_x", 1, 100, 15) * (guiGetWidgetStateBool("line_size_x_invert") ? -1.0f : 1.0f),
+		getSliderValue("line_size_y", 1, 100, 15) * (guiGetWidgetStateBool("line_size_y_invert") ? -1.0f : 1.0f),
+		getSliderValue("line_size_z", 1, 100, 15) * (guiGetWidgetStateBool("line_size_z_invert") ? -1.0f : 1.0f)
+	));
+}
+
+

@@ -1,0 +1,40 @@
+
+/**
+ * Retrieves the value of the slider with the given name.
+ * The value of the slider is translated from the given limits
+ * of the slider and the actual slider value in the range [0, 1].
+ *
+ * @param widget The name of the slider to read from
+ * @param min The smallest possible value the slider could give
+ * @param max The largest possible value the slider could give
+ * @param center Some center value, such that min <= center <= max
+ *
+ * @return The value of the slider translated to the range [min, max]
+ */
+def getSliderValue(string widget, float min, float max, float center)
+{
+	auto value = guiGetWidgetStateFloat(widget);
+	if (value < 0.5f)
+	{
+		return min + 2.0f * value * (center - min);
+	}
+	else
+	{
+		return center + 2.0f * (value - 0.5f) * (max - center);
+	}
+}
+
+/**
+ * Assigns the value of the slider with the given name.
+ * The value of the slider is translated from the given limits
+ * of the slider and the actual slider value in the range [0, 1].
+ *
+ * @param widget The name of the slider to read from
+ * @param min The smallest possible value the slider could give
+ * @param max The largest possible value the slider could give
+ * @param center Some center value, such that min <= center <= max
+ * @param value The value of the slider translated to the range [min, max]
+ */
+def setSliderValue(string widget, float min, float max, float center, float value)
+{
+}

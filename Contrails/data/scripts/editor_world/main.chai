@@ -1,8 +1,11 @@
 
-#include "data/scripts/editor_world/toolbox.chai"
-#include "data/scripts/editor_world/shapes.chai"
+#include "data/scripts/generic/gui.chai"
+#include "data/scripts/generic/slider.chai"
+
 #include "data/scripts/editor_world/utils/grid.chai"
 #include "data/scripts/editor_world/utils/cursor.chai"
+#include "data/scripts/editor_world/toolbox.chai"
+#include "data/scripts/editor_world/shapes.chai"
 
 /**
  * The name of the world currently being edited by the user

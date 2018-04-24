@@ -74,13 +74,16 @@ bool ui::gui::Gui::onEvent(const logic::event::MouseMove & event)
 }
 bool ui::gui::Gui::onEvent(const logic::event::MouseMove & event, Widget & widget, const glm::vec2 & offset)
 {
+	// If the widget is invisible, it cannot be hovered, nor can any of its children
+	if (!widget.m_render.m_visible)
+		return false;
+
 	// If any child widget is hovered, the current widget is NOT hovered
 	for (const auto & name : widget.m_family.m_children)
 	{
 		if (onEvent(event, m_widgets.get(name), widget.m_position.m_pos + offset))
 			return true;
 	}
-
 	const auto bbox = (event.m_pos - (widget.m_position.m_pos + offset)) / widget.m_size.m_size;
 	widget.m_activation.m_hovered = bbox.x >= 0.0f && bbox.x <= 1.0f && bbox.y >= 0.0f && bbox.y <= 1.0f;
 	return widget.m_activation.m_hovered;

@@ -8,6 +8,8 @@ namespace render
 		class vao
 		{
 		public:
+			static unsigned int getBoundHandle();
+
 			vao();
 			vao(const vao &) = delete;
 			vao(vao && other);

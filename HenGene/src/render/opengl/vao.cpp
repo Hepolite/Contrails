@@ -25,6 +25,11 @@ namespace
 	}
 }
 
+unsigned int render::opengl::vao::getBoundHandle()
+{
+	return binding;
+}
+
 render::opengl::vao::vao()
 {
 	glGenVertexArrays(1, &m_handle);

@@ -1,0 +1,107 @@
+
+/**
+ * Sets whether the given widget should be visible or not
+ * @param name The name of the widget
+ * @param hidden The visibility state
+ */
+def guiSetWidgetVisible(string name, bool visible)
+{
+	if (GUI.getWidgets().has(name))
+	{
+		GUI.getWidgets().get(name).render.visible = visible;
+	}
+}
+/**
+ * Sets whether the given widget should be visible or not
+ * @param name The name of the widget
+ * @param locked The visibility state
+ */
+def guiSetWidgetLocked(string name, bool locked)
+{
+	if (GUI.getWidgets().has(name))
+	{
+		GUI.getWidgets().get(name).activation.locked = locked;
+	}
+}
+
+// ...
+
+/**
+ * Retrieves the bool state of the widget with the given name
+ * @param name The name of the widget
+ * @return The boolean value of the state
+ */
+def guiGetWidgetStateBool(string name)
+{
+	if (GUI.getWidgets().has(name))
+	{
+		return GUI.getWidgets().get(name).state.bool;
+	}
+	return false;
+}
+/**
+ * Retrieves the float state of the widget with the given name
+ * @param name The name of the widget
+ * @return The float value of the state
+ */
+def guiGetWidgetStateFloat(string name)
+{
+	if (GUI.getWidgets().has(name))
+	{
+		return GUI.getWidgets().get(name).state.float;
+	}
+	return 0.0f;
+}
+/**
+ * Retrieves the string state of the widget with the given name
+ * @param name The name of the widget
+ * @return The string value of the state
+ */
+def guiGetWidgetStateString(string name)
+{
+	if (GUI.getWidgets().has(name))
+	{
+		return GUI.getWidgets().get(name).state.string;
+	}
+	return "";
+}
+
+/**
+ * Assigns the bool state of the widget with the given name
+ * @param name The name of the widget
+ * @param state The new bool state
+ * @return The boolean value of the state
+ */
+def guiSetWidgetStateBool(string name, bool state)
+{
+	if (GUI.getWidgets().has(name))
+	{
+		GUI.getWidgets().get(name).state.bool = state;
+	}
+}
+/**
+ * Assigns the float state of the widget with the given name
+ * @param name The name of the widget
+ * @param state The new float state
+ * @return The boolean value of the state
+ */
+def guiSetWidgetStateFloat(string name, float state)
+{
+	if (GUI.getWidgets().has(name))
+	{
+		GUI.getWidgets().get(name).state.float = state;
+	}
+}
+/**
+ * Assigns the string state of the widget with the given name
+ * @param name The name of the widget
+ * @param state The new string state
+ * @return The boolean value of the state
+ */
+def guiSetWidgetStateString(string name, string state)
+{
+	if (GUI.getWidgets().has(name))
+	{
+		GUI.getWidgets().get(name).state.string = state;
+	}
+}

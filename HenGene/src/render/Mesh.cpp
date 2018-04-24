@@ -26,5 +26,6 @@ void render::MeshBase::render() const
 	{
 		m_vao.bind();
 		glDrawElements(static_cast<GLenum>(m_mode), m_indiceCount, GL_UNSIGNED_INT, nullptr);
+		m_vao.unbind();
 	}
 }
