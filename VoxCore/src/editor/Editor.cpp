@@ -5,6 +5,7 @@
 #include "editor/util/Grid.h"
 #include "editor/util/ShapeBox.h"
 #include "editor/util/ShapeLine.h"
+#include "editor/util/ShapePoint.h"
 #include "logic/ecs/detail/Entity.h"
 #include "logic/script/ScriptUtil.h"
 #include "render/opengl/Program.h"
@@ -58,6 +59,7 @@ private:
 	util::Shape * m_shape = nullptr;
 	util::ShapeBox m_shapeBox;
 	util::ShapeLine m_shapeLine;
+	util::ShapePoint m_shapePoint;
 
 	logic::event::Listener m_mouseRelease;
 
@@ -98,6 +100,7 @@ void editor::Editor::Impl::inject(ui::gui::Gui & gui)
 	logic::script::util::addFun(script, &Impl::setShape, "setShape");
 	logic::script::util::addAttribute(script, &Impl::m_shapeBox, "shapeBox");
 	logic::script::util::addAttribute(script, &Impl::m_shapeLine, "shapeLine");
+	logic::script::util::addAttribute(script, &Impl::m_shapePoint, "shapePoint");
 
 	logic::script::util::addAttribute(script, &Impl::m_cursor, "cursor");
 	logic::script::util::addFun(script, &util::Cursor::setPos, "setPos");
@@ -124,6 +127,7 @@ void editor::Editor::Impl::inject(ui::gui::Gui & gui)
 	logic::script::util::addType<util::Shape>(script, "Shape");
 	logic::script::util::addRelation<util::Shape, util::ShapeBox>(script);
 	logic::script::util::addRelation<util::Shape, util::ShapeLine>(script);
+	logic::script::util::addRelation<util::Shape, util::ShapePoint>(script);
 	logic::script::util::addFun(script, &util::Shape::getName, "getName");
 	logic::script::util::addFun(script, &util::Shape::setDynamic, "setDynamic");
 	logic::script::util::addFun(script, &util::Shape::isDynamic, "isDynamic");
