@@ -156,9 +156,6 @@
     <ClInclude Include="src\world\render\UniverseRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\editor\util\Shape.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\editor\Editor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -180,19 +177,22 @@
     <ClInclude Include="src\render\scene\renderers\RendererGeneric.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\editor\util\ShapeBox.h">
+    <ClInclude Include="src\editor\util\shapes\Shape.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\editor\util\ShapeLine.h">
+    <ClInclude Include="src\editor\util\shapes\ShapeBox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\editor\util\ShapePoint.h">
+    <ClInclude Include="src\editor\util\shapes\ShapeCylinder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\editor\util\ShapeCylinder.h">
+    <ClInclude Include="src\editor\util\shapes\ShapeEllipse.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\editor\util\ShapeEllipse.h">
+    <ClInclude Include="src\editor\util\shapes\ShapeLine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\editor\util\shapes\ShapePoint.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -317,25 +317,25 @@
     <ClCompile Include="src\editor\Editor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\editor\util\Shape.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\editor\util\ShapeBox.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\editor\util\ShapeLine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\editor\EditorWorld.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\editor\util\ShapePoint.cpp">
+    <ClCompile Include="src\editor\util\shapes\Shape.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\editor\util\ShapeCylinder.cpp">
+    <ClCompile Include="src\editor\util\shapes\ShapeBox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\editor\util\ShapeEllipse.cpp">
+    <ClCompile Include="src\editor\util\shapes\ShapeCylinder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\editor\util\shapes\ShapeEllipse.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\editor\util\shapes\ShapeLine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\editor\util\shapes\ShapePoint.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

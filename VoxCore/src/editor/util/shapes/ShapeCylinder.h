@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "editor/util/Shape.h"
+#include "editor/util/shapes/Shape.h"
 #include "util/MathGeometry.h"
 
 namespace editor

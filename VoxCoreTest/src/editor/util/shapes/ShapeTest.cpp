@@ -1,7 +1,7 @@
 
 #include "CppUnitTest.h"
 
-#include "editor/util/Shape.h"
+#include "editor/util/shapes/Shape.h"
 #include "Setup.h"
 
 #include <glm/Unittest.h>

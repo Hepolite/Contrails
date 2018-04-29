@@ -1,17 +1,17 @@
 
 #pragma once
 
-#include "editor/util/Shape.h"
+#include "editor/util/shapes/Shape.h"
 
 namespace editor
 {
 	namespace util
 	{
-		class ShapeBox : public Shape
+		class ShapePoint : public Shape
 		{
 		public:
-			ShapeBox() { setName("box"); }
-			~ShapeBox() = default;
+			ShapePoint() { setName("point"); }
+			~ShapePoint() = default;
 
 		private:
 			virtual world::data::WorldQuery query(const world::Block & block) const override final;
