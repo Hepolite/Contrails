@@ -36,6 +36,7 @@ namespace editor
 		{
 		private:
 			void handleRotation(const glm::vec2 & delta);
+			void handleZooming(float zoom);
 
 			virtual void setupListeners(logic::event::EventBus & bus) override final;
 

@@ -50,7 +50,7 @@ namespace editor
 				const auto pos = m_camera.getPosition();
 				const auto rot = m_camera.getRotation();
 
-				simulateMouseMove({ 4.0, 1.0f });
+				simulateMouseMove({ 4.0, 1.0f }, { 0.0f, 0.0f });
 
 				Assert::AreEqual(pos, m_camera.getPosition());
 				Assert::AreEqual(rot, m_camera.getRotation());
@@ -63,7 +63,7 @@ namespace editor
 
 				simulateKeyPress(ALLEGRO_KEY_LCTRL);
 				simulateMousePress(ui::mouse::Button::MIDDLE);
-				simulateMouseMove({ 5.0f, 4.0f });
+				simulateMouseMove({ 5.0f, 4.0f }, { 0.0f, 0.0f });
 
 				Assert::AreEqual(pos, m_camera.getPosition());
 				Assert::AreNotEqual(rot, m_camera.getRotation());
@@ -74,16 +74,27 @@ namespace editor
 				const auto rot = m_camera.getRotation();
 
 				simulateMousePress(ui::mouse::Button::MIDDLE);
-				simulateMouseMove({ 5.0f, 4.0f });
+				simulateMouseMove({ 5.0f, 4.0f }, { 0.0f, 0.0f });
 
 				Assert::AreNotEqual(pos, m_camera.getPosition());
 				Assert::AreNotEqual(rot, m_camera.getRotation());
 			}
 
-		private:
-			void simulateMouseMove(const glm::vec2 & delta)
+			TEST_METHOD(CameraHandlerOrbital_zooming)
 			{
-				m_bus.post(logic::event::MouseMove{ {}, delta, {}, {} });
+				const auto pos = m_camera.getPosition();
+				const auto rot = m_camera.getRotation();
+
+				simulateMouseMove({ 0.0f, 0.0f }, { 1.0f, 0.0f });
+
+				Assert::AreNotEqual(pos, m_camera.getPosition());
+				Assert::AreEqual(rot, m_camera.getRotation());
+			}
+
+		private:
+			void simulateMouseMove(const glm::vec2 & delta, const glm::vec2 & scroll)
+			{
+				m_bus.post(logic::event::MouseMove{ {}, delta, {}, scroll });
 			}
 			void simulateMousePress(ui::mouse::Button button)
 			{
