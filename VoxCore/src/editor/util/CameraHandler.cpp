@@ -8,9 +8,9 @@
 
 namespace
 {
-	constexpr float SENSITIVITY_MOVING = 1.0f;
-	constexpr float SENSITIVITY_ZOOMING = 1.0f;
-	constexpr glm::vec2 SENSITIVITY_ROTATION{ 15.0f, 10.0f };
+	constexpr float SENSITIVITY_MOVING = 0.01f;
+	constexpr float SENSITIVITY_ZOOMING = 0.01f;
+	constexpr glm::vec2 SENSITIVITY_ROTATION{ 0.15f, 0.1f };
 
 	constexpr float MAX_PITCH = 89.9f;
 	constexpr float DISTANCE_MIN = 5.0f;
