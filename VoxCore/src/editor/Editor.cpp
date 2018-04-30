@@ -2,6 +2,7 @@
 #include "Editor.h"
 
 #include "asset/AssetRef.h"
+#include "editor/util/CameraHandler.h"
 #include "editor/util/Grid.h"
 #include "editor/util/shapes/ShapeBox.h"
 #include "editor/util/shapes/ShapeCylinder.h"
@@ -56,6 +57,7 @@ public:
 	inline auto getShape() const { return m_shape; }
 
 private:
+	util::CameraHandlerOrbital m_cameraHandler;
 	util::Cursor m_cursor;
 	util::Grid m_grid;
 	util::Shape * m_shape = nullptr;
@@ -153,6 +155,7 @@ void editor::Editor::Impl::inject(ui::gui::Gui & gui)
 }
 void editor::Editor::Impl::inject(logic::event::EventBus & bus)
 {
+	m_cameraHandler.inject(bus);
 	m_cursor.inject(bus);
 
 	m_mouseRelease = bus.add<logic::event::MouseRelease>([this](auto & event)
@@ -179,6 +182,8 @@ void editor::Editor::Impl::inject(core::scene::Scene & scene)
 {
 	m_scene = &scene;
 	m_entity = scene.createEntity<render::scene::ComponentGeneric>();
+
+	m_cameraHandler.inject(scene.getCamera(render::scene::CameraType::NORMAL));
 }
 
 void editor::Editor::Impl::process()

@@ -201,6 +201,7 @@
     <ClInclude Include="src\core\setup\SetupUbos.h" />
     <ClInclude Include="src\editor\Editor.h" />
     <ClInclude Include="src\editor\EditorWorld.h" />
+    <ClInclude Include="src\editor\util\CameraHandler.h" />
     <ClInclude Include="src\editor\util\Cursor.h" />
     <ClInclude Include="src\editor\util\Grid.h" />
     <ClInclude Include="src\editor\util\shapes\Shape.h" />
@@ -262,6 +263,7 @@
     <ClCompile Include="src\core\setup\SetupUbos.cpp" />
     <ClCompile Include="src\editor\Editor.cpp" />
     <ClCompile Include="src\editor\EditorWorld.cpp" />
+    <ClCompile Include="src\editor\util\CameraHandler.cpp" />
     <ClCompile Include="src\editor\util\Cursor.cpp" />
     <ClCompile Include="src\editor\util\Grid.cpp" />
     <ClCompile Include="src\editor\util\shapes\Shape.cpp" />

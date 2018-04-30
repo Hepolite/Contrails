@@ -87,9 +87,7 @@ void logic::state::StateEditorWorld::process(const Time & t, const Time & dt)
 		pos += math::cartesian(rot.x + 90.0f, 0.0f) * speed;
 	if (keyRight)
 		pos += math::cartesian(rot.x - 90.0f, 0.0f) * speed;
-	rot -= mouseDelta * sensitivity;
 	mouseDelta = { 0.0f, 0.0f };
 
 	m_camera->setPosition(pos);
-	m_camera->setRotation(rot);
 }

@@ -8,6 +8,8 @@
 
 #include "Setup.h"
 
+#include <glm/Unittest.h>
+
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace editor
@@ -37,60 +39,69 @@ namespace editor
 	TEST_CLASS(EditorTest)
 	{
 	public:
-		TEST_METHOD(Editor_injectScene)
+		EditorTest()
 		{
-			core::scene::Scene scene;
-			scene.registerRenderers<render::scene::RendererGeneric>();
-			{
-				EditorMock editor;
-				editor.inject(scene);
-				scene.process(0.0_s, 0.05_s);
-				scene.render(0.0_s, 0.05_s, 0.0f);
+			m_scene.registerRenderers<render::scene::RendererGeneric>();
 
-				Assert::IsTrue(scene.hasEntity(0u));
-				Assert::IsTrue(editor.isProcessed());
-				Assert::IsTrue(editor.isRendered());
-			}
-			Assert::IsFalse(scene.hasEntity(0u));
+			m_editor.inject(m_scene);
+			m_editor.inject(m_gui);
+			m_editor.inject(m_bus);
 		}
 
-		TEST_METHOD(Editor_injectGui)
+		TEST_METHOD(Editor_initializeProcessingAndRendering)
 		{
-			ui::gui::Gui gui;
-			EditorMock editor;
-			editor.inject(gui);
-			Assert::IsTrue(gui.getScript().execute("EDITOR.getShape()"));
+			m_scene.process(0.0_s, 0.05_s);
+			m_scene.render(0.0_s, 0.05_s, 0.0f);
+
+			Assert::IsTrue(m_editor.isProcessed());
+			Assert::IsTrue(m_editor.isRendered());
+		}
+		TEST_METHOD(Editor_initializeScripts)
+		{
+			Assert::IsTrue(m_gui.getScript().execute("EDITOR.getShape()"));
+		}
+		TEST_METHOD(Editor_initializeCameraHandler)
+		{
+			auto & camera = m_scene.getCamera(render::scene::CameraType::NORMAL);
+			const auto pos = camera.getPosition();
+			const auto rot = camera.getRotation();
+
+			m_bus.post<logic::event::MousePress>({ ui::mouse::Button::MIDDLE, 0.0f, {}, {} });
+			m_bus.post<logic::event::MouseMove>({ {}, { 4.0f, 1.0f }, {}, {} });
+
+			Assert::AreNotEqual(pos, camera.getPosition());
+			Assert::AreNotEqual(rot, camera.getRotation());
 		}
 
 		TEST_METHOD(Editor_performActionOnMouseClick)
 		{
-			ui::gui::Gui gui;
-			logic::event::EventBus bus;
-			logic::script::Script & script = gui.getScript();
+			auto & script = m_gui.getScript();
 			script.execute("global value = 0;");
 			script.execute("global MOUSE_BUTTON_LEFT = 1;");
 			script.execute("global MOUSE_BUTTON_MIDDLE = 2;");
 			script.execute("global MOUSE_BUTTON_RIGHT = 3;");
 			script.execute("def action(type) { value = type; }");
 
-			EditorMock editor;
-			editor.inject(gui);
-			editor.inject(bus);
-
-			bus.post<logic::event::MouseRelease>({ ui::mouse::Button::LEFT, 0.0f,{},{} });
+			m_bus.post<logic::event::MouseRelease>({ ui::mouse::Button::LEFT, 0.0f, {}, {} });
 			Assert::AreEqual(0, logic::script::util::get<int>(script, "value"));
 
-			editor.validateCursor();
+			m_editor.validateCursor();
 
-			bus.post<logic::event::MouseRelease>({ ui::mouse::Button::LEFT, 0.0f, {}, {} });
+			m_bus.post<logic::event::MouseRelease>({ ui::mouse::Button::LEFT, 0.0f, {}, {} });
 			Assert::AreEqual(1, logic::script::util::get<int>(script, "value"));
-			bus.post<logic::event::MouseRelease>({ ui::mouse::Button::MIDDLE, 0.0f, {}, {} });
+			m_bus.post<logic::event::MouseRelease>({ ui::mouse::Button::MIDDLE, 0.0f, {}, {} });
 			Assert::AreEqual(2, logic::script::util::get<int>(script, "value"));
-			bus.post<logic::event::MouseRelease>({ ui::mouse::Button::RIGHT, 0.0f, {}, {} });
+			m_bus.post<logic::event::MouseRelease>({ ui::mouse::Button::RIGHT, 0.0f, {}, {} });
 			Assert::AreEqual(3, logic::script::util::get<int>(script, "value"));
 		}
 
 	private:
+		core::scene::Scene m_scene;
+		logic::event::EventBus m_bus;
+		ui::gui::Gui m_gui;
+
+		EditorMock m_editor;
+
 		setup::Context m_context;
 	};
 }
