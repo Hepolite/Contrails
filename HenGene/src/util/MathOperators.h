@@ -12,6 +12,23 @@ namespace math
 		return v * v;
 	}
 
+	template<typename T> constexpr T sqrt(const T & v)
+	{
+		return static_cast<T>(std::sqrt(v));
+	}
+	template<typename T> constexpr glm::tvec2<T> sqrt(const glm::tvec2<T> & v)
+	{
+		return { sqrt(v.x), sqrt(v.y) };
+	}
+	template<typename T> constexpr glm::tvec3<T> sqrt(const glm::tvec3<T> & v)
+	{
+		return { sqrt(v.x), sqrt(v.y), sqrt(v.z) };
+	}
+	template<typename T> constexpr glm::tvec4<T> sqrt(const glm::tvec4<T> & v)
+	{
+		return { sqrt(v.x), sqrt(v.y), sqrt(v.z), sqrt(v.w) };
+	}
+
 	template<typename T, typename P> constexpr T pow(const T & base, const P & exp)
 	{
 		return static_cast<T>(std::pow(base, exp));

@@ -8,14 +8,30 @@
 
 namespace
 {
-	constexpr float MAX_PITCH = 89.9f;
-	constexpr float SENSITIVITY_ZOOMING = 0.5f;
+	constexpr float SENSITIVITY_MOVING = 1.0f;
+	constexpr float SENSITIVITY_ZOOMING = 1.0f;
 	constexpr glm::vec2 SENSITIVITY_ROTATION{ 15.0f, 10.0f };
 
+	constexpr float MAX_PITCH = 89.9f;
 	constexpr float DISTANCE_MIN = 5.0f;
 	constexpr float DISTANCE_MAX = 1000.0f;
 }
 
+void editor::util::CameraHandlerOrbital::handleMovement(const glm::vec2 & delta)
+{
+	const auto sensitivity = m_sensitivity * math::sqrt(m_distance) * SENSITIVITY_MOVING;
+	const auto rot = getCamera().getRotation();
+
+	auto pos = getCamera().getPosition();
+
+	if (m_holdKeySecondary)
+		pos += sensitivity * delta.y * math::cartesian(rot);
+	else
+		pos += sensitivity * delta.y * math::cartesian(rot.x, rot.y + 90.0f);
+	pos += sensitivity * delta.x * math::cartesian(rot.x + 90.0f, 0.0f);
+
+	getCamera().setPosition(pos);
+}
 void editor::util::CameraHandlerOrbital::handleRotation(const glm::vec2 & delta)
 {
 	const auto sensitivity = m_sensitivity * SENSITIVITY_ROTATION;
@@ -40,9 +56,9 @@ void editor::util::CameraHandlerOrbital::handleZooming(float zoom)
 {
 	const auto sensitivity = m_sensitivity * math::pow(m_distance, 0.5f) * SENSITIVITY_ZOOMING;
 	const auto oldDistance = m_distance;
+	const auto rot = getCamera().getRotation();
 
 	auto pos = getCamera().getPosition();
-	auto rot = getCamera().getRotation();
 
 	m_distance = math::max(DISTANCE_MIN, math::min(DISTANCE_MAX, m_distance * (1.0f - zoom * sensitivity)));
 	pos -= (m_distance - oldDistance) * math::cartesian(rot);
@@ -54,25 +70,37 @@ void editor::util::CameraHandlerOrbital::setupListeners(logic::event::EventBus &
 {
 	m_mousePress = bus.add<logic::event::MousePress>([this](auto & event)
 	{
-		m_holdMouseButton = event.m_button == ui::mouse::Button::MIDDLE;
+		if (event.m_button == ui::mouse::Button::MIDDLE)
+			m_holdMouseButton = true;
 	});
 	m_mouseRelease = bus.add<logic::event::MouseRelease>([this](auto & event)
 	{
-		m_holdMouseButton = false;
+		if (event.m_button == ui::mouse::Button::MIDDLE)
+			m_holdMouseButton = false;
 	});
 	m_mouseMove = bus.add<logic::event::MouseMove>([this](auto & event)
 	{
 		if (m_holdMouseButton)
-			handleRotation(event.m_posDelta);
+		{
+			if (m_holdKeyPrimary)
+				handleMovement(event.m_posDelta);
+			else
+				handleRotation(event.m_posDelta);
+		}
 		handleZooming(event.m_scrollDelta.x);
 	});
 	m_keyPress = bus.add<logic::event::KeyPress>([this](auto & event)
 	{
-		m_holdKeyPrimary = event.m_key == ALLEGRO_KEY_LSHIFT;
-		m_holdKeySecondary = event.m_key == ALLEGRO_KEY_LCTRL;
+		if (event.m_key == ALLEGRO_KEY_LSHIFT)
+			m_holdKeyPrimary = true;
+		if (event.m_key == ALLEGRO_KEY_LCTRL)
+			m_holdKeySecondary = true;
 	});
 	m_keyRelease = bus.add<logic::event::KeyRelease>([this](auto & event)
 	{
-		m_holdKeyPrimary = m_holdKeySecondary = false;
+		if (event.m_key == ALLEGRO_KEY_LSHIFT)
+			m_holdKeyPrimary = false;
+		if (event.m_key == ALLEGRO_KEY_LCTRL)
+			m_holdKeySecondary = false;
 	});
 }

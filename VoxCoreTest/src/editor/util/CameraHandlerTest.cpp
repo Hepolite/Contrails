@@ -80,6 +80,32 @@ namespace editor
 				Assert::AreNotEqual(rot, m_camera.getRotation());
 			}
 
+			TEST_METHOD(CameraHandlerOrbital_movement)
+			{
+				const auto pos = m_camera.getPosition();
+				const auto rot = m_camera.getRotation();
+
+				simulateKeyPress(ALLEGRO_KEY_LSHIFT);
+				simulateMousePress(ui::mouse::Button::MIDDLE);
+				simulateMouseMove({ 3.0f, 6.0f }, { 0.0f, 0.0f });
+
+				Assert::AreNotEqual(pos, m_camera.getPosition());
+				Assert::AreEqual(rot, m_camera.getRotation());
+			}
+			TEST_METHOD(CameraHandlerOrbital_movementAlternative)
+			{
+				const auto pos = m_camera.getPosition();
+				const auto rot = m_camera.getRotation();
+
+				simulateKeyPress(ALLEGRO_KEY_LSHIFT);
+				simulateKeyPress(ALLEGRO_KEY_LCTRL);
+				simulateMousePress(ui::mouse::Button::MIDDLE);
+				simulateMouseMove({ 3.0f, 6.0f }, { 0.0f, 0.0f });
+
+				Assert::AreNotEqual(pos, m_camera.getPosition());
+				Assert::AreEqual(rot, m_camera.getRotation());
+			}
+
 			TEST_METHOD(CameraHandlerOrbital_zooming)
 			{
 				const auto pos = m_camera.getPosition();

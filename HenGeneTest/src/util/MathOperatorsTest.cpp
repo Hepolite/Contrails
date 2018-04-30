@@ -19,6 +19,13 @@ namespace math
 			Assert::AreEqual({ 25.0, 0.0, 4.0 }, sqr(glm::dvec3{ 5.0, 0.0, 2.0 }));
 		}
 
+		TEST_METHOD(MathOperatorsSqrt)
+		{
+			Assert::AreEqual(3, sqrt(9));
+			Assert::AreEqual(4.5f, sqrt(20.25f));
+			Assert::AreEqual({ 0.5, 9.0 }, sqrt(glm::dvec2{ 0.25, 81.0 }));
+		}
+
 		TEST_METHOD(MathOperators_pow)
 		{
 			Assert::AreEqual(9, pow(-3, 2));

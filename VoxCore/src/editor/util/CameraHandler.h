@@ -35,6 +35,7 @@ namespace editor
 		class CameraHandlerOrbital : public CameraHandler
 		{
 		private:
+			void handleMovement(const glm::vec2 & delta);
 			void handleRotation(const glm::vec2 & delta);
 			void handleZooming(float zoom);
 
