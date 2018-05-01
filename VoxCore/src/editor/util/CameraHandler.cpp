@@ -54,7 +54,7 @@ void editor::util::CameraHandlerOrbital::handleRotation(const glm::vec2 & delta)
 }
 void editor::util::CameraHandlerOrbital::handleZooming(float zoom)
 {
-	const auto sensitivity = m_sensitivity * math::pow(m_distance, 0.5f) * SENSITIVITY_ZOOMING;
+	const auto sensitivity = m_sensitivity * math::sqrt(m_distance) * SENSITIVITY_ZOOMING;
 	const auto oldDistance = m_distance;
 	const auto rot = getCamera().getRotation();
 

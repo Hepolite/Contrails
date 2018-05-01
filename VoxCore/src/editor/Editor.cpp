@@ -110,6 +110,11 @@ void editor::Editor::Impl::inject(ui::gui::Gui & gui)
 	logic::script::util::addAttribute(script, &Impl::m_shapeLine, "shapeLine");
 	logic::script::util::addAttribute(script, &Impl::m_shapePoint, "shapePoint");
 
+	logic::script::util::addAttribute(script, &Impl::m_cameraHandler, "cameraHandler");
+	logic::script::util::addRelation<util::CameraHandler, util::CameraHandlerOrbital>(script);
+	logic::script::util::addFun(script, &util::CameraHandlerOrbital::setSensitivity, "setSensitivity");
+	logic::script::util::addFun(script, &util::CameraHandlerOrbital::getSensitivity, "getSensitivity");
+
 	logic::script::util::addAttribute(script, &Impl::m_cursor, "cursor");
 	logic::script::util::addFun(script, &util::Cursor::setPos, "setPos");
 	logic::script::util::addFun(script, &util::Cursor::getPos, "getPos");

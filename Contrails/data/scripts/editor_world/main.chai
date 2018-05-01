@@ -2,6 +2,7 @@
 #include "data/scripts/generic/gui.chai"
 #include "data/scripts/generic/slider.chai"
 
+#include "data/scripts/editor_world/utils/cameraHandler.chai"
 #include "data/scripts/editor_world/utils/grid.chai"
 #include "data/scripts/editor_world/utils/cursor.chai"
 #include "data/scripts/editor_world/toolbox.chai"

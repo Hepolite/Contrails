@@ -25,7 +25,6 @@
 			<widget type="panel" name="world_name" />
 			<widget type="button" name="load" />
 		</widget> <!-- End toolbar -->
-		
 		<widget type="panel" name="navigation">
 			<border inner="2" />
 			<link location="right_top" target="toolbar" />
@@ -64,6 +63,15 @@
 				<border outer="2" />
 				<link location="right_top" target="lock_axis_y" />
 				<size>16 16</size>
+			</widget>
+			<widget type="slider" name="camera_sensitivity">
+				<assets>
+					<sprites icon="gui/generic/slider" />
+					<scripts action="updateCameraSensitivity()" />
+				</assets>
+				<border outer="2" />
+				<link location="right_top" target="lock_axis_z" />
+				<size>128 16</size>
 			</widget>
 		</widget> <!-- End navigation -->
 		

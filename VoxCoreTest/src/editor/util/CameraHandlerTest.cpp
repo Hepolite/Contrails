@@ -45,6 +45,13 @@ namespace editor
 				m_handler.inject(m_camera);
 			}
 
+			TEST_METHOD(CameraHandlerOrbital_setSensitivity)
+			{
+				m_handler.setSensitivity(0.92f);
+				m_handler.setSensitivity(1.37f);
+				Assert::AreEqual(1.37f, m_handler.getSensitivity());
+			}
+
 			TEST_METHOD(CameraHandlerOrbital_dragWithoutClicking)
 			{
 				const auto pos = m_camera.getPosition();

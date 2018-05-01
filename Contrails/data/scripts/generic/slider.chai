@@ -33,7 +33,7 @@ def getSliderValue(string widget, float min, float max, float center)
  * @param min The smallest possible value the slider could give
  * @param max The largest possible value the slider could give
  * @param center Some center value, such that min <= center <= max
- * @param value The value of the slider translated to the range [min, max]
+ * @param value The value of the slider translated from the range [min, max]
  */
 def setSliderValue(string widget, float min, float max, float center, float value)
 {

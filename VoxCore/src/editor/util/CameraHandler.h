@@ -34,6 +34,10 @@ namespace editor
 
 		class CameraHandlerOrbital : public CameraHandler
 		{
+		public:
+			inline void setSensitivity(float sensitivity) { m_sensitivity = sensitivity; }
+			inline auto getSensitivity() const { return m_sensitivity; }
+
 		private:
 			void handleMovement(const glm::vec2 & delta);
 			void handleRotation(const glm::vec2 & delta);
