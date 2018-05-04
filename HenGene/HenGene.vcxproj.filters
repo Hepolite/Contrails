@@ -147,6 +147,9 @@
     <ClCompile Include="src\asset\AssetUtil.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\render\allegro\Font.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\render\opengl\ubo.h">
@@ -372,6 +375,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\render\scene\Camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render\allegro\Font.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\asset\factory\FactoryFont.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

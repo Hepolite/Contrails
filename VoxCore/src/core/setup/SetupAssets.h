@@ -13,6 +13,7 @@ namespace core
 
 		namespace detail
 		{
+			void setupFonts(asset::AssetRegistry & assetRegistry);
 			void setupShaderPrograms(asset::AssetRegistry & assetRegistry, render::uboRegistry & uboRegistry);
 			void setupSprites(asset::AssetRegistry & assetRegistry);
 		}

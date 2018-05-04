@@ -177,6 +177,9 @@
     <ClCompile Include="src\ui\gui\GuiTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\render\allegro\FontTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dependencies\glm\Unittest.h">
