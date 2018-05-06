@@ -1,6 +1,10 @@
 
 #pragma once
 
+#include "render/allegro/String.h"
+
+#include <vector>
+
 namespace render
 {
 	namespace allegro
@@ -11,7 +15,7 @@ namespace render
 
 
 		private:
-
+			std::vector<String> m_strings;
 		};
 	}
 }

@@ -219,7 +219,6 @@
     <ClCompile Include="src\render\allegro\AllegroTest.cpp" />
     <ClCompile Include="src\render\allegro\FontTest.cpp" />
     <ClCompile Include="src\render\allegro\SpriteTest.cpp" />
-    <ClCompile Include="src\render\allegro\StringTest.cpp" />
     <ClCompile Include="src\render\allegro\TextTest.cpp" />
     <ClCompile Include="src\render\MeshTest.cpp" />
     <ClCompile Include="src\render\opengl\AttributeTest.cpp" />
