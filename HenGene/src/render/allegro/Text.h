@@ -2,6 +2,7 @@
 #pragma once
 
 #include "render/allegro/String.h"
+#include "render/allegro/TextComponent.h"
 
 #include <vector>
 
@@ -11,11 +12,8 @@ namespace render
 	{
 		class Text
 		{
-		public:
-
-
 		private:
-			std::vector<String> m_strings;
+			std::vector<std::unique_ptr<ComponentBase>> m_strings;
 		};
 	}
 }

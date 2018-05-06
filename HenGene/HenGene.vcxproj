@@ -244,6 +244,7 @@
     <ClInclude Include="src\render\allegro\Sprite.h" />
     <ClInclude Include="src\render\allegro\String.h" />
     <ClInclude Include="src\render\allegro\Text.h" />
+    <ClInclude Include="src\render\allegro\TextComponent.h" />
     <ClInclude Include="src\render\Mesh.h" />
     <ClInclude Include="src\render\opengl\Attribute.h" />
     <ClInclude Include="src\render\opengl\Enums.h" />

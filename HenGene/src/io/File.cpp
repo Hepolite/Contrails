@@ -74,6 +74,19 @@ bool io::File::write(const std::string & data) const
 	stream << data;
 	return true;
 }
+bool io::File::writeDangerous(const unsigned char * data, unsigned int size) const
+{
+	LOG_WARNING << "Attempting to write dangerously to " << m_path << "! This should not be normally done!";
+
+	std::fstream stream{ m_path, std::ios::out | std::ios::binary };
+	if (!stream.is_open())
+	{
+		LOG_WARNING << "Could not open file " << m_path;
+		return false;
+	}
+	stream.write(reinterpret_cast<const char*>(data), size);
+	return false;
+}
 
 std::string io::File::getFolder() const
 {
