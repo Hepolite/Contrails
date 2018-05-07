@@ -263,6 +263,7 @@
     <ClInclude Include="dependencies\hen\Unittest.h" />
     <ClInclude Include="dependencies\std\Unittest.h" />
     <ClInclude Include="src\asset\builtin\Font.h" />
+    <ClInclude Include="src\asset\builtin\Sprite.h" />
     <ClInclude Include="src\Setup.h" />
   </ItemGroup>
   <ItemGroup>

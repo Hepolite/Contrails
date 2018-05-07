@@ -7,11 +7,6 @@
 #include <string> 
 #include <unordered_map>
 
-namespace
-{
-	bool RUNNING = true;
-}
-
 static void help(const std::unordered_map<std::string, std::function<void()>> & commands)
 {
 	std::cout << "Valid commands:" << std::endl;
@@ -21,13 +16,15 @@ static void help(const std::unordered_map<std::string, std::function<void()>> & 
 
 int main(int argc, char * argv[])
 {
+	bool running = true;
+
 	const std::unordered_map<std::string, std::function<void()>> COMMANDS = {
-		{ "quit", []() { RUNNING = false; } },
+		{ "quit", [&]() { running = false; } },
 		{ "help", [&]() { help(COMMANDS); } },
 		{ "hexifier", []() { hexifier::Hexifier{}.process(); } },
 	};
 
-	while (RUNNING)
+	while (running)
 	{
 		std::cout << "Enter a command:" << std::endl;
 

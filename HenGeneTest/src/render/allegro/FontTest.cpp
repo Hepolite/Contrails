@@ -39,7 +39,7 @@ namespace render
 			}
 
 		private:
-			void initialize() { io::File{ "font.ttf" }.writeDangerous(asset::builtin::BUILTIN_FONT_DATA, asset::builtin::BUILTIN_FONT_SIZE); }
+			void initialize() { io::File{ "font.ttf" }.writeDangerous(asset::builtin::FONT_DATA, asset::builtin::FONT_SIZE); }
 			void deinitialize() { io::File{ "font.ttf" }.erase(); }
 
 			setup::Context m_context;
