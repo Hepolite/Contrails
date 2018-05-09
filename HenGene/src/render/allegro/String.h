@@ -7,6 +7,7 @@
 #include <allegro5/color.h>
 #include <allegro5/utf8.h>
 #include <glm/vec2.hpp>
+#include <glm/vec4.hpp>
 #include <string>
 
 namespace render
@@ -18,19 +19,23 @@ namespace render
 		public:
 			String() = delete;
 			String(const std::string & str);
-			String(const String & other) = delete;
-			String(String && other) = delete;
+			String(const String &) = delete;
+			String(String && other);
 			~String();
 
-			String & operator=(const String & other) = delete;
-			String & operator=(String && other) = delete;
+			String & operator=(const String &) = delete;
+			String & operator=(String && other);
 
 			inline void setFont(const asset::Ref<Font> & font) { m_font = font; }
 			inline void setSize(unsigned int size) { m_size = size; }
 			inline void setFlags(unsigned int flags) { m_flags = flags; }
 			inline void setColor(const ALLEGRO_COLOR & color) { m_color = color; }
 
-			void draw(const glm::vec2 & pos) const;
+			std::string getString() const;
+			glm::vec4 getDimensions() const;
+
+			glm::vec2 draw(const glm::vec2 & pos) const;
+			glm::vec2 draw(const glm::vec2 & pos, const glm::vec4 & bbox) const;
 
 		private:
 			ALLEGRO_USTR * m_handle = nullptr;
