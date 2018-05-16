@@ -150,9 +150,6 @@
     <ClCompile Include="src\render\allegro\Font.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\render\allegro\String.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\render\opengl\ubo.h">
@@ -389,10 +386,10 @@
     <ClInclude Include="src\render\allegro\Text.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\render\allegro\String.h">
+    <ClInclude Include="src\render\allegro\TranslationTable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\render\allegro\TextComponent.h">
+    <ClInclude Include="src\render\allegro\String.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
