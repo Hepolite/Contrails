@@ -313,6 +313,8 @@
     <ClCompile Include="src\logic\script\ScriptUtil.cpp" />
     <ClCompile Include="src\render\allegro\Font.cpp" />
     <ClCompile Include="src\render\allegro\Sprite.cpp" />
+    <ClCompile Include="src\render\allegro\String.cpp" />
+    <ClCompile Include="src\render\allegro\Text.cpp" />
     <ClCompile Include="src\render\core\Pipeline.cpp" />
     <ClCompile Include="src\render\Mesh.cpp" />
     <ClCompile Include="src\render\opengl\Attribute.cpp" />

@@ -21,12 +21,14 @@ namespace render
 			String & operator=(String && other);
 
 			void setString(const std::string & string);
+			std::string getString() const;
 
-			unsigned int getLength() const;
-			unsigned int getCodepoint(int & index) const;
+			unsigned int length() const;
+			unsigned int at(unsigned int index) const;
+			unsigned int next(unsigned int & index) const;
 
 		private:
-			ALLEGRO_USTR * m_handle;
+			ALLEGRO_USTR * m_handle = nullptr;
 		};
 	}
 }

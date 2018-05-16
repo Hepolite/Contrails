@@ -12,6 +12,7 @@
 #include <functional>
 #include <glm/vec2.hpp>
 #include <memory>
+#include <optional>
 #include <vector>
 
 namespace render
@@ -40,22 +41,23 @@ namespace render
 		class ComponentBase
 		{
 		public:
-			virtual bool calculateSegment(Segment & segment, const glm::ivec4 & bbox) const = 0;
+			virtual std::optional<Segment> calculateSegment(
+				unsigned int index, const glm::ivec2 & pos, const glm::ivec4 & bbox
+			) const = 0;
 		};
 
 		class ComponentString : public ComponentBase
 		{
 		public:
-			void setString(const String & str);
-			void setFont(const asset::Ref<Font> & font);
-			void setSize(unsigned int size);
-			void setFlags(unsigned int flags);
-			void setColor(const ALLEGRO_COLOR & color);
+			inline void setString(const String & string) { m_string = string; }
+			inline void setFont(const asset::Ref<Font> & font) { m_font = font; }
+			inline void setSize(unsigned int size) { m_size = size; }
+			inline void setFlags(unsigned int flags) { m_flags = flags; }
+			inline void setColor(const ALLEGRO_COLOR & color) { m_color = color; }
 
-			unsigned int getLength() const;
-			unsigned int getCodepoint(int & index) const;
-
-			virtual bool calculateSegment(Segment & segment, const glm::ivec4 & bbox) const override final;
+			virtual std::optional<Segment> calculateSegment(
+				unsigned int index, const glm::ivec2 & pos, const glm::ivec4 & bbox
+			) const override final;
 
 		private:
 			String m_string;
@@ -83,7 +85,9 @@ namespace render
 			void setSprite(const asset::Ref<Sprite> & ref);
 			void setColor(const ALLEGRO_COLOR & color);
 
-			virtual bool calculateSegment(Segment & segment, const glm::ivec4 & bbox) const override final;
+			virtual std::optional<Segment> calculateSegment(
+				unsigned int index, const glm::ivec2 & pos, const glm::ivec4 & bbox
+			) const override final;
 
 		private:
 			asset::Ref<Sprite> m_sprite;
