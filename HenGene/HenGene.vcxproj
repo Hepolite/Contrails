@@ -246,6 +246,8 @@
     <ClInclude Include="src\render\allegro\Sprite.h" />
     <ClInclude Include="src\render\allegro\String.h" />
     <ClInclude Include="src\render\allegro\Text.h" />
+    <ClInclude Include="src\render\allegro\TextBuilder.h" />
+    <ClInclude Include="src\render\allegro\TextParser.h" />
     <ClInclude Include="src\render\allegro\TranslationTable.h" />
     <ClInclude Include="src\render\Mesh.h" />
     <ClInclude Include="src\render\opengl\Attribute.h" />
@@ -315,6 +317,8 @@
     <ClCompile Include="src\render\allegro\Sprite.cpp" />
     <ClCompile Include="src\render\allegro\String.cpp" />
     <ClCompile Include="src\render\allegro\Text.cpp" />
+    <ClCompile Include="src\render\allegro\TextBuilder.cpp" />
+    <ClCompile Include="src\render\allegro\TextParser.cpp" />
     <ClCompile Include="src\render\core\Pipeline.cpp" />
     <ClCompile Include="src\render\Mesh.cpp" />
     <ClCompile Include="src\render\opengl\Attribute.cpp" />

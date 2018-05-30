@@ -161,6 +161,9 @@ namespace render
 			{
 				Text text;
 				text.add<ComponentString>() = m_data.build("String component");
+
+				Assert::AreEqual(1u, text.size());
+				Assert::IsFalse(text.empty());
 			}
 			
 			TEST_METHOD(Text_calculateLine)

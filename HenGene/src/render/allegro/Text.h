@@ -96,6 +96,9 @@ namespace render
 		class Text
 		{
 		public:
+			inline auto empty() const { return m_components.empty(); }
+			inline auto size() const { return m_components.size(); }
+
 			template<typename T, typename ...Args> T & add(const Args & ...args);
 
 			std::optional<Line> calculateLine(unsigned int component, unsigned int index, int width) const;
