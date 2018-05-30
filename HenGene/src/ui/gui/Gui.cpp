@@ -3,6 +3,11 @@
 
 #include <vector>
 
+
+#include "render/allegro/Text.h"
+#include "asset/AssetRegistry.h"
+#include "asset/factory/FactoryFont.h"
+
 namespace
 {
 	constexpr const char * ROOT = "";
@@ -21,6 +26,24 @@ void ui::gui::Gui::process(Widget & widget, const glm::vec2 & offset)
 void ui::gui::Gui::render() const
 {
 	render(m_widgets.get(ROOT), { 0.0f, 0.0f });
+
+
+
+	asset::AssetRegistry m_registry;
+	m_registry.add<render::allegro::Font>("font").m_factory = []()
+	{
+		auto asset = std::make_unique<render::allegro::Font>();
+		asset::factory::LoaderFont{}.load(*asset, "data/fonts/debug.ttf");
+		return asset;
+	};
+
+	render::allegro::Text text;
+	auto & component = text.add<render::allegro::ComponentString>();
+	component.setString({ "Hello World! This is a rather long string which should be split into multiple parts. I can even\nmanually\nsplit\nit\nat\nwill." });
+	component.setFont(m_registry.get<render::allegro::Font>("font"));
+	component.setSize(18u);
+
+	text.draw({ 0, 0 }, { 150, 200 }, 0.0_s);
 }
 void ui::gui::Gui::render(const Widget & widget, const glm::vec2 & offset) const
 {
