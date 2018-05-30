@@ -51,11 +51,11 @@ std::optional<render::allegro::Segment> render::allegro::ComponentString::calcul
 		const auto advance = al_get_glyph_advance(font, cp, m_string.at(index));
 		if (segment.m_size.x + advance <= width)
 		{
-			int height, _;
-			al_get_glyph_dimensions(font, cp, &_, &_, &_, &height);
+			int bby, bbh, _;
+			al_get_glyph_dimensions(font, cp, &_, &bby, &_, &bbh);
 
 			segment.m_size.x += advance;
-			segment.m_size.y = math::max(segment.m_size.y, height);
+			segment.m_size.y = math::max(segment.m_size.y, bby + bbh);
 		}
 		else
 		{
@@ -65,6 +65,16 @@ std::optional<render::allegro::Segment> render::allegro::ComponentString::calcul
 			break;
 		}
 	}
+	segment.m_draw = [this, font](auto & segment, auto & offset, auto & dt)
+	{
+		auto pos = offset;
+		for (auto index = segment.m_startIndex; index < segment.m_endIndex;)
+		{
+			const auto cp = m_string.next(index);
+			al_draw_glyph(font, m_color, pos.x, pos.y, cp);
+			pos.x += al_get_glyph_advance(font, cp, m_string.at(index));
+		}
+	};
 	return std::make_optional(segment);
 }
 
@@ -167,7 +177,7 @@ void render::allegro::Text::draw(const glm::vec2 & pos, const glm::vec2 & size, 
 		{
 			if (segment.m_draw)
 			{
-				segment.m_draw(segment, current, t);
+				segment.m_draw(segment, current + glm::ivec2{ 0, line->m_size.y - segment.m_size.y }, t);
 				current.x += segment.m_size.x;
 			}
 		}
