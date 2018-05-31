@@ -2,6 +2,7 @@
 #pragma once
 
 #include "asset/AssetRegistry.h"
+#include "render/allegro/String.h"
 #include "render/allegro/Text.h"
 
 #include <allegro5/color.h>
@@ -32,7 +33,7 @@ namespace render
 			inline auto getSize() { return m_size; }
 			inline auto getColor() { return m_color; }
 
-			void addString(const std::string & string);
+			void addString(const String & string);
 
 			inline Text build() { return std::move(m_text); }
 

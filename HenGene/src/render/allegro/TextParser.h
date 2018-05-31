@@ -27,7 +27,9 @@ namespace render
 			inline auto getSize() { return m_builder.getSize(); }
 			inline auto getColor() { return m_builder.getColor(); }
 
-			void parse(const std::string & string);
+			// ...
+
+			void parse(const String & string);
 
 			Text build();
 

@@ -1,7 +1,7 @@
 
 #include "TextBuilder.h"
 
-void render::allegro::TextBuilder::addString(const std::string & string)
+void render::allegro::TextBuilder::addString(const String & string)
 {
 	auto & component = m_text.add<ComponentString>();
 	component.setFont(m_assets.get<Font>(m_font));

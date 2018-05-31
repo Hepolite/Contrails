@@ -67,6 +67,30 @@ namespace render
 				Assert::AreEqual(static_cast<unsigned int>('\0'), string.next(index));
 				Assert::AreEqual(2u, index);
 			}
+			
+			TEST_METHOD(String_find)
+			{
+				const String string{ "Hello World!" };
+
+				Assert::AreEqual(0u, string.find('H'));
+				Assert::AreEqual(2u, string.find('l'));
+				Assert::AreEqual(4u, string.find('o', 4u));
+				Assert::AreEqual(9u, string.find('l', 4u));
+				Assert::AreEqual(12u, string.find('\0'));
+
+				Assert::AreEqual(String::END, string.find('x'));
+				Assert::AreEqual(String::END, string.find('e', 2u));
+				Assert::AreEqual(String::END, string.find('W', String::END));
+			}
+			TEST_METHOD(String_substr)
+			{
+				const String string{ "Hello World!" };
+				
+				Assert::AreEqual({ "Hello World!" }, string.substr().getString());
+				Assert::AreEqual({ "World!" }, string.substr(6u).getString());
+				Assert::AreEqual({ "ello W" }, string.substr(1u, 7u).getString());
+				Assert::AreEqual({ "" }, string.substr(String::END).getString());
+			}
 
 		private:
 			setup::Context m_context;

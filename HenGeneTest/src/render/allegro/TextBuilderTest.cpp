@@ -16,7 +16,7 @@ namespace render
 			{
 				asset::AssetRegistry registry;
 				TextBuilder builder{ registry };
-				builder.addString("Hello World!");
+				builder.addString({ "Hello World!" });
 				const auto text = builder.build();
 
 				Assert::IsFalse(text.empty());

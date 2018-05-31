@@ -38,6 +38,7 @@ std::string render::allegro::String::getString() const
 {
 	return al_cstr(m_handle);
 }
+
 unsigned int render::allegro::String::length() const
 {
 	return al_ustr_length(m_handle);
@@ -53,4 +54,25 @@ unsigned int render::allegro::String::next(unsigned int & index) const
 	const auto codepoint = al_ustr_get_next(m_handle, &i);
 	index = i;
 	return codepoint < 0 ? '\0' : codepoint;
+}
+
+unsigned int render::allegro::String::find(unsigned int codepoint, unsigned int index) const
+{
+	while (true)
+	{
+		const auto current = index;
+		const auto cp = next(index);
+		if (cp == codepoint)
+			return current;
+		if (cp == '\0')
+			return END;
+	}
+}
+render::allegro::String render::allegro::String::substr(unsigned int begin, unsigned int end) const
+{
+	if (end == END)
+		end = length();
+	if (begin >= end)
+		return {};
+	return  { al_ustr_dup_substr(m_handle, begin, end) };
 }
