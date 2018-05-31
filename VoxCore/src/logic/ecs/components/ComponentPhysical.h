@@ -11,17 +11,17 @@ namespace logic
 		struct ComponentPosition
 		{
 			world::World * m_world = nullptr;
-			LengthVec m_pos;
+			LengthVec m_pos{};
 			LengthVec m_prevPos = m_pos;
 		};
 
 		struct ComponentVelocity
 		{
-			SpeedVec m_vel;
+			SpeedVec m_vel{};
 		};
 		struct ComponentAcceleration
 		{
-			AccelerationVec m_acc;
+			AccelerationVec m_acc{};
 		};
 		struct ComponentGravity
 		{

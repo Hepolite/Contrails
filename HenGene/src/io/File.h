@@ -19,6 +19,7 @@ namespace io
 		std::string read() const;
 		std::string parse() const;
 		bool write(const std::string & data) const;
+		bool writeDangerous(const unsigned char * data, unsigned int size) const;
 
 		std::string getPath() const { return m_path; }
 		std::string getFolder() const;

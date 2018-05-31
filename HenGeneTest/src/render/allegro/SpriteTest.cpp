@@ -1,6 +1,8 @@
 
 #include "CppUnitTest.h"
 
+#include "asset/builtin/Sprite.h"
+#include "io/File.h"
 #include "render/allegro/Sprite.h"
 #include "Setup.h"
 
@@ -41,12 +43,23 @@ namespace render
 		TEST_CLASS(SpriteTest)
 		{
 		public:
+			~SpriteTest() { m_file.erase(); }
+
 			TEST_METHOD(Sprite_create)
 			{
 				Sprite sprite;
 
 				Assert::IsTrue(sprite.create(32u, 32u));
 				Assert::IsFalse(sprite.create(32u, 32u));
+				Assert::IsNotNull(sprite.getHandle());
+			}
+			TEST_METHOD(Sprite_load)
+			{
+				m_file.writeDangerous(asset::builtin::SPRITE_DATA, asset::builtin::SPRITE_SIZE);
+				Sprite sprite;
+
+				Assert::IsTrue(sprite.load(m_file));
+				Assert::IsFalse(sprite.load(m_file));
 				Assert::IsNotNull(sprite.getHandle());
 			}
 
@@ -79,6 +92,8 @@ namespace render
 			}
 
 		private:
+			io::File m_file{ "sprite.png" };
+
 			setup::Context m_context;
 		};
 	}
