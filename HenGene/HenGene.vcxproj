@@ -122,7 +122,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
-      <LanguageStandard>stdcpp14</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeaderFile />
       <AdditionalIncludeDirectories>src;dependencies;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
@@ -143,7 +143,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
-      <LanguageStandard>stdcpp14</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeaderFile />
       <AdditionalIncludeDirectories>src;dependencies;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
@@ -166,10 +166,11 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
-      <LanguageStandard>stdcpp14</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeaderFile />
       <AdditionalIncludeDirectories>src;dependencies;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -192,10 +193,11 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
-      <LanguageStandard>stdcpp14</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeaderFile />
       <AdditionalIncludeDirectories>src;dependencies;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -215,6 +217,7 @@
     <ClInclude Include="src\asset\AssetUtil.h" />
     <ClInclude Include="src\asset\AssetRef.h" />
     <ClInclude Include="src\asset\AssetRegistry.h" />
+    <ClInclude Include="src\asset\factory\FactoryFont.h" />
     <ClInclude Include="src\asset\factory\FactoryShaderProgram.h" />
     <ClInclude Include="src\asset\factory\FactorySprite.h" />
     <ClInclude Include="src\core\scene\Scene.h" />
@@ -239,7 +242,13 @@
     <ClInclude Include="src\logic\script\ScriptUtil.h" />
     <ClInclude Include="src\logic\state\State.h" />
     <ClInclude Include="src\logic\ecs\detail\Entity.h" />
+    <ClInclude Include="src\render\allegro\Font.h" />
     <ClInclude Include="src\render\allegro\Sprite.h" />
+    <ClInclude Include="src\render\allegro\String.h" />
+    <ClInclude Include="src\render\allegro\Text.h" />
+    <ClInclude Include="src\render\allegro\TextBuilder.h" />
+    <ClInclude Include="src\render\allegro\TextParser.h" />
+    <ClInclude Include="src\render\allegro\TranslationTable.h" />
     <ClInclude Include="src\render\Mesh.h" />
     <ClInclude Include="src\render\opengl\Attribute.h" />
     <ClInclude Include="src\render\opengl\Enums.h" />
@@ -304,7 +313,12 @@
     <ClCompile Include="src\core\MainLoop.cpp" />
     <ClCompile Include="src\logic\script\Script.cpp" />
     <ClCompile Include="src\logic\script\ScriptUtil.cpp" />
+    <ClCompile Include="src\render\allegro\Font.cpp" />
     <ClCompile Include="src\render\allegro\Sprite.cpp" />
+    <ClCompile Include="src\render\allegro\String.cpp" />
+    <ClCompile Include="src\render\allegro\Text.cpp" />
+    <ClCompile Include="src\render\allegro\TextBuilder.cpp" />
+    <ClCompile Include="src\render\allegro\TextParser.cpp" />
     <ClCompile Include="src\render\core\Pipeline.cpp" />
     <ClCompile Include="src\render\Mesh.cpp" />
     <ClCompile Include="src\render\opengl\Attribute.cpp" />

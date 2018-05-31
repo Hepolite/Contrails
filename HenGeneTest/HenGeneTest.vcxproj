@@ -98,7 +98,7 @@
     <Allegro_LibraryType>DynamicDebug</Allegro_LibraryType>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <LinkIncremental>true</LinkIncremental>
+    <LinkIncremental>false</LinkIncremental>
     <Allegro_AddonImage>true</Allegro_AddonImage>
     <Allegro_AddonTTF>true</Allegro_AddonTTF>
     <Allegro_AddonPrimitives>true</Allegro_AddonPrimitives>
@@ -109,7 +109,7 @@
     <Allegro_LibraryType>StaticMonolithRelease</Allegro_LibraryType>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <LinkIncremental>true</LinkIncremental>
+    <LinkIncremental>false</LinkIncremental>
     <Allegro_AddonImage>true</Allegro_AddonImage>
     <Allegro_AddonTTF>true</Allegro_AddonTTF>
     <Allegro_AddonPrimitives>true</Allegro_AddonPrimitives>
@@ -127,7 +127,7 @@
       <AdditionalIncludeDirectories>src;dependencies;..\HenGene\src;..\HenGene\dependencies;$(VCInstallDir)UnitTest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <UseFullPaths>true</UseFullPaths>
-      <LanguageStandard>stdcpp14</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeaderFile />
     </ClCompile>
     <Link>
@@ -144,7 +144,7 @@
       <AdditionalIncludeDirectories>src;dependencies;..\HenGene\src;..\HenGene\dependencies;$(VCInstallDir)UnitTest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <UseFullPaths>true</UseFullPaths>
-      <LanguageStandard>stdcpp14</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeaderFile />
     </ClCompile>
     <Link>
@@ -163,8 +163,9 @@
       <AdditionalIncludeDirectories>src;dependencies;..\HenGene\src;..\HenGene\dependencies;$(VCInstallDir)UnitTest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <UseFullPaths>true</UseFullPaths>
-      <LanguageStandard>stdcpp14</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeaderFile />
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -172,6 +173,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>$(VCInstallDir)UnitTest\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -184,8 +186,9 @@
       <AdditionalIncludeDirectories>src;dependencies;..\HenGene\src;..\HenGene\dependencies;$(VCInstallDir)UnitTest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <UseFullPaths>true</UseFullPaths>
-      <LanguageStandard>stdcpp14</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeaderFile />
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -193,6 +196,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>$(VCInstallDir)UnitTest\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -217,7 +221,12 @@
     <ClCompile Include="src\logic\script\ScriptUtilTest.cpp" />
     <ClCompile Include="src\logic\state\StateManagerTest.cpp" />
     <ClCompile Include="src\render\allegro\AllegroTest.cpp" />
+    <ClCompile Include="src\render\allegro\FontTest.cpp" />
     <ClCompile Include="src\render\allegro\SpriteTest.cpp" />
+    <ClCompile Include="src\render\allegro\StringTest.cpp" />
+    <ClCompile Include="src\render\allegro\TextBuilderTest.cpp" />
+    <ClCompile Include="src\render\allegro\TextParserTest.cpp" />
+    <ClCompile Include="src\render\allegro\TextTest.cpp" />
     <ClCompile Include="src\render\MeshTest.cpp" />
     <ClCompile Include="src\render\opengl\AttributeTest.cpp" />
     <ClCompile Include="src\render\opengl\fboTest.cpp" />
@@ -260,6 +269,8 @@
     <ClInclude Include="dependencies\glm\Unittest.h" />
     <ClInclude Include="dependencies\hen\Unittest.h" />
     <ClInclude Include="dependencies\std\Unittest.h" />
+    <ClInclude Include="src\asset\builtin\Font.h" />
+    <ClInclude Include="src\asset\builtin\Sprite.h" />
     <ClInclude Include="src\Setup.h" />
   </ItemGroup>
   <ItemGroup>
