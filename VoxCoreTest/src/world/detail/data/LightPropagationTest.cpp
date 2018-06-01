@@ -52,7 +52,7 @@ namespace world
 			{
 				World world;
 				auto & chunk = world.createChunk({});
-				world.write({ 0, 0, 31 }, data::BlockData{ 0u, 31u });
+				world.write({ 0, 0, 31 }, data::BlockData{ 1u, 31u });
 				LightSunPropagator worker{ world, {} };
 
 				worker.spread(chunk);
@@ -72,8 +72,8 @@ namespace world
 			{
 				World world;
 				auto & chunk = world.createChunk({});
-				world.write({ 0, 0, 0 }, data::BlockData{ 0u, 31u });
-				world.write({ 1, 0, 0 }, data::BlockData{ 0u, 20u });
+				world.write({ 0, 0, 0 }, data::BlockData{ 1u, 31u });
+				world.write({ 1, 0, 0 }, data::BlockData{ 1u, 20u });
 				LightSunRemover worker{ world,{} };
 
 				worker.spreadSide(chunk, { 0, 0, 0 }, 25u);
@@ -85,8 +85,8 @@ namespace world
 			{
 				World world;
 				auto & chunk = world.createChunk({});
-				world.write({ 0, 0, 0 }, data::BlockData{ 0u, 31u });
-				world.write({ 1, 0, 0 }, data::BlockData{ 0u, 20u });
+				world.write({ 0, 0, 0 }, data::BlockData{ 1u, 31u });
+				world.write({ 1, 0, 0 }, data::BlockData{ 1u, 20u });
 				LightSunRemover worker{ world, {} };
 
 				worker.spreadDown(chunk, { 0, 0, 0 }, 25u);
@@ -112,7 +112,7 @@ namespace world
 			{
 				World world;
 				auto & chunk = world.createChunk({}, true);
-				world.write({ 0, 0, 31 }, data::BlockData{ 0u, 0u });
+				world.write({ 0, 0, 31 }, data::BlockData{ 1u, 0u });
 				LightSunRemover worker{ world, {} };
 
 				worker.spread(chunk);
@@ -130,7 +130,7 @@ namespace world
 			{
 				World world;
 				auto & chunk = world.createChunk({});
-				world.write({ 1, 0, 0 }, data::ColorData{ { 25u, 25u, 25u } });
+				world.write({ 1, 0, 0 }, data::BlockData{ 1u, 0u }, data::ColorData{ { 25u, 25u, 25u } });
 				LightColorPropagator worker{ world, {} };
 
 				worker.spreadSide(chunk, { 0, 0, 0 }, { 10u, 20u, 30u });
@@ -156,7 +156,7 @@ namespace world
 			{
 				World world;
 				auto & chunk = world.createChunk({});
-				world.write({ 0, 0, 0 }, data::ColorData{ { 3u, 31u, 10u } });
+				world.write({ 0, 0, 0 }, data::BlockData{ 1u, 0u }, data::ColorData{ { 3u, 31u, 10u } });
 				LightColorPropagator worker{ world, {} };
 
 				worker.spread(chunk);
@@ -173,8 +173,8 @@ namespace world
 			{
 				World world;
 				auto & chunk = world.createChunk({});
-				world.write({ 0, 0, 0 }, data::ColorData{ { 15u, 20u, 0u } });
-				world.write({ 1, 0, 0 }, data::ColorData{ { 20u, 31u, 31u } });
+				world.write({ 0, 0, 0 }, data::BlockData{ 1u, 0u }, data::ColorData{ { 15u, 20u, 0u } });
+				world.write({ 1, 0, 0 }, data::BlockData{ 1u, 0u }, data::ColorData{ { 20u, 31u, 31u } });
 				LightColorRemover worker{ world, {} };
 
 				worker.spreadSide(chunk, { 0, 0, 0 }, { 25u, 25u, 25u });
@@ -186,12 +186,12 @@ namespace world
 			{
 				World world;
 				auto & chunk = world.createChunk({});
-				world.write({ 1, 0, 0 }, data::ColorData{ { 31u, 31u, 31u } });
-				world.write({ -1, 0, 0 }, data::ColorData{ { 20u, 21u, 29u } });
-				world.write({ 0, 1, 0 }, data::ColorData{ { 20u, 28u, 21u } });
-				world.write({ 0, -1, 0 }, data::ColorData{ { 20u, 3u, 25u } });
-				world.write({ 0, 0, 1 }, data::ColorData{ { 20u, 15u, 19u } });
-				world.write({ 0, 0, -1 }, data::ColorData{ { 20u, 0u, 5u } });
+				world.write({ 1, 0, 0 }, data::BlockData{ 1u, 0u }, data::ColorData{ { 31u, 31u, 31u } });
+				world.write({ -1, 0, 0 }, data::BlockData{ 1u, 0u }, data::ColorData{ { 20u, 21u, 29u } });
+				world.write({ 0, 1, 0 }, data::BlockData{ 1u, 0u }, data::ColorData{ { 20u, 28u, 21u } });
+				world.write({ 0, -1, 0 }, data::BlockData{ 1u, 0u }, data::ColorData{ { 20u, 3u, 25u } });
+				world.write({ 0, 0, 1 }, data::BlockData{ 1u, 0u }, data::ColorData{ { 20u, 15u, 19u } });
+				world.write({ 0, 0, -1 }, data::BlockData{ 1u, 0u }, data::ColorData{ { 20u, 0u, 5u } });
 				LightColorRemover worker{ world, {} };
 
 				worker.spreadFrom(chunk, { 0, 0, 0 }, { 25u, 25u, 25u });
@@ -206,13 +206,13 @@ namespace world
 			{
 				World world;
 				auto & chunk = world.createChunk({}, true);
-				world.write({ 0, 0, 0 }, data::ColorData{ { 31u, 31u, 31u } });
-				world.write({ 1, 0, 0 }, data::ColorData{ { 29u, 29u, 31u } });
-				world.write({ 2, 0, 0 }, data::ColorData{ { 27u, 27u, 31u } });
-				world.write({ 3, 0, 0 }, data::ColorData{ { 25u, 31u, 31u } });
-				world.write({ 4, 0, 0 }, data::ColorData{ { 23u, 31u, 31u } });
-				world.write({ 5, 0, 0 }, data::ColorData{ { 25u, 31u, 31u } });
-				world.write({ 0, 0, 0 }, data::ColorData{ { 0u, 0u, 0u } });
+				world.write({ 0, 0, 0 }, data::BlockData{ 1u, 0u }, data::ColorData{ { 31u, 31u, 31u } });
+				world.write({ 1, 0, 0 }, data::BlockData{ 1u, 0u }, data::ColorData{ { 29u, 29u, 31u } });
+				world.write({ 2, 0, 0 }, data::BlockData{ 1u, 0u }, data::ColorData{ { 27u, 27u, 31u } });
+				world.write({ 3, 0, 0 }, data::BlockData{ 1u, 0u }, data::ColorData{ { 25u, 31u, 31u } });
+				world.write({ 4, 0, 0 }, data::BlockData{ 1u, 0u }, data::ColorData{ { 23u, 31u, 31u } });
+				world.write({ 5, 0, 0 }, data::BlockData{ 1u, 0u }, data::ColorData{ { 25u, 31u, 31u } });
+				world.write({ 0, 0, 0 }, data::BlockData{ 1u, 0u }, data::ColorData{ { 0u, 0u, 0u } });
 				LightColorRemover worker{ world, {} };
 
 				worker.spread(chunk);

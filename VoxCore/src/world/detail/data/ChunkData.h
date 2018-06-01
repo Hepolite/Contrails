@@ -46,6 +46,8 @@ namespace world
 			bool pollLightRemoval(LightPropagationNode & node, unsigned int channel);
 			void pushLightRemoval(const LightPropagationNode & node, unsigned int channel);
 
+			bool empty() const;
+
 		private:
 			std::array<BlockData, CHUNK_SIZE_VOLUME<unsigned int>> m_blocks;
 			std::array<ColorData, CHUNK_SIZE_VOLUME<unsigned int>> m_colors;

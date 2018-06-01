@@ -31,10 +31,13 @@ namespace world
 		{
 			World world;
 			world.createChunk({ 0, 0, 0 });
-
-			Assert::IsTrue(world.hasChunkAt({ 0, 0, 0 }));
 			world.destroyChunk({ 0, 0, 0 });
-			Assert::IsFalse(world.hasChunkAt({ 0, 0, 0 }));
+
+			glm::ivec3 pos;
+			for (pos.x = -1; pos.x <= 1; ++pos.x)
+			for (pos.y = -1; pos.y <= 1; ++pos.y)
+			for (pos.z = -1; pos.z <= 1; ++pos.z)
+				Assert::IsFalse(world.hasChunkAt(pos));
 		}
 
 		TEST_METHOD(World_hasChunkAt)
@@ -157,6 +160,18 @@ namespace world
 			Assert::AreEqual(4u, data.m_block.getId());
 			Assert::AreEqual(29u, data.m_block.getLight());
 			Assert::AreEqual({ 1u, 2u, 3u }, data.m_color.getColor());
+		}
+
+		TEST_METHOD(World_writeDeleteEmpty)
+		{
+			World world;
+			world.write({ -1, 0, 0 }, data::BlockData{ 4u, 29u });
+			world.write({ 0, 0, 0 }, data::BlockData{ 4u, 29u });
+			world.write({ 0, 0, 0 }, data::BlockData{ 0u, 29u });
+
+			Assert::IsTrue(world.hasChunkAt({ -1, 0, 0 }));	// Has block
+			Assert::IsTrue(world.hasChunkAt({ 0, 0, 0 }));	// Has neighor with block
+			Assert::IsFalse(world.hasChunkAt({ 1, 0, 0 }));	// Has no neighbors with blocks
 		}
 
 		// ...

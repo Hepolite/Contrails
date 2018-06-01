@@ -72,8 +72,8 @@ void world::World::inject(const BlockRegistry & registry)
 
 world::data::BlockRegion world::World::extractRenderData(const glm::ivec3 & cpos) const
 {
-	constexpr const auto SIZE = data::CHUNK_SIZE<int>;
-	constexpr const auto EDGE = SIZE - 1;
+	static constexpr auto SIZE = data::CHUNK_SIZE<int>;
+	static constexpr auto EDGE = SIZE - 1;
 
 	data::BlockRegion region{ glm::ivec3{ -1 }, glm::ivec3{ data::CHUNK_SIZE<int> + 2 } };
 
@@ -117,9 +117,18 @@ world::Chunk & world::World::createChunk(const glm::ivec3 & cpos, bool initLight
 }
 void world::World::destroyChunk(const glm::ivec3 & cpos)
 {
-	if (m_impl->m_bus != nullptr)
-		m_impl->m_bus->post(logic::event::ChunkDestroy{ this, cpos });
-	m_impl->m_chunks.destroyChunk(cpos);
+	glm::ivec3 pos;
+	for (pos.x = cpos.x - 1; pos.x <= cpos.x + 1; ++pos.x)
+	for (pos.y = cpos.y - 1; pos.y <= cpos.y + 1; ++pos.y)
+	for (pos.z = cpos.z - 1; pos.z <= cpos.z + 1; ++pos.z)
+	{
+		if (emptyNeighborhood(pos))
+		{
+			if (m_impl->m_bus != nullptr)
+				m_impl->m_bus->post(logic::event::ChunkDestroy { this, pos });
+			m_impl->m_chunks.destroyChunk(pos);
+		}
+	}
 }
 
 bool world::World::hasChunkAt(const glm::ivec3 & cpos) const
@@ -164,6 +173,20 @@ glm::ivec3 world::World::getBottommostChunkPos(const glm::ivec2 & cpos) const
 	return m_impl->m_chunks.getBottommostChunkPos(cpos);
 }
 
+bool world::World::emptyNeighborhood(const glm::ivec3 & cpos) const
+{
+	glm::ivec3 pos;
+	for (pos.x = cpos.x - 1; pos.x <= cpos.x + 1; ++pos.x)
+	for (pos.y = cpos.y - 1; pos.y <= cpos.y + 1; ++pos.y)
+	for (pos.z = cpos.z - 1; pos.z <= cpos.z + 1; ++pos.z)
+	{
+		const auto * chunk = getChunkAt(pos);
+		if (chunk != nullptr && !chunk->empty())
+			return false;
+	}
+	return true;
+}
+
 // ...
 
 void world::World::write(data::WorldQuery & query)
@@ -171,10 +194,7 @@ void world::World::write(data::WorldQuery & query)
 	for (auto & it : query)
 	{
 		createChunk(it.first, true).write(it.second);
-		markLightPropagation(it.first);
-		markLightRemoval(it.first);
-		markLightPropagation(it.first);
-		markChunkChange(it.first, it.second.min(), it.second.max());
+		handleChunkChange(it.first, it.second.min(), it.second.max());
 	}
 }
 void world::World::write(const glm::ivec3 & pos, data::BlockData & block, data::ColorData & color)
@@ -182,30 +202,21 @@ void world::World::write(const glm::ivec3 & pos, data::BlockData & block, data::
 	const auto cpos = pos >> data::CHUNK_SIZE_LG<int>;
 	auto & chunk = createChunk(cpos);
 	chunk.write(data::toIndex(pos & data::CHUNK_SIZE_BITS<int>), block, color);
-	markLightPropagation(cpos);
-	markLightRemoval(cpos);
-	markLightPropagation(cpos);
-	markChunkChange(cpos);
+	handleChunkChange(cpos, pos, pos);
 }
 void world::World::write(const glm::ivec3 & pos, data::BlockData & block)
 {
 	const auto cpos = pos >> data::CHUNK_SIZE_LG<int>;
 	auto & chunk = createChunk(cpos);
 	chunk.write(data::toIndex(pos & data::CHUNK_SIZE_BITS<int>), block);
-	markLightPropagation(cpos);
-	markLightRemoval(cpos);
-	markLightPropagation(cpos);
-	markChunkChange(cpos);
+	handleChunkChange(cpos, pos, pos);
 }
 void world::World::write(const glm::ivec3 & pos, data::ColorData & color)
 {
 	const auto cpos = pos >> data::CHUNK_SIZE_LG<int>;
 	auto & chunk = createChunk(cpos);
 	chunk.write(data::toIndex(pos & data::CHUNK_SIZE_BITS<int>), color);
-	markLightPropagation(cpos);
-	markLightRemoval(cpos);
-	markLightPropagation(cpos);
-	markChunkChange(cpos);
+	handleChunkChange(cpos, pos, pos);
 }
 
 void world::World::read(data::WorldQuery & query) const
@@ -229,6 +240,18 @@ world::data::ColorData world::World::readColor(const glm::ivec3 & pos) const
 	if (chunk == nullptr)
 		return data::ColorData{};
 	return chunk->readColor(data::toIndex(pos & data::CHUNK_SIZE_BITS<int>));
+}
+
+void world::World::handleChunkChange(const glm::ivec3 & cpos, const glm::ivec3 & min, const glm::ivec3 & max)
+{
+	markLightPropagation(cpos);
+	markLightRemoval(cpos);
+	markLightPropagation(cpos);
+	markChunkChange(cpos, min, max);
+
+	const auto * chunk = getChunkAt(cpos);
+	if (chunk != nullptr && chunk->empty())
+		destroyChunk(cpos);
 }
 
 // ...

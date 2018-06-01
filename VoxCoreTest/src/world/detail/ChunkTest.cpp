@@ -63,5 +63,14 @@ namespace world
 			Assert::AreEqual(2u, nodeA.m_light);
 			Assert::AreEqual((5u << 16u) | (4u << 8u) | 3u, nodeB.m_light);
 		}
+	
+		TEST_METHOD(Chunk_empty)
+		{
+			Chunk chunk;
+
+			Assert::IsTrue(chunk.empty());
+			chunk.setFastUnsafe(1337u, data::BlockData{ 2u, 3u }, data::ColorData{ { 4u, 5u, 6u } });
+			Assert::IsFalse(chunk.empty());
+		}
 	};
 }

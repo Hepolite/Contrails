@@ -66,3 +66,7 @@ void world::Chunk::pushLightRemoval(const data::LightPropagationNode & node, uns
 	m_data.pushLightRemoval(node, channel);
 }
 
+bool world::Chunk::empty() const
+{
+	return m_data.empty();
+}

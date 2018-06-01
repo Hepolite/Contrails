@@ -19,7 +19,7 @@ namespace world
 				Assert::AreEqual(1u, query.count());
 				Assert::IsTrue(query.has({ 1, 3, 4 }));
 			}
-			TEST_METHOD(Query_testCylinder)
+			TEST_METHOD(Query_readCylinder)
 			{
 				const auto queryA = Query{}.readCylinder({ 1, 3, 5 }, { -1, 4, 5 }, math::Axis::Z);
 				const auto queryB = Query{}.readCylinder({ 1, 3, 5 }, { -1, 3, 3 }, math::Axis::Y);
