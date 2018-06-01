@@ -82,6 +82,9 @@ namespace world
 		void initializeLight(const glm::ivec3 & cpos);
 		void calculateLight();
 
+		bool emptyNeighborhood(const glm::ivec3 & cpos) const;
+		void handleChunkChange(const glm::ivec3 & cpos, const glm::ivec3 & min, const glm::ivec3 & max);
+
 		struct Impl;
 		std::unique_ptr<Impl> m_impl = nullptr;
 	};

@@ -35,6 +35,8 @@ namespace world
 		bool pollLightRemoval(data::LightPropagationNode & node, unsigned int channel);
 		void pushLightRemoval(const data::LightPropagationNode & node, unsigned int channel);
 
+		bool empty() const;
+
 	private:
 		data::ChunkDataBloated m_data;
 	};

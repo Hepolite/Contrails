@@ -80,6 +80,15 @@ namespace world
 				Assert::AreEqual(2u, nodeA.m_light);
 				Assert::AreEqual((5u << 16u) | (4u << 8u) | 3u, nodeB.m_light);
 			}
+		
+			TEST_METHOD(ChunkDataBloated_empty)
+			{
+				ChunkDataBloated data;
+
+				Assert::IsTrue(data.empty());
+				data.setFastUnsafe(1337u, BlockData{ 2u, 3u });
+				Assert::IsFalse(data.empty());
+			}
 		};
 
 		TEST_CLASS(ChunkDataCompressedTest)

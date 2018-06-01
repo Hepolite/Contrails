@@ -1,0 +1,11 @@
+
+/**
+ * Updates the sensitivity of the camera, allowing the user to
+ * tweak the setting to their liking
+ */
+def updateCameraSensitivity()
+{
+	EDITOR.cameraHandler.setSensitivity(
+		getSliderValue("camera_sensitivity", 0.5, 2.0, 1.0)
+	);
+}

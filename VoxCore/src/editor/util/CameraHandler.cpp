@@ -8,9 +8,9 @@
 
 namespace
 {
-	constexpr float SENSITIVITY_MOVING = 1.0f;
-	constexpr float SENSITIVITY_ZOOMING = 1.0f;
-	constexpr glm::vec2 SENSITIVITY_ROTATION{ 15.0f, 10.0f };
+	constexpr float SENSITIVITY_MOVING = 0.01f;
+	constexpr float SENSITIVITY_ZOOMING = 0.01f;
+	constexpr glm::vec2 SENSITIVITY_ROTATION{ 0.15f, 0.1f };
 
 	constexpr float MAX_PITCH = 89.9f;
 	constexpr float DISTANCE_MIN = 5.0f;
@@ -54,7 +54,7 @@ void editor::util::CameraHandlerOrbital::handleRotation(const glm::vec2 & delta)
 }
 void editor::util::CameraHandlerOrbital::handleZooming(float zoom)
 {
-	const auto sensitivity = m_sensitivity * math::pow(m_distance, 0.5f) * SENSITIVITY_ZOOMING;
+	const auto sensitivity = m_sensitivity * math::sqrt(m_distance) * SENSITIVITY_ZOOMING;
 	const auto oldDistance = m_distance;
 	const auto rot = getCamera().getRotation();
 

@@ -117,3 +117,13 @@ void world::data::ChunkDataBloated::pushLightRemoval(const LightPropagationNode 
 	if (channel < LIGHT_PROPAGATION_CHANNEL_COUNT)
 		m_lightRemoval[channel].push(node);
 }
+
+bool world::data::ChunkDataBloated::empty() const
+{
+	for (const auto & data : m_blocks)
+	{
+		if (data.getId() != 0u)
+			return false;
+	}
+	return true;
+}
