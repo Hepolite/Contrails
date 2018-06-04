@@ -20,6 +20,8 @@ namespace world
 
 			BlockData & operator=(const BlockData &) noexcept = default;
 			BlockData & operator=(BlockData &&) noexcept = default;
+			inline bool operator==(const BlockData & other) noexcept { return m_data == other.m_data; }
+			inline bool operator!=(const BlockData & other) noexcept { return m_data != other.m_data; }
 
 			void setId(unsigned int id);
 			void setLight(unsigned int light);
@@ -44,6 +46,8 @@ namespace world
 
 			ColorData & operator=(const ColorData &) noexcept = default;
 			ColorData & operator=(ColorData &&) noexcept = default;
+			inline bool operator==(const ColorData & other) noexcept { return m_data == other.m_data; }
+			inline bool operator!=(const ColorData & other) noexcept { return m_data != other.m_data; }
 
 			void setColor(const glm::uvec3 & color);
 			glm::uvec3 getColor() const;

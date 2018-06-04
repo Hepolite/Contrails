@@ -222,6 +222,10 @@
     <ClInclude Include="src\logic\state\StateEditorWorld.h" />
     <ClInclude Include="src\logic\state\StateMainMenu.h" />
     <ClInclude Include="src\core\setup\Initializer.h" />
+    <ClInclude Include="src\world\detail\data\ChunkDataTranslator.h" />
+    <ClInclude Include="src\world\io\detail\ChunkSaver.h" />
+    <ClInclude Include="src\world\io\detail\RegionSaver.h" />
+    <ClInclude Include="src\world\io\WorldSaver.h" />
     <ClInclude Include="src\world\render\BlockRenderRegistry.h" />
     <ClInclude Include="src\world\render\BlockTextureAtlas.h" />
     <ClInclude Include="src\world\render\detail\BlockModelLoader.h" />
@@ -280,6 +284,7 @@
     <ClCompile Include="src\core\setup\Initializer.cpp" />
     <ClCompile Include="src\render\scene\renderers\RendererGeneric.cpp" />
     <ClCompile Include="src\render\scene\renderers\RendererWorld.cpp" />
+    <ClCompile Include="src\world\detail\data\ChunkDataTranslator.cpp" />
     <ClCompile Include="src\world\render\BlockTextureAtlas.cpp" />
     <ClCompile Include="src\world\render\detail\BlockModelLoader.cpp" />
     <ClCompile Include="src\world\render\detail\BlockRenderLoader.cpp" />
