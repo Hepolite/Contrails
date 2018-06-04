@@ -168,9 +168,9 @@ void world::data::ChunkDataCompressed::read(BlockRegion & region, const glm::ive
 			region.write(pos + target, block.m_data, color.m_data);
 			
 			++index;
-			if (index >= block.m_index)
+			if (index > block.m_index)
 				++blockNode.m_index;
-			if (index >= color.m_index)
+			if (index > color.m_index)
 				++colorNode.m_index;
 		}
 	}

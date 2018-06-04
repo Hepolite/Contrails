@@ -83,7 +83,7 @@ template<typename T>
 inline T world::data::ChunkDataCompressed::find(Index index, const std::vector<ChunkDataNode<T>>& data) const
 {
 	const auto it = std::lower_bound(data.begin(), data.end(), index,
-		[](const auto & lhs, const auto & rhs) { return lhs.m_index <= rhs; }
+		[](const auto & lhs, const auto & rhs) { return lhs.m_index < rhs; }
 	);
 	return it == data.end() ? T{} : it->m_data;
 }
