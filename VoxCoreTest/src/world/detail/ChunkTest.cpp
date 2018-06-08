@@ -2,6 +2,8 @@
 #include "CppUnitTest.h"
 
 #include "world/detail/Chunk.h"
+#include "world/detail/data/BlockData.h"
+#include "world/detail/data/LightPropagation.h"
 
 #include <glm/Unittest.h>
 
@@ -64,6 +66,24 @@ namespace world
 			Assert::AreEqual((5u << 16u) | (4u << 8u) | 3u, nodeB.m_light);
 		}
 	
+		TEST_METHOD(Chunk_compress)
+		{
+			Chunk chunk;
+
+			Assert::IsFalse(chunk.compressed());
+			chunk.compress();
+			Assert::IsTrue(chunk.compressed());
+		}
+		TEST_METHOD(Chunk_expand)
+		{
+			Chunk chunk;
+			chunk.compress();
+
+			Assert::IsTrue(chunk.compressed());
+			chunk.expand();
+			Assert::IsFalse(chunk.compressed());
+		}
+
 		TEST_METHOD(Chunk_empty)
 		{
 			Chunk chunk;

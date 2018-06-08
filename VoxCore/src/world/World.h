@@ -4,6 +4,7 @@
 #include "io/Folder.h"
 #include "world/BlockRegistry.h"
 #include "world/detail/data/BlockData.h"
+#include "world/detail/data/ChunkData.h"
 
 #include <memory>
 
@@ -39,6 +40,7 @@ namespace world
 		void inject(const BlockRegistry & registry);
 
 		data::BlockRegion extractRenderData(const glm::ivec3 & cpos) const;
+		data::ChunkDataCompressed extractStorageData(const glm::ivec3 & cpos) const;
 
 		const BlockRegistry & getBlockRegistry() const;
 

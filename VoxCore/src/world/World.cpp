@@ -94,6 +94,12 @@ world::data::BlockRegion world::World::extractRenderData(const glm::ivec3 & cpos
 
 	return region;
 }
+world::data::ChunkDataCompressed world::World::extractStorageData(const glm::ivec3 & cpos) const
+{
+	if (const auto chunk = m_impl->m_chunks.getChunkAt(cpos))
+		return chunk->readData();
+	return {};
+}
 
 // ...
 

@@ -187,5 +187,17 @@ namespace world
 			Assert::AreEqual(29u, data.readBlock(pos).getLight());
 			Assert::AreEqual({ 1u, 2u, 3u }, data.readColor(pos).getColor());
 		}
+		TEST_METHOD(World_extractStorageData)
+		{
+			const glm::ivec3 pos{ 3, 1, 4 };
+			const auto index = data::toIndex<int>(pos);
+			World world;
+			world.write(pos, data::BlockData{ 4u, 29u }, data::ColorData{ { 1u, 2u, 3u } });
+
+			const auto & data = world.extractStorageData({ 0, 0, 0 });
+			Assert::AreEqual(4u, data.readBlock(index).getId());
+			Assert::AreEqual(29u, data.readBlock(index).getLight());
+			Assert::AreEqual({ 1u, 2u, 3u }, data.readColor(index).getColor());
+		}
 	};
 }
