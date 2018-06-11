@@ -42,11 +42,20 @@ namespace io
 			Assert::IsFalse(m_folder.erase());
 			Assert::IsFalse(m_folder.exists());
 		}
+		TEST_METHOD(Folder_eraseRecursively)
+		{
+			m_folder.create();
+			File{ m_folder.getPath() + "/file.txt" }.write("Hello World!");
+			Folder{ m_folder.getPath() + "/subfolder" }.create();
+
+			Assert::IsTrue(m_folder.erase(true));
+			Assert::IsFalse(m_folder.exists());
+		}
 
 	private:
 		void deinitialize()
 		{
-			m_folder.erase();
+			m_folder.erase(true);
 		}
 
 		Folder m_folder{ "testfolder" };

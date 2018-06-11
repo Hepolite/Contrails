@@ -44,13 +44,7 @@ void world::World::load(const io::Folder & data)
 void world::World::process()
 {
 	calculateLight();
-
-	for (auto & cpos : m_impl->m_chunksChanged)
-	{
-		if (auto * chunk = getChunkAt(cpos))
-			chunk->process();
-	}
-	m_impl->m_chunksChanged.clear();
+	compressChunks();
 }
 
 // ...
@@ -265,6 +259,15 @@ void world::World::handleChunkChange(const glm::ivec3 & cpos, const glm::ivec3 &
 	const auto * chunk = getChunkAt(cpos);
 	if (chunk != nullptr && chunk->empty())
 		destroyChunk(cpos);
+}
+void world::World::compressChunks()
+{
+	for (auto & cpos : m_impl->m_chunksChanged)
+	{
+		if (auto * chunk = getChunkAt(cpos))
+			chunk->process();
+	}
+	m_impl->m_chunksChanged.clear();
 }
 
 // ...

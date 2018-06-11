@@ -33,7 +33,7 @@ namespace
 	{
 		util::addType<glm::tvec2<T>>(script, name);
 		util::addCtor<glm::tvec2<T>()>(script, name);
-		util::addCtor<glm::tvec2<T>(const glm::vec2 &)>(script, name);
+		util::addCtor<glm::tvec2<T>(const glm::tvec2<T> &)>(script, name);
 		util::addCtor<glm::tvec2<T>(T)>(script, name);
 		util::addCtor<glm::tvec2<T>(T, T)>(script, name);
 
@@ -47,7 +47,7 @@ namespace
 	{
 		util::addType<glm::tvec3<T>>(script, name);
 		util::addCtor<glm::tvec3<T>()>(script, name);
-		util::addCtor<glm::tvec3<T>(const glm::vec3 &)>(script, name);
+		util::addCtor<glm::tvec3<T>(const glm::tvec3<T> &)>(script, name);
 		util::addCtor<glm::tvec3<T>(T)>(script, name);
 		util::addCtor<glm::tvec3<T>(T, T, T)>(script, name);
 
@@ -62,7 +62,7 @@ namespace
 	{
 		util::addType<glm::tvec4<T>>(script, name);
 		util::addCtor<glm::tvec4<T>()>(script, name);
-		util::addCtor<glm::tvec4<T>(const glm::vec4 &)>(script, name);
+		util::addCtor<glm::tvec4<T>(const glm::tvec4<T> &)>(script, name);
 		util::addCtor<glm::tvec4<T>(T)>(script, name);
 		util::addCtor<glm::tvec4<T>(T, T, T, T)>(script, name);
 

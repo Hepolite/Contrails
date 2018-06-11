@@ -13,8 +13,15 @@ bool io::Folder::create() const
 {
 	return std::experimental::filesystem::create_directories(m_path);
 }
-bool io::Folder::erase() const
+bool io::Folder::erase(bool recursive) const
 {
+	if (recursive)
+	{
+		for (const auto & folder : getFolders())
+			folder.erase(true);
+		for (const auto & file : getFiles())
+			file.erase();
+	}
 	return std::experimental::filesystem::remove(m_path);
 }
 

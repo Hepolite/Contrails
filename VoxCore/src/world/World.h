@@ -86,6 +86,7 @@ namespace world
 
 		bool emptyNeighborhood(const glm::ivec3 & cpos) const;
 		void handleChunkChange(const glm::ivec3 & cpos, const glm::ivec3 & min, const glm::ivec3 & max);
+		void compressChunks();
 
 		struct Impl;
 		std::unique_ptr<Impl> m_impl = nullptr;

@@ -18,7 +18,12 @@ namespace world
 			WorldSaver(WorldSaver &&) = delete;
 			~WorldSaver() = default;
 
+			WorldSaver & operator=(const WorldSaver &) = delete;
+			WorldSaver & operator=(WorldSaver &&) = delete;
+
 		private:
+			void setupListeners(const logic::event::EventBus & bus);
+
 			logic::event::Listener m_chunkChange;
 			logic::event::Listener m_chunkDestroy;
 		};

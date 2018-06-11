@@ -212,6 +212,7 @@
     <ClCompile Include="src\editor\util\shapes\ShapePointTest.cpp" />
     <ClCompile Include="src\editor\util\shapes\ShapeTest.cpp" />
     <ClCompile Include="src\world\detail\data\ChunkDataTranslatorTest.cpp" />
+    <ClCompile Include="src\world\io\detail\RegionSaverTest.cpp" />
     <ClCompile Include="src\world\render\BlockRenderRegistryTest.cpp" />
     <ClCompile Include="src\world\render\BlockTextureAtlasTest.cpp" />
     <ClCompile Include="src\world\render\detail\BlockModelLoaderTest.cpp" />

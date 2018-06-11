@@ -17,7 +17,7 @@ namespace io
 
 		bool exists() const;
 		bool create() const;
-		bool erase() const;
+		bool erase(bool recursive = false) const;
 
 		std::vector<File> getFiles() const;
 		std::vector<Folder> getFolders() const;
