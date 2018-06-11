@@ -28,8 +28,7 @@ namespace world
 		Chunk & operator=(const Chunk &) = delete;
 		Chunk & operator=(Chunk &&) = delete;
 
-		void compress();
-		void expand();
+		void process();
 
 		void setFastUnsafe(unsigned int index, const data::BlockData & block, const data::ColorData & color);
 		void setFastUnsafe(unsigned int index, const data::BlockData & block);
@@ -50,9 +49,11 @@ namespace world
 		void pushLightRemoval(const data::LightPropagationNode & node, unsigned int channel);
 
 		bool empty() const;
-		bool compressed() const;
 
 	private:
+		void compress();
+		void expand();
+
 		std::unique_ptr<data::ChunkDataBloated> m_bloated;
 		std::unique_ptr<data::ChunkDataCompressed> m_compressed;
 	};
