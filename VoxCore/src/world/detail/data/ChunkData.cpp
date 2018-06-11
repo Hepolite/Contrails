@@ -136,6 +136,15 @@ bool world::data::ChunkDataBloated::empty() const
 	}
 	return true;
 }
+bool world::data::ChunkDataBloated::light() const
+{
+	for (unsigned int i = 0u; i < LIGHT_PROPAGATION_CHANNEL_COUNT; ++i)
+	{
+		if (!m_lightPropagation[i].empty() || !m_lightRemoval[i].empty())
+			return true;
+	}
+	return false;
+}
 
 // ...
 

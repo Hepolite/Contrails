@@ -30,6 +30,12 @@ void world::Chunk::expand()
 	m_compressed = nullptr;
 }
 
+void world::Chunk::process()
+{
+	if (m_bloated != nullptr && !m_bloated->light())
+		compress();
+}
+
 void world::Chunk::setFastUnsafe(unsigned int index, const data::BlockData & block, const data::ColorData & color)
 {
 	expand();

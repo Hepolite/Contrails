@@ -23,7 +23,7 @@ struct world::World::Impl
 
 	std::unordered_set<glm::ivec3> m_chunksToLight;
 	std::unordered_set<glm::ivec3> m_chunksToDarken;
-	std::unordered_map<glm::ivec3, std::pair<glm::uvec3, glm::uvec3>> m_chunkChanges;
+	std::unordered_set<glm::ivec3> m_chunksChanged;
 };
 
 world::World::World()
@@ -44,6 +44,13 @@ void world::World::load(const io::Folder & data)
 void world::World::process()
 {
 	calculateLight();
+
+	for (auto & cpos : m_impl->m_chunksChanged)
+	{
+		if (auto * chunk = getChunkAt(cpos))
+			chunk->process();
+	}
+	m_impl->m_chunksChanged.clear();
 }
 
 // ...
@@ -268,6 +275,7 @@ void world::World::markChunkChange(const glm::ivec3 & cpos)
 }
 void world::World::markChunkChange(const glm::ivec3 & cpos, const glm::uvec3 & min, const glm::uvec3 & max)
 {
+	m_impl->m_chunksChanged.insert(cpos);
 	if (m_impl->m_bus != nullptr)
 		m_impl->m_bus->post(logic::event::ChunkChange { this, cpos, min, max });
 }

@@ -102,6 +102,14 @@ namespace world
 				data.setFastUnsafe(1337u, BlockData{ 2u, 3u });
 				Assert::IsFalse(data.empty());
 			}
+			TEST_METHOD(ChunkDataBloated_light)
+			{
+				ChunkDataBloated data;
+
+				Assert::IsFalse(data.light());
+				data.write(42u, ColorData{ { 3u, 4u, 5u} });
+				Assert::IsTrue(data.light());
+			}
 		};
 
 		TEST_CLASS(ChunkDataCompressedTest)

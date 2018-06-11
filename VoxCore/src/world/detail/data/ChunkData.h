@@ -50,6 +50,7 @@ namespace world
 			void pushLightRemoval(const LightPropagationNode & node, unsigned int channel);
 
 			bool empty() const;
+			bool light() const;
 
 		private:
 			std::array<BlockData, CHUNK_SIZE_VOLUME<unsigned int>> m_blocks;
