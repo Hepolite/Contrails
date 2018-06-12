@@ -71,7 +71,7 @@ namespace world
 			Chunk chunk;
 
 			Assert::IsTrue(chunk.empty());
-			chunk.setFastUnsafe(1337u, data::BlockData{ 2u, 3u }, data::ColorData{ { 4u, 5u, 6u } });
+			chunk.write(1337u, data::BlockData{ 2u, 3u }, data::ColorData{ { 4u, 5u, 6u } });
 			Assert::IsFalse(chunk.empty());
 		}
 	};

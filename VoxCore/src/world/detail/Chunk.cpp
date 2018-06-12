@@ -16,8 +16,10 @@ void world::Chunk::compress()
 	if (m_bloated == nullptr)
 		m_compressed = std::make_unique<data::ChunkDataCompressed>();
 	else
+	{
 		m_compressed = std::make_unique<data::ChunkDataCompressed>(data::ChunkDataTranslator::compress(*m_bloated));
-	m_bloated = nullptr;
+		m_bloated = nullptr;
+	}
 }
 void world::Chunk::expand()
 {
@@ -26,8 +28,10 @@ void world::Chunk::expand()
 	if (m_compressed == nullptr)
 		m_bloated = std::make_unique<data::ChunkDataBloated>();
 	else
+	{
 		m_bloated = std::make_unique<data::ChunkDataBloated>(data::ChunkDataTranslator::expand(*m_compressed));
-	m_compressed = nullptr;
+		m_compressed = nullptr;
+	}
 }
 
 void world::Chunk::process()
@@ -38,17 +42,20 @@ void world::Chunk::process()
 
 void world::Chunk::setFastUnsafe(unsigned int index, const data::BlockData & block, const data::ColorData & color)
 {
-	expand();
+	if (m_bloated == nullptr)
+		expand();
 	m_bloated->setFastUnsafe(index, block, color);
 }
 void world::Chunk::setFastUnsafe(unsigned int index, const data::BlockData & block)
 {
-	expand();
+	if (m_bloated == nullptr)
+		expand();
 	m_bloated->setFastUnsafe(index, block);
 }
 void world::Chunk::setFastUnsafe(unsigned int index, const data::ColorData & color)
 {
-	expand();
+	if (m_bloated == nullptr)
+		expand();
 	m_bloated->setFastUnsafe(index, color);
 }
 void world::Chunk::write(data::ChunkQuery & query)

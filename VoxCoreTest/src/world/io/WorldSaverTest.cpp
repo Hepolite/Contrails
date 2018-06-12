@@ -23,7 +23,8 @@ namespace world
 				saver.inject(m_world);
 				saver.writeMetadata();
 
-				Assert::IsTrue(::io::File{ m_folder.getPath() + "/header.xml" }.exists());
+				::io::File file{ m_folder.getPath() + "/header.xml" };
+				Assert::IsTrue(file.exists());
 			}
 			TEST_METHOD(WorldSaver_writeBlockIds)
 			{
