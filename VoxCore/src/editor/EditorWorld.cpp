@@ -20,7 +20,7 @@ void editor::EditorWorld::process(const Time & t, const Time & dt)
 	cursor.setValidPos(false);
 
 	const auto dir = camera.getLookVector(camera.getMouseVector(cursor.getMousePos()));
-	for (world::util::Raytrace ray{ camera.getPosition(), dir, 150.0f }; ray.isValid(); ray.next())
+	for (world::util::Raytrace ray{ camera.getPosition(), dir, 500.0f }; ray.isValid(); ray.next())
 	{
 		if (m_world->readBlock(ray.getBlockPos()).getId() == 0u)
 			continue;

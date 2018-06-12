@@ -29,7 +29,7 @@ vec4 calculateTextureColor()
 }
 float calculateSideShadowFactor()
 {
-	const vec3 sunDirection = normalize(vec3(-3, -1, -10)); // TODO: Pass as uniform
+	const vec3 sunDirection = normalize(vec3(-5, -2, -12)); // TODO: Pass as uniform
 	
 	vec3 normal = vec3(model.transform * vec4(vertex.normal, 0.0));
 	float dot = clamp(dot(-sunDirection, normal), -0.5, 1.0);
@@ -38,7 +38,7 @@ float calculateSideShadowFactor()
 }
 vec3 calculateLightColor()
 {
-	const vec3 sunlight = vec3(0.5, 0.5, 0.5);
+	const vec3 sunlight = vec3(1.0, 1.0, 1.0); // TODO: Pass as uniform
 	
 	vec3 light = vertex.color.rgb + vertex.color.a * sunlight;
 	light.r = clamp(light.r, 0.0, 1.0);

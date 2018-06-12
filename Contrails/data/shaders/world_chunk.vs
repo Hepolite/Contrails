@@ -14,15 +14,15 @@ out Vertex
 	vec3 normal;
 	vec3 uv;
 	vec4 color;
-  flat uint texture;
+	flat uint texture;
 } vertex;
 
 void main()
 {
-  gl_Position = camera.projview * model.transform * vec4(inPosition, 1.0);
-  
-  vertex.normal = inNormal;
-  vertex.uv = inUV; 
-  vertex.color = inColor;
-  vertex.texture = inTexture;
+	gl_Position = camera.projview * model.transform * vec4(inPosition, 1.0);
+	
+	vertex.normal = inNormal;
+	vertex.uv = inUV; 
+	vertex.color = inColor;
+	vertex.texture = inTexture;
 }
