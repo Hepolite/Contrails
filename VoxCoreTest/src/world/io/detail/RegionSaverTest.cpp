@@ -5,7 +5,7 @@
 #include "io/Folder.h"
 #include "world/io/detail/RegionSaver.h"
 #include "world/World.h"
-#include "world/util/Query.h"
+
 #include <glm/vec3.hpp>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;

@@ -31,7 +31,7 @@ namespace world
 		World & operator=(const World &) = delete;
 		World & operator=(World &&) noexcept;
 
-		void load(const io::Folder & data);
+		void load(const ::io::Folder & data);
 		void process();
 
 		// ...

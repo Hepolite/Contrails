@@ -285,6 +285,7 @@
     <ClCompile Include="src\render\scene\renderers\RendererWorld.cpp" />
     <ClCompile Include="src\world\detail\data\ChunkDataTranslator.cpp" />
     <ClCompile Include="src\world\io\detail\RegionSaver.cpp" />
+    <ClCompile Include="src\world\io\WorldSaver.cpp" />
     <ClCompile Include="src\world\render\BlockTextureAtlas.cpp" />
     <ClCompile Include="src\world\render\detail\BlockModelLoader.cpp" />
     <ClCompile Include="src\world\render\detail\BlockRenderLoader.cpp" />
