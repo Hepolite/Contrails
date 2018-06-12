@@ -116,8 +116,6 @@ void NaiveGreedyMesher::buildLayer(unsigned int layer, LayerMask && mask, const 
 }
 void NaiveGreedyMesher::buildFace(const glm::ivec3 & pos, const MeshFace & face, const Side & side)
 {
-	static const float shadows[util::SIDE_COUNT] = { 1.0f, 0.95f, 0.8f, 0.9f, 0.75f, 1.0f, 0.7f };
-
 	const auto & render = (*m_renders)[face.m_block.getId()];
 	const auto & indices = render.m_model.m_indices[side.m_id];
 	const auto & vertices = render.m_model.m_vertices[side.m_id];
@@ -142,7 +140,7 @@ void NaiveGreedyMesher::buildFace(const glm::ivec3 & pos, const MeshFace & face,
 			vertex.m_position * scale + facePos,
 			vertex.m_normal,
 			vertex.m_uv * faceSize,
-			glm::vec4{ vertex.m_color * faceColor * shadows[side.m_id], faceBrightness },
+			glm::vec4{ vertex.m_color * faceColor, faceBrightness },
 			faceTexture
 		});
 	}
