@@ -9,7 +9,7 @@
 world::render::ChunkMesher::ChunkMesher()
 {
 	for (unsigned int i = 0u; i < 3u; ++i)
-		m_workers.emplace_back([this]() {work(); });
+		m_workers.emplace_back([this]() { work(); });
 }
 world::render::ChunkMesher::~ChunkMesher()
 {

@@ -5,6 +5,8 @@
 #include "world/io/WorldSaver.h"
 #include "world/World.h"
 
+#include <glm/Unittest.h>
+
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace world
@@ -16,6 +18,17 @@ namespace world
 		public:
 			WorldSaverTest() { init(); }
 			~WorldSaverTest() { deinit(); }
+
+			TEST_METHOD(WorldSaver_schedule)
+			{
+				WorldSaver saver{ m_folder };
+				saver.schedule({ 3, 1, 4 });
+
+				glm::ivec3 rpos;
+				Assert::IsTrue(saver.extract(rpos));
+				Assert::AreEqual({ 3, 1, 4 }, rpos);
+				Assert::IsFalse(saver.extract(rpos));
+			}
 
 			TEST_METHOD(WorldSaver_writeMetadata)
 			{
@@ -39,6 +52,18 @@ namespace world
 				Assert::IsTrue(node.child("grass").attribute("id"));
 			}
 
+			TEST_METHOD(WorldSaver_saveRegion)
+			{
+				m_world.write({ 1700, -200, 2500 }, data::BlockData{ 1, 2 });
+
+				WorldSaver saver{ m_folder };
+				saver.inject(m_world);
+				saver.schedule({ 3, -1, 4 });
+				saver.finish();
+
+				Assert::IsTrue(::io::File{ m_folder.getPath() + "/3_-1_4.rvd" }.exists());
+			}
+
 		private:
 			void init()
 			{
@@ -46,7 +71,9 @@ namespace world
 				registry.add("stone");
 				registry.add("dirt");
 				registry.add("grass");
+
 				m_world.inject(registry);
+				m_world.inject(m_bus);
 			}
 			void deinit()
 			{

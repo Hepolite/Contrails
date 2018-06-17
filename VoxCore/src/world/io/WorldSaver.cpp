@@ -5,19 +5,36 @@
 
 #include <plog/Log.h>
 
-world::io::WorldSaver::WorldSaver(const ::io::Folder & root) : m_root(root) {}
+world::io::WorldSaver::WorldSaver(const ::io::Folder & root)
+	: m_root(root), m_saver(root)
+{
+	m_worker = std::thread{ [this]() { work(); } };
+}
+world::io::WorldSaver::~WorldSaver()
+{
+	m_working = false;
+	m_worker.join();
+	writeMetadata();
+}
 
 void world::io::WorldSaver::inject(const World & world)
 {
 	m_world = &world;
 }
-void world::io::WorldSaver::inject(logic::event::EventBus & bus)
-{
-	setupListeners(bus);
-}
 
-void world::io::WorldSaver::setupListeners(logic::event::EventBus & bus)
+void world::io::WorldSaver::schedule(const glm::ivec3 & rpos)
 {
+	std::lock_guard<std::mutex> guard{ m_mutex };
+	m_tasks.insert(rpos);
+}
+bool world::io::WorldSaver::extract(glm::ivec3 & rpos)
+{
+	std::lock_guard<std::mutex> guard{ m_mutex };
+	if (m_tasks.empty())
+		return false;
+	rpos = *m_tasks.begin();
+	m_tasks.erase(rpos);
+	return true;
 }
 
 void world::io::WorldSaver::writeMetadata() const
@@ -45,4 +62,22 @@ void world::io::WorldSaver::writeBlockIds(pugi::xml_node & node) const
 		const auto & block = registry[i];
 		node.append_child(block.m_name.c_str()).append_attribute("id").set_value(block.m_id);
 	}
+}
+
+// ...
+
+void world::io::WorldSaver::work()
+{
+	glm::ivec3 rpos;
+	while (m_working || !m_tasks.empty())
+	{
+		while (extract(rpos))
+			m_saver.write(*m_world, rpos);
+		std::this_thread::sleep_for(std::chrono::milliseconds(10));
+	}
+}
+void world::io::WorldSaver::finish()
+{
+	while (!m_tasks.empty())
+		std::this_thread::sleep_for(std::chrono::milliseconds(10));
 }

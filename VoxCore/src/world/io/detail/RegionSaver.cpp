@@ -20,6 +20,7 @@ world::io::RegionSaver::RegionSaver(const::io::Folder & root) : m_root(root) {}
 void world::io::RegionSaver::write(const World & world, const glm::ivec3 & rpos) const
 {
 	const auto file = getRegionFile(m_root, rpos, "rvd");
+	m_root.create();
 	file.erase();
 
 	std::fstream stream{ file.getPath(), std::ios::out | std::ios::binary };

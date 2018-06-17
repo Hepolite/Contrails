@@ -18,7 +18,7 @@ world::Universe::~Universe() = default;
 
 void world::Universe::createWorld(const std::string & name)
 {
-	if (m_worlds.find(name) != m_worlds.end())
+	if (hasWorld(name))
 	{
 		LOG_WARNING << "A world with the name " << name << " already exists";
 		return;
@@ -41,7 +41,7 @@ void world::Universe::createWorld(const std::string & name)
 }
 void world::Universe::destroyWorld(const std::string & name)
 {
-	if (m_worlds.find(name) == m_worlds.end())
+	if (!hasWorld(name))
 	{
 		LOG_WARNING << "A world with the name " << name << " does not exists";
 		return;
