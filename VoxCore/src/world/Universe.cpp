@@ -10,13 +10,24 @@
 
 namespace
 {
+	const io::Folder WORLD_PATH{ "data/universe/worlds" };
 	constexpr const char * DATA_PATH = "data/universe/blocks/";
 }
 
-world::Universe::Universe() = default;
+world::Universe::Universe() : m_saver(WORLD_PATH) {}
 world::Universe::~Universe() = default;
 
-void world::Universe::createWorld(const std::string & name)
+void world::Universe::inject(core::scene::Scene & scene)
+{
+	m_scene = &scene;
+}
+void world::Universe::inject(logic::event::EventBus & bus)
+{
+	m_bus = &bus;
+	m_saver.inject(bus);
+}
+
+void world::Universe::createWorld(const std::string & name, bool autosave)
 {
 	if (hasWorld(name))
 	{
@@ -25,7 +36,7 @@ void world::Universe::createWorld(const std::string & name)
 	}
 	LOG_INFO << "Creating world " << name << "...";
 
-	auto world = m_worlds.emplace(name, std::make_unique<World>()).first->second.get();
+	auto world = m_worlds.emplace(name, std::make_unique<World>(name)).first->second.get();
 	world->load(DATA_PATH);
 	if (m_scene != nullptr)
 	{
@@ -38,6 +49,9 @@ void world::Universe::createWorld(const std::string & name)
 		world->inject(*m_bus);
 		m_bus->post(logic::event::WorldCreate{ name });
 	}
+
+	if (autosave)
+		m_saver.open(*world);
 }
 void world::Universe::destroyWorld(const std::string & name)
 {
@@ -50,14 +64,13 @@ void world::Universe::destroyWorld(const std::string & name)
 
 	if (m_bus != nullptr)
 		m_bus->post(logic::event::WorldDestroy{ name });
+	m_saver.close(*m_worlds[name]);
 	m_worlds.erase(name);
 }
-
 bool world::Universe::hasWorld(const std::string & name) const
 {
 	return m_worlds.find(name) != m_worlds.end();
 }
-
 world::World * world::Universe::getWorld(const std::string & name) const
 {
 	const auto it = m_worlds.find(name);

@@ -26,10 +26,10 @@ struct world::World::Impl
 	std::unordered_set<glm::ivec3> m_chunksChanged;
 };
 
-world::World::World()
-{
-	m_impl = std::make_unique<Impl>();
-}
+world::World::World() : World("default") {}
+world::World::World(const std::string & name)
+	: m_name(name), m_impl(std::make_unique<Impl>())
+{}
 world::World::World(World &&) noexcept = default;
 world::World::~World() = default;
 

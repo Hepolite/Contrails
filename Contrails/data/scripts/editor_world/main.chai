@@ -11,7 +11,7 @@
 /**
  * The name of the world currently being edited by the user
  */
-global WORLD_NAME = "world"; // TODO: Replace with startup world name
+global WORLD_NAME = "debug"; // TODO: Replace with startup world name
 
 // ...
 
@@ -56,7 +56,7 @@ def prepareEditorWorld(worldName)
 {
 	if (!UNIVERSE.hasWorld(worldName))
 	{
-		UNIVERSE.createWorld(worldName);
+		UNIVERSE.createWorld(worldName, true);
 		
 		// Generate a small initial platform to work from
 		auto world = UNIVERSE.getWorld(worldName);

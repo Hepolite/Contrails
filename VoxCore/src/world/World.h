@@ -24,6 +24,7 @@ namespace world
 	{
 	public:
 		World();
+		World(const std::string & name);
 		World(const World &) = delete;
 		World(World &&) noexcept;
 		~World();
@@ -33,6 +34,8 @@ namespace world
 
 		void load(const ::io::Folder & data);
 		void process();
+
+		inline auto getName() const { return m_name; }
 
 		// ...
 
@@ -87,6 +90,8 @@ namespace world
 		bool emptyNeighborhood(const glm::ivec3 & cpos) const;
 		void handleChunkChange(const glm::ivec3 & cpos, const glm::ivec3 & min, const glm::ivec3 & max);
 		void compressChunks();
+
+		std::string m_name;
 
 		struct Impl;
 		std::unique_ptr<Impl> m_impl = nullptr;
