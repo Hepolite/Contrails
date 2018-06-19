@@ -223,6 +223,7 @@
     <ClInclude Include="src\logic\state\StateMainMenu.h" />
     <ClInclude Include="src\core\setup\Initializer.h" />
     <ClInclude Include="src\world\detail\data\ChunkDataTranslator.h" />
+    <ClInclude Include="src\world\io\detail\RegionLoader.h" />
     <ClInclude Include="src\world\io\detail\RegionSaver.h" />
     <ClInclude Include="src\world\io\UniverseSaver.h" />
     <ClInclude Include="src\world\io\WorldSaver.h" />
@@ -285,6 +286,7 @@
     <ClCompile Include="src\render\scene\renderers\RendererGeneric.cpp" />
     <ClCompile Include="src\render\scene\renderers\RendererWorld.cpp" />
     <ClCompile Include="src\world\detail\data\ChunkDataTranslator.cpp" />
+    <ClCompile Include="src\world\io\detail\RegionLoader.cpp" />
     <ClCompile Include="src\world\io\detail\RegionSaver.cpp" />
     <ClCompile Include="src\world\io\UniverseSaver.cpp" />
     <ClCompile Include="src\world\io\WorldSaver.cpp" />

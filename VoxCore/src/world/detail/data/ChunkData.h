@@ -71,10 +71,10 @@ namespace world
 
 			bool empty() const;
 
-			inline auto sizeBlocks() const { return m_blocks.size(); }
-			inline auto sizeColors() const { return m_colors.size(); }
-			inline auto dataBlocks() const { return m_blocks.data(); }
-			inline auto dataColors() const { return m_colors.data(); }
+			inline auto & blocks() { return m_blocks; }
+			inline auto & colors() { return m_colors; }
+			inline const auto & blocks() const { return m_blocks; }
+			inline const auto & colors() const { return m_colors; }
 
 		private:
 			template<typename T> inline T find(Index index, const std::vector<ChunkDataNode<T>> & data) const;

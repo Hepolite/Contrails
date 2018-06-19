@@ -44,6 +44,7 @@ namespace world
 
 		data::BlockRegion extractRenderData(const glm::ivec3 & cpos) const;
 		data::ChunkDataCompressed extractStorageData(const glm::ivec3 & cpos) const;
+		void injectStorageData(const glm::ivec3 & cpos, data::ChunkDataCompressed && data);
 
 		const BlockRegistry & getBlockRegistry() const;
 

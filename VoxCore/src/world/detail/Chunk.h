@@ -29,6 +29,7 @@ namespace world
 		Chunk & operator=(Chunk &&) = delete;
 
 		void process();
+		void assign(data::ChunkDataCompressed && data);
 
 		void setFastUnsafe(unsigned int index, const data::BlockData & block, const data::ColorData & color);
 		void setFastUnsafe(unsigned int index, const data::BlockData & block);

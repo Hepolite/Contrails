@@ -39,6 +39,11 @@ void world::Chunk::process()
 	if (m_bloated != nullptr && !m_bloated->light())
 		compress();
 }
+void world::Chunk::assign(data::ChunkDataCompressed && data)
+{
+	m_bloated = nullptr;
+	m_compressed = std::make_unique<data::ChunkDataCompressed>(std::move(data));
+}
 
 void world::Chunk::setFastUnsafe(unsigned int index, const data::BlockData & block, const data::ColorData & color)
 {

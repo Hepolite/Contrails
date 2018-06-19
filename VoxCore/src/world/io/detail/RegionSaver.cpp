@@ -37,10 +37,10 @@ void world::io::RegionSaver::write(const World & world, const glm::ivec3 & rpos)
 			continue;
 
 		const auto data = world.extractStorageData(cpos);
-		const auto blockSize = data.sizeBlocks();
-		const auto blockData = data.dataBlocks();
-		const auto colorSize = data.sizeColors();
-		const auto colorData = data.dataColors();
+		const auto blockSize = data.blocks().size();
+		const auto blockData = data.blocks().data();
+		const auto colorSize = data.colors().size();
+		const auto colorData = data.colors().data();
 
 		stream.write(reinterpret_cast<const char *>(&pos), sizeof(pos));
 		stream.write(reinterpret_cast<const char *>(&blockSize), sizeof(blockSize));
