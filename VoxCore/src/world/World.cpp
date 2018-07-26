@@ -104,6 +104,7 @@ world::data::ChunkDataCompressed world::World::extractStorageData(const glm::ive
 void world::World::injectStorageData(const glm::ivec3 & cpos, data::ChunkDataCompressed && data)
 {
 	m_impl->m_chunks.createOrGetChunk(cpos).assign(std::move(data));
+	markChunkChange(cpos);
 }
 
 // ...

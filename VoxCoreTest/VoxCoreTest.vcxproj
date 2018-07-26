@@ -215,6 +215,7 @@
     <ClCompile Include="src\world\io\detail\RegionLoaderTest.cpp" />
     <ClCompile Include="src\world\io\detail\RegionSaverTest.cpp" />
     <ClCompile Include="src\world\io\UniverseSaverTest.cpp" />
+    <ClCompile Include="src\world\io\WorldLoaderTest.cpp" />
     <ClCompile Include="src\world\io\WorldSaverTest.cpp" />
     <ClCompile Include="src\world\render\BlockRenderRegistryTest.cpp" />
     <ClCompile Include="src\world\render\BlockTextureAtlasTest.cpp" />

@@ -226,6 +226,7 @@
     <ClInclude Include="src\world\io\detail\RegionLoader.h" />
     <ClInclude Include="src\world\io\detail\RegionSaver.h" />
     <ClInclude Include="src\world\io\UniverseSaver.h" />
+    <ClInclude Include="src\world\io\WorldLoader.h" />
     <ClInclude Include="src\world\io\WorldSaver.h" />
     <ClInclude Include="src\world\render\BlockRenderRegistry.h" />
     <ClInclude Include="src\world\render\BlockTextureAtlas.h" />
@@ -289,6 +290,7 @@
     <ClCompile Include="src\world\io\detail\RegionLoader.cpp" />
     <ClCompile Include="src\world\io\detail\RegionSaver.cpp" />
     <ClCompile Include="src\world\io\UniverseSaver.cpp" />
+    <ClCompile Include="src\world\io\WorldLoader.cpp" />
     <ClCompile Include="src\world\io\WorldSaver.cpp" />
     <ClCompile Include="src\world\render\BlockTextureAtlas.cpp" />
     <ClCompile Include="src\world\render\detail\BlockModelLoader.cpp" />
