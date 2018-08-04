@@ -40,9 +40,19 @@ namespace world
 				validateBlockIds(world);
 			}
 
-			TEST_METHOD(WorldLoader_loadRegion)
+			TEST_METHOD(WorldLoader_readWorld)
 			{
-				Assert::Fail();
+				World world;
+
+				WorldLoader loader{ "world" };
+				loader.inject(world);
+				loader.readWorld();
+				loader.finish();
+
+				Assert::AreEqual(1u, world.readBlock({ 50, 80, 120 }).getId());
+				Assert::AreEqual(2u, world.readBlock({ 50, 80, 120 }).getLight());
+				Assert::AreEqual(1u, world.readBlock({ 1700, -200, 2500 }).getId());
+				Assert::AreEqual(2u, world.readBlock({ 1700, -200, 2500 }).getLight());
 			}
 
 		private:
